@@ -33,7 +33,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <Carousel className="h-96 mt-4 ">
+    <Carousel className="h-96 mt-4 w-full ">
       {banner.map((banner) => (
         <>
           <Image
@@ -43,8 +43,9 @@ const Hero = () => {
                 : `${process.env.NEXT_PUBLIC_BACKEND_URL}/${banner.DesktopbannerImage}`
             }
             alt="image 1"
-            className="h-full w-full object-cover relative"
+            className="h-full relative"
             layout="fill"
+            objectFit="cover"
           />
           <div className="flex items-center justify-center inset-x-0 bottom-14  absolute ">
             <h1 className="text-white md:text-6xl text-4xl font-bold">
