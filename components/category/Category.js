@@ -25,7 +25,7 @@ const Category = () => {
       <Slider {...settings}>
         {loading
           ? initialLength.map((_, index) => (
-              <div key={index}>
+              <div key={index} className="p-2 mt-8">
                 <ShimmerCard />
               </div>
             ))

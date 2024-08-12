@@ -3,6 +3,7 @@ import Cards from "@/components/card/Cards";
 import SearchInput from "@/components/common/SearchInput";
 import useFetch from "@/hooks/useFetch";
 import { getCategories } from "@/utils/config";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import React from "react";
 
 const page = () => {
@@ -15,7 +16,10 @@ const page = () => {
           Explore Events By Categories
         </h1>
         <div className="md:w-96">
-          <SearchInput />
+          <SearchInput
+            placeholder="Search for Events, Venues"
+            icon={<MagnifyingGlassIcon />}
+          />
         </div>
       </div>
       <div className="grid md:grid-cols-5 sm:grid-cols-2 gap-6 w-full mt-8  cursor-pointer">
