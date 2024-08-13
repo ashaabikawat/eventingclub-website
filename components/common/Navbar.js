@@ -3,20 +3,21 @@ import React, { useState } from "react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
+  UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import SearchInput from "./SearchInput";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { URL } from "@/utils/constants";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const homePageUrl = pathname === "/";
-
-  // console.log(homePageUrl);
-
-  // console.log(pathname);
+  const token = JSON.parse(localStorage.getItem("authToken"));
+  // console.log(token.customerId);
 
   const handleToggle = () => {
     setOpen(!open);
@@ -42,11 +43,20 @@ const Navbar = () => {
             )}
           </div>
           <div className="flex items-start gap-4">
-            <Link href="/signup">
-              <button className="whitespace-nowrap  inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                Sign up
-              </button>
-            </Link>
+            {token ? (
+              <div className="flex justify-center items-center">
+                <Link href={`/userDetails/${token.customerId}`}>
+                  {" "}
+                  <UserCircleIcon className="size-6 md:size-12 text-gray-600 cursor-pointer" />
+                </Link>
+              </div>
+            ) : (
+              <Link href="/signup">
+                <button className="whitespace-nowrap  inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                  Sign up
+                </button>
+              </Link>
+            )}
             <button type="button" className="md:hidden" onClick={handleToggle}>
               <span className="sr-only">open menu</span>
               <Bars3Icon className="w-6 h-6 cursor-pointer" />

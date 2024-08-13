@@ -35,5 +35,4 @@ const useFetch = (url, method = "GET", body = null) => {
 
   return { data, loading, error };
 };
-
 export default useFetch;

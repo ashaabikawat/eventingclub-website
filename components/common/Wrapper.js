@@ -2,15 +2,17 @@
 import { usePathname } from "next/navigation";
 import React from "react";
 import Navbar from "./Navbar";
+import { Provider } from "react-redux";
+import store from "@/store/store";
 
 const Wrapper = ({ children }) => {
   const pathname = usePathname();
   const signup = pathname !== "/signup";
   return (
-    <div>
+    <Provider store={store}>
       {signup && <Navbar />}
       <main>{children}</main>
-    </div>
+    </Provider>
   );
 };
 
