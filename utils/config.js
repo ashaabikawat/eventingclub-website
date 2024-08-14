@@ -15,3 +15,7 @@ export const generateOPT = `${URL}/webiste/customer/generateotp`;
 export const validateOtp = `${URL}/webiste/customer/validatotp`;
 
 export const registerUser = `${URL}/webiste/customer/updateCustomerProfile`;
+
+export const getCustomerById = `${URL}/webiste/customer/getCustomerDataById`;
+
+export const updateCustomer = `${URL}/webiste/customer/updateCustomerProfile`;

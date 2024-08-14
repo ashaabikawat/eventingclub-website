@@ -4,13 +4,15 @@ import { setCustExists, setCustId, setToken } from "@/store/slices/authSlice";
 import { generateOPT, registerUser, validateOtp } from "@/utils/config";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const page = () => {
   const dispatch = useDispatch();
+  const inputs = useRef([]);
   const router = useRouter();
   const [otpSent, setOtpSent] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState();
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [formData, setFormData] = useState({
@@ -36,6 +38,7 @@ const page = () => {
   };
 
   const navigate = () => {
+    setLoading(true);
     router.push("/");
   };
 
@@ -72,6 +75,16 @@ const page = () => {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
+
+    if (index < otp.length - 1 && value !== "") {
+      if (inputs.current[index + 1]) {
+        inputs.current[index + 1].focus();
+      }
+    } else if (value === "" && index > 0) {
+      if (inputs.current[index - 1]) {
+        inputs.current[index - 1].focus();
+      }
+    }
   };
 
   const handleOtpverification = async () => {
@@ -97,6 +110,8 @@ const page = () => {
     console.log(data);
     router.push("/");
   };
+
+  if (loading) return <h1>loading ...</h1>;
 
   return (
     <div className=" h-screen  ">
@@ -139,6 +154,7 @@ const page = () => {
                     type="text"
                     className="md:w-12 md:h-12 w-8 h-8 rounded-md border border-gray-400 text-center outline-none focus:outline-gray-300"
                     placeholder="0"
+                    ref={(el) => (inputs.current[index] = el)}
                     onChange={(e) => handleChange(e, index)}
                   />
                 ))}

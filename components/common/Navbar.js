@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
@@ -14,10 +14,23 @@ import { URL } from "@/utils/constants";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [token, setToken] = useState(null);
   const pathname = usePathname();
   const homePageUrl = pathname === "/";
-  const token = JSON.parse(localStorage.getItem("authToken"));
   // console.log(token.customerId);
+  useEffect(() => {
+    const handleStorage = () => {
+      const token = JSON.parse(localStorage.getItem("authToken"));
+      console.log(token);
+      setToken(token);
+    };
+
+    handleStorage();
+
+    window.addEventListener("storage", handleStorage);
+
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
   const handleToggle = () => {
     setOpen(!open);
@@ -43,20 +56,26 @@ const Navbar = () => {
             )}
           </div>
           <div className="flex items-start gap-4">
-            {token ? (
+            {token && (
               <div className="flex justify-center items-center">
                 <Link href={`/userDetails/${token.customerId}`}>
                   {" "}
                   <UserCircleIcon className="size-6 md:size-12 text-gray-600 cursor-pointer" />
                 </Link>
               </div>
-            ) : (
-              <Link href="/signup">
-                <button className="whitespace-nowrap  inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                  Sign up
-                </button>
-              </Link>
             )}
+            <Link href="/signup">
+              <button
+                disabled={!!token}
+                className={`whitespace-nowrap ${
+                  token
+                    ? "cursor-not-allowed bg-gray-300"
+                    : "bg-indigo-600 hover:bg-indigo-700"
+                } inline-flex items-center justify-center  px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white `}
+              >
+                Sign up
+              </button>
+            </Link>
             <button type="button" className="md:hidden" onClick={handleToggle}>
               <span className="sr-only">open menu</span>
               <Bars3Icon className="w-6 h-6 cursor-pointer" />
