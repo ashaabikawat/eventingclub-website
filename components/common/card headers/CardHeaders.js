@@ -24,13 +24,13 @@ const CardHeaders = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <div className="flex justify-between items-center">
-      <h1 className=" capitalize font-bold md:text-2xl ">
+    <div className="flex justify-between items-center px-4">
+      <h1 className=" capitalize font-bold md:text-xl ">
         {isMobile ? mobileHeader : desktopHeader}
       </h1>
       <div className="flex justify-between items-center gap-2 ">
         <Link href={url}>
-          <span className="capitalize md:text-lg text-sm">
+          <span className="capitalize md:text-base text-sm">
             {isMobile ? mobileText : desktopText}
           </span>
         </Link>

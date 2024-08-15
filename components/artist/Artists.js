@@ -14,7 +14,7 @@ const Artists = () => {
   const cardsData = data.slice(0, 8);
 
   return (
-    <div className="md:py-6 md:px-14 p-6 ">
+    <div className=" md:px-4 mt-6 mb-8 overflow-hidden ">
       <CardHeaders
         mobileHeader="Browse by Artists"
         desktopHeader="Browse events by artists"
@@ -26,12 +26,12 @@ const Artists = () => {
       <Slider {...settings}>
         {loading
           ? initialLength.map((_, index) => (
-              <div key={index} className="p-2 mt-8">
+              <div key={index} className=" mt-8">
                 <ShimmerCard />
               </div>
             ))
           : cardsData.map((data) => (
-              <div key={data.id} className="p-2 mt-8">
+              <div key={data.id} className="px-2 mt-6">
                 <Link href={`/artists/${data._id}`}>
                   <Cards data={data} />
                 </Link>

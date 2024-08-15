@@ -38,12 +38,14 @@ const Navbar = () => {
 
   return (
     <div className="relative  w-full">
-      <div className="max-w-8xl mx-9  sm:px-4">
+      <div className="max-w-8xl md:mx-9 mx-4">
         <div className="flex justify-between items-center py-4 md:space-x-10">
           <div className="flex gap-20 justify-between items-center">
             <div>
               <span className="sr-only">Logo</span>
-              <span>LOGO</span>
+              <Link href="/">
+                <span className="cursor-pointer">LOGO</span>
+              </Link>
             </div>
             {/* Desktop search bar */}
             {homePageUrl && (
@@ -55,12 +57,12 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <div className="flex items-start gap-4">
+          <div className="flex gap-1">
             {token && (
               <div className="flex justify-center items-center">
                 <Link href={`/userDetails/${token.customerId}`}>
                   {" "}
-                  <UserCircleIcon className="size-6 md:size-12 text-gray-600 cursor-pointer" />
+                  <UserCircleIcon className="size-10 md:size-12 text-gray-600 cursor-pointer" />
                 </Link>
               </div>
             )}
@@ -68,9 +70,7 @@ const Navbar = () => {
               <button
                 disabled={!!token}
                 className={`whitespace-nowrap ${
-                  token
-                    ? "cursor-not-allowed bg-gray-300"
-                    : "bg-indigo-600 hover:bg-indigo-700"
+                  token && "hidden"
                 } inline-flex items-center justify-center  px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white `}
               >
                 Sign up
@@ -96,8 +96,8 @@ const Navbar = () => {
             </label>
           </div>
         )}
-        <div className="hidden md:flex justify-start gap-20 text-xl">
-          <ul className="flex justify-start gap-20 text-lg">
+        <div className="hidden md:flex justify-start gap-20 mt-2 mb-6 text-base">
+          <ul className="flex justify-start gap-16">
             <li>
               <Link href="/">Home</Link>
             </li>
@@ -137,7 +137,7 @@ const Navbar = () => {
             </div>
             <div className="mt-16">
               <nav>
-                <ul className="flex justify-center items-center flex-col gap-6 text-2xl">
+                <ul className="flex justify-center items-center flex-col gap-6 text-xl">
                   <li>
                     <Link href="/" onClick={handleToggle}>
                       Home

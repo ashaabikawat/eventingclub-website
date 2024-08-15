@@ -1,5 +1,5 @@
 "use client";
-import React, { Component } from "react";
+import React from "react";
 import Slider from "react-slick";
 import Cards from "../card/Cards";
 import useFetch from "@/hooks/useFetch";
@@ -13,7 +13,7 @@ const Category = () => {
   const cardsData = data.slice(0, 8);
 
   return (
-    <div className="md:py-12 md:px-14 p-6 ">
+    <div className="md:px-4 mt-6 mb-8 overflow-hidden">
       <CardHeaders
         mobileHeader="Browse by categories"
         desktopHeader="Browse events by categories"
@@ -21,21 +21,19 @@ const Category = () => {
         desktopText="Discover more category"
         url="/categories"
       />
-      {/* <div className="grid md:grid-cols-5 sm:grid-cols-2 gap-6 w-full mt-8 "> */}
       <Slider {...settings}>
         {loading
           ? initialLength.map((_, index) => (
-              <div key={index} className="p-2 mt-8">
+              <div key={index} className="mt-8">
                 <ShimmerCard />
               </div>
             ))
           : cardsData.map((data) => (
-              <div key={data.id} className="p-2 mt-8">
+              <div key={data.id} className="px-2 mt-6">
                 <Cards data={data} />
               </div>
             ))}
       </Slider>
-      {/* </div> */}
     </div>
   );
 };

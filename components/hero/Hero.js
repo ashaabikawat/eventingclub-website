@@ -36,7 +36,7 @@ const Hero = () => {
 
   return (
     <Carousel
-      className="h-96 mt-4 w-full "
+      className="h-96 mt-4  w-full "
       autoplay="true"
       autoplayDelay="3000"
       loop="true"
