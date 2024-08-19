@@ -13,7 +13,7 @@ const Category = () => {
   const cardsData = data.slice(0, 8);
 
   return (
-    <div className="md:px-4 mt-6 mb-8 overflow-hidden">
+    <div className="md:px-4 md:py-6 mt-6 mb-8 overflow-hidden">
       <CardHeaders
         mobileHeader="Browse by categories"
         desktopHeader="Browse events by categories"

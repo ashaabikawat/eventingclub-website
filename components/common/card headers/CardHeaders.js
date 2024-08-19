@@ -25,8 +25,8 @@ const CardHeaders = ({
   }, []);
   return (
     <div className="flex justify-between items-center px-4">
-      <h1 className=" capitalize font-bold md:text-xl ">
-        {isMobile ? mobileHeader : desktopHeader}
+      <h1 className=" capitalize text-lg md:text-3xl ">
+        {isMobile ? `${mobileHeader}:` : `${desktopHeader}:`}
       </h1>
       <div className="flex justify-between items-center gap-2 ">
         <Link href={url}>
