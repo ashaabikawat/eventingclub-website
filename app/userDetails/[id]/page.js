@@ -26,6 +26,7 @@ const page = () => {
       body: body ? JSON.stringify(body) : null,
     });
     const data = await response.json();
+    console.log(data);
     setData(data.data);
   };
 

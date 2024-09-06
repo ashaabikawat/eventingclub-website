@@ -46,7 +46,7 @@ const Hero = () => {
           <ShimmerCard />
         </div>
       ) : (
-        banner.map((banner) => (
+        banner?.map((banner) => (
           <>
             <Image
               src={
