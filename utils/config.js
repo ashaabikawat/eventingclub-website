@@ -1,14 +1,14 @@
 import { URL } from "./constants";
 
-export const getBanner = `${URL}/homepagebannerslider/getAll`;
+export const getBanner = `${URL}/webiste/homepage/getAllBannerSliderData`;
 
-export const getArtists = `${URL}/artist/getall`;
+export const getArtists = `${URL}/webiste/artist/getAllArtistData`;
 
-export const getCategories = `${URL}/category/getall`;
+export const getCategories = `${URL}/webiste/category/getAllCategoryData`;
 
 export const getArtistById = `${URL}/artist/getbyId`;
 
-export const getVenues = `${URL}/venue/getall`;
+export const getVenues = `${URL}/webiste/venue/getAllVenueData`;
 
 export const generateOPT = `${URL}/webiste/customer/generateotp`;
 
@@ -19,3 +19,5 @@ export const registerUser = `${URL}/webiste/customer/updateCustomerProfile`;
 export const getCustomerById = `${URL}/webiste/customer/getCustomerDataById`;
 
 export const updateCustomer = `${URL}/webiste/customer/updateCustomerProfile`;
+
+export const getAllFeaturedEvents = `${URL}/webiste/events/getAllFeaturedEvents`;

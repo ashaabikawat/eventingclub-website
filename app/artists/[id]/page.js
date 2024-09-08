@@ -14,14 +14,14 @@ const page = () => {
 
   const { data, loading } = useFetch(getArtistById, "POST", requestBody);
 
-  console.log(data);
+  // console.log(data);
 
   // const imageUrl = `${URL}/${data?.Images?.[0]?.image_path}`;
   const imageUrl = data?.Images?.[0]?.image_path
     ? `${URL}/${data?.Images?.[0]?.image_path}`
     : null;
 
-  console.log(imageUrl);
+  // console.log(imageUrl);
 
   return (
     <div className="md:py-6 md:px-14 p-6 mt-9">

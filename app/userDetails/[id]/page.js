@@ -1,33 +1,39 @@
 "use client";
 import EditProfile from "@/components/edit profile/EditProfile";
 import Tickets from "@/components/tickets/Tickets";
-import { setCustExists, setCustId, setToken } from "@/store/slices/authSlice";
+import {
+  setAuthDetails,
+  setCustExists,
+  setCustId,
+  setToken,
+} from "@/store/slices/authSlice";
 import { getCustomerById } from "@/utils/config";
+import axios from "axios";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
-const page = () => {
+const Page = () => {
   const [isProfile, setIsProfile] = useState(true);
   const router = useRouter();
   const dispath = useDispatch();
   const { id } = useParams();
   const [data, setData] = useState();
-  const body = useMemo(() => {
-    return { customer_id: id };
-  }, [id]);
+
   const fetchData = async () => {
-    const response = await fetch(getCustomerById, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: body ? JSON.stringify(body) : null,
-    });
-    const data = await response.json();
-    console.log(data);
-    setData(data.data);
+    const payload = { customer_id: id };
+    // console.log(payload);
+
+    try {
+      const response = await axios.post(getCustomerById, payload);
+      console.log(response.data);
+      setData(response.data.data);
+      // toast.success(response.data.message)
+    } catch (error) {
+      toast.error(response.data.message);
+    }
   };
 
   useEffect(() => {
@@ -36,8 +42,7 @@ const page = () => {
 
   const logout = () => {
     localStorage.removeItem("authToken");
-    dispath(setCustId(null));
-    dispath(setCustExists(null));
+    dispath(setAuthDetails({ cust_id: null, customer_exists: null }));
     dispath(setToken(null));
     router.push("/signup");
   };
@@ -105,11 +110,7 @@ const page = () => {
         </div>
         <div className="px-4 md:px-8 lg:px-64 ">
           <div className="">
-            {isProfile ? (
-              <EditProfile id={id} data={data} fetchData={fetchData} />
-            ) : (
-              <Tickets />
-            )}
+            {isProfile ? <EditProfile id={id} data={data} /> : <Tickets />}
           </div>
         </div>
       </div>
@@ -117,4 +118,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

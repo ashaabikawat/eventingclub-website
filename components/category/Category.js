@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import Cards from "../card/Cards";
 import useFetch from "@/hooks/useFetch";
 import CardHeaders from "../common/card headers/CardHeaders";
-import { initialLength, settings, URL } from "@/utils/constants";
+import { initialLength, settings } from "@/utils/constants";
 import { getCategories } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
 
@@ -13,7 +13,7 @@ const Category = () => {
   const cardsData = data.slice(0, 8);
 
   return (
-    <div className="md:px-4 md:py-6 mt-6 mb-8 overflow-hidden">
+    <div className=" md:py-6 mt-6 mb-8 sm:px-8 px-6  overflow-hidden md:px-14">
       <CardHeaders
         mobileHeader="Browse by categories"
         desktopHeader="Browse events by categories"

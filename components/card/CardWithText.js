@@ -10,7 +10,7 @@ const CardWithText = ({ data }) => {
 
   return (
     <>
-      <Card className="w-full h-60 relative cursor-pointer overflow-hidden">
+      <Card className="w-full h-60 relative cursor-pointer overflow-hidden ">
         <div className="w-full h-full relative  ">
           <Image
             src={`/${imgeUrl}.jpg`}
@@ -35,26 +35,30 @@ const CardWithText = ({ data }) => {
       </Card>
       <div className="mt-5">
         <div className="flex items-center justify-start mb-3">
-          <p className="capitalize text-xs sm:text-base">{data.name}</p>
+          <p className="capitalize md:text-base text-xl">{data.name}</p>
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex gap-2 items-center justify-start">
             <span>
               <CalendarIcon className="size-5" />
             </span>
-            <span className="text-xs text-center capitalize">{data.date}</span>
+            <span className="md:text-base text-xl text-center capitalize">
+              {data.date}
+            </span>
           </div>
           <div className="flex gap-2 items-center justify-start">
             <span>
               <MapPinIcon className="size-5" />
             </span>
-            <span className="text-xs text-center capitalize">
+            <span className="md:text-base text-xl text-center capitalize">
               {data.location}
             </span>
           </div>
         </div>
         <div className="mt-4">
-          <span className="text-sm">&#8377; {data.price} Onwards</span>
+          <span className="text-lg md:text-base">
+            &#8377; {data.price} Onwards
+          </span>
         </div>
       </div>
     </>

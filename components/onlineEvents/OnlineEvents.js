@@ -72,7 +72,7 @@ const OnlineEvents = () => {
     },
   ];
   return (
-    <div className=" md:px-4 mt-6 mb-8 overflow-hidden">
+    <div className=" md:px-14 sm:px-8 mt-6 mb-16  px-6 overflow-hidden">
       <CardHeaders
         mobileHeader="Online Events"
         desktopHeader="Online Events"

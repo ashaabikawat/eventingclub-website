@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   cust_id: null,
   customer_exists: null,
@@ -9,19 +10,20 @@ const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
-    setCustId: (state, action) => {
-      //   console.log(action.payload);
-      state.cust_id = action.payload;
-    },
-    setCustExists: (state, action) => {
-      state.customer_exists = action.payload;
+    setAuthDetails: (state, action) => {
+      const { cust_id, customer_exists } = action.payload;
+      state.cust_id = cust_id;
+      state.customer_exists = customer_exists;
     },
     setToken: (state, action) => {
       state.token = action.payload;
-      localStorage.setItem("authToken", JSON.stringify({ token, cust_id }));
+      localStorage.setItem(
+        "authToken",
+        JSON.stringify({ token: state.token, cust_id: state.cust_id })
+      );
     },
   },
 });
 
-export const { setCustId, setCustExists, setToken } = authSlice.actions;
+export const { setAuthDetails, setToken } = authSlice.actions;
 export default authSlice.reducer;

@@ -4,8 +4,9 @@ export const initialLength = Array.from({ length: 6 });
 
 export const settings = {
   className: "center",
+  centerMode: false,
   infinite: false,
-  centerPadding: "60px",
+  // centerPadding: "60px",
   slidesToShow: 5,
   swipeToSlide: true,
   responsive: [
@@ -22,6 +23,15 @@ export const settings = {
       breakpoint: 600,
       settings: {
         slidesToShow: 2,
+        slidesToScroll: 2,
+        infinite: true,
+        // dots: true,
+      },
+    },
+    {
+      breakpoint: 400,
+      settings: {
+        slidesToShow: 1,
         slidesToScroll: 2,
         infinite: true,
         // dots: true,

@@ -1,6 +1,6 @@
 "use client";
 
-import { setCustExists, setCustId, setToken } from "@/store/slices/authSlice";
+import { setAuthDetails, setToken } from "@/store/slices/authSlice";
 import { generateOPT, registerUser, validateOtp } from "@/utils/config";
 import axios from "axios";
 import Image from "next/image";
@@ -25,20 +25,13 @@ const page = () => {
 
   const customerId = useSelector((state) => state.auth.cust_id);
   const userExists = useSelector((state) => state.auth.customer_exists);
+  console.log(userExists);
   const token = useSelector((state) => state.auth.token);
 
   const navigate = () => {
     setLoading(true);
     router.push("/");
   };
-
-  const stringOtp = otp.join("");
-
-  const requestBody = useMemo(() => {
-    return {
-      MobileNumber: number,
-    };
-  }, [number]);
 
   const userDetails = useMemo(() => {
     return {
@@ -62,7 +55,13 @@ const page = () => {
     console.log(payload);
     try {
       const response = await axios.post(generateOPT, payload);
-      console.log(response.data);
+      console.log(response.data.data);
+      dispatch(
+        setAuthDetails({
+          cust_id: response.data.data.customer_id,
+          customer_exists: response.data.data.customerExists,
+        })
+      );
       toast.success(response.data.message);
       setOtpSent(true);
     } catch (error) {
@@ -92,27 +91,45 @@ const page = () => {
     }
   };
 
+  // otp verification
   const handleOtpverification = async () => {
-    const payload = {};
-    // const token = await data.data.token;
-    // dispatch(setToken(token));
-    // localStorage.setItem("authToken", JSON.stringify({ token, customerId }));
-    // setOtpSent(false);
-  };
+    if (!otp || otp.length !== 6) {
+      return toast.error("Please enter a valid OTP");
+    }
 
-  const handleSubmit = async () => {
-    setOtpSent(true);
-    // const data = await apiCall(generateOPT, "POST", requestBody);
-    const customerId = await data.data.customer_id;
-    const customerExists = await data.data.customerExists;
-    dispatch(setCustId(customerId));
-    dispatch(setCustExists(customerExists));
+    const stringOtp = otp.join("");
+
+    const payload = {
+      Otp: stringOtp,
+      customer_id: customerId,
+    };
+    console.log(payload);
+
+    try {
+      const response = await axios.post(validateOtp, payload);
+      dispatch(setToken(response.data.data.token));
+      console.log(response.data);
+      toast.success(response.data.message);
+      setOtpSent(false);
+    } catch (error) {
+      toast.error(error.data.message);
+    }
   };
 
   const handleUserDetails = async () => {
-    const data = await apiCall(registerUser, "POST", userDetails);
-    // console.log(userDetails);
-    console.log(data);
+    const payload = {
+      customer_id: customerId,
+      CustomerName: formData.name,
+      Email: formData.email,
+    };
+    console.log(payload);
+
+    try {
+      const response = await axios.post(registerUser, payload);
+      toast.success(response.data.message);
+    } catch (error) {
+      toast.error(error.data.message);
+    }
     router.push("/");
   };
 
@@ -202,7 +219,9 @@ const page = () => {
                   placeholder="Enter here"
                   className="placeholder:text-slate-400 border w-full border-gray-500  rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
                 />
-                <p className="text-sm mb-3 text-white md:text-black">Email*</p>
+                <p className="text-sm mb-3 mt-4 text-white md:text-black">
+                  Email*
+                </p>
                 <input
                   type="text"
                   value={formData.email}
@@ -211,30 +230,17 @@ const page = () => {
                   placeholder="Enter here"
                   className="placeholder:text-slate-400 border w-full border-gray-500  rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
                 />
+                <button
+                  type="submit"
+                  onClick={handleUserDetails}
+                  className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full 
+          "
+                >
+                  continue
+                </button>
               </div>
             )
           ) : null}
-          {/* {!token && (
-            <button
-              type="submit"
-              // onClick={otpGeneration}
-              // onClick={otpSent ? handleOtpverification : handleSubmit}
-              className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full 
-            "
-            >
-              continue
-            </button>
-          )} */}
-          {/* {token && (
-            <button
-              type="submit"
-              // onClick={handleUserDetails}
-              className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full 
-          "
-            >
-              continue
-            </button>
-          )} */}
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Carousel } from "@material-tailwind/react";
+import { Card, Carousel } from "@material-tailwind/react";
 import Image from "next/image";
 import { getBanner } from "@/utils/config";
 import { URL } from "@/utils/constants";
 import ShimmerCard from "../card/ShimmerCard";
+import { PhotoIcon } from "@heroicons/react/24/solid";
 
 const Hero = () => {
   const [banner, setBanner] = useState([]);
@@ -36,14 +37,18 @@ const Hero = () => {
 
   return (
     <Carousel
-      className="h-96 mt-4  w-full "
+      className="h-96 mt-4 overflow-hidden w-full "
       autoplay="true"
       autoplayDelay="3000"
       loop="true"
     >
       {loading ? (
-        <div className="p-2 mt-8">
-          <ShimmerCard />
+        <div className="p-2 mt-8 ">
+          <Card className="h-full w-full  relative bg-gray-200 cursor-pointer overflow-hidden animate-pulse">
+            <div className="w-full h-screen relative flex justify-center items-center ">
+              <PhotoIcon className="size-6 md:size-10 absolute top-40 " />
+            </div>
+          </Card>
         </div>
       ) : (
         banner?.map((banner) => (

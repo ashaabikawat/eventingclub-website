@@ -2,7 +2,7 @@ import { URL } from "@/utils/constants";
 import Image from "next/image";
 import React from "react";
 
-export const VenueCard = ({ data }) => {
+export const SingleArtistCard = ({ data }) => {
   const imageUrl = data?.Images?.[0]?.image_path;
 
   return (
@@ -22,7 +22,7 @@ export const VenueCard = ({ data }) => {
           <h2 className="text-blue-900 font-bold md:text-xl text-sm">
             {data.Name}
           </h2>
-          <p className="text-sm">{data.Address}</p>
+          <p className="text-sm">{data.Description}</p>
         </div>
       </div>
     </div>

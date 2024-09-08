@@ -1,7 +1,5 @@
 "use client";
-import Cards from "@/components/card/Cards";
-import ShimmerCard from "@/components/card/ShimmerCard";
-import SearchInput from "@/components/common/SearchInput";
+import { SingleArtistCard } from "@/components/artist/SingleArtistCard";
 import PageHeader from "@/components/common/single page header/PageHeader";
 import useFetch from "@/hooks/useFetch";
 import { getArtists } from "@/utils/config";
@@ -10,14 +8,15 @@ import React from "react";
 
 const page = () => {
   const { data } = useFetch(getArtists);
+  // console.log(data);
 
   return (
-    <div className="p-8 md:p-4">
+    <div className=" md:px-10 mt-10 md:mb-10 px-10 ">
       <PageHeader text="Explore events by artists:" />
-      <div className="grid md:grid-cols-5 sm:grid-cols-2 gap-6 w-full mt-8 cursor-pointer">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-y-14   gap-x-8  w-full mt-8  md:px-14 cursor-pointer">
         {data.map((data) => (
           <Link key={data.id} href={`/artists/${data._id}`}>
-            <Cards data={data} />
+            <SingleArtistCard data={data} />
           </Link>
         ))}
       </div>

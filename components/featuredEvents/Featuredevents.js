@@ -72,7 +72,7 @@ const Featuredevents = () => {
     },
   ];
   return (
-    <div className=" md:px-4 md:py-6 mt-6 mb-8 overflow-hidden">
+    <div className=" md:px-14 md:py-6 sm:px-8 px-6 mt-6 mb-16 overflow-hidden">
       <CardHeaders
         mobileHeader="Featured Events"
         desktopHeader="Featured Events"

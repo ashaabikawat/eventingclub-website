@@ -10,7 +10,7 @@ const page = () => {
   const { data } = useFetch(getCategories);
 
   return (
-    <div className="p-8 md:p-14">
+    <div className="px-10 py-10 md:p-14">
       <div className="flex flex-col md:flex-row justify-between  gap-4">
         <h1 className=" font-bold md:text-2xl ">
           Explore Events By Categories

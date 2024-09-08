@@ -72,7 +72,7 @@ export const UpcomingEvents = () => {
     },
   ];
   return (
-    <div className=" md:px-4 md:py-8 mt-6 mb-8 overflow-hidden">
+    <div className=" sm:px-8 md:px-14 md:py-8 mt-6 px-6  mb-16 overflow-hidden">
       <CardHeaders
         mobileHeader="Upcoming Events"
         desktopHeader="Upcoming Events"
