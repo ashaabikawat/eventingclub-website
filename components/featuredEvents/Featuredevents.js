@@ -1,78 +1,36 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardHeaders from "../common/card headers/CardHeaders";
 import Slider from "react-slick";
 import CardWithText from "../card/CardWithText";
-import { settings } from "@/utils/constants";
+import { initialLength, settings } from "@/utils/constants";
+import axios from "axios";
+import { getAllFeaturedEvents } from "@/utils/config";
+import ShimmerCard from "../card/ShimmerCard";
 
 const Featuredevents = () => {
-  const data = [
-    {
-      id: 1,
-      image: "img1",
-      name: "sunburn ft.alan walker",
-      date: "march 13",
-      location: "Online broadcast",
-      fastSelling: true,
-      price: "999",
-    },
-    {
-      id: 2,
-      image: "img2",
-      name: "Echoes of Harmony",
-      date: "march 13",
-      location: "Online broadcast",
-      fastSelling: true,
-      price: "999",
-    },
-    {
-      id: 3,
-      image: "img3",
-      name: "Rhythm & Rhapsody",
-      date: "march 13",
-      location: "Online broadcast",
-      fastSelling: false,
-      price: "999",
-    },
-    {
-      id: 4,
-      image: "img4",
-      name: "Sonorous Nights",
-      date: "march 13",
-      location: "Online broadcast",
-      fastSelling: false,
-      price: "999",
-    },
-    {
-      id: 5,
-      image: "img5",
-      name: "Electric Vibes Live",
-      date: "march 13",
-      location: "Online broadcast",
-      fastSelling: false,
-      price: "999",
-    },
-    {
-      id: 6,
-      image: "img6",
-      name: "Symphony Under the Stars",
-      date: "march 13",
-      location: "Online broadcast",
-      fastSelling: false,
-      price: "999",
-    },
-    {
-      id: 7,
-      image: "img7",
-      name: "Vibrant Melodies Fest",
-      date: "march 13",
-      location: "Online broadcast",
-      fastSelling: true,
-      price: "999",
-    },
-  ];
+  const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFeaturedEvents();
+  }, []);
+
+  const fetchFeaturedEvents = async () => {
+    try {
+      const response = await axios.get(getAllFeaturedEvents);
+      console.log(response.data.data);
+      setFeaturedEvents(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cardsData = featuredEvents?.slice(0, 8);
+
   return (
-    <div className=" md:px-14 md:py-6 sm:px-8 px-6 mt-6 mb-16 overflow-hidden">
+    <div className=" md:px-14 sm:px-8 px-6 mt-10 mb-16 overflow-hidden">
       <CardHeaders
         mobileHeader="Featured Events"
         desktopHeader="Featured Events"
@@ -81,11 +39,17 @@ const Featuredevents = () => {
         url="/featuredEvents"
       />
       <Slider {...settings}>
-        {data.map((data) => (
-          <div key={data.id} className="px-2 mt-6">
-            <CardWithText data={data} />
-          </div>
-        ))}
+        {loading
+          ? initialLength.map((_, index) => (
+              <div key={index} className="mt-8">
+                <ShimmerCard />
+              </div>
+            ))
+          : cardsData.map((data) => (
+              <div key={data.id} className="px-2 mt-6">
+                <CardWithText data={data} />
+              </div>
+            ))}
       </Slider>
     </div>
   );

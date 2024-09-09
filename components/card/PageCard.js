@@ -3,11 +3,11 @@ import { URL } from "@/utils/constants";
 import { Card } from "@material-tailwind/react";
 import Image from "next/image";
 
-const Cards = ({ data }) => {
+const PageCard = ({ data }) => {
   const imageUrl = data?.Images[0].image_path;
 
   return (
-    <Card className="w-full h-52 relative cursor-pointer overflow-hidden">
+    <Card className="w-full md:h-64 h-52  relative cursor-pointer overflow-hidden">
       {/* <CardHeader floated={false} className="h-80"> */}
       <div className="w-full h-full relative  ">
         <Image
@@ -26,4 +26,4 @@ const Cards = ({ data }) => {
     </Card>
   );
 };
-export default Cards;
+export default PageCard;

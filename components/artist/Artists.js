@@ -1,20 +1,37 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardHeaders from "../common/card headers/CardHeaders";
 import Slider from "react-slick";
 import Cards from "../card/Cards";
 import { initialLength, settings, URL } from "@/utils/constants";
-import useFetch from "@/hooks/useFetch";
 import Link from "next/link";
-import { getArtists } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
+import axios from "axios";
+import { artists } from "@/utils/config";
 
 const Artists = () => {
-  const { data, loading, error } = useFetch(getArtists);
-  const cardsData = data.slice(0, 8);
+  const [allArtists, setAllArtists] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchArtist();
+  }, []);
+
+  const fetchArtist = async () => {
+    try {
+      const response = await axios.get(artists.GET_ALL);
+      console.log(response.data.data);
+      setAllArtists(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cardsData = allArtists?.slice(0, 8);
 
   return (
-    <div className=" md:px-14 md:py-8 sm:px-8 px-6 mt-6 mb-8 overflow-hidden ">
+    <div className=" md:px-14  sm:px-8 px-6 md:mt-14 overflow-hidden ">
       <CardHeaders
         mobileHeader="Browse by Artists"
         desktopHeader="Browse events by artists"
@@ -30,7 +47,7 @@ const Artists = () => {
                 <ShimmerCard />
               </div>
             ))
-          : cardsData.map((data) => (
+          : cardsData?.map((data) => (
               <div key={data.id} className="px-2 mt-6">
                 <Link href={`/artists/${data._id}`}>
                   <Cards data={data} />

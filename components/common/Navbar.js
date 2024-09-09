@@ -22,7 +22,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleStorage = () => {
       const token = JSON.parse(localStorage.getItem("authToken"));
-      console.log(token);
+      // console.log(token);
       setToken(token);
     };
 

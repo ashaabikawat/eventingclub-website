@@ -7,7 +7,7 @@ export const settings = {
   centerMode: false,
   infinite: false,
   // centerPadding: "60px",
-  slidesToShow: 5,
+  slidesToShow: 4,
   swipeToSlide: true,
   responsive: [
     {

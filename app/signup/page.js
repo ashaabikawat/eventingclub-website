@@ -112,7 +112,7 @@ const page = () => {
       toast.success(response.data.message);
       setOtpSent(false);
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error(error.message);
     }
   };
 

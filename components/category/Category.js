@@ -1,16 +1,34 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Cards from "../card/Cards";
-import useFetch from "@/hooks/useFetch";
 import CardHeaders from "../common/card headers/CardHeaders";
 import { initialLength, settings } from "@/utils/constants";
-import { getCategories } from "@/utils/config";
+import { categories, getCategories } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
+import axios from "axios";
+import Link from "next/link";
 
 const Category = () => {
-  const { data, loading, error } = useFetch(getCategories);
-  const cardsData = data.slice(0, 8);
+  const [category, setCategory] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(categories.GET_ALL);
+      setCategory(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cardsData = category.slice(0, 8);
+  const dummyCard = Array.from({ length: 2 });
 
   return (
     <div className=" md:py-6 mt-6 mb-8 sm:px-8 px-6  overflow-hidden md:px-14">
@@ -21,16 +39,18 @@ const Category = () => {
         desktopText="Discover more category"
         url="/categories"
       />
-      <Slider {...settings}>
+      <Slider {...settings} key={loading ? "loading" : "loaded"}>
         {loading
-          ? initialLength.map((_, index) => (
-              <div key={index} className="mt-8">
+          ? dummyCard.map((_, index) => (
+              <div key={index} className="px-2 mt-6">
                 <ShimmerCard />
               </div>
             ))
           : cardsData.map((data) => (
               <div key={data.id} className="px-2 mt-6">
-                <Cards data={data} />
+                <Link href={`/categories/${data._id}`}>
+                  <Cards data={data} />
+                </Link>
               </div>
             ))}
       </Slider>

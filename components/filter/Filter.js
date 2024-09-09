@@ -48,14 +48,14 @@ const Filter = () => {
   }, []);
 
   return (
-    <div className="md:w-96 w-full h-full md:p-6  mt-4">
+    <div className="md:w-72 w-full h-full md:px-6 ">
       {isMobile ? (
         <>
           <div className="px-4 mb-4">
             <div className=" w-full h-full border-b-2 border-gray-300 pb-4 ">
               <div className="flex justify-between">
                 <p>Filters</p>
-                <p>Clear all</p>
+                {/* <p>Clear all</p> */}
               </div>
             </div>
           </div>

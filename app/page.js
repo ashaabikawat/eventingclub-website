@@ -4,7 +4,7 @@ import Featuredevents from "@/components/featuredEvents/Featuredevents";
 import Footer from "@/components/footer/Footer";
 import Hero from "@/components/hero/Hero";
 import OnlineEvents from "@/components/onlineEvents/OnlineEvents";
-import { UpcomingEvents } from "@/components/upcomingEvents/UpcomingEvents";
+import UpcomingEvents from "@/components/upcomingEvents/UpcomingEvents";
 
 export default function Home() {
   return (
