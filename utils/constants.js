@@ -1,3 +1,5 @@
+import moment from "moment-timezone";
+
 export const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
 
 export const initialLength = Array.from({ length: 6 });
@@ -114,3 +116,114 @@ export const profileMenu = [
     },
   },
 ];
+
+export const indianLanguages = [
+  { value: "English", label: "English" },
+  { value: "Hindi", label: "Hindi" },
+  { value: "Marathi", label: "Marathi" },
+  { value: "Tamil", label: "Tamil" },
+  { value: "Telugu", label: "Telugu" },
+  { value: "Bhojpuri", label: "Bhojpuri" },
+  { value: "Gujarati", label: "Gujarati" },
+  { value: "Assamese", label: "Assamese" },
+  { value: "Bengali", label: "Bengali" },
+  { value: "Kannada", label: "Kannada" },
+  { value: "Kashmiri", label: "Kashmiri" },
+  { value: "Konkani", label: "Konkani" },
+  { value: "Malayalam", label: "Malayalam" },
+  { value: "Maithili", label: "Maithili" },
+  { value: "Manipuri", label: "Manipuri" },
+  { value: "Nepali", label: "Nepali" },
+  { value: "Odia", label: "Odia" },
+  { value: "Punjabi", label: "Punjabi" },
+  { value: "Sanskrit", label: "Sanskrit" },
+  { value: "Sindhi", label: "Sindhi" },
+  { value: "Urdu", label: "Urdu" },
+  { value: "Bihari", label: "Bihari" },
+  { value: "Chhattisgarhi", label: "Chhattisgarhi" },
+  { value: "Dogri", label: "Dogri" },
+  { value: "Garo", label: "Garo" },
+  { value: "Haryanvi", label: "Haryanvi" },
+  { value: "Ho", label: "Ho" },
+  { value: "Khasi", label: "Khasi" },
+  { value: "Kurukh", label: "Kurukh" },
+  { value: "Lushai", label: "Lushai" },
+  { value: "Magahi", label: "Magahi" },
+  { value: "Meitei", label: "Meitei" },
+  { value: "Mizo", label: "Mizo" },
+  { value: "Nagamese", label: "Nagamese" },
+  { value: "Santali", label: "Santali" },
+  { value: "Tulu", label: "Tulu" },
+];
+
+export const dropdownOptions = [
+  {
+    id: 1,
+    Value: "Today",
+  },
+  {
+    id: 2,
+    Value: "Tomorrow",
+  },
+  {
+    id: 3,
+    Value: "This weekend",
+  },
+];
+
+export const dateFilter = (option) => {
+  const currentMoment = moment().tz("Asia/Kolkata");
+  let TodayStartDateTimeStr, TodayEndDatetimeStr;
+  switch (option) {
+    case "Today":
+      // Format the date and time
+      const startOfDay = currentMoment
+        .startOf("day")
+        .format("YYYY-MM-DDTHH:mm:ss");
+      const endOfDay = currentMoment.endOf("day").format("YYYY-MM-DDTHH:mm:ss");
+      TodayStartDateTimeStr = `${startOfDay}+00:00`;
+      TodayEndDatetimeStr = `${endOfDay}+00:00`;
+      return { TodayStartDateTimeStr, TodayEndDatetimeStr };
+
+    case "Yesterday":
+      const yesterdayStartOfDay = currentMoment
+        .clone()
+        .subtract(1, "day")
+        .startOf("day")
+        .format("YYYY-MM-DDTHH:mm:ss");
+      const yesterdayEndOfDay = currentMoment
+        .clone()
+        .subtract(1, "day")
+        .endOf("day")
+        .format("YYYY-MM-DDTHH:mm:ss");
+      TodayStartDateTimeStr = `${yesterdayStartOfDay}+00:00`;
+      TodayEndDatetimeStr = `${yesterdayEndOfDay}+00:00`;
+      return { TodayStartDateTimeStr, TodayEndDatetimeStr };
+
+    case "Last 7 Days":
+      const weekStartOff = currentMoment
+        .clone()
+        .subtract(6, "days")
+        .startOf("day")
+        .format("YYYY-MM-DDTHH:mm:ss");
+      const weekEndOf = currentMoment
+        .endOf("day")
+        .format("YYYY-MM-DDTHH:mm:ss");
+      TodayStartDateTimeStr = `${weekStartOff}+00:00`;
+      TodayEndDatetimeStr = `${weekEndOf}+00:00`;
+      return { TodayStartDateTimeStr, TodayEndDatetimeStr };
+
+    case "Last 1 Month":
+      const monthStartOff = currentMoment
+        .clone()
+        .subtract(1, "month")
+        .startOf("day")
+        .format("YYYY-MM-DDTHH:mm:ss");
+      const monthEndOf = currentMoment
+        .endOf("day")
+        .format("YYYY-MM-DDTHH:mm:ss");
+      TodayStartDateTimeStr = `${monthStartOff}+00:00`;
+      TodayEndDatetimeStr = `${monthEndOf}+00:00`;
+      return { TodayStartDateTimeStr, TodayEndDatetimeStr };
+  }
+};

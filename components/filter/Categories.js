@@ -1,23 +1,35 @@
-import React from "react";
+import { categories } from "@/utils/config";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const Categories = () => {
+const Categories = ({ handleCategory }) => {
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(categories.GET_ALL);
+      console.log(response.data.data);
+      setCategory(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-wrap gap-2 mb-4">
-      <div className=" border border-gray-300 p-2 rounded-md text-black cursor-pointer">
-        Comedy
-      </div>
-      <div className="border border-gray-300 p-2 rounded-md text-black cursor-pointer">
-        workshop
-      </div>
-      <div className="border border-gray-300 p-2 rounded-md text-black cursor-pointer">
-        Meetups
-      </div>
-      <div className="border border-gray-300 p-2 rounded-md text-black cursor-pointer">
-        Theatre
-      </div>
-      <div className="border border-gray-300 p-2 rounded-md text-black cursor-pointer">
-        Music
-      </div>
+      {category.map((category) => {
+        return (
+          <div
+            className=" border border-gray-300 p-2 rounded-md text-black cursor-pointer"
+            onClick={() => handleCategory(category._id)}
+          >
+            {category.Name}
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -34,3 +34,7 @@ export const getAllOnlineEvents = `${URL}/webiste/events/getAllOnlineEvents`;
 export const getAllUpcomingEvents = `${URL}/webiste/events/getAllUpcomingEvents`;
 
 export const getAllFeaturedEvents = `${URL}/webiste/events/getAllFeaturedEvents`;
+
+export const genre = {
+  GET_ALL: `${URL}/webiste/genre/getAllGenreData`,
+};

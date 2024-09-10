@@ -3,6 +3,7 @@ import PageCard from "@/components/card/PageCard";
 import { categories } from "@/utils/config";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
