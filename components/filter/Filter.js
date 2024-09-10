@@ -1,16 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import DateFilter from "./DateFilter";
 import Languages from "./Languages";
 import Categories from "./Categories";
 import Genre from "./Genre";
 import { dropdownOptions } from "@/utils/constants";
+import Flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.css";
 
 const Filter = ({
   handleLanguageSelection,
@@ -24,6 +25,7 @@ const Filter = ({
   const [active, setActive] = useState("date");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const datepickerRef = useRef(null);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
   // const [isMobile, setIsMobile] = useState(false);
@@ -57,6 +59,20 @@ const Filter = ({
     // console.log(startdate, enddate);
     DateFilterApiCall(startdate, enddate);
   };
+
+  useEffect(() => {
+    // Initialize flatpickr
+    if (datepickerRef.current) {
+      Flatpickr(datepickerRef.current, {
+        inline: true, // Enable inline mode
+        defaultDate: "02/25/2024", // Default date, you can change this to dynamic value
+        onChange: (selectedDates) => {
+          console.log("Selected Date:", selectedDates[0]); // Handle date change here
+          // Add your logic for handling date change
+        },
+      });
+    }
+  }, [isManual]);
 
   return (
     <div className="md:w-80 w-full h-full md:px-6">
@@ -100,32 +116,6 @@ const Filter = ({
                 </div>
               ))}
             </div>
-            <div className="mb-6">
-              {isManual && (
-                <div className="flex">
-                  <input
-                    type="date"
-                    className="mr-3 px-2 w-[80px]  rounded-lg"
-                    value={startDate}
-                    onChange={(e) => handleManualDateChange(e, "start")}
-                  />
-                  <span>to</span>
-                  <input
-                    type="date"
-                    className=" px-2 w-[80px] rounded-lg"
-                    value={endDate}
-                    placeholder="End date"
-                    onChange={(e) => handleManualDateChange(e, "end")}
-                  />
-                  {/* <button
-                    onClick={handleManualSubmit}
-                    className="ml-3 px-4 py-2 bg-blue-500 text-white rounded-lg"
-                  >
-                    Apply
-                  </button> */}
-                </div>
-              )}
-            </div>
 
             <div>
               <label className="inline-flex items-center">
@@ -133,7 +123,7 @@ const Filter = ({
                   type="checkbox"
                   className="form-checkbox"
                   checked={isManual}
-                  onChange={() => setIsManual(true)}
+                  onChange={() => setIsManual(!isManual)}
                 />
                 <span className="ml-2 text-black cursor-pointer ">
                   Date Range
@@ -141,6 +131,9 @@ const Filter = ({
               </label>
             </div>
           </AccordionBody>
+          <div className="mb-6">
+            {isManual && <div id="datepicker-inline" ref={datepickerRef}></div>}
+          </div>
         </Accordion>
 
         <Accordion
