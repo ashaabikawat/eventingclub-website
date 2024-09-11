@@ -1,40 +1,38 @@
 "use client";
-
+import CardWithText from "@/components/card/CardWithText";
+import PageCardWithText from "@/components/card/PageCardWithText";
 import Filter from "@/components/filter/Filter";
-import { categories } from "@/utils/config";
+import NotFound from "@/components/not found/NotFound";
+import { featuredEvents, onlineEvents } from "@/utils/config";
+
 import { dateFilter, URL } from "@/utils/constants";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { Card } from "@material-tailwind/react";
 import axios from "axios";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { TbFilter } from "react-icons/tb";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
-import PageCardWithText from "@/components/card/PageCardWithText";
-import NotFound from "@/components/not found/NotFound";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { TbFilter } from "react-icons/tb";
 
-const page = () => {
-  const [events, setEvents] = useState([]);
+const Page = () => {
+  const [allFeaturedEvents, setAllFeaturedEvents] = useState([]);
+  const [duplicateFeaturedEvents, setDuplicateFeaturedEvents] = useState([]);
   const [isManual, setIsManual] = useState(false);
-  const { id } = useParams();
   const [filterOpenModal, setFilterOpenModal] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetchEvents();
+    fetchFeaturedEvents();
   }, []);
 
-  const fetchEvents = async () => {
-    const payload = {
-      category_id: id,
-    };
+  const fetchFeaturedEvents = async () => {
     setError(false);
     try {
-      const response = await axios.post(categories.GET_BY_ID, payload);
+      const response = await axios.post(featuredEvents.GET_ALL);
       // console.log(response.data.data);
-      setEvents(response.data.data);
+      setAllFeaturedEvents(response.data.data);
+      // duplicateFeaturedEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -59,16 +57,14 @@ const page = () => {
   const handleLanguageSelection = async (value) => {
     // console.log(value);
     const payload = {
-      category_id: id,
       LanguageName: value,
     };
-
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${featuredEvents.GET_ALL}`, payload);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllFeaturedEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -93,17 +89,16 @@ const page = () => {
   const handleGenre = async (value) => {
     // console.log(value);
     const payload = {
-      category_id: id,
       Genre_id: value,
     };
     // console.log(payload);
-
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${featuredEvents.GET_ALL}`, payload);
+      // console.log(response.data);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllFeaturedEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -124,7 +119,6 @@ const page = () => {
       }
     }
   };
-  console.log("error", error);
 
   const handleCategory = async (value) => {
     // console.log(value);
@@ -132,11 +126,12 @@ const page = () => {
       category_id: value,
     };
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${featuredEvents.GET_ALL}`, payload);
+      // console.log(response.data);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllFeaturedEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -151,8 +146,8 @@ const page = () => {
           status === 400
         ) {
           // console.log(error.response);
-          toast.error(data.message);
           setError(true);
+          toast.error(data.message);
         }
       }
     }
@@ -193,7 +188,7 @@ const page = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    // console.log(startDate, endDate);
+    console.log(startDate, endDate);
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"
@@ -204,18 +199,18 @@ const page = () => {
 
     try {
       const payload = {
-        category_id: id,
         startDate: startDate,
         endDate: endDate,
       };
 
       // console.log({ payload });
 
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${featuredEvents.GET_ALL}`, payload);
+      // console.log(response.data.data.length);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllFeaturedEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -236,7 +231,6 @@ const page = () => {
       }
     }
   };
-
   return (
     <>
       <Toaster />
@@ -268,7 +262,7 @@ const page = () => {
               handleGenre={handleGenre}
               isManual={isManual}
               setIsManual={setIsManual}
-              fetchEvents={fetchEvents}
+              fetchEvents={fetchFeaturedEvents}
             />
           </div>
           <div className=" w-full md:h-80  md:block">
@@ -276,8 +270,12 @@ const page = () => {
               <NotFound />
             ) : (
               <div className="grid lg:grid-cols-3 mt-4 grid-cols-2 lg:gap-4 md:gap-6 gap-6">
-                {events?.map((event) => {
-                  return <PageCardWithText event={event} />;
+                {allFeaturedEvents?.map((event) => {
+                  return (
+                    <div>
+                      <PageCardWithText event={event} />{" "}
+                    </div>
+                  );
                 })}
               </div>
             )}
@@ -288,4 +286,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

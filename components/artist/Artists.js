@@ -31,7 +31,7 @@ const Artists = () => {
   const cardsData = allArtists?.slice(0, 8);
 
   return (
-    <div className=" md:px-14  sm:px-8 px-6 md:mt-14 overflow-hidden ">
+    <div className=" md:px-14 mt-10 sm:px-8 px-6 md:mt-14 overflow-hidden ">
       <CardHeaders
         mobileHeader="Browse by Artists"
         desktopHeader="Browse events by artists"
@@ -48,7 +48,7 @@ const Artists = () => {
               </div>
             ))
           : cardsData?.map((data) => (
-              <div key={data.id} className="px-2 mt-6">
+              <div key={data.id} className="px-2 mt-6 ">
                 <Link href={`/artists/${data._id}`}>
                   <Cards data={data} />
                 </Link>

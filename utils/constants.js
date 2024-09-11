@@ -8,7 +8,7 @@ export const settings = {
   className: "center",
   centerMode: false,
   infinite: false,
-  // centerPadding: "60px",
+  centerPadding: "60px",
   slidesToShow: 4,
   swipeToSlide: true,
   responsive: [
@@ -17,7 +17,7 @@ export const settings = {
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3,
-        infinite: true,
+        infinite: false,
         // dots: true,
       },
     },
@@ -26,7 +26,7 @@ export const settings = {
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2,
-        infinite: true,
+        infinite: false,
         // dots: true,
       },
     },
@@ -35,7 +35,7 @@ export const settings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 2,
-        infinite: true,
+        infinite: false,
         // dots: true,
       },
     },
@@ -185,22 +185,22 @@ export const dateFilter = (option) => {
       TodayEndDatetimeStr = `${endOfDay}+00:00`;
       return { TodayStartDateTimeStr, TodayEndDatetimeStr };
 
-    case "Yesterday":
-      const yesterdayStartOfDay = currentMoment
+    case "Tomorrow":
+      const tomorrowStartOfDay = currentMoment
         .clone()
-        .subtract(1, "day")
+        .add(1, "day")
         .startOf("day")
         .format("YYYY-MM-DDTHH:mm:ss");
-      const yesterdayEndOfDay = currentMoment
+      const tomorrowEndOfDay = currentMoment
         .clone()
-        .subtract(1, "day")
+        .add(1, "day")
         .endOf("day")
         .format("YYYY-MM-DDTHH:mm:ss");
-      TodayStartDateTimeStr = `${yesterdayStartOfDay}+00:00`;
-      TodayEndDatetimeStr = `${yesterdayEndOfDay}+00:00`;
+      TodayStartDateTimeStr = `${tomorrowStartOfDay}+00:00`;
+      TodayEndDatetimeStr = `${tomorrowEndOfDay}+00:00`;
       return { TodayStartDateTimeStr, TodayEndDatetimeStr };
 
-    case "Last 7 Days":
+    case "This weekend":
       const weekStartOff = currentMoment
         .clone()
         .subtract(6, "days")
@@ -213,14 +213,14 @@ export const dateFilter = (option) => {
       TodayEndDatetimeStr = `${weekEndOf}+00:00`;
       return { TodayStartDateTimeStr, TodayEndDatetimeStr };
 
-    case "Last 1 Month":
+    case "This month":
       const monthStartOff = currentMoment
         .clone()
-        .subtract(1, "month")
-        .startOf("day")
+        .subtract(1, "months")
+        .startOf("month")
         .format("YYYY-MM-DDTHH:mm:ss");
       const monthEndOf = currentMoment
-        .endOf("day")
+        .endOf("month")
         .format("YYYY-MM-DDTHH:mm:ss");
       TodayStartDateTimeStr = `${monthStartOff}+00:00`;
       TodayEndDatetimeStr = `${monthEndOf}+00:00`;

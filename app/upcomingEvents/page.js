@@ -1,7 +1,7 @@
 "use client";
 
 import Filter from "@/components/filter/Filter";
-import { categories } from "@/utils/config";
+import { categories, upcomingEvents } from "@/utils/config";
 import { dateFilter, URL } from "@/utils/constants";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { Card } from "@material-tailwind/react";
@@ -16,25 +16,22 @@ import PageCardWithText from "@/components/card/PageCardWithText";
 import NotFound from "@/components/not found/NotFound";
 
 const page = () => {
-  const [events, setEvents] = useState([]);
+  const [allUpcomingEvents, setAllUpcomingEvents] = useState([]);
   const [isManual, setIsManual] = useState(false);
   const { id } = useParams();
   const [filterOpenModal, setFilterOpenModal] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetchEvents();
+    fetchUpcomingEvents();
   }, []);
 
-  const fetchEvents = async () => {
-    const payload = {
-      category_id: id,
-    };
+  const fetchUpcomingEvents = async () => {
     setError(false);
     try {
-      const response = await axios.post(categories.GET_BY_ID, payload);
+      const response = await axios.post(upcomingEvents.GET_ALL);
       // console.log(response.data.data);
-      setEvents(response.data.data);
+      setAllUpcomingEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -59,16 +56,14 @@ const page = () => {
   const handleLanguageSelection = async (value) => {
     // console.log(value);
     const payload = {
-      category_id: id,
       LanguageName: value,
     };
-
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllUpcomingEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -93,17 +88,15 @@ const page = () => {
   const handleGenre = async (value) => {
     // console.log(value);
     const payload = {
-      category_id: id,
       Genre_id: value,
     };
     // console.log(payload);
-
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllUpcomingEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -124,7 +117,6 @@ const page = () => {
       }
     }
   };
-  console.log("error", error);
 
   const handleCategory = async (value) => {
     // console.log(value);
@@ -132,11 +124,11 @@ const page = () => {
       category_id: value,
     };
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllUpcomingEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -151,8 +143,8 @@ const page = () => {
           status === 400
         ) {
           // console.log(error.response);
-          toast.error(data.message);
           setError(true);
+          toast.error(data.message);
         }
       }
     }
@@ -211,11 +203,14 @@ const page = () => {
 
       // console.log({ payload });
 
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
+      const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
+      // console.log(response.data.data.length);
       if (response.data.data.length >= 1) {
         setError(false);
       }
-      setEvents(response.data.data);
+      setAllUpcomingEvents(response.data.data);
+
+      // toast.success(response.data.message);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -230,8 +225,8 @@ const page = () => {
           status === 400
         ) {
           // console.log(error.response);
-          toast.error(data.message);
           setError(true);
+          toast.error(data.message);
         }
       }
     }
@@ -268,7 +263,7 @@ const page = () => {
               handleGenre={handleGenre}
               isManual={isManual}
               setIsManual={setIsManual}
-              fetchEvents={fetchEvents}
+              fetchEvents={fetchUpcomingEvents}
             />
           </div>
           <div className=" w-full md:h-80  md:block">
@@ -276,7 +271,7 @@ const page = () => {
               <NotFound />
             ) : (
               <div className="grid lg:grid-cols-3 mt-4 grid-cols-2 lg:gap-4 md:gap-6 gap-6">
-                {events?.map((event) => {
+                {allUpcomingEvents?.map((event) => {
                   return <PageCardWithText event={event} />;
                 })}
               </div>

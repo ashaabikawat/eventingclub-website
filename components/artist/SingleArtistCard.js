@@ -8,7 +8,7 @@ export const SingleArtistCard = ({ data }) => {
   return (
     <div className="border border-gray-400 h-full w-full cursor-pointer rounded  ">
       <div>
-        <div className="relative h-96 w-full">
+        <div className="relative h-72 w-full">
           <Image
             src={`${URL}/${imageUrl}`}
             alt="venue card"

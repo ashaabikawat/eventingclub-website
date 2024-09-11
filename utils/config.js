@@ -4,7 +4,7 @@ export const getBanner = `${URL}/webiste/homepage/getAllBannerSliderData`;
 
 export const artists = {
   GET_ALL: `${URL}/webiste/artist/getAllArtistData`,
-  ARTIST_BY_ID: `${URL}/artist/getbyId`,
+  ARTIST_BY_ID: `${URL}/webiste/artist/getEventsByArtist`,
   SEARCH_KEYWORD: `${URL}/webiste/artist/getArtistBySearchKeyword`,
 };
 
@@ -29,11 +29,17 @@ export const getCustomerById = `${URL}/webiste/customer/getCustomerDataById`;
 
 export const updateCustomer = `${URL}/webiste/customer/updateCustomerProfile`;
 
-export const getAllOnlineEvents = `${URL}/webiste/events/getAllOnlineEvents`;
+export const onlineEvents = {
+  GET_ALL: `${URL}/webiste/events/getAllOnlineEvents`,
+};
 
-export const getAllUpcomingEvents = `${URL}/webiste/events/getAllUpcomingEvents`;
+export const upcomingEvents = {
+  GET_ALL: `${URL}/webiste/events/getAllUpcomingEvents`,
+};
 
-export const getAllFeaturedEvents = `${URL}/webiste/events/getAllFeaturedEvents`;
+export const featuredEvents = {
+  GET_ALL: `${URL}/webiste/events/getAllFeaturedEvents`,
+};
 
 export const genre = {
   GET_ALL: `${URL}/webiste/genre/getAllGenreData`,

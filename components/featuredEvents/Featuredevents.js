@@ -5,11 +5,12 @@ import Slider from "react-slick";
 import CardWithText from "../card/CardWithText";
 import { initialLength, settings } from "@/utils/constants";
 import axios from "axios";
-import { getAllFeaturedEvents } from "@/utils/config";
+import { featuredEvents } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
+import Link from "next/link";
 
 const Featuredevents = () => {
-  const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [allFeaturedEvents, setAllFeaturedEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,19 +19,19 @@ const Featuredevents = () => {
 
   const fetchFeaturedEvents = async () => {
     try {
-      const response = await axios.get(getAllFeaturedEvents);
+      const response = await axios.post(featuredEvents.GET_ALL);
       console.log(response.data.data);
-      setFeaturedEvents(response.data.data);
+      setAllFeaturedEvents(response.data.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const cardsData = featuredEvents?.slice(0, 8);
+  const cardsData = allFeaturedEvents?.slice(0, 8);
 
   return (
-    <div className=" md:px-14 sm:px-8 px-6 mt-10 mb-16 overflow-hidden">
+    <div className=" md:px-14 sm:px-8 px-6 mt-16 mb-16 overflow-hidden">
       <CardHeaders
         mobileHeader="Featured Events"
         desktopHeader="Featured Events"
@@ -47,7 +48,9 @@ const Featuredevents = () => {
             ))
           : cardsData.map((data) => (
               <div key={data.id} className="px-2 mt-6">
-                <CardWithText data={data} />
+                <Link href={`/events/${data.event_id}`}>
+                  <CardWithText data={data} />
+                </Link>
               </div>
             ))}
       </Slider>

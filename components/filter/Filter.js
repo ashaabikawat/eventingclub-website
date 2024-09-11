@@ -20,6 +20,7 @@ const Filter = ({
   handleGenre,
   isManual,
   setIsManual,
+  fetchEvents,
 }) => {
   const [open, setOpen] = useState(1);
   const [active, setActive] = useState("date");
@@ -96,9 +97,7 @@ const Filter = ({
             </div>
             <span
               className="text-sm text-blue-900 absolute right-4"
-              onClick={() => {
-                // Add clear filter logic here
-              }}
+              onClick={fetchEvents}
             >
               Clear
             </span>
@@ -154,9 +153,7 @@ const Filter = ({
             </div>
             <span
               className="text-sm text-blue-900 absolute right-4"
-              onClick={() => {
-                // Add clear filter logic here
-              }}
+              onClick={fetchEvents}
             >
               Clear
             </span>
@@ -184,9 +181,7 @@ const Filter = ({
             </div>
             <span
               className="text-sm text-blue-900 absolute right-4"
-              onClick={() => {
-                // Add clear filter logic here
-              }}
+              onClick={fetchEvents}
             >
               Clear
             </span>
@@ -214,9 +209,7 @@ const Filter = ({
             </div>
             <span
               className="text-sm text-blue-900 absolute right-4"
-              onClick={() => {
-                // Add clear filter logic here
-              }}
+              onClick={fetchEvents}
             >
               Clear
             </span>

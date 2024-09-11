@@ -27,7 +27,21 @@ const page = () => {
       setArtistsDuplicate(response.data.data);
       // setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          toast.error(data.message);
+        }
+      }
     }
   };
 
@@ -81,7 +95,7 @@ const page = () => {
   }, [debounced]);
 
   return (
-    <div className=" md:px-10 mt-10 md:mb-10 px-10 ">
+    <div className=" md:px-20 mt-10 md:mb-10  ">
       <Toaster />
       {/* <PageHeader text="Explore events by artists:" /> */}
       <div className="flex flex-col md:flex-row justify-between  gap-4">
@@ -104,7 +118,7 @@ const page = () => {
           </label>
         </div>
       </div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-y-14   gap-x-8  w-full mt-8  md:px-14 cursor-pointer">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-y-14   gap-x-8  w-full mt-8 14 cursor-pointer">
         {artistsDuplicate.map((data) => (
           <Link key={data.id} href={`/artists/${data._id}`}>
             <SingleArtistCard data={data} />
