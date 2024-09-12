@@ -31,9 +31,9 @@ const Category = () => {
   const dummyCard = Array.from({ length: 2 });
 
   return (
-    <div className=" md:py-6 mt-6 mb-8 sm:px-8 px-6  overflow-hidden md:px-14">
+    <div className=" md:py-6 mt-6 mb-8 sm:px-8 px-1  overflow-hidden md:px-14">
       <CardHeaders
-        mobileHeader="Browse by categories"
+        mobileHeader="Events by categories"
         desktopHeader="Browse events by categories"
         mobileText="See all"
         desktopText="Discover more category"

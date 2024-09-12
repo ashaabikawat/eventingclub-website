@@ -10,19 +10,20 @@ const PageCardWithText = ({ event }) => {
 
   return (
     <div className="md:mb-4">
-      <Card className=" md:h-60 h-40 relative cursor-pointer overflow-hidden ">
-        <div className=" w-[100%] h-full relative  ">
-          <Image
-            src={imageUrl}
-            alt="profile-picture"
-            layout="fill"
-            objectFit="cover"
-            objectPosition="top"
-            className="rounded"
-          />
-        </div>
-        <div className="absolute bottom-2 right-2">
-          {/* <p
+      <Link href={`/events/${event.event_id}`}>
+        <Card className=" md:h-60 h-40 relative cursor-pointer overflow-hidden ">
+          <div className=" w-[100%] h-full relative  ">
+            <Image
+              src={imageUrl}
+              alt="profile-picture"
+              layout="fill"
+              objectFit="cover"
+              objectPosition="top"
+              className="rounded"
+            />
+          </div>
+          <div className="absolute bottom-2 right-2">
+            {/* <p
                      className={`${
                        data.fastSelling
                          ? "text-xs text-black bg-white rounded-md p-2"
@@ -31,8 +32,10 @@ const PageCardWithText = ({ event }) => {
                    >
                      {data.fastSelling ? "Fast selling " : ""}
                    </p> */}
-        </div>
-      </Card>
+          </div>
+        </Card>
+      </Link>
+
       <div className="">
         <div className="flex items-center justify-start md:h-20 h-14 lg:mb-0">
           <p className="capitalize text-xs md:text-base">{event.EventName}</p>

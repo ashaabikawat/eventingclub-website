@@ -7,6 +7,7 @@ import { initialLength, settings } from "@/utils/constants";
 import axios from "axios";
 import { onlineEvents } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
+import Link from "next/link";
 
 const OnlineEvents = () => {
   const [allOnlineEvents, setAllOnlineEvents] = useState([]);
@@ -30,7 +31,7 @@ const OnlineEvents = () => {
   // const cardsData = allOnlineEvents?.slice(0, 8);
 
   return (
-    <div className=" md:px-14 sm:px-8 px-6 mt-10 mb-16 overflow-hidden">
+    <div className="  md:py-6 mt-6 mb-10 sm:px-8 px-1 md:mb-0  overflow-hidden">
       <CardHeaders
         mobileHeader="Online Events"
         desktopHeader="Online Events"
@@ -48,7 +49,9 @@ const OnlineEvents = () => {
             ))
           : allOnlineEvents?.map((data) => (
               <div key={data.id} className="px-2 mt-6">
-                <CardWithText data={data} />
+                <Link href={`/events/${data.event_id}`}>
+                  <CardWithText data={data} />
+                </Link>
               </div>
             ))}
       </Slider>

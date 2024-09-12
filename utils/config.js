@@ -17,6 +17,7 @@ export const categories = {
 export const venues = {
   GET_ALL: `${URL}/webiste/venue/getAllVenueData`,
   SEARCH_KEYWORD: `${URL}/webiste/venue/getVenuesBySearchKeyword`,
+  GET_BY_ID: `${URL}/webiste/venue/getVenueEvents`,
 };
 
 export const generateOPT = `${URL}/webiste/customer/generateotp`;
@@ -43,4 +44,8 @@ export const featuredEvents = {
 
 export const genre = {
   GET_ALL: `${URL}/webiste/genre/getAllGenreData`,
+};
+
+export const events = {
+  GET_ALL: `${URL}/webiste/events/getEventDetailsById`,
 };

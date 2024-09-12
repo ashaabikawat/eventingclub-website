@@ -31,7 +31,7 @@ const Artists = () => {
   const cardsData = allArtists?.slice(0, 8);
 
   return (
-    <div className=" md:px-14 mt-10 sm:px-8 px-6 md:mt-14 overflow-hidden ">
+    <div className=" md:py-6 mb-10 sm:px-8 px-1 md:mb-0 overflow-hidden ">
       <CardHeaders
         mobileHeader="Browse by Artists"
         desktopHeader="Browse events by artists"

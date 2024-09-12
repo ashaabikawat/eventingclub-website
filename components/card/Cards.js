@@ -16,7 +16,7 @@ const Cards = ({ data }) => {
           layout="fill"
           objectFit="cover"
           objectPosition="top"
-          className="rounded  "
+          className="rounded "
         />
       </div>
       {/* </CardHeader> */}

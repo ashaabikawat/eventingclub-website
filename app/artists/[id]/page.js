@@ -90,7 +90,9 @@ const page = () => {
             <Slider {...settings}>
               {artistEvents.map((event) => (
                 <div key={event._id} className="px-2 mt-6 w-full">
-                  <PageCardWithText event={event} />
+                  <Link href={`/events/${event.event_id}`}>
+                    <PageCardWithText event={event} />
+                  </Link>
                 </div>
               ))}
             </Slider>

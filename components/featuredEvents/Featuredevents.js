@@ -31,7 +31,7 @@ const Featuredevents = () => {
   const cardsData = allFeaturedEvents?.slice(0, 8);
 
   return (
-    <div className=" md:px-14 sm:px-8 px-6 mt-16 mb-16 overflow-hidden">
+    <div className="md:py-6 mt-6  sm:px-8 px-1 md:mb-0 overflow-hidden">
       <CardHeaders
         mobileHeader="Featured Events"
         desktopHeader="Featured Events"

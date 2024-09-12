@@ -51,7 +51,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative  w-full md:px-10 sm:px-8 px-6 ">
+    <div className="relative  w-full md:px-10 sm:px-8 ">
       <div className="max-w-8xl md:mx-9 mx-4">
         <div className="flex justify-between items-center py-4 md:space-x-10">
           <div className="flex gap-20 justify-between items-center">
@@ -71,7 +71,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <div className="flex gap-1">
+          <div className="flex">
             {token && (
               <div className="flex justify-center items-center">
                 <Link href={`/userDetails/${token.cust_id}`}>
@@ -92,7 +92,7 @@ const Navbar = () => {
             </Link>
             <button
               type="button"
-              className="md:hidden ml-6"
+              className="md:hidden md:ml-6 ml-4"
               onClick={handleToggle}
             >
               <span className="sr-only">open menu</span>

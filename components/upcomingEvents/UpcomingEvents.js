@@ -104,13 +104,13 @@ const UpcomingEvents = () => {
   const cardsData = allUpcomingEvents.slice(0, 8);
 
   return (
-    <div className="w-full sm:px-8 md:px-14  px-6  mb-2 overflow-hidden">
+    <div className=" md:py-6 mt-6  sm:px-8 px-1 md:mb-0  overflow-hidden">
       <Toaster />
-      <div className="flex md:mt-0  md:flex-row flex-col justify-between">
+      <div className="flex md:mt-0  md:flex-row flex-col justify-between px-4">
         <h1 className="capitalize text-base md:text-2xl font-bold">
           Upcoming Events
         </h1>
-        <div className="flex md:gap-12 gap-6 md:mt-0 mt-4 md:text-lg  sm:text-sm text-xs ">
+        <div className="flex md:gap-12 gap-6 md:mt-0 mt-4 md:text-lg  sm:text-sm text-xs font-bold ">
           <span className="cursor-pointer" onClick={() => filterEvents("All")}>
             All
           </span>
@@ -140,7 +140,9 @@ const UpcomingEvents = () => {
             ))
           : cardsData.map((data) => (
               <div key={data.id} className=" px-2 mt-6  h-96">
-                <CardWithText data={data} />
+                <Link href={`/events/${data.event_id}`}>
+                  <CardWithText data={data} />
+                </Link>
               </div>
             ))}
       </Slider>

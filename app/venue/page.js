@@ -102,7 +102,7 @@ const page = () => {
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-8 md:px-14">
         {venuesDuplicate.map((data) => (
-          <Link href="/venue/1" key={data._id}>
+          <Link href={`/venue/${data._id}`} key={data._id}>
             <VenueCard data={data} />
           </Link>
         ))}
