@@ -48,4 +48,10 @@ export const genre = {
 
 export const events = {
   GET_ALL: `${URL}/webiste/events/getEventDetailsById`,
+  GET_TICKETS_DATA: `${URL}/webiste/events/getEventDateTimeById`,
+};
+
+export const eventTour = {
+  GET_ALL: `${URL}/webiste/events/getLiveEventsTour`,
+  GET_BY_ID: `${URL}/webiste/events/getLiveEventTourDetailsbyId`,
 };

@@ -11,13 +11,13 @@ const ShortTicket = ({ data }) => {
           className="capitalize relative before:inline-block before:w-10 before:h-[1px] before:bg-gray-400 
                       before:absolute before:-bottom-0 before:left-2 text-xs md:text-sm"
         >
-          {data.day}
+          {data.Day}
         </p>
-        <p className="capitalize text-xs md:text-sm">{data.month}</p>
+        <p className="capitalize text-xs md:text-sm">{data.Month}</p>
         <p className="capitalize text-xs md:text-sm bg-gray-400 h-8 w-8 md:h-10 md:w-10 text-center p-2 rounded-full">
-          {data.date}
+          {data.Date}
         </p>
-        <p className="capitalize text-xs md:text-sm">{data.time}</p>
+        <p className="capitalize text-xs md:text-sm">{data.Time}</p>
       </div>
     </div>
   );

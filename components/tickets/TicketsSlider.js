@@ -4,6 +4,7 @@ import ShortTicket from "./ShortTicket";
 import Slider from "react-slick";
 
 const TicketsSlider = ({ data }) => {
+  console.log("data", data);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -16,13 +17,13 @@ const TicketsSlider = ({ data }) => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="p-4 md:p-8">
       <div>
         <h1 className="md:text-3xl text-xl md:mt-0 mt-4 capitalize text-blue-900 font-bold border-b-2 border-gray-200 pb-3">
-          Suburn arena ft. alan walker - pune
+          {data?.EventName}
         </h1>
         <div>
           <p className="capitalize mt-4  text-xl font-bold ">Select date:</p>
@@ -30,7 +31,7 @@ const TicketsSlider = ({ data }) => {
           {isMobile ? (
             // Wrap all ShortTickets inside a single Slider for mobile view
             <Slider slidesToShow={3}>
-              {data.map((ticket, index) => (
+              {data?.DateTimeDate.map((ticket, index) => (
                 <div key={index} className="md:mt-0 mt-4 cursor-pointer">
                   <ShortTicket data={ticket} />
                 </div>
@@ -39,7 +40,7 @@ const TicketsSlider = ({ data }) => {
           ) : (
             // Use flex layout for non-mobile screens
             <div className="mt-4 flex gap-4">
-              {data.map((ticket) => (
+              {data?.DateTimeDate.map((ticket) => (
                 <div key={ticket.id} className="cursor-pointer ">
                   <ShortTicket data={ticket} />
                 </div>

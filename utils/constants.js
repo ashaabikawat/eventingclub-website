@@ -11,6 +11,8 @@ export const settings = {
   centerPadding: "60px",
   slidesToShow: 4,
   swipeToSlide: true,
+  arrows: true,
+  // dots: true,
   responsive: [
     {
       breakpoint: 1024,

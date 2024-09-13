@@ -1,5 +1,5 @@
 "use client";
-import { events } from "@/utils/config";
+import { events, eventTour } from "@/utils/config";
 import { settings, URL } from "@/utils/constants";
 import { FiMapPin } from "react-icons/fi";
 import axios from "axios";
@@ -10,14 +10,14 @@ import { FaRegCalendarAlt, FaFacebookF, FaTwitter } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { Card } from "@material-tailwind/react";
 import Slider from "react-slick";
-import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import PageCardWithText from "@/components/card/PageCardWithText";
+import Link from "next/link";
 
 const page = () => {
   const { id } = useParams();
   const [eventData, setEventData] = useState();
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     fetchEvent();
@@ -25,10 +25,10 @@ const page = () => {
 
   const fetchEvent = async () => {
     const payload = {
-      event_id: id,
+      event_Tour_id: id,
     };
     try {
-      const response = await axios.post(`${events.GET_ALL}`, payload);
+      const response = await axios.post(`${eventTour.GET_BY_ID}`, payload);
       console.log(response.data.data);
       setEventData(response.data.data);
       setLoading(false);
@@ -51,8 +51,7 @@ const page = () => {
       }
     }
   };
-
-  const imageUrl = eventData?.EventCarouselImages[0].image_path;
+  const imageUrl = eventData?.TourImages[0].image_path;
 
   return (
     <div className="h-2/5 w-full md:px-16 md:py-6">
@@ -76,23 +75,15 @@ const page = () => {
         <div className=" h-full row-span-1  md:p-0 p-4">
           <div className="flex flex-col  ">
             <h1 className="md:text-3xl text-lg font-bold text-blue-900 ">
-              {eventData?.EventName}
+              {eventData?.TourName}
             </h1>
-            <div className="flex gap-1 md:mt-6 mt-4 md:text-base">
-              <span className=" border-r-2 border-gray-400 pr-2">
-                {eventData?.categoryName}
-              </span>
-              {eventData?.Language.map((lang) => (
-                <span className="border-r-2 border-gray-400 pr-2">{lang}</span>
-              ))}
-              <span>{eventData?.BestSuitedFor}</span>
-            </div>
-            <div className="flex flex-col md:mt-6 mt-4">
+
+            <div className="flex flex-col md:mt-8 mt-4">
               <div className="flex items-center justify-start gap-2">
                 <span>
                   <FaRegCalendarAlt />
                 </span>
-                <span>{eventData?.EventStartDate}</span>
+                <span>{eventData?.EventTourStartDate} Onwards</span>
               </div>
             </div>
             <div className="flex flex-col mt-4">
@@ -100,20 +91,14 @@ const page = () => {
                 <span>
                   <FiMapPin />
                 </span>
-                <span>{eventData?.EventStartTime}</span>
+                <span>Multiple venue</span>
               </div>
             </div>
-            {eventData?.TicketPriceStartsFrom && (
+            {eventData?.EventTourlowestPrice && (
               <p className="mt-6 font-bold text-xl ">
-                &#8377; {eventData?.TicketPriceStartsFrom} Onwards
+                &#8377; {eventData?.EventTourlowestPrice}
               </p>
             )}
-            <button
-              className="w-[150px] mt-4 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
-              onClick={() => router.push(`/events/tickets/${id}`)}
-            >
-              Book now
-            </button>
           </div>
         </div>
 
@@ -122,7 +107,7 @@ const page = () => {
             <h1 className="md:text-2xl font-bold  text-lg">About</h1>
             <div
               className="md:mt-4 mt-2 text-sm"
-              dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
+              dangerouslySetInnerHTML={{ __html: eventData?.TourDescription }}
             ></div>
           </div>
         </div>
@@ -130,10 +115,10 @@ const page = () => {
         <div className="h-full w-full ">
           <div className="border-t-2 py-4  h-full border-gray-400 w-full  overflow-hidden ">
             <Slider {...settings}>
-              {eventData?.EventCarouselImages.map((img) => {
+              {eventData?.TourImages.map((img) => {
                 return (
                   <div
-                    key={img.id}
+                    key={img._id}
                     className="w-max-96 h-52 relative cursor-pointer overflow-hidden  p-2"
                   >
                     <div className="w-full h-full relative">
@@ -171,37 +156,16 @@ const page = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className=" h-full border border-gray-400">gallery</div>
-        <div className=" h-full border border-gray-400">map</div>
-
-        <div className="col-span-2 h-full md:p-0 p-4">
-          <div className="flex  gap-6">
-            {eventData?.EventArtists.map((artist, index) => (
-              <Card
-                key={index}
-                className="md:h-60 h-56 w-52 relative  overflow-hidden"
-              >
-                <div className="h-full relative">
-                  <Image
-                    src={`${URL}/${artist?.ArtistImage}`}
-                    alt="profile-picture"
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="top"
-                    className="rounded"
-                  />
-                </div>
-                {/* Ensure text is visible and positioned within the card */}
-                <div className="absolute inset-x-2 bottom-2 ">
-                  <p className="text-white text-sm md:text-base text-center">
-                    {artist?.ArtistName}
-                  </p>
-                </div>
-              </Card>
-            ))}
+      <div className=" w-full flex h-96 mt-10">
+        {eventData?.TourEvents.map((event) => (
+          <div key={event._id} className="px-2 mt-6 w-80">
+            <Link href={`/events/${event.event_id}`}>
+              <PageCardWithText event={event} />
+            </Link>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
