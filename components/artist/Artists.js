@@ -8,6 +8,8 @@ import Link from "next/link";
 import ShimmerCard from "../card/ShimmerCard";
 import axios from "axios";
 import { artists } from "@/utils/config";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Loading from "../common/loading/Loading";
 
 const Artists = () => {
   const [allArtists, setAllArtists] = useState([]);
@@ -30,8 +32,10 @@ const Artists = () => {
 
   const cardsData = allArtists?.slice(0, 8);
 
+  if (loading) return <Loading />;
+
   return (
-    <div className=" md:py-6 mb-10 sm:px-8 px-1 md:mb-0 overflow-hidden ">
+    <div className=" md:mb-14   mb-8 sm:px-8 px-1 overflow-hidden md:px-14 ">
       <CardHeaders
         mobileHeader="Browse by Artists"
         desktopHeader="Browse events by artists"
@@ -39,23 +43,43 @@ const Artists = () => {
         desktopText="Discover more artists"
         url="/artists"
       />
-      {/* <div className="grid md:grid-cols-5 sm:grid-cols-2 gap-6 w-full mt-8 "> */}
-      <Slider {...settings}>
-        {loading
-          ? initialLength.map((_, index) => (
-              <div key={index} className=" mt-8">
-                <ShimmerCard />
-              </div>
-            ))
-          : cardsData?.map((data) => (
-              <div key={data.id} className="px-2 mt-6 ">
+      <div className="px-2">
+        <Swiper
+          spaceBetween={6}
+          slidesPerView={5}
+          // onSlideChange={() => console.log("slide change")}
+          // onSwiper={(swiper) => console.log(swiper)}
+          // className="mt-3 "
+          breakpoints={{
+            320: {
+              slidesPerView: 1.5,
+              spaceBetween: 16,
+            },
+            425: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 3.5,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 4.5,
+              spaceBetween: 10,
+            },
+          }}
+        >
+          {cardsData?.map((data) => (
+            <SwiperSlide key={data.id}>
+              <div key={data.id} className="md:mt-6 mt-4 ">
                 <Link href={`/artists/${data._id}`}>
                   <Cards data={data} />
                 </Link>
               </div>
-            ))}
-      </Slider>
-      {/* </div> */}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };

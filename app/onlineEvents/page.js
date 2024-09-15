@@ -23,9 +23,13 @@ const Page = () => {
   // const { id } = useParams();
   const [filterOpenModal, setFilterOpenModal] = useState(false);
   const [error, setError] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
 
   useEffect(() => {
     fetchOnlineEvents();
+    const handleResize = () => setIsMobile(window.innerWidth < 650);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const fetchOnlineEvents = async () => {
@@ -233,153 +237,83 @@ const Page = () => {
     }
   };
   return (
-    <>
+    <div className="mt-6">
       <Toaster />
-      <h1 className="text-2xl mb-6 md:px-12 block px-8 md:hidden mt-4">
+      {/* <h1 className="text-2xl mb-6 md:px-12 block px-8 md:hidden mt-4">
         Events:
-      </h1>
-      <div className="grid grid-cols-2 md:hidden mb-6 items-center justify-center ">
-        <div className="text-center flex items-center justify-center gap-2 py-2  border border-gray-300  ">
-          <button className="">
-            <TbFilter size={18} color="gray" />
-          </button>
-          <span className="text-center">Filter</span>
-        </div>
-        <div className="text-center flex items-center justify-center gap-2  py-2   border border-gray-300">
-          <button>
-            <FaMapMarkerAlt size={18} color="gray" />
-          </button>
-          <span className="text-center">Venues</span>
-        </div>
-      </div>
-      <div className="h-full w-full md:px-12 px-6 mt-4">
-        <div className="w-full h-full grid gap-6 md:grid-cols-[300px_minmax(400px,_1fr)] ">
-          <div className=" w-2/3 h-full hidden md:block">
-            <Filter
-              setFilterOpenModal={setFilterOpenModal}
-              handleDateSelection={handleDateSelection}
-              handleLanguageSelection={handleLanguageSelection}
-              handleCategory={handleCategory}
-              handleGenre={handleGenre}
-              isManual={isManual}
-              setIsManual={setIsManual}
-              fetchEvents={fetchOnlineEvents}
-            />
+      </h1> */}
+      {!filterOpenModal && isMobile && (
+        <div className="grid grid-cols-2 md:hidden mb-6 items-center justify-center ">
+          <div
+            className="text-center flex items-center justify-center gap-2 py-2  border border-gray-300  "
+            onClick={() => setFilterOpenModal(true)}
+          >
+            <button className="">
+              <TbFilter size={18} color="gray" />
+            </button>
+            <span className="text-center">Filter</span>
           </div>
+          <div className="text-center flex items-center justify-center gap-2  py-2   border border-gray-300">
+            <button>
+              <FaMapMarkerAlt size={18} color="gray" />
+            </button>
+            <span className="text-center">Venues</span>
+          </div>
+        </div>
+      )}
+
+      <div className="h-full w-full md:px-12 px-4 mt-6">
+        <div className="w-full h-full grid gap-6 md:grid-cols-[300px_minmax(400px,_1fr)] ">
+          {!isMobile && (
+            <div className=" w-2/3 h-full hidden md:block">
+              <Filter
+                setFilterOpenModal={setFilterOpenModal}
+                handleDateSelection={handleDateSelection}
+                handleLanguageSelection={handleLanguageSelection}
+                handleCategory={handleCategory}
+                handleGenre={handleGenre}
+                isManual={isManual}
+                setIsManual={setIsManual}
+                fetchEvents={fetchOnlineEvents}
+                filterOpenModal={filterOpenModal}
+              />
+            </div>
+          )}
+
           <div className=" w-full md:h-80  md:block">
+            {!filterOpenModal && (
+              <h1 className="md:text-3xl">Online Events:</h1>
+            )}
             {error ? (
               <NotFound />
             ) : (
-              <div className="grid lg:grid-cols-3 mt-4 grid-cols-2 lg:gap-4 md:gap-6 gap-6">
-                {allOnlineEvents?.map((event) => {
-                  return <PageCardWithText event={event} />;
-                })}
-              </div>
+              <>
+                {!filterOpenModal && (
+                  <div className="grid lg:grid-cols-3 mt-8 grid-cols-2 lg:gap-4 md:gap-6 gap-4">
+                    {allOnlineEvents?.map((event) => {
+                      return <PageCardWithText event={event} />;
+                    })}
+                  </div>
+                )}
+                {filterOpenModal && (
+                  <Filter
+                    handleDateSelection={handleDateSelection}
+                    handleLanguageSelection={handleLanguageSelection}
+                    handleCategory={handleCategory}
+                    handleGenre={handleGenre}
+                    isManual={isManual}
+                    setIsManual={setIsManual}
+                    fetchEvents={fetchOnlineEvents}
+                    setFilterOpenModal={setFilterOpenModal}
+                    filterOpenModal={filterOpenModal}
+                  />
+                )}
+              </>
             )}
           </div>
         </div>
       </div>
-    </>
-
-    // <>
-    //   <h1 className="text-2xl mb-6 md:px-12 block px-8 md:hidden mt-4">
-    //     Events:
-    //   </h1>
-    //   <div className="grid grid-cols-2 md:hidden mb-6 items-center justify-center ">
-    //     <div className="text-center flex items-center justify-center gap-2 py-2  border border-gray-300  ">
-    //       <button className="">
-    //         <TbFilter size={18} color="gray" />
-    //       </button>
-    //       <span className="text-center">Filter</span>
-    //     </div>
-    //     <div className="text-center flex items-center justify-center gap-2  py-2   border border-gray-300">
-    //       <button>
-    //         <FaMapMarkerAlt size={18} color="gray" />
-    //       </button>
-    //       <span className="text-center">Venues</span>
-    //     </div>
-    //   </div>
-    //   <div className="h-full w-full md:px-12 px-6 mt-4">
-    //     <div className="w-full h-full grid gap-6 md:grid-cols-[300px_minmax(400px,_1fr)] ">
-    //       <div className=" w-2/3 h-full hidden md:block">
-    //         <Filter
-    //         // setFilterOpenModal={setFilterOpenModal}
-    //         // handleDateSelection={handleDateSelection}
-    //         // handleLanguageSelection={handleLanguageSelection}
-    //         // handleCategory={handleCategory}
-    //         // handleGenre={handleGenre}
-    //         // isManual={isManual}
-    //         // setIsManual={setIsManual}
-    //         />
-    //       </div>
-    //       <div className=" w-full md:h-80  md:block">
-    //         <div className="grid lg:grid-cols-3 mt-4 grid-cols-2 lg:gap-4 md:gap-6 gap-6">
-    //           {allOnlineEvents?.map((event) => {
-    //             const imageUrl = `${URL}/${event.EventCardImages[0].image_path}`;
-
-    //             return (
-    //               <div className="md:mb-4">
-    //                 <Card className=" md:h-60 h-40 relative cursor-pointer overflow-hidden ">
-    //                   <div className=" w-[100%] h-full relative  ">
-    //                     <Image
-    //                       src={imageUrl}
-    //                       alt="profile-picture"
-    //                       layout="fill"
-    //                       objectFit="cover"
-    //                       objectPosition="top"
-    //                       className="rounded"
-    //                     />
-    //                   </div>
-    //                   <div className="absolute bottom-2 right-2">
-    //                     {/* <p
-    //                  className={`${
-    //                    data.fastSelling
-    //                      ? "text-xs text-black bg-white rounded-md p-2"
-    //                      : ""
-    //                  }`}
-    //                >
-    //                  {data.fastSelling ? "Fast selling " : ""}
-    //                </p> */}
-    //                   </div>
-    //                 </Card>
-    //                 <div className="">
-    //                   <div className="flex items-center justify-start md:h-20 h-14 lg:mb-0">
-    //                     <p className="capitalize text-xs md:text-base">
-    //                       {event.EventName}
-    //                     </p>
-    //                   </div>
-    //                   <div className="flex flex-col gap-2">
-    //                     <div className="flex gap-2 items-center justify-start">
-    //                       <span>
-    //                         <CalendarIcon className="size-4" />
-    //                       </span>
-    //                       <span className="text-xs  text-center capitalize">
-    //                         {event.EventStartDate}
-    //                       </span>
-    //                     </div>
-    //                     <div className="flex gap-2 items-center justify-start">
-    //                       <span>
-    //                         <MapPinIcon className="size-4" />
-    //                       </span>
-    //                       <span className="text-xs text-left md:text-center capitalize">
-    //                         {event.VenueName}
-    //                       </span>
-    //                     </div>
-    //                   </div>
-    //                   <div className="mt-4">
-    //                     {/* <span className="text-lg md:text-base">
-    //                  &#8377; {data.price} Onwards
-    //                </span> */}
-    //                   </div>
-    //                 </div>
-    //               </div>
-    //             );
-    //           })}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </>
+    </div>
   );
 };
 

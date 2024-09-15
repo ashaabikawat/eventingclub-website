@@ -2,7 +2,7 @@
 
 import Filter from "@/components/filter/Filter";
 import { categories } from "@/utils/config";
-import { dateFilter, URL } from "@/utils/constants";
+import { dateFilter } from "@/utils/constants";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { Card } from "@material-tailwind/react";
 import axios from "axios";
@@ -15,40 +15,31 @@ import toast, { Toaster } from "react-hot-toast";
 import PageCardWithText from "@/components/card/PageCardWithText";
 import NotFound from "@/components/not found/NotFound";
 
-const page = () => {
+const Page = () => {
   const [events, setEvents] = useState([]);
   const [isManual, setIsManual] = useState(false);
   const { id } = useParams();
   const [filterOpenModal, setFilterOpenModal] = useState(false);
   const [error, setError] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
 
   useEffect(() => {
     fetchEvents();
+    const handleResize = () => setIsMobile(window.innerWidth < 650);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const fetchEvents = async () => {
-    const payload = {
-      category_id: id,
-    };
+    const payload = { category_id: id };
     setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
-      // console.log(response.data.data);
       setEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          // console.log(error.response);
+        if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
           toast.error(data.message);
         }
@@ -57,32 +48,14 @@ const page = () => {
   };
 
   const handleLanguageSelection = async (value) => {
-    // console.log(value);
-    const payload = {
-      category_id: id,
-      LanguageName: value,
-    };
-
+    const payload = { category_id: id, LanguageName: value };
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
-      if (response.data.data.length >= 1) {
-        setError(false);
-      }
+      const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          // console.log(error.response);
+        if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
           toast.error(data.message);
         }
@@ -91,109 +64,49 @@ const page = () => {
   };
 
   const handleGenre = async (value) => {
-    // console.log(value);
-    const payload = {
-      category_id: id,
-      Genre_id: value,
-    };
-    // console.log(payload);
-
+    const payload = { category_id: id, Genre_id: value };
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
-      if (response.data.data.length >= 1) {
-        setError(false);
-      }
+      const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
+      setFilterOpenModal(false);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          // console.log(error.response);
+        if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
           toast.error(data.message);
         }
       }
     }
   };
-  console.log("error", error);
 
   const handleCategory = async (value) => {
-    // console.log(value);
-    const payload = {
-      category_id: value,
-    };
+    const payload = { category_id: value };
     try {
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
-      if (response.data.data.length >= 1) {
-        setError(false);
-      }
+      const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          // console.log(error.response);
-          toast.error(data.message);
+        if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
+          toast.error(data.message);
         }
       }
     }
   };
 
   const handleDateSelection = (option) => {
-    // setIsManual(option === "Manual");
-    // setIsOpen(false);
-    // console.log({ option });
-    // if (option === "Reset") {
-    //   handleReset();
-    // }
-    // console.log(value);
     if (option !== "Manual" && option !== "Reset") {
-      const currentDate = new Date();
-      let TodayStartDateTimeStr, TodayEndDatetimeStr;
-      switch (option) {
-        case "Today":
-          ({ TodayStartDateTimeStr, TodayEndDatetimeStr } =
-            dateFilter("Today"));
-          break;
-        case "Tomorrow":
-          ({ TodayStartDateTimeStr, TodayEndDatetimeStr } =
-            dateFilter("Tomorrow"));
-          break;
-        case "This weekend":
-          ({ TodayStartDateTimeStr, TodayEndDatetimeStr } =
-            dateFilter("This weekend"));
-          break;
-
-        default:
-          TodayStartDateTimeStr = null;
-          TodayEndDatetimeStr = null;
+      const { TodayStartDateTimeStr, TodayEndDatetimeStr } =
+        dateFilter(option) || {};
+      if (TodayStartDateTimeStr && TodayEndDatetimeStr) {
+        DateFilterApiCall(TodayStartDateTimeStr, TodayEndDatetimeStr);
       }
-      DateFilterApiCall(TodayStartDateTimeStr, TodayEndDatetimeStr);
-      // console.log(TodayStartDateTimeStr, TodayEndDatetimeStr);
     }
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    // console.log(startDate, endDate);
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"
@@ -201,91 +114,96 @@ const page = () => {
       toast.error("Please select date range");
       return;
     }
-
     try {
-      const payload = {
-        category_id: id,
-        startDate: startDate,
-        endDate: endDate,
-      };
-
-      // console.log({ payload });
-
-      const response = await axios.post(`${categories.GET_BY_ID}`, payload);
-      if (response.data.data.length >= 1) {
-        setError(false);
-      }
+      const payload = { category_id: id, startDate, endDate };
+      const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          // console.log(error.response);
-          toast.error(data.message);
+        if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
+          toast.error(data.message);
         }
       }
     }
   };
 
   return (
-    <>
+    <div className="mt-6  ">
       <Toaster />
-      <h1 className="text-2xl mb-6 md:px-12 block px-8 md:hidden mt-4">
-        Events:
-      </h1>
-      <div className="grid grid-cols-2 md:hidden mb-6 items-center justify-center ">
-        <div className="text-center flex items-center justify-center gap-2 py-2  border border-gray-300  ">
-          <button className="">
-            <TbFilter size={18} color="gray" />
-          </button>
-          <span className="text-center">Filter</span>
-        </div>
-        <div className="text-center flex items-center justify-center gap-2  py-2   border border-gray-300">
-          <button>
-            <FaMapMarkerAlt size={18} color="gray" />
-          </button>
-          <span className="text-center">Venues</span>
-        </div>
-      </div>
-      <div className="h-full w-full md:px-12 px-6 mt-4">
-        <div className="w-full h-full grid gap-6 md:grid-cols-[300px_minmax(400px,_1fr)] ">
-          <div className=" w-2/3 h-full hidden md:block">
-            <Filter
-              setFilterOpenModal={setFilterOpenModal}
-              handleDateSelection={handleDateSelection}
-              handleLanguageSelection={handleLanguageSelection}
-              handleCategory={handleCategory}
-              handleGenre={handleGenre}
-              isManual={isManual}
-              setIsManual={setIsManual}
-              fetchEvents={fetchEvents}
-            />
+      {/* <h1 className="text-2xl mb-6 md:px-12  px-4 hidden mt-4">Events:</h1> */}
+      {!filterOpenModal && isMobile && (
+        <div className="grid grid-cols-2 md:hidden mb-6 items-center justify-center">
+          <div
+            className="text-center flex items-center justify-center gap-2 py-2 border border-gray-300"
+            onClick={() => setFilterOpenModal(true)}
+          >
+            <button>
+              <TbFilter size={18} color="gray" />
+            </button>
+            <span className="text-center">Filter</span>
           </div>
-          <div className=" w-full md:h-80  md:block">
+          <div className="text-center flex items-center justify-center gap-2 py-2 border border-gray-300">
+            <button>
+              <FaMapMarkerAlt size={18} color="gray" />
+            </button>
+            <span className="text-center">Venues</span>
+          </div>
+        </div>
+      )}
+      <div className="h-full w-full md:px-12 px-4 mt-6">
+        <div className="w-full h-full grid gap-6 md:grid-cols-[300px_minmax(400px,_1fr)]">
+          {!isMobile && (
+            <div className="w-2/3 h-full hidden md:block">
+              <Filter
+                handleDateSelection={handleDateSelection}
+                handleLanguageSelection={handleLanguageSelection}
+                handleCategory={handleCategory}
+                handleGenre={handleGenre}
+                isManual={isManual}
+                setIsManual={setIsManual}
+                fetchEvents={fetchEvents}
+                setFilterOpenModal={setFilterOpenModal}
+                filterOpenModal={filterOpenModal}
+              />
+            </div>
+          )}
+          <div className="w-full md:h-80 md:block">
+            {!filterOpenModal && (
+              <h1 className="md:text-3xl">Category Events:</h1>
+            )}
             {error ? (
               <NotFound />
             ) : (
-              <div className="grid lg:grid-cols-3 mt-4 grid-cols-2 lg:gap-4 md:gap-6 gap-6">
-                {events?.map((event) => {
-                  return <PageCardWithText event={event} />;
-                })}
-              </div>
+              <>
+                {!filterOpenModal && (
+                  <div className="grid lg:grid-cols-3 mt-8 grid-cols-2 lg:gap-4 md:gap-6 gap-6">
+                    {events?.map((event) => (
+                      <PageCardWithText key={event.id} event={event} />
+                    ))}
+                  </div>
+                )}
+                {filterOpenModal && (
+                  <Filter
+                    handleDateSelection={handleDateSelection}
+                    handleLanguageSelection={handleLanguageSelection}
+                    handleCategory={handleCategory}
+                    handleGenre={handleGenre}
+                    isManual={isManual}
+                    setIsManual={setIsManual}
+                    fetchEvents={fetchEvents}
+                    setFilterOpenModal={setFilterOpenModal}
+                    filterOpenModal={filterOpenModal}
+                  />
+                )}
+              </>
             )}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default page;
+export default Page;

@@ -7,7 +7,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-const page = () => {
+const Page = () => {
   const [category, setCategory] = useState([]);
   const [categoriesDuplicate, setCategoriesDuplicate] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -64,7 +64,7 @@ const page = () => {
             status === 401 ||
             status === 400
           ) {
-            console.log(error.response);
+            // console.log(error.response);
             toast.error(data.message);
           }
         }
@@ -78,10 +78,10 @@ const page = () => {
   }, [debounced]);
 
   return (
-    <div className="px-10 py-10 md:p-14">
+    <div className=" px-4 py-6 md:py-4 md:px-14">
       <Toaster />
-      <div className="flex flex-col md:flex-row justify-between  gap-4">
-        <h1 className=" font-bold md:text-2xl ">
+      <div className="flex flex-col md:flex-row md:justify-between  md:items-center gap-4">
+        <h1 className=" font-bold md:text-base lg:text-lg ">
           Explore Events By Categories
         </h1>
         <div className="md:w-96">
@@ -95,14 +95,14 @@ const page = () => {
             <input
               type="text"
               className="placeholder:text-slate-400 border w-full placeholder:text-sm md:placeholder:text-base border-slate-300 rounded-md py-3 pl-10 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50 "
-              placeholder="Search for Events, Venues"
+              placeholder="Search for Categories"
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
             />
           </label>
         </div>
       </div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-8  cursor-pointer">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-6  cursor-pointer">
         {categoriesDuplicate.map((data) => (
           <Link key={data.id} href={`/categories/${data._id}`}>
             <PageCard key={data.id} data={data} />
@@ -113,4 +113,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

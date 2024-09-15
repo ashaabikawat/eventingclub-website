@@ -8,6 +8,7 @@ import axios from "axios";
 import { onlineEvents } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const OnlineEvents = () => {
   const [allOnlineEvents, setAllOnlineEvents] = useState([]);
@@ -37,17 +38,22 @@ const OnlineEvents = () => {
           status === 400
         ) {
           // console.log(error.response);
-          // setError(true);
           toast.error(data.message);
         }
       }
     }
   };
 
-  // const cardsData = allOnlineEvents?.slice(0, 8);
+  const cardsData = allOnlineEvents?.slice(0, 8);
+
+  if (loading) return;
+
+  if (allOnlineEvents.length === 0 && !loading) {
+    return null;
+  }
 
   return (
-    <div className="  md:py-6 mt-6 mb-10 sm:px-8 px-1 md:mb-0  overflow-hidden">
+    <div className="   mt-2  sm:px-8 px-1 overflow-hidden md:px-10">
       <CardHeaders
         mobileHeader="Online Events"
         desktopHeader="Online Events"
@@ -56,21 +62,43 @@ const OnlineEvents = () => {
         url="/onlineEvents"
       />
 
-      <Slider {...settings}>
-        {loading
-          ? initialLength.map((_, index) => (
-              <div key={index} className="mt-8">
-                <ShimmerCard />
-              </div>
-            ))
-          : allOnlineEvents?.map((data) => (
-              <div key={data.id} className="px-2 mt-6">
+      <div className="px-3">
+        <Swiper
+          spaceBetween={6}
+          slidesPerView={5}
+          breakpoints={{
+            320: {
+              slidesPerView: 1.5,
+              spaceBetween: 20,
+            },
+            425: {
+              slidesPerView: 2.5,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 3.5,
+              // spaceBetween: 0,
+            },
+            1024: {
+              slidesPerView: 4.5,
+              spaceBetween: 4,
+            },
+          }}
+          // onSlideChange={() => console.log("slide change")}
+          // onSwiper={(swiper) => console.log(swiper)}
+          // className="mt-3"
+        >
+          {cardsData?.map((data) => (
+            <SwiperSlide key={data.id}>
+              <div key={data.id} className="md:px-2 md:mt-6 mt-4  mb-14 ">
                 <Link href={`/events/${data.event_id}`}>
                   <CardWithText data={data} />
                 </Link>
               </div>
-            ))}
-      </Slider>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };

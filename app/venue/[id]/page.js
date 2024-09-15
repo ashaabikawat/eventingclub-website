@@ -93,7 +93,7 @@ const Page = () => {
           {/* {venueEventsdata.map((event) => (
             <PageCardWithText event={event} key={event.id} />
           ))} */}
-          <h1 className="text-bold mt-6 md:text-2xl capitalize font-bold ">
+          <h1 className="text-bold mt-10   md:text-3xl capitalize font-bold ">
             upcoming events at this venue:
           </h1>
           {venueEventsdata && venueEventsdata.length > 0 ? (

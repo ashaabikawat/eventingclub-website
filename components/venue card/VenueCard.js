@@ -6,9 +6,9 @@ export const VenueCard = ({ data }) => {
   const imageUrl = data?.Images?.[0]?.image_path;
 
   return (
-    <div className="border border-gray-400 h-full w-full cursor-pointer rounded  ">
+    <div className="border border-gray-400 h-full w-full cursor-pointer rounded-lg overflow-hidden ">
       <div>
-        <div className="relative h-96 w-full">
+        <div className="relative h-72 md:h-60  lg:h-96 w-full">
           <Image
             src={`${URL}/${imageUrl}`}
             alt="venue card"
@@ -18,8 +18,8 @@ export const VenueCard = ({ data }) => {
             objectPosition="top"
           />
         </div>
-        <div className="flex flex-col gap-4 justify-between  md:p-4  p-3">
-          <h2 className="text-blue-900 font-bold md:text-xl text-sm">
+        <div className="flex flex-col gap-2 justify-between  md:p-4  p-3">
+          <h2 className="text-blue-900 font-bold md:text-xl text-sm capitalize">
             {data.Name}
           </h2>
           <p className="text-sm">{data.Address}</p>

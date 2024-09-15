@@ -95,11 +95,11 @@ const page = () => {
   }, [debounced]);
 
   return (
-    <div className=" md:px-20 mt-10 md:mb-10  ">
+    <div className=" md:px-14 mt-10 md:mb-10  px-4">
       <Toaster />
       {/* <PageHeader text="Explore events by artists:" /> */}
-      <div className="flex flex-col md:flex-row justify-between  gap-4">
-        <h1 className=" font-bold md:text-2xl ">Explore Events By Artists</h1>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center  gap-4">
+        <h1 className=" font-bold md:text-lg ">Explore Events By Artists</h1>
         <div className="md:w-96">
           <label className="relative">
             <span className="sr-only">search</span>
@@ -111,14 +111,14 @@ const page = () => {
             <input
               type="text"
               className="placeholder:text-slate-400 border w-full placeholder:text-sm md:placeholder:text-base border-slate-300 rounded-md py-3 pl-10 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50 "
-              placeholder="Search for Events, Venues"
+              placeholder="Search for Artists"
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
             />
           </label>
         </div>
       </div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-y-14   gap-x-8  w-full mt-8 14 cursor-pointer">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 md:gap-y-14 gap-y-6  gap-x-4  w-full mt-8 14 cursor-pointer">
         {artistsDuplicate.map((data) => (
           <Link key={data.id} href={`/artists/${data._id}`}>
             <SingleArtistCard data={data} />

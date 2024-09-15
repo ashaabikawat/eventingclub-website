@@ -1,13 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
 import Cards from "../card/Cards";
 import CardHeaders from "../common/card headers/CardHeaders";
-import { initialLength, settings } from "@/utils/constants";
-import { categories, getCategories } from "@/utils/config";
-import ShimmerCard from "../card/ShimmerCard";
+import { categories } from "@/utils/config";
 import axios from "axios";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const Category = () => {
   const [category, setCategory] = useState([]);
@@ -23,15 +21,30 @@ const Category = () => {
       setCategory(response.data.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          // console.log(error.response);
+          toast.error(data.message);
+        }
+      }
     }
   };
 
   const cardsData = category.slice(0, 8);
-  const dummyCard = Array.from({ length: 2 });
+  if (loading) return;
 
   return (
-    <div className=" md:py-6 mt-6 mb-8 sm:px-8 px-1  overflow-hidden md:px-14">
+    <div className="md:py-6 mt-10 mb-8 sm:px-8 px-1 overflow-hidden md:px-10">
       <CardHeaders
         mobileHeader="Events by categories"
         desktopHeader="Browse events by categories"
@@ -39,21 +52,42 @@ const Category = () => {
         desktopText="Discover more category"
         url="/categories"
       />
-      <Slider {...settings} key={loading ? "loading" : "loaded"}>
-        {loading
-          ? dummyCard.map((_, index) => (
-              <div key={index} className="px-2 mt-6">
-                <ShimmerCard />
-              </div>
-            ))
-          : cardsData.map((data) => (
-              <div key={data.id} className="px-2 mt-6">
-                <Link href={`/categories/${data._id}`}>
-                  <Cards data={data} />
-                </Link>
-              </div>
-            ))}
-      </Slider>
+
+      <div className="px-2">
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={5}
+          breakpoints={{
+            320: {
+              slidesPerView: 2,
+              spaceBetween: 16,
+            },
+            425: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 20,
+            },
+          }}
+          // onSlideChange={() => console.log("slide change")}
+          // onSwiper={(swiper) => console.log(swiper)}
+          className="md:mt-6 mt-4 "
+        >
+          {cardsData?.map((data) => (
+            <SwiperSlide key={data.id}>
+              <Link href={`/categories/${data._id}`}>
+                <Cards data={data} />
+              </Link>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };

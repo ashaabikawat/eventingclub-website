@@ -51,7 +51,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative  w-full md:px-10 sm:px-8 ">
+    <div className="relative  w-full md:px-6 sm:px-8 ">
       <div className="max-w-8xl md:mx-9 mx-4">
         <div className="flex justify-between items-center py-4 md:space-x-10">
           <div className="flex gap-20 justify-between items-center">

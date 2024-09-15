@@ -9,6 +9,7 @@ import { getAllUpcomingEvents, upcomingEvents } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const UpcomingEvents = () => {
   const [allUpcomingEvents, setAllUpcomingEvents] = useState([]);
@@ -103,14 +104,20 @@ const UpcomingEvents = () => {
 
   const cardsData = allUpcomingEvents.slice(0, 8);
 
+  if (loading) return;
+
+  if (allUpcomingEvents.length === 0 && !loading) {
+    return null;
+  }
+
   return (
-    <div className=" md:py-6 mt-6  sm:px-8 px-1 md:mb-0  overflow-hidden">
+    <div className="  mt-6  mb-4 sm:px-8 px-1 overflow-hidden md:px-14">
       <Toaster />
       <div className="flex md:mt-0  md:flex-row flex-col justify-between px-4">
         <h1 className="capitalize text-base md:text-2xl font-bold">
           Upcoming Events
         </h1>
-        <div className="flex md:gap-12 gap-6 md:mt-0 mt-4 md:text-lg  sm:text-sm text-xs font-bold ">
+        <div className="flex lg:gap-12 gap-6 md:mt-0 mt-4 lg:text-lg  md:text-sm text-xs font-bold ">
           <span className="cursor-pointer" onClick={() => filterEvents("All")}>
             All
           </span>
@@ -131,21 +138,47 @@ const UpcomingEvents = () => {
           </span>
         </div>
       </div>
-      <Slider {...settings}>
-        {loading
-          ? initialLength.map((_, index) => (
-              <div key={index} className="mt-8">
-                <ShimmerCard />
-              </div>
-            ))
-          : cardsData.map((data) => (
-              <div key={data.id} className=" px-2 mt-6  h-96">
+
+      <div className="px-2">
+        <Swiper
+          spaceBetween={6}
+          slidesPerView={5}
+          breakpoints={{
+            320: {
+              slidesPerView: 1.5,
+              spaceBetween: 16,
+            },
+            425: {
+              slidesPerView: 2.5,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 3.5,
+              // spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 4.5,
+              spaceBetween: 4,
+            },
+          }}
+          // onSlideChange={() => console.log("slide change")}
+          // onSwiper={(swiper) => console.log(swiper)}
+          // className="mt-3 "
+        >
+          {cardsData.map((data) => (
+            <SwiperSlide key={data.id}>
+              <div
+                key={data.id}
+                className=" md:px-2 mt-6 md:h-[330px] lg:h-[400px]"
+              >
                 <Link href={`/events/${data.event_id}`}>
                   <CardWithText data={data} />
                 </Link>
               </div>
-            ))}
-      </Slider>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };
