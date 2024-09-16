@@ -274,8 +274,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                 </p>
 
                 {isMobile ? (
-                  <Swiper spaceBetween={20} slidesPerView={3} className="mt-3 ">
-                    <SwiperSlide>
+                  <Swiper spaceBetween={2} slidesPerView={2} className="mt-3 ">
+                    <SwiperSlide className="p-0">
                       {data?.DateTimeDate.length > 1 && (
                         <div
                           onClick={() => handleSeasonPass()}
@@ -377,10 +377,15 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
               <div>
                 <h1 className="md:text-2xl   font-bold">Choose ticket</h1>
                 {ticketData?.map((ticket) => {
-                  const counts = count[ticketData.Ticket_Id] || 0;
-                  console.log(counts);
+                  const counts = count[ticket.Ticket_Id] || 0;
+                  {
+                    /* console.log(counts); */
+                  }
                   return (
-                    <div className=" md:h-auto  rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300">
+                    <div
+                      className=" md:h-auto  rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
+                      key={ticket.Ticket_Id}
+                    >
                       <div className="flex items-center justify-between px-4 py-4">
                         <div className="flex flex-col gap-2">
                           <p className="md:text-xl capitalize">

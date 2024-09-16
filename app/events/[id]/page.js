@@ -55,8 +55,8 @@ const Page = () => {
   return (
     <div className="   mb-16">
       <div className="md:px-6 md:py-1">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6  md:p-4 ">
-          <div className=" md:col-span-2 md:min-h-[600px] relative md:row-span-2 max-h-[300px] ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:p-4 ">
+          <div className=" md:col-span-2 md:min-h-[400px] relative md:row-span-2 max-h-[300px] ">
             {loadings ? (
               "Loading ..."
             ) : imageUrl ? (
@@ -124,13 +124,14 @@ const Page = () => {
           </div>
 
           {/* carousel images */}
-          <div className=" hidden md:block md:col-span-2 min-h-[200px]  border-t-2  border-gray-500">
-            <div className=" min-h-[200px] md:w-[90%] mx-auto">
+
+          <div className=" mt-4 md:col-span-2 md:min-h-[200px]   ">
+            <div className=" hidden md:block min-h-[200px] md:w-[90%] mx-auto border-t-2   border-gray-500">
               <Swiper
                 spaceBetween={2}
                 slidesPerView={3}
-                onSlideChange={() => console.log("slide change")}
-                onSwiper={(swiper) => console.log(swiper)}
+                // onSlideChange={() => console.log("slide change")}
+                // onSwiper={(swiper) => console.log(swiper)}
                 className="mt-3"
               >
                 {eventData?.EventCarouselImages.map((img) => {
@@ -160,11 +161,30 @@ const Page = () => {
                 })}
               </Swiper>
             </div>
+            {/* share */}
+            <div className=" min-h-[20px] md:col-span-2 mt-6 rounded-lg col-span-1 px-4 order-2 md:order-3 ">
+              <div className="    py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
+                <p className="md:text-xl font-bold tracking-wide">
+                  Share this event
+                </p>
+                <div className="flex gap-3 mt-2">
+                  <span>
+                    <FaFacebookF />
+                  </span>
+                  <span>
+                    <FaTwitter />
+                  </span>
+                  <span>
+                    <IoLogoWhatsapp />
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* about */}
-          <div className=" md:min-h-[400px] md:col-span-1  md:row-span-2 md:-mt-[250px] order-3 md:order-2  px-4">
-            <div className="  md:h-[550px] border border-gray-500 rounded-lg px-4 py-6 ">
+          <div className=" md:col-span-1 order-3 md:order-2 lg:-mt-32  px-4">
+            <div className=" md:min-h-[300px] lg:h-[550px] border border-gray-500 rounded-lg px-4 py-6 ">
               <h1 className="md:text-2xl font-bold">About</h1>
               <div
                 className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
@@ -181,31 +201,11 @@ const Page = () => {
             </div>
           </div>
 
-          {/* share */}
-          <div className=" min-h-[20px] md:col-span-2  rounded-lg col-span-1 px-4 order-2 md:order-3 ">
-            <div className="    py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
-              <p className="md:text-xl font-bold tracking-wide">
-                Share this event
-              </p>
-              <div className="flex gap-3 mt-2">
-                <span>
-                  <FaFacebookF />
-                </span>
-                <span>
-                  <FaTwitter />
-                </span>
-                <span>
-                  <IoLogoWhatsapp />
-                </span>
-              </div>
-            </div>
-          </div>
-
           {/* gallery */}
           <div className="min-h-[200px] md:col-span-2  px-4 order-5 md:order-4">
             <div className="border border-gray-500 rounded-lg">
               <h1 className="md:text-xl mt-4 px-4 font-bold">Gallery</h1>
-              <div className=" min-h-[300px] md:w-[90%] mx-auto mb-4">
+              <div className=" h-auto md:w-[90%] mx-auto mb-4">
                 <Swiper
                   slidesPerView={1}
                   onSlideChange={() => console.log("slide change")}
@@ -222,7 +222,7 @@ const Page = () => {
                       >
                         <div
                           key={img.id}
-                          className="md:w-full w-[90%] mx-auto md:mx-0  h-80 relative cursor-pointer overflow-hidden "
+                          className="md:w-full w-[90%] mx-auto md:mx-0  md:h-80 h-56  relative cursor-pointer overflow-hidden "
                         >
                           <div className="w-full h-full relative">
                             <Image
@@ -244,8 +244,8 @@ const Page = () => {
           </div>
 
           {/* maps */}
-          <div className=" min-h-[100px]  px-4 order-4 md:order-5">
-            <div className="border border-gray-500 rounded-lg ">
+          <div className=" min-h-[100px]  order-4 md:order-5 px-4 ">
+            <div className="border border-gray-500 rounded-lg  ">
               <h1 className="md:text-xl px-4 mt-4 font-bold">
                 {eventData?.VenueCity !== "-"
                   ? eventData?.VenueCity
@@ -254,7 +254,7 @@ const Page = () => {
               <p className=" px-4 mt-2 capitalize mb-4">
                 {eventData?.VenueName}
               </p>
-              <div className=" md:min-h-[200px] min-h-[200px]   md:w-[90%] w-[90%] mx-auto mb-4 ">
+              <div className=" md:min-h-[200px] h-auto   md:w-[90%] w-[90%] mx-auto mb-4 ">
                 {eventData?.VenueMapLocationLink && (
                   <div className="">
                     <iframe

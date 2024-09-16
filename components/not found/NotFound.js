@@ -4,7 +4,7 @@ import React from "react";
 const NotFound = () => {
   return (
     <div className="flex flex-col items-center justify-center h-[600px] ">
-      <div className="relative h-[500px] w-[500px] ">
+      <div className="relative md:h-[500px] md:w-[500px] h-[200px] ">
         <Image
           src={"/9318694.jpg"}
           alt="Not found"

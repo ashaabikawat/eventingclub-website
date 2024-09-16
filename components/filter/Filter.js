@@ -109,8 +109,8 @@ const Filter = ({
     const enddate = `${moment(endDate)
       .endOf("day")
       .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
-    // console.log(startdate, enddate);
-    DateFilterApiCall(startdate, enddate);
+    console.log(startdate, enddate);
+    // DateFilterApiCall(startdate, enddate);
   };
 
   useEffect(() => {
@@ -188,7 +188,7 @@ const Filter = ({
                 ))}
               </div>
 
-              <div>
+              <div className="relative">
                 <label className="inline-flex items-center">
                   <input
                     type="checkbox"
@@ -202,15 +202,19 @@ const Filter = ({
                 </label>
               </div>
             </AccordionBody>
-            <div className="mb-6">
-              {isManual ? (
-                <div>
-                  <div className="flex gap-8 relative">
+            <div
+              className={`mb-6 bg-white absolute z-50  p-6 border border-white rounded-lg ${
+                isManual ? "" : "hidden"
+              }`}
+            >
+              {isManual && (
+                <div className="relative">
+                  <div className="flex gap-8 mb-4 items-center justify-around">
                     <span
                       onClick={() => handleDateRange("start")}
                       className={`${
                         range === "start" ? "text-blue-900 underline" : ""
-                      }`}
+                      } text-xl p-2`}
                     >
                       Start
                     </span>{" "}
@@ -218,7 +222,7 @@ const Filter = ({
                       onClick={() => handleDateRange("end")}
                       className={`${
                         range === "end" ? "text-blue-900 underline" : ""
-                      }`}
+                      } text-xl p-2 `}
                     >
                       End
                     </span>
@@ -226,14 +230,21 @@ const Filter = ({
                   <div
                     id="datepicker-start"
                     ref={startPickerRef}
-                    className="absolute  top-full left-0 mt-2"
+                    className="absolute top-full left-0 mt-2"
                   ></div>
-                  <div className="flex absolute gap-6">
-                    <button onClick={handleApply}>Apply</button>
-                    <button>Cancel</button>
+                  <div className="flex gap-6 mt-4 justify-around items-center">
+                    <button className="text-base border border-gray-400  px-4 py-2 rounded">
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleApply}
+                      className="text-white bg-blue-900  px-4 py-2 rounded"
+                    >
+                      Apply
+                    </button>
                   </div>
                 </div>
-              ) : null}
+              )}
             </div>
           </Accordion>
 
