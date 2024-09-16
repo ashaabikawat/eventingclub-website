@@ -49,6 +49,8 @@ export const genre = {
 export const events = {
   GET_ALL: `${URL}/webiste/events/getEventDetailsById`,
   GET_TICKETS_DATA: `${URL}/webiste/events/getEventDateTimeById`,
+  GET_TICKETS_BY_ID: `${URL}/webiste/eventtickets/getWebsiteTicketsbyEventDate`,
+  GET_SEASON_PASS: `${URL}/webiste/eventtickets/getWebsiteSeasonPass`,
 };
 
 export const eventTour = {

@@ -13,16 +13,7 @@ const Page = () => {
   const { id } = useParams();
   const [ticketDate, setTicketDate] = useState();
   const [showTicket, setShowTicket] = useState(false);
-  const [eventTicket, setEventTicket] = useState([]);
   const [quantitySelection, setQuantitySelection] = useState(false);
-  const [count, setCount] = useState({});
-  const [showCount, setShowCount] = useState({});
-  const [bookingData, setBookingData] = useState({
-    totalPrice: 0,
-    totalTickets: 0,
-    selectedTickets: [],
-  });
-  const [checkoutPage, setCheckOutPage] = useState(false);
 
   useEffect(() => {
     bookTicket();
@@ -32,10 +23,10 @@ const Page = () => {
     const payload = {
       event_id: id,
     };
-    console.log(payload);
+    // console.log(payload);
     try {
       const response = await axios.post(`${events.GET_TICKETS_DATA}`, payload);
-      console.log(response.data.data);
+      // console.log(response.data.data.DateTimeDate);
       setTicketDate(response.data.data);
     } catch (error) {
       if (error.response) {
@@ -58,76 +49,19 @@ const Page = () => {
     }
   };
   // console.log(ticketDate);
-  useEffect(() => {
-    // Update bookingData whenever counts change
-    setBookingData((prevBookingData) => ({
-      ...prevBookingData,
-      totalTickets: Object.values(count),
-      totalPrice: eventTicket.reduce(
-        (acc, ticket) => acc + (count[ticket._id] || 0) * ticket.Price,
-        0
-      ),
-    }));
-  }, [count]);
 
-  const handleIncrease = (ticketId) => {
-    console.log("increase");
-    //  setCounts({
-    //     [ticketId]: (counts[ticketId] || 0  ) + 1, // Set the count for the selected ticket
-    //   })
-    // const bookingObj = eventTicketsData.find(
-    //   (ticket) => ticket._id === ticketId
-    // );
-    // const bookingLimit = bookingObj.BookingMaxLimit;
-    // if (Object.values(counts) < bookingLimit) {
-    //   setCounts({
-    //     [ticketId]: (counts[ticketId] || 0) + 1, // Set the count for the selected ticket
-    //   });
-    //   setShowCount({
-    //     [ticketId]: true,
-    //   });
-    // } else {
-    //   // alert("Exceeding booking limit");
-    //   toast.error("Exceeding booking limit");
-    // }
-    // Ensure only the selected ticket shows the counter
-    // setBookingData({ ...bookingData, totalTickets: Object.values(counts) });
-    // console.log("handleincrement", counts);
-    // console.log("booikingdata", bookingData);
-  };
-
-  const handleDecrease = (ticketId) => {
-    console.log("decerease");
-    // console.log(ticketId);
-    // setCount((prevCounts) => {
-    //   const newCount = Math.max((prevCounts[ticketId] || 0) - 1, 0);
-    //   if (newCount === 0) {
-    //     setShowCount({});
-    //     return {};
-    //   }
-    //   // console.log("handledecrement", counts);
-    //   setBookingData({ ...bookingData, totalTickets: Object.values(counts) });
-    //   return { [ticketId]: newCount }; // Store only the current ticket's count
-    // });
-  };
-
-  const handleShowCount = (ticketId) => {
-    // setShowCount((prevShowCount) => ({
-    //   ...prevShowCount,
-    //   [ticketId]: true,
-    // }));
-  };
   return (
     <div>
-      {!checkoutPage ? (
-        <div>
-          <TicketsSlider
-            data={ticketDate}
-            setShowTicket={setShowTicket}
-            showTicket={showTicket}
-          />
+      <div>
+        <TicketsSlider
+          data={ticketDate}
+          setShowTicket={setShowTicket}
+          showTicket={showTicket}
+          quantitySelection={quantitySelection}
+          setQuantitySelection={setQuantitySelection}
+        />
 
-          <div className=" mt-2 md:px-14">
+        {/* <div className=" mt-2 md:px-14">
             {showTicket && (
               <div>
                 <h1 className="md:text-2xl font-bold">Choose ticket</h1>
@@ -165,11 +99,8 @@ const Page = () => {
                 </div>
               </div>
             )}
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+          </div> */}
+      </div>
     </div>
   );
 };

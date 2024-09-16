@@ -38,7 +38,7 @@ const OnlineEvents = () => {
           status === 400
         ) {
           // console.log(error.response);
-          toast.error(data.message);
+          // toast.error(data.message);
         }
       }
     }

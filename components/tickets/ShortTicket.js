@@ -1,6 +1,7 @@
 import React from "react";
 
 const ShortTicket = ({ data }) => {
+  // console.log(data);
   return (
     <div>
       <div

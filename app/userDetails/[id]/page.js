@@ -42,8 +42,6 @@ const Page = () => {
 
   const logout = () => {
     localStorage.removeItem("authToken");
-    dispath(setAuthDetails({ cust_id: null, customer_exists: null }));
-    dispath(setToken(null));
     router.push("/signup");
   };
 
