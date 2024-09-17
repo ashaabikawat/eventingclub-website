@@ -16,6 +16,7 @@ const authSlice = createSlice({
       state.customer_exists = customer_exists;
     },
     setToken: (state, action) => {
+      console.log(action.payload);
       state.token = action.payload;
       localStorage.setItem(
         "authToken",

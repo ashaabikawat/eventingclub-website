@@ -27,6 +27,7 @@ const page = () => {
   const userExists = useSelector((state) => state.auth.customer_exists);
   console.log(userExists);
   const token = useSelector((state) => state.auth.token);
+  console.log(token);
 
   const navigate = () => {
     setLoading(true);

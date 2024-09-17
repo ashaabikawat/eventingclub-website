@@ -41,7 +41,13 @@ const EditProfile = ({ id, data }) => {
       customer_id: id,
     };
 
-    if (formData.name) payload.CustomerName = formData.name;
+    if (formData.name && formData.name.length > 2) {
+      payload.CustomerName = formData.name;
+    } else {
+      toast.error("Name must be at least 3 characters long");
+      return;
+    }
+
     if (formData.email) payload.Email = formData.email;
     if (formData.state) payload.State = formData.state;
     if (formData.city) payload.City = formData.city;
@@ -55,7 +61,21 @@ const EditProfile = ({ id, data }) => {
       const response = await axios.post(updateCustomer, payload);
       toast.success(response.data.message);
     } catch (error) {
-      toast.error(error.message);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          toast.error(data.message);
+        }
+      }
     }
   };
 

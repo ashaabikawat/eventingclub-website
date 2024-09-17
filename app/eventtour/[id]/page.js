@@ -63,7 +63,7 @@ const Page = () => {
       <Toaster />
       <div className="md:px-10 md:py-1">
         <div className="grid md:grid-cols-3 grid-cols-1 gap-6  md:p-4 ">
-          <div className=" md:col-span-2 md:min-h-[600px] relative md:row-span-2  max-h-[300px] ">
+          <div className=" md:col-span-2 md:min-h-[500px] relative md:row-span-2  max-h-[300px] ">
             {loadings ? (
               "Loading ..."
             ) : imageUrl ? (

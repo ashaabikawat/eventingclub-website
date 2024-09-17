@@ -15,6 +15,7 @@ import Loading from "@/components/common/loading/Loading";
 
 const Page = () => {
   const { id } = useParams();
+  console.log(id);
   const [eventData, setEventData] = useState();
   const [loadings, setLoadings] = useState(true);
   const [showMore, setShowMore] = useState(false);
@@ -116,6 +117,7 @@ const Page = () => {
               )}
               <button
                 className="w-[150px] mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+                // onClick={() => console.log(`/events/tickets/${id}`)}
                 onClick={() => router.push(`/events/tickets/${id}`)}
               >
                 Book now
@@ -183,7 +185,7 @@ const Page = () => {
           </div>
 
           {/* about */}
-          <div className=" md:col-span-1 order-3 md:order-2 lg:-mt-32  px-4">
+          {/* <div className=" md:col-span-1 order-3 md:order-2 lg:-mt-32  px-4">
             <div className=" md:min-h-[300px] lg:h-[550px] border border-gray-500 rounded-lg px-4 py-6 ">
               <h1 className="md:text-2xl font-bold">About</h1>
               <div
@@ -199,7 +201,7 @@ const Page = () => {
                 {showMore ? "Show Less" : "Read More"}
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* gallery */}
           <div className="min-h-[200px] md:col-span-2  px-4 order-5 md:order-4">

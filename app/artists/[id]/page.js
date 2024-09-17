@@ -2,6 +2,7 @@
 
 import Cards from "@/components/card/Cards";
 import PageCardWithText from "@/components/card/PageCardWithText";
+import Loading from "@/components/common/loading/Loading";
 import useFetch from "@/hooks/useFetch";
 import { artists, getArtistById } from "@/utils/config";
 import { settings, URL } from "@/utils/constants";
@@ -12,6 +13,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import Slider from "react-slick";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const page = () => {
   const { id } = useParams();
@@ -60,7 +62,7 @@ const page = () => {
 
   return (
     <>
-      <div className="md:py-6 md:px-14 p-6 mt-9">
+      <div className="md:py-6 md:px-14 p-6 ">
         <div className="flex md:flex-row items-center gap-10 border-b-2 pb-6 border-gray-300 flex-col  ">
           <div className="h-64 w-64 relative">
             {loading ? (
@@ -83,45 +85,101 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="md:py-6 md:px-14 p-6 mt-2 ">
-        <h1 className="font-bold capitalize text-3xl ">Upcoming events:</h1>
+      <div className="md:py-6 md:px-14 px-6 py-4 ">
+        <h1 className="font-bold capitalize md:text-3xl text-xl ">
+          Upcoming events:
+        </h1>
         <div>
           {artistEvents && artistEvents.length > 0 ? (
-            <Slider {...settings}>
+            <Swiper
+              spaceBetween={6}
+              slidesPerView={5}
+              // onSlideChange={() => console.log("slide change")}
+              // onSwiper={(swiper) => console.log(swiper)}
+              // className="mt-3 "
+              breakpoints={{
+                320: {
+                  slidesPerView: 1.5,
+                  spaceBetween: 6,
+                },
+                425: {
+                  slidesPerView: 3,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3.5,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+              }}
+            >
               {artistEvents.map((event) => (
-                <div key={event._id} className="px-2 mt-6 w-full">
-                  <Link href={`/events/${event.event_id}`}>
-                    <PageCardWithText event={event} />
-                  </Link>
-                </div>
+                <SwiperSlide key={event.id}>
+                  <div key={event._id} className="px-2 mt-6 w-full">
+                    <Link href={`/events/${event.event_id}`}>
+                      <PageCardWithText event={event} />
+                    </Link>
+                  </div>
+                </SwiperSlide>
               ))}
-            </Slider>
+            </Swiper>
           ) : (
-            <p className="mt-4 ">No events available</p>
+            <Loading />
           )}
         </div>
       </div>
-      <div className="md:py-6 md:px-14 p-6 mt-2 ">
+      <div className="md:py-6 md:px-14 p-6 md:mt-2 ">
         <div className="flex justify-between">
-          <h1 className="font-bold capitalize text-3xl ">Other artists:</h1>
+          <h1 className="font-bold capitalize md:text-3xl text-xl ">
+            Other artists:
+          </h1>
           <Link href="/artists">
-            <p className="text-lg">View all</p>
+            <p className="md:text-lg text-base">View all</p>
           </Link>
         </div>
         <div className=" ">
-          <div className="flex mt-12">
-            {cardsData?.map((artist) => {
-              return (
-                <div
-                  key={artist._id}
-                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2"
-                >
-                  <Link href={`/artists/${artist._id}`}>
-                    <Cards data={artist} />
-                  </Link>
-                </div>
-              );
-            })}
+          <div className="flex md:mt-12 mt-6">
+            {" "}
+            <Swiper
+              spaceBetween={6}
+              slidesPerView={5}
+              // onSlideChange={() => console.log("slide change")}
+              // onSwiper={(swiper) => console.log(swiper)}
+              // className="mt-3 "
+              breakpoints={{
+                320: {
+                  slidesPerView: 1.5,
+                  spaceBetween: 6,
+                },
+                425: {
+                  slidesPerView: 3,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3.5,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  slidesPerView: 4.5,
+                  spaceBetween: 10,
+                },
+              }}
+            >
+              {cardsData?.map((artist) => {
+                return (
+                  <SwiperSlide key={artist.id}>
+                    <div key={artist._id} className="w-full px-2">
+                      <Link href={`/artists/${artist._id}`}>
+                        <Cards data={artist} />
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
         </div>
       </div>

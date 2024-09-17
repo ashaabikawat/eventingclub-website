@@ -12,7 +12,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
@@ -32,7 +32,21 @@ const Page = () => {
       setData(response.data.data);
       // toast.success(response.data.message)
     } catch (error) {
-      toast.error(response.data.message);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          toast.error(data.message);
+        }
+      }
     }
   };
 
@@ -47,6 +61,7 @@ const Page = () => {
 
   return (
     <>
+      <Toaster />
       <div className="mt-4 text-white w-full bg-gray-100">
         <div
           className="flex justify-between  
