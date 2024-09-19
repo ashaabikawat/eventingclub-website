@@ -57,3 +57,7 @@ export const eventTour = {
   GET_ALL: `${URL}/webiste/events/getLiveEventsTour`,
   GET_BY_ID: `${URL}/webiste/events/getLiveEventTourDetailsbyId`,
 };
+
+export const promocode = {
+  GET_ALL: `${URL}/webiste/promocodes/getPromocodesForEventsWebsite`,
+};

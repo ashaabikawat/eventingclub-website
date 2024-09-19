@@ -85,7 +85,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="md:py-6 md:px-14 px-6 py-4 ">
+      <div className="md:py-6  px-6 py-4 ">
         <h1 className="font-bold capitalize md:text-3xl text-xl ">
           Upcoming events:
         </h1>
@@ -100,15 +100,15 @@ const page = () => {
               breakpoints={{
                 320: {
                   slidesPerView: 1.5,
-                  spaceBetween: 6,
+                  spaceBetween: 4,
                 },
                 425: {
                   slidesPerView: 3,
-                  spaceBetween: 10,
+                  spaceBetween: 2,
                 },
                 768: {
                   slidesPerView: 3.5,
-                  spaceBetween: 20,
+                  spaceBetween: 5,
                 },
                 1024: {
                   slidesPerView: 4,
@@ -118,7 +118,7 @@ const page = () => {
             >
               {artistEvents.map((event) => (
                 <SwiperSlide key={event.id}>
-                  <div key={event._id} className="px-2 mt-6 w-full">
+                  <div key={event._id} className="  mt-6 ">
                     <Link href={`/events/${event.event_id}`}>
                       <PageCardWithText event={event} />
                     </Link>

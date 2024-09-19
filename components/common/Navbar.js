@@ -72,7 +72,7 @@ const Navbar = () => {
             )}
           </div>
           <div className="flex">
-            {token && (
+            {token !== null && (
               <div className="flex justify-center items-center">
                 <Link href={`/userDetails/${token.cust_id}`}>
                   {" "}

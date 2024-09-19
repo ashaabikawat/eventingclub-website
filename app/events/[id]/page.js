@@ -126,7 +126,6 @@ const Page = () => {
           </div>
 
           {/* carousel images */}
-
           <div className=" mt-4 md:col-span-2 md:min-h-[200px]   ">
             <div className=" hidden md:block min-h-[200px] md:w-[90%] mx-auto border-t-2   border-gray-500">
               <Swiper
