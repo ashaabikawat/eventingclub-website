@@ -1,31 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Promocode from "../common/promocode/Promocode";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { promocode } from "@/utils/config";
 import { useParams } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
+import {
+  handleIncrease,
+  handleDecrease,
+  setBookingDataObj,
+} from "../../store/slices/booking";
 
-const BookingSummary = ({ handleIncrease, handleDecrease }) => {
+const BookingSummary = () => {
   const [promocodes, setPromocodes] = useState([]);
   const { id } = useParams();
   const booking = useSelector((store) => store.booking);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [promoObject, setpromoObject] = useState();
-  // console.log("booking", booking);
+  const selectedTicket = useSelector((store) => store.booking.selectedTickets);
+  const totalTickets = useSelector((store) => store.booking.totalTickets);
+  const count = useSelector((store) => store.booking.count);
+  console.log("count", count);
 
-  const selectedTicket = booking?.selectedTickets?.[0];
-  // console.log(booking.totalTickets);
+  const dispatch = useDispatch();
+  const totalTicketsUi = totalTickets;
 
-  const totalTickets = booking?.totalTickets;
+  // console.log("totalTicketsUi", totalTicketsUi)
+  const ticket = selectedTicket[0];
+  // console.log("totalTickets", totalTickets);
 
   const getToken = localStorage.getItem("authToken");
   const cust_id = JSON.parse(getToken)?.cust_id;
 
-  console.log("promoObject", promoObject);
+  useEffect(() => {
+    dispatch(
+      setBookingDataObj({
+        selectedTickets: selectedTicket,
+        totalTickets: Object.values(count)[0],
+      })
+    );
+  }, [count]);
 
   useEffect(() => {
     fetchPromocodes();
@@ -36,11 +53,11 @@ const BookingSummary = ({ handleIncrease, handleDecrease }) => {
       event_id: id,
       customer_id: cust_id,
     };
-    console.log(payload);
+    // console.log(payload);
     try {
       const response = await axios.post(`${promocode.GET_ALL}`, payload);
-      console.log(response.data.data);
-      setPromocodes(response.data.data);
+      // console.log(response.data.data);
+      setPromocodes(response.data.data.applicablePromocodes);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -56,7 +73,7 @@ const BookingSummary = ({ handleIncrease, handleDecrease }) => {
         ) {
           // console.log(error.response);
           toast.error(data.message);
-          setLoading(false);
+          // setLoading(false);
         }
       }
     }
@@ -71,42 +88,47 @@ const BookingSummary = ({ handleIncrease, handleDecrease }) => {
   return (
     <>
       <div className="md:px-12 md:mt-10 px-4 mt-4">
+        <Toaster />
         <div className="border border-gray-200 h-auto rounded-lg py-6 px-4">
           <div className="flex flex-col gap-2">
             <p className="text-sm">Step 2</p>
             <h1 className="md:text-2xl text-xl font-bold">Booking Summary</h1>
           </div>
-          <div className="border border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
-            <div className="flex flex-col gap-2">
-              <h1 className="md:text-2xl capitalize">
-                {selectedTicket?.TicketName}
-              </h1>
-              {selectedTicket?.TicketDescprition && (
-                <p className="text-lg">{selectedTicket?.TicketDescprition}</p>
-              )}
-              <p className="text-lg">&#8377; {selectedTicket?.TicketPrice}</p>
-            </div>
-            <div>
+          {Object.keys(count).length > 0 && (
+            <div className="border border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
+              <div className="flex flex-col gap-2">
+                <h1 className="md:text-2xl capitalize">{ticket?.TicketName}</h1>
+                {ticket?.TicketDescprition && (
+                  <p className="text-lg">{ticket?.TicketDescprition}</p>
+                )}
+                <p className="text-lg">&#8377; {ticket?.TicketPrice}</p>
+              </div>
               <div>
-                {/* delete icon */}
-                <div className="flex gap-2 items-center">
-                  <button
-                    className="bg-gray-700 px-3 py-1 rounded text-white"
-                    onClick={() => handleDecrease(selectedTicket?.Ticket_Id)}
-                  >
-                    -
-                  </button>
-                  <span>{Number(totalTickets)}</span>
-                  <button
-                    className="bg-gray-700 px-3 py-1 rounded text-white"
-                    onClick={() => handleIncrease(selectedTicket?.Ticket_Id)}
-                  >
-                    +
-                  </button>
+                <div>
+                  {/* delete icon */}
+                  <div className="flex gap-2 items-center">
+                    <button
+                      className="bg-gray-700 px-3 py-1 rounded text-white"
+                      onClick={() =>
+                        dispatch(handleDecrease(ticket?.Ticket_Id))
+                      }
+                    >
+                      -
+                    </button>
+                    <span>{Number(totalTicketsUi)}</span>
+                    <button
+                      className="bg-gray-700 px-3 py-1 rounded text-white"
+                      onClick={() =>
+                        dispatch(handleIncrease(ticket?.Ticket_Id))
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="border  border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
             <div className="flex  flex-col w-full h-auto gap-4">
@@ -135,7 +157,7 @@ const BookingSummary = ({ handleIncrease, handleDecrease }) => {
                         spaceBetween: 6,
                       },
                       425: {
-                        slidesPerView: 3,
+                        slidesPerView: 2,
                         spaceBetween: 10,
                       },
                       768: {
@@ -184,7 +206,7 @@ const BookingSummary = ({ handleIncrease, handleDecrease }) => {
                       <div className="relative p-4 flex items-center justify-center">
                         {/* <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 text-center ">
                           <div className="relative  ">
-                          
+
                           </div>
                         </div> */}
                         <div className="relative  bg-white rounded-lg shadow dark:bg-gray-700 w-72 md:w-96">
@@ -231,11 +253,15 @@ const BookingSummary = ({ handleIncrease, handleDecrease }) => {
               <div className="flex flex-col gap-1  border-b-2 border-gray-500">
                 <div className="flex justify-between">
                   <p className="md:text-lg capitalize">Ticket amount</p>
-                  <p className="md:text-lg font-bold">&#8377; 500</p>
+                  <p className="md:text-lg font-bold">
+                    &#8377; {Number(ticket.TicketPrice) * totalTickets}
+                  </p>
                 </div>
                 <div className="flex justify-between">
                   <p className="md:text-lg capitalize">convenience fee</p>
-                  <p className="md:text-lg font-bold">&#8377; 100</p>
+                  <p className="md:text-lg font-bold">
+                    &#8377; {Number(ticket.ConFeeValue)}
+                  </p>
                 </div>
                 <div className="flex justify-between">
                   <p className="md:text-lg capitalize">promocode</p>

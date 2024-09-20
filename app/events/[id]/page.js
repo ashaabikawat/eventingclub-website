@@ -15,7 +15,7 @@ import Loading from "@/components/common/loading/Loading";
 
 const Page = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const [eventData, setEventData] = useState();
   const [loadings, setLoadings] = useState(true);
   const [showMore, setShowMore] = useState(false);

@@ -1,24 +1,30 @@
 import React, { useEffect } from "react";
 import Verification from "./verification";
 import BookingSummary from "./BookingSummary";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setBookingData } from "@/store/slices/booking";
 import { useParams } from "next/navigation";
 import InvoiceDetails from "./InvoiceDetails";
+import { handleIncrease, handleDecrease } from "../../store/slices/booking";
 
-const Checkout = ({ bookingData, handleIncrease, handleDecrease }) => {
+const Checkout = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(
-      setBookingData({
-        selectedTickets: bookingData.selectedTickets,
-        eventId: id,
-        totalTickets: bookingData.totalTickets,
-      })
-    );
-  }, [bookingData]);
+  const selectedTicket = useSelector((store) => store.booking.selectedTickets);
+  const totalTickets = useSelector((store) => store.booking.totalTickets);
+  const count = useSelector((store) => store.booking.count);
+  // console.log("count", count);
+
+  // useEffect(() => {
+  //   dispatch(
+  //     setBookingData({
+  //       selectedTickets: bookingData.selectedTickets,
+  //       eventId: id,
+  //       totalTickets: bookingData.totalTickets,
+  //     })
+  //   );
+  // }, [bookingData]);
 
   return (
     <div className="md:py-6 py-4">
@@ -28,13 +34,11 @@ const Checkout = ({ bookingData, handleIncrease, handleDecrease }) => {
         </h1>
       </div>
 
-      <Verification />
+      {/* <Verification /> */}
       <BookingSummary
-        bookingData={bookingData}
-        handleDecrease={handleDecrease}
-        handleIncrease={handleIncrease}
+      // bookingData={bookingData}
       />
-      <InvoiceDetails />
+      {/* <InvoiceDetails /> */}
     </div>
   );
 };

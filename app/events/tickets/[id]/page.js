@@ -7,7 +7,6 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Slider from "react-slick";
 
 const Page = () => {
   const { id } = useParams();

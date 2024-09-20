@@ -3,15 +3,18 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import Navbar from "./Navbar";
 import { Provider } from "react-redux";
-import store from "@/store/store";
+import { store, persistor } from "@/store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const Wrapper = ({ children }) => {
   const pathname = usePathname();
   const signup = pathname !== "/signup";
   return (
     <Provider store={store}>
-      {signup && <Navbar />}
-      <main>{children}</main>
+      <PersistGate loading={null} persistor={persistor}>
+        {signup && <Navbar />}
+        <main>{children}</main>
+      </PersistGate>
     </Provider>
   );
 };
