@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import Slider from "react-slick";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const page = () => {
+const Page = () => {
   const { id } = useParams();
   const [singleArtists, setSingleArtists] = useState();
   const [otherArtists, setOtherArtists] = useState([]);
@@ -62,9 +62,9 @@ const page = () => {
 
   return (
     <>
-      <div className="md:py-6 md:px-14 p-6 ">
-        <div className="flex md:flex-row items-center gap-10 border-b-2 pb-6 border-gray-300 flex-col  ">
-          <div className="h-64 w-64 relative">
+      <div className="md:py-6 md:px-14  ">
+        <div className="flex md:flex-row items-center md:gap-10 gap-2   flex-col  ">
+          <div className=" md:h-64 md:w-64 h-52 w-52 relative">
             {loading ? (
               "Loading ..."
             ) : imageUrl ? (
@@ -80,13 +80,15 @@ const page = () => {
             )}
           </div>
           <div className="w-4/5 md:w-3/5 flex  flex-col justify-center md:text-left text-center">
-            <h1 className="mb-4 text-3xl font-bold">{singleArtists?.Name}</h1>
+            <h1 className="mb-4 md:text-3xl text-xl text-blue-900  font-semibold">
+              {singleArtists?.Name}
+            </h1>
             <p className="text-sm md:text-base">{singleArtists?.Description}</p>
           </div>
         </div>
       </div>
-      <div className="md:py-6  px-6 py-4 ">
-        <h1 className="font-bold capitalize md:text-3xl text-xl ">
+      <div className="md:py-6 mt-2 border-t-2 md:pt-10  border-gray-300 px-4 md:px-14 py-4 ">
+        <h1 className="font-semibold capitalize md:text-3xl text-xl ">
           Upcoming events:
         </h1>
         <div>
@@ -100,15 +102,15 @@ const page = () => {
               breakpoints={{
                 320: {
                   slidesPerView: 1.5,
-                  spaceBetween: 4,
+                  spaceBetween: 16,
                 },
                 425: {
-                  slidesPerView: 3,
-                  spaceBetween: 2,
+                  slidesPerView: 2.2,
+                  spaceBetween: 10,
                 },
                 768: {
-                  slidesPerView: 3.5,
-                  spaceBetween: 5,
+                  slidesPerView: 2.2,
+                  spaceBetween: 10,
                 },
                 1024: {
                   slidesPerView: 4,
@@ -118,7 +120,7 @@ const page = () => {
             >
               {artistEvents.map((event) => (
                 <SwiperSlide key={event.id}>
-                  <div key={event._id} className="  mt-6 ">
+                  <div key={event._id} className=" mt-6 ">
                     <Link href={`/events/${event.event_id}`}>
                       <PageCardWithText event={event} />
                     </Link>
@@ -131,7 +133,7 @@ const page = () => {
           )}
         </div>
       </div>
-      <div className="md:py-6 md:px-14 p-6 md:mt-2 ">
+      <div className=" md:px-14 px-4 mb-8">
         <div className="flex justify-between">
           <h1 className="font-bold capitalize md:text-3xl text-xl ">
             Other artists:
@@ -141,7 +143,7 @@ const page = () => {
           </Link>
         </div>
         <div className=" ">
-          <div className="flex md:mt-12 mt-6">
+          <div className=" md:mt-12 mt-4">
             {" "}
             <Swiper
               spaceBetween={6}
@@ -152,14 +154,14 @@ const page = () => {
               breakpoints={{
                 320: {
                   slidesPerView: 1.5,
-                  spaceBetween: 6,
+                  spaceBetween: 10,
                 },
                 425: {
-                  slidesPerView: 3,
+                  slidesPerView: 2.2,
                   spaceBetween: 10,
                 },
                 768: {
-                  slidesPerView: 3.5,
+                  slidesPerView: 3.2,
                   spaceBetween: 20,
                 },
                 1024: {
@@ -171,7 +173,7 @@ const page = () => {
               {cardsData?.map((artist) => {
                 return (
                   <SwiperSlide key={artist.id}>
-                    <div key={artist._id} className="w-full px-2">
+                    <div key={artist._id} className="w-full ">
                       <Link href={`/artists/${artist._id}`}>
                         <Cards data={artist} />
                       </Link>
@@ -187,4 +189,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

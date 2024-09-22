@@ -4,32 +4,80 @@ import React, { useEffect, useState } from "react";
 
 const Categories = ({ handleCategory }) => {
   const [category, setCategory] = useState([]);
+  const [readMore, setReadMore] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  // Fetch categories from the API
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(categories.GET_ALL);
+      // console.log(response.data.data); // Ensure you're logging this to see the structure
+      setCategory(response.data.data); // Make sure the data format is correct
+    } catch (error) {
+      console.log("Error fetching categories:", error);
+    }
+  };
+
+  // Function to handle category selection
+  const handleCategoryClicked = (id) => {
+    setSelectedCategory(id); // Update the selected category state
+    handleCategory(id); // Call the parent-provided function
+  };
+
+  const startingCategory = category?.slice(0, 10);
 
   useEffect(() => {
     fetchCategories();
   }, []);
 
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get(categories.GET_ALL);
-      console.log(response.data.data);
-      setCategory(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <div className="flex flex-wrap gap-2 mb-4">
-      {category.map((category) => {
-        return (
-          <div
-            className=" border border-gray-300 p-2 rounded-md text-black cursor-pointer"
-            onClick={() => handleCategory(category._id)}
-          >
-            {category.Name}
-          </div>
-        );
-      })}
+      {readMore
+        ? category.map((cat) => {
+            return (
+              <div
+                key={cat._id} // Ensure you're using the correct key from the data
+                className={`border border-gray-300 p-2 rounded-md text-black cursor-pointer ${
+                  selectedCategory === cat._id ? "bg-blue-900 text-white" : ""
+                }`}
+                onClick={() => handleCategoryClicked(cat._id)}
+              >
+                {cat.Name}
+              </div>
+            );
+          })
+        : startingCategory.map((cat) => {
+            return (
+              <div
+                key={cat._id}
+                className={`border border-gray-300 p-2 rounded-md text-black cursor-pointer ${
+                  selectedCategory === cat._id ? "bg-blue-900 text-white" : ""
+                }`}
+                onClick={() => handleCategoryClicked(cat._id)}
+              >
+                {cat.Name}
+              </div>
+            );
+          })}
+      {category?.length > 10 && (
+        <>
+          {readMore ? (
+            <p
+              className="mt-2 text-sm cursor-pointer"
+              onClick={() => setReadMore(false)}
+            >
+              Read Less
+            </p>
+          ) : (
+            <p
+              className="mt-2 text-sm cursor-pointer"
+              onClick={() => setReadMore(true)}
+            >
+              Read more
+            </p>
+          )}
+        </>
+      )}
     </div>
   );
 };

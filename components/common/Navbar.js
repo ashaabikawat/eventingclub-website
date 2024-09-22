@@ -17,7 +17,9 @@ const Navbar = () => {
   const [token, setToken] = useState(null);
   const pathname = usePathname();
   const homePageUrl = pathname === "/";
-  // console.log(token.cust_id);
+
+  const isLoggedIn = token?.isLoggedIn;
+  console.log(isLoggedIn);
 
   useEffect(() => {
     const handleStorage = () => {
@@ -72,9 +74,9 @@ const Navbar = () => {
             )}
           </div>
           <div className="flex">
-            {token !== null && (
+            {isLoggedIn && (
               <div className="flex justify-center items-center">
-                <Link href={`/userDetails/${token.cust_id}`}>
+                <Link href={`/userDetails/${token?.cust_id}`}>
                   {" "}
                   <UserCircleIcon className="size-10 md:size-12 text-gray-600 cursor-pointer" />
                 </Link>
@@ -105,10 +107,10 @@ const Navbar = () => {
           <div className="mt-3 md:hidden">
             <label className="relative w-full">
               <span className="sr-only">search</span>
-              <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-5" />
+              <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6 " />
               <input
                 type="text"
-                className="placeholder:text-slate-400 border w-full border-slate-300 rounded-md py-3 pl-10 pr-3"
+                className="placeholder:text-slate-400 border w-full border-slate-300 rounded-md py-2 pl-12 pr-3"
                 placeholder="Search for Events, Venues"
               />
             </label>

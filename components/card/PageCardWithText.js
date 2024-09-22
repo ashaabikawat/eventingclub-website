@@ -33,7 +33,7 @@ const PageCardWithText = ({ event }) => {
   }, []);
 
   return (
-    <div className="md:mb-4">
+    <div className="md:mb-4 mb-4">
       <Link href={`/events/${event.event_id}`}>
         <Card className="md:h-60 h-40 relative cursor-pointer overflow-hidden">
           <div className="w-[100%] h-full relative">
@@ -50,46 +50,32 @@ const PageCardWithText = ({ event }) => {
       </Link>
 
       <div className="px-2">
-        <div
-          className={`flex items-center justify-start lg:h-20 h-14 lg:mb-0 ${
-            isLongEventName ? "mt-4 mb-4" : "mt-2 mb-2"
-          }`}
-        >
-          <p
-            ref={eventNameRef}
-            className="capitalize text-sm md:text-lg lg:text-xl line-clamp-2"
-            style={{
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 2, // Limit to 2 lines
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
+        <div className=" mt-2 h-auto  sm:mt-2 ">
+          <p className="text-[16px] capitalize  font-semibold sm:text-base">
             {event.EventName}
           </p>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-3 lg:mt-1">
           <div className="flex gap-2 items-center justify-start">
             <span>
-              <CalendarIcon className="size-4" />
+              <CalendarIcon className="size-4 text-gray-900" />
             </span>
-            <span className="text-xs md:text-sm lg:text-base text-center capitalize">
+            <span className="text-xs md:text-sm lg:text-sm text-center capitalize text-gray-900">
               {event.EventStartDate}
             </span>
           </div>
           <div className="flex gap-2 items-center justify-start">
             <span>
-              <MapPinIcon className="size-4" />
+              <MapPinIcon className="size-4 text-gray-900" />
             </span>
-            <span className="text-xs md:text-sm  lg:text-base text-left md:text-center capitalize ">
+            <span className="text-xs md:text-sm  lg:text-sm text-left md:text-center capitalize text-gray-900 ">
               {event.VenueName}
             </span>
           </div>
         </div>
         <div className="mt-4">
           {event.LowestticketPrice && (
-            <span className="text-sm  md:text-sm  lg:text-lg font-bold">
+            <span className="text-sm  md:text-base   font-semibold ">
               &#8377; {event.LowestticketPrice} Onwards
             </span>
           )}

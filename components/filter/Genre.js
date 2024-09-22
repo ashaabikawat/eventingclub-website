@@ -4,6 +4,10 @@ import { genre } from "@/utils/config";
 
 const Genre = ({ handleGenre }) => {
   const [allGenre, setAllGenre] = useState([]);
+  const [readMore, setReadMore] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState(null);
+
+  const startingGenre = allGenre?.slice(0, 10);
 
   useEffect(() => {
     fetchGenre();
@@ -19,16 +23,59 @@ const Genre = ({ handleGenre }) => {
     }
   };
 
+  const handleGenreClicked = (id) => {
+    setSelectedGenre(id);
+    handleGenre(id);
+  };
+
   return (
     <div className="flex flex-wrap gap-2 mb-4">
-      {allGenre?.map((genre) => (
-        <div
-          className=" border border-gray-300 p-2 rounded-md text-black cursor-pointer"
-          onClick={() => handleGenre(genre._id)}
-        >
-          {genre.Name}
-        </div>
-      ))}
+      {readMore
+        ? allGenre.map((genre) => {
+            return (
+              <div
+                key={genre._id}
+                className={`border border-gray-300 p-2 rounded-md text-black cursor-pointer ${
+                  selectedGenre === genre._id ? "bg-blue-900 text-white" : ""
+                }`}
+                onClick={() => handleGenreClicked(genre._id)}
+              >
+                {genre.Name}
+              </div>
+            );
+          })
+        : startingGenre.map((genre) => {
+            return (
+              <div
+                key={genre._id}
+                className={`border border-gray-300 p-2 rounded-md text-black cursor-pointer ${
+                  selectedGenre === genre._id ? "bg-blue-900 text-white" : ""
+                }`}
+                onClick={() => handleGenreClicked(genre._id)}
+              >
+                {genre.Name}
+              </div>
+            );
+          })}
+      {allGenre?.length > 10 && (
+        <>
+          {readMore ? (
+            <p
+              className="mt-2  text-sm cursor-pointer"
+              onClick={() => setReadMore(false)}
+            >
+              Read Less
+            </p>
+          ) : (
+            <p
+              className="mt-2  text-sm cursor-pointer"
+              onClick={() => setReadMore(true)}
+            >
+              Read more
+            </p>
+          )}
+        </>
+      )}
     </div>
   );
 };

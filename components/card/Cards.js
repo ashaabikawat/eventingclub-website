@@ -7,7 +7,7 @@ const Cards = ({ data }) => {
   const imageUrl = data?.Images[0].image_path;
 
   return (
-    <Card className="w-full md:h-52 h-36 relative cursor-pointer overflow-hidden">
+    <Card className="w-full md:h-56   h-36 relative cursor-pointer overflow-hidden">
       {/* <CardHeader floated={false} className="h-80"> */}
       <div className="w-full h-full relative  ">
         <Image

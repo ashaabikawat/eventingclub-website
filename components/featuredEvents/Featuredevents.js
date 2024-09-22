@@ -38,7 +38,7 @@ const Featuredevents = () => {
   }
 
   return (
-    <div className=" mt-6 mb-2 sm:px-8 px-1 overflow-hidden md:px-14">
+    <div className=" mb-6  mt-10 md:mb-6  sm:px-8 px-1 overflow-hidden md:px-10">
       <CardHeaders
         mobileHeader="Featured Events"
         desktopHeader="Featured Events"
@@ -47,35 +47,35 @@ const Featuredevents = () => {
         url="/featuredEvents"
       />
 
-      <div className="px-2">
+      <div className="px-3">
         <Swiper
           spaceBetween={6}
           slidesPerView={5}
           breakpoints={{
             320: {
               slidesPerView: 1.5,
-              spaceBetween: 16,
+              spaceBetween: 20,
             },
             425: {
-              slidesPerView: 2.5,
-              spaceBetween: 10,
+              slidesPerView: 2.2,
+              spaceBetween: 20,
             },
             768: {
-              slidesPerView: 4,
+              slidesPerView: 3.2,
               spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 4.5,
-              spaceBetween: 4,
+              slidesPerView: 4.2,
+              spaceBetween: 20,
             },
           }}
           // onSlideChange={() => console.log("slide change")}
           // onSwiper={(swiper) => console.log(swiper)}
-          // className="mt-3 "
+          // className="mt-3"
         >
-          {cardsData.map((data) => (
+          {cardsData?.map((data) => (
             <SwiperSlide key={data.id}>
-              <div key={data.id} className="px-2 mt-6 h-80">
+              <div key={data.id} className=" md:mt-6 mt-4   ">
                 <Link href={`/events/${data.event_id}`}>
                   <CardWithText data={data} />
                 </Link>

@@ -1,6 +1,10 @@
 "use client";
 
-import { setAuthDetails, setToken } from "@/store/slices/authSlice";
+import {
+  loginSuccess,
+  setAuthDetails,
+  setToken,
+} from "@/store/slices/authSlice";
 import { generateOPT, registerUser, validateOtp } from "@/utils/config";
 import axios from "axios";
 import Image from "next/image";
@@ -9,7 +13,7 @@ import React, { useMemo, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-const page = () => {
+const Page = () => {
   const dispatch = useDispatch();
   const inputs = useRef([]);
   const router = useRouter();
@@ -25,9 +29,9 @@ const page = () => {
 
   const customerId = useSelector((state) => state.auth.cust_id);
   const userExists = useSelector((state) => state.auth.customer_exists);
-  console.log(userExists);
+  // console.log(userExists);
   const token = useSelector((state) => state.auth.token);
-  console.log(token);
+  // console.log(token);
 
   const navigate = () => {
     setLoading(true);
@@ -109,7 +113,8 @@ const page = () => {
     try {
       const response = await axios.post(validateOtp, payload);
       dispatch(setToken(response.data.data.token));
-      console.log(response.data);
+      // console.log(response.data);
+      dispatch(loginSuccess());
       toast.success(response.data.message);
       setOtpSent(false);
     } catch (error) {
@@ -128,6 +133,7 @@ const page = () => {
     try {
       const response = await axios.post(registerUser, payload);
       toast.success(response.data.message);
+      dispatch(loginSuccess());
     } catch (error) {
       toast.error(error.data.message);
     }
@@ -248,4 +254,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

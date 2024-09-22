@@ -16,34 +16,47 @@ import {
   handleDecrease,
   setShowCount,
   setBookingDataObj,
+  setEventId,
+  reset_state,
 } from "../../store/slices/booking";
 
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   const [isMobile, setIsMobile] = useState(false);
   const { id } = useParams();
+
   const [eventTicket, setEventTicket] = useState([]);
   const [bookingData, setBookingData] = useState({
     totalPrice: 0,
     totalTickets: 0,
     selectedTickets: [],
   });
+
+  const storedEventId = useSelector((store) => store.booking.eventId);
+  // console.log("bookingData", bookingData);
   const showCount = useSelector((store) => store.booking.showCount);
   const ticketData = useSelector((store) => store.booking.ticketData);
   const count = useSelector((store) => store.booking.count);
-  const selectedTickets = useSelector((store) => store.booking.selectedTickets);
+  // const selectedTickets = useSelector((store) => store.booking.selectedTickets);
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(
-      setBookingDataObj({
-        selectedTickets: bookingData.selectedTickets,
-        totalTickets: bookingData.totalTickets,
-      })
-    );
+    if (bookingData.selectedTickets.length > 0) {
+      dispatch(
+        setBookingDataObj({
+          selectedTickets: bookingData.selectedTickets,
+          totalTickets: bookingData.totalTickets,
+        })
+      );
+    }
   }, [bookingData]);
 
-  console.log("count", count);
+  // console.log("count", count);
+
+  const handleIncreaseandSetEventId = (ticketId) => {
+    dispatch(handleIncrease(ticketId));
+    dispatch(setEventId(id));
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,6 +71,21 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   }, [isMobile]);
 
   const handleShowTicket = async (eventTicketId) => {
+    const currentEventId = id;
+
+    const totalTicketsInCart = Object.values(count).reduce(
+      (acc, num) => acc + num,
+      0
+    );
+
+    if (totalTicketsInCart > 0 && storedEventId !== currentEventId) {
+      // Show a message that tickets from another event are already in the cart
+      toast.error(
+        "You already have tickets from another event. Please clear all tickets before selecting new ones."
+      );
+      return; // Exit the function early
+    }
+
     const payload = {
       event_id: id,
       eventDateTime_id: eventTicketId,
@@ -146,6 +174,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
   const handleContinue = () => {
     calculateTotals();
+    dispatch(setEventId(id));
     router.push(`/events/tickets/${id}/checkout`);
   };
 
@@ -357,7 +386,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                             <button
                               className="bg-[#666666] text-white py-1 px-2 rounded-r"
                               onClick={() =>
-                                dispatch(handleIncrease(ticket.Ticket_Id))
+                                handleIncreaseandSetEventId(ticket.Ticket_Id)
                               }
                             >
                               +
@@ -385,20 +414,34 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           )}
         </div>
         {/* Footer for Total Count and Price */}
-        {totalTickets > 0 && (
-          <div className="fixed bottom-0 w-[90%] h-[100px] bg-white shadow-md p-6 flex justify-between items-center">
-            <div className="w-[50%] pl-6">
-              <p className="text-2xl font-bold">Rs.{totalPrice}</p>
-              <p className="text-xl font-bold">{totalTickets} Ticket</p>
+
+        <>
+          {storedEventId === id && totalTickets > 0 && (
+            <div className="fixed bottom-0 w-[90%] h-[100px] bg-white shadow-md p-6 flex justify-between items-center">
+              <div className="w-[50%] pl-6">
+                <p className="text-2xl font-bold">Rs.{totalPrice}</p>
+                <p className="text-xl font-bold">{totalTickets} Ticket</p>
+              </div>
+              <div className="w-[35%]">
+                <button
+                  onClick={handleContinue}
+                  className="bg-[#666666] w-[50%] text-white py-2 px-4 rounded"
+                >
+                  Continue
+                </button>
+              </div>
             </div>
-            <div className="w-[35%]">
-              <button
-                onClick={handleContinue}
-                className="bg-[#666666] w-[50%] text-white py-2 px-4 rounded"
-              >
-                Continue
-              </button>
-            </div>
+          )}
+        </>
+
+        {storedEventId !== null && storedEventId !== id && (
+          <div className="flex items-center justify-center">
+            <button
+              onClick={() => dispatch(reset_state())}
+              className="bg-[#666666] w-[20%] text-white py-2 px-4 rounded fixed bottom-0 "
+            >
+              Clear
+            </button>
           </div>
         )}
       </>

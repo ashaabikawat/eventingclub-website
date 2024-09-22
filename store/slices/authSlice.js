@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   cust_id: null,
   customer_exists: null,
-  token: null,
+  isLoggedIn: false,
+  token: JSON.parse(localStorage.getItem("authToken"))?.token || null,
 };
 
 const authSlice = createSlice({
@@ -16,15 +17,34 @@ const authSlice = createSlice({
       state.customer_exists = customer_exists;
     },
     setToken: (state, action) => {
-      console.log(action.payload);
-      state.token = action.payload;
+      try {
+        state.token = action.payload;
+        localStorage.setItem(
+          "authToken",
+          JSON.stringify({
+            token: state.token,
+            cust_id: state.cust_id,
+            isLoggedIn: state.isLoggedIn,
+          })
+        );
+      } catch (error) {
+        console.error("Failed to save token to localStorage:", error);
+      }
+    },
+    loginSuccess: (state) => {
+      state.isLoggedIn = true;
+      // Update localStorage with isLoggedIn state when user logs in
       localStorage.setItem(
         "authToken",
-        JSON.stringify({ token: state.token, cust_id: state.cust_id })
+        JSON.stringify({
+          token: state.token,
+          cust_id: state.cust_id,
+          isLoggedIn: true, // Save isLoggedIn as true in localStorage
+        })
       );
     },
   },
 });
 
-export const { setAuthDetails, setToken } = authSlice.actions;
+export const { setAuthDetails, setToken, loginSuccess } = authSlice.actions;
 export default authSlice.reducer;

@@ -51,13 +51,13 @@ const TourEvents = () => {
   }
 
   return (
-    <div className="md:py-4 mb-8 sm:px-8 px-1 overflow-hidden md:px-14">
+    <div className=" sm:px-8 px-1 overflow-hidden md:px-10">
       <CardHeaders
         mobileHeader="Event Tour"
         desktopHeader="Event Tour"
         mobileText="See all"
         desktopText="Discover event tour"
-        url="/eventTour"
+        url="/eventtour"
       />
       <div className="px-2">
         <Swiper
@@ -72,24 +72,24 @@ const TourEvents = () => {
               spaceBetween: 16,
             },
             425: {
-              slidesPerView: 2.5,
-              spaceBetween: 10,
+              slidesPerView: 2.2,
+              spaceBetween: 20,
             },
             768: {
-              slidesPerView: 3.5,
-              // spaceBetween: 20,
+              slidesPerView: 3.2,
+              spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 4.5,
+              slidesPerView: 4.2,
               spaceBetween: 20,
             },
           }}
         >
           {cardsData.map((data) => (
             <SwiperSlide key={data.id}>
-              <div key={data.id} className="md:px-2 md:mt-6 mt-4">
+              <div key={data.id} className=" md:mt-6 mt-4">
                 <Link href={`/eventtour/${data.Tour_id}`}>
-                  <Card className="w-full h-52 relative cursor-pointer overflow-hidden  ">
+                  <Card className="w-full  md:h-56 h-44  relative cursor-pointer overflow-hidden  ">
                     <div className="w-full h-full relative  ">
                       <Image
                         src={`${URL}/${data?.EventCardImages[0]?.image_path}`}

@@ -7,7 +7,14 @@ import booking from "./slices/booking";
 const persistConfig = {
   key: "root",
   storage,
-  // whitelist: ["count", "showCount"], // Specify which parts of state to persist
+  whitelist: [
+    "selectedTickets",
+    "totalTickets",
+    "count",
+    "showCount",
+    "ticketData",
+    "eventId",
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, booking);

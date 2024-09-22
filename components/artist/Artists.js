@@ -35,7 +35,7 @@ const Artists = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className=" md:mb-14   mb-8 sm:px-8 px-1 overflow-hidden md:px-14 ">
+    <div className=" md:py-2 mt-6  md:mt-6 mb-4 sm:px-8 px-1 overflow-hidden md:px-10 ">
       <CardHeaders
         mobileHeader="Browse by Artists"
         desktopHeader="Browse events by artists"
@@ -45,7 +45,7 @@ const Artists = () => {
       />
       <div className="px-2">
         <Swiper
-          spaceBetween={6}
+          spaceBetween={20}
           slidesPerView={5}
           // onSlideChange={() => console.log("slide change")}
           // onSwiper={(swiper) => console.log(swiper)}
@@ -56,16 +56,16 @@ const Artists = () => {
               spaceBetween: 16,
             },
             425: {
-              slidesPerView: 3,
-              spaceBetween: 10,
+              slidesPerView: 2.2,
+              spaceBetween: 20,
             },
             768: {
-              slidesPerView: 3.5,
+              slidesPerView: 3.2,
               spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 4.5,
-              spaceBetween: 10,
+              slidesPerView: 5.2,
+              spaceBetween: 20,
             },
           }}
         >

@@ -3,16 +3,27 @@ import React, { useState } from "react";
 
 const Languages = ({ handleLanguageSelection }) => {
   const [readMore, setReadMore] = useState(false);
+  const [selectedLang, setSelectedLang] = useState(null);
 
-  const commonLang = indianLanguages.slice(0, 8);
+  // Handling language selection
+  const handleLangClicked = (id) => {
+    setSelectedLang(id);
+    handleLanguageSelection(id); // Passing the selected language ID to the parent
+  };
+
+  const commonLang = indianLanguages.slice(0, 10);
+
   return (
     <div className="flex flex-wrap gap-2 mb-4">
       {readMore
         ? indianLanguages.map((lang) => {
             return (
               <div
-                className=" border border-gray-300 p-2 rounded-md text-black cursor-pointer"
-                onClick={() => handleLanguageSelection(lang.value)}
+                key={lang.value} // Using lang.value consistently as the key
+                className={`border border-gray-300 p-2 rounded-md text-black cursor-pointer ${
+                  selectedLang === lang.value ? "bg-blue-900 text-white" : ""
+                }`}
+                onClick={() => handleLangClicked(lang.value)}
               >
                 {lang.label}
               </div>
@@ -21,19 +32,31 @@ const Languages = ({ handleLanguageSelection }) => {
         : commonLang.map((lang) => {
             return (
               <div
-                className=" border border-gray-300 p-2 rounded-md text-black cursor-pointer"
-                onClick={() => handleLanguageSelection(lang.value)}
+                key={lang.value}
+                className={`border border-gray-300 p-2 rounded-md text-black cursor-pointer ${
+                  selectedLang === lang.value ? "bg-blue-900 text-white" : ""
+                }`}
+                onClick={() => handleLangClicked(lang.value)}
               >
                 {lang.label}
               </div>
             );
           })}
-      <p
-        className="mt-2  text-sm cursor-pointer"
-        onClick={() => setReadMore(true)}
-      >
-        Read more
-      </p>
+      {readMore ? (
+        <p
+          className="mt-2 text-sm cursor-pointer"
+          onClick={() => setReadMore(false)}
+        >
+          Read Less
+        </p>
+      ) : (
+        <p
+          className="mt-2 text-sm cursor-pointer"
+          onClick={() => setReadMore(true)}
+        >
+          Read more
+        </p>
+      )}
     </div>
   );
 };

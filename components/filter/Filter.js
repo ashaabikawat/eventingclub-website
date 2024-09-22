@@ -26,7 +26,7 @@ const Filter = ({
   setFilterOpenModal,
 }) => {
   const [open, setOpen] = useState(1);
-  const [active, setActive] = useState("date");
+  const [active, setActive] = useState("Date");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const startPickerRef = useRef(null);
@@ -67,8 +67,8 @@ const Filter = ({
     }
   };
 
-  console.log("start", startDate);
-  console.log("end", endDate);
+  // console.log("start", startDate);
+  // console.log("end", endDate);
 
   const [isMobile, setIsMobile] = useState(false);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
@@ -148,8 +148,8 @@ const Filter = ({
 
   return (
     <>
-      <div className="md:w-80 w-full h-full md:px-6 hidden md:block">
-        <h1 className="md:text-3xl mb-4">Filters:</h1>
+      <div className="md:w-80 w-full  md:px-4 hidden md:block md:mt-4">
+        <h1 className="md:text-xl mb-4 font-semibold">Filters:</h1>
         <div className="border border-gray-400 rounded-md p-4">
           <Accordion
             open={open === 1}
@@ -180,6 +180,7 @@ const Filter = ({
               <div className="flex flex-wrap gap-2 mb-4">
                 {dropdownOptions.map((option) => (
                   <div
+                    key={option.id}
                     className=" border border-gray-300 p-2 rounded-md text-black cursor-pointer"
                     onClick={() => handleDateSelection(option.Value)}
                   >
@@ -335,7 +336,7 @@ const Filter = ({
         </div>
       </div>
 
-      <div className="min-h-screen">
+      <div className="">
         {" "}
         {/* Ensures it takes full screen height */}
         {filterOpenModal && (
@@ -392,6 +393,7 @@ const Filter = ({
                   </div>
                   <div>
                     <button
+                      onClick={() => setFilterOpenModal(false)}
                       type="submit"
                       className="text-white bg-blue-900 text-center w-full p-2 cursor-pointer"
                     >

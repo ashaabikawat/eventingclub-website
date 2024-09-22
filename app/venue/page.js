@@ -100,7 +100,7 @@ const Page = () => {
           </label>
         </div>
       </div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-6 px-2 ">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-4 w-full mt-6  ">
         {venuesDuplicate.map((data) => (
           <Link href={`/venue/${data._id}`} key={data._id}>
             <VenueCard data={data} />

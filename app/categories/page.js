@@ -80,11 +80,11 @@ const Page = () => {
   return (
     <div className=" px-4 py-6 md:py-4 md:px-14">
       <Toaster />
-      <div className="flex flex-col md:flex-row md:justify-between  md:items-center gap-4">
-        <h1 className=" font-bold md:text-base lg:text-lg ">
+      <div className="flex flex-col md:flex-row md:justify-between   md:items-center  gap-4">
+        <h1 className=" font-bold  lg:text-2xl md:text-xl ">
           Explore Events By Categories
         </h1>
-        <div className="md:w-96">
+        <div className="md:w-64">
           <label className="relative">
             <span className="sr-only">search</span>
 
@@ -94,7 +94,7 @@ const Page = () => {
 
             <input
               type="text"
-              className="placeholder:text-slate-400 border w-full placeholder:text-sm md:placeholder:text-base border-slate-300 rounded-md py-3 pl-10 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50 "
+              className="placeholder:text-slate-400  border w-full placeholder:text-base md:placeholder:text-base border-slate-300 rounded-md py-3 pl-12 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50 "
               placeholder="Search for Categories"
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}

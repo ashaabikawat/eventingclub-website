@@ -9,7 +9,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-const page = () => {
+const Page = () => {
   const [allArtists, setAllArtists] = useState([]);
   const [artistsDuplicate, setArtistsDuplicate] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -129,4 +129,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

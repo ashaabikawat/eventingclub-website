@@ -130,11 +130,14 @@ const Page = () => {
   };
 
   return (
-    <div className="mt-6  ">
-      <Toaster />
-      {/* <h1 className="text-2xl mb-6 md:px-12  px-4 hidden mt-4">Events:</h1> */}
+    <div className="mt-2 ">
+      {isMobile && (
+        <h1 className="md:text-3xl mb-4 px-4 font-semibold text-lg ">
+          Category Events:
+        </h1>
+      )}
       {!filterOpenModal && isMobile && (
-        <div className="grid grid-cols-2 md:hidden mb-6 items-center justify-center">
+        <div className="grid grid-cols-2 md:hidden mb-2 items-center justify-center">
           <div
             className="text-center flex items-center justify-center gap-2 py-2 border border-gray-300"
             onClick={() => setFilterOpenModal(true)}
@@ -152,10 +155,11 @@ const Page = () => {
           </div>
         </div>
       )}
-      <div className="h-full w-full md:px-12 px-4 mt-6">
-        <div className="w-full h-full grid gap-6 md:grid-cols-[300px_minmax(400px,_1fr)]">
+
+      <div className=" w-full md:px-6 px-4">
+        <div className="w-full  grid gap-6  md:grid-cols-[300px_minmax(300px,_1fr)_1fr]">
           {!isMobile && (
-            <div className="w-2/3 h-full hidden md:block">
+            <div className="hidden md:block">
               <Filter
                 handleDateSelection={handleDateSelection}
                 handleLanguageSelection={handleLanguageSelection}
@@ -169,20 +173,23 @@ const Page = () => {
               />
             </div>
           )}
-          <div className="w-full md:h-80 md:block">
-            {!filterOpenModal && (
-              <h1 className="md:text-3xl">Category Events:</h1>
-            )}
+
+          <div className="w-full   md:block md:col-span-2">
             {error ? (
               <NotFound />
             ) : (
               <>
                 {!filterOpenModal && (
-                  <div className="grid lg:grid-cols-3 mt-8 grid-cols-2 lg:gap-4 md:gap-6 gap-6">
-                    {events?.map((event) => (
-                      <PageCardWithText key={event.id} event={event} />
-                    ))}
-                  </div>
+                  <>
+                    <h1 className="md:text-xl hidden md:block  mt-4 px-4 font-semibold text-lg ">
+                      Category Events:
+                    </h1>
+                    <div className="grid col-span-2 lg:grid-cols-3 mt-6 md:px-4 grid-cols-2 lg:gap-4 md:gap-6 gap-4">
+                      {events?.map((event) => (
+                        <PageCardWithText key={event.id} event={event} />
+                      ))}
+                    </div>
+                  </>
                 )}
                 {filterOpenModal && (
                   <Filter

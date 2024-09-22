@@ -12,6 +12,15 @@ import toast, { Toaster } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PageCardWithText from "@/components/card/PageCardWithText";
 import Loading from "@/components/common/loading/Loading";
+import {
+  Accordion,
+  AccordionBody,
+  AccordionHeader,
+  Card,
+} from "@material-tailwind/react";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import Link from "next/link";
+import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
 
 const Page = () => {
   const { id } = useParams();
@@ -19,6 +28,8 @@ const Page = () => {
   const [tourEvent, setTourEvent] = useState([]);
   const [loadings, setLoadings] = useState(true);
   const [showMore, setShowMore] = useState(false);
+
+  console.log(eventData);
 
   useEffect(() => {
     fetchEvent();
@@ -59,20 +70,19 @@ const Page = () => {
   if (loadings) return <Loading />;
 
   return (
-    <div className="mb-14 ">
-      <Toaster />
-      <div className="md:px-10 md:py-1">
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-6  md:p-4 ">
-          <div className=" md:col-span-2 md:min-h-[500px] relative md:row-span-2  max-h-[300px] ">
+    <div className="   mb-16">
+      <div className="md:px-6 md:py-1">
+        <div className="md:p-4 ">
+          <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
             {loadings ? (
               "Loading ..."
             ) : imageUrl ? (
-              <div className=" md:aspect-auto aspect-square  ">
+              <div className=" md:aspect-auto  aspect-square ">
                 <Image
                   src={`${URL}/${imageUrl}`}
                   alt="image"
                   layout="fill"
-                  className="absolute md:rounded-xl    overflow-hidden"
+                  className="absolute md:rounded-xl overflow-hidden"
                 />
               </div>
             ) : (
@@ -80,13 +90,27 @@ const Page = () => {
             )}
           </div>
 
-          <div className=" md:px-2 md:py-4 md:col-span-1 md:min-h-[400px] px-4 ">
+          {/* event details */}
+          <div className=" md:px-2 md:py-4 md:mt-0 mt-4  px-4   ">
             <div className="flex flex-col">
-              <h1 className="md:text-3xl mb-2 text-xl font-bold text-blue-900 capitalize">
+              <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize">
                 {eventData?.TourName}
               </h1>
-
-              <div className="flex flex-col md:mt-6 mt-6">
+              <div className="flex gap-1  mt-4 md:text-base">
+                {/* <span className="border-r-2 border-gray-800 pr-2 text-gray-800 capitalize">
+                  {eventData?.categoryName}
+                </span> */}
+                {/* {eventData?.Language.map((lang) => (
+                  <span
+                    className="border-r-2 border-gray-800 pr-2 text-gray-800  capitalize"
+                    key={lang}
+                  >
+                    {lang}
+                  </span>
+                ))} */}
+                {/* <span>{eventData?.BestSuitedFor}</span> */}
+              </div>
+              <div className="flex flex-col">
                 <div className="flex items-center justify-start gap-2">
                   <span>
                     <FaRegCalendarAlt />
@@ -99,79 +123,19 @@ const Page = () => {
                   <span>
                     <FiMapPin />
                   </span>
-                  <span>Multiple Venue</span>
+                  <span>Multiple venues</span>
                 </div>
               </div>
-              {eventData?.EventTourlowestPrice && (
+              {eventData?.TicketPriceStartsFrom && (
                 <p className="mt-6 font-bold text-xl">
-                  &#8377; {eventData?.EventTourlowestPrice}
+                  &#8377; {eventData?.EventTourlowestPrice} Onwards
                 </p>
               )}
             </div>
           </div>
 
-          <div className=" hidden md:block md:col-span-2 min-h-[200px]  border-t-2  border-gray-500">
-            <div className=" min-h-[200px] md:w-[90%] mx-auto">
-              <Swiper
-                spaceBetween={2}
-                slidesPerView={3}
-                onSlideChange={() => console.log("slide change")}
-                onSwiper={(swiper) => console.log(swiper)}
-                className="mt-3"
-              >
-                {eventData?.TourImages.map((img) => {
-                  return (
-                    <SwiperSlide
-                      key={img.id}
-                      navigation={true}
-                      modules={[Navigation]}
-                    >
-                      <div
-                        key={img.id}
-                        className="max-w-[300px] h-52 relative cursor-pointer overflow-hidden p-2"
-                      >
-                        <div className="w-full h-full relative">
-                          <Image
-                            src={`${URL}/${img.image_path}`}
-                            alt="carousel-image"
-                            layout="fill"
-                            objectFit="cover"
-                            objectPosition="top"
-                            className="rounded"
-                          />
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-            </div>
-          </div>
-
-          {eventData?.TourDescription !== null && (
-            <div className=" md:min-h-[400px] md:col-span-1  md:row-span-2 md:-mt-[300px] order-3 md:order-2  px-4">
-              <div className="  md:h-[550px] border border-gray-500 rounded-lg px-4 py-6 ">
-                <h1 className="md:text-2xl font-bold">About</h1>
-                <div
-                  className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
-                    showMore ? "max-h-auto" : "max-h-[150px]"
-                  } overflow-hidden`}
-                  dangerouslySetInnerHTML={{
-                    __html: eventData?.TourDescription,
-                  }}
-                ></div>
-                <button
-                  className="mt-4 text-blue-700 font-semibold"
-                  onClick={() => setShowMore(!showMore)}
-                >
-                  {showMore ? "Show Less" : "Read More"}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* event */}
-          <div className=" min-h-[20px] md:col-span-2  rounded-lg col-span-1 px-4 order-2 md:order-3 ">
+          {/* share */}
+          <div className=" rounded-lg md:px-0 md:mt-4 px-4 mt-6">
             <div className="    py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">
                 Share this event
@@ -189,16 +153,81 @@ const Page = () => {
               </div>
             </div>
           </div>
+          {/* </div>
+          </div> */}
+
+          {/* about */}
+          {/* <div className="  order-3 md:order-2 lg:-mt-18  md:-mt-20 px-4">
+            <div className=" md:h-[420px] lg:h-[420px] border border-gray-500 rounded-lg px-4 py-6 ">
+              <h1 className="md:text-2xl font-bold">About</h1>
+              <div
+                className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
+                  showMore ? "max-h-auto" : "max-h-[150px]"
+                } overflow-hidden`}
+                dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
+              ></div>
+              <button
+                className="mt-4 text-blue-700 font-semibold"
+                onClick={() => setShowMore(!showMore)}
+              >
+                {showMore ? "Show Less" : "Read More"}
+              </button>
+            </div>
+          </div> */}
         </div>
 
-        <div className=" mt-8">
-          <div className=" px-4 md:px-4 grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2">
-            {tourEvent?.map((tour) => (
-              <div className=" ">
-                <PageCardWithText event={tour} />
+        <div className="flex flex-wrap mt-6 lg:mt-10 px-4">
+          {tourEvent?.map((event) => (
+            <div className="md:mb-4 mb-4">
+              <Link href={`/events/${event.event_id}`}>
+                <Card className="md:h-80 md:w-80 h-36 w-36 relative cursor-pointer overflow-hidden">
+                  <div className="w-[100%] h-full relative">
+                    <Image
+                      src={`${URL}/${event?.EventCardImages[0]?.image_path}`}
+                      alt="profile-picture"
+                      layout="fill"
+                      objectFit="cover"
+                      objectPosition="top"
+                      className="rounded"
+                    />
+                  </div>
+                </Card>
+              </Link>
+
+              <div className="px-2">
+                <div className=" mt-2 h-auto  sm:mt-2 ">
+                  <p className="text-sm capitalize  font-semibold md:text-lg">
+                    {event.EventName}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 mt-3 lg:mt-1">
+                  <div className="flex gap-2 items-center justify-start">
+                    <span>
+                      <CalendarIcon className="size-4 text-gray-900" />
+                    </span>
+                    <span className="text-xs md:text-sm lg:text-sm text-center capitalize text-gray-900">
+                      {event.EventStartDate}
+                    </span>
+                  </div>
+                  <div className="flex gap-2 items-center justify-start">
+                    <span>
+                      <MapPinIcon className="size-4 text-gray-900" />
+                    </span>
+                    <span className="text-xs md:text-sm  lg:text-sm text-left md:text-center capitalize text-gray-900 ">
+                      {event.VenueName}
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  {event.LowestticketPrice && (
+                    <span className="text-sm  md:text-base   font-semibold ">
+                      &#8377; {event.LowestticketPrice} Onwards
+                    </span>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

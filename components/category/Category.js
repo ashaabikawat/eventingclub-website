@@ -44,7 +44,7 @@ const Category = () => {
   if (loading) return;
 
   return (
-    <div className="md:py-6 mt-10 mb-8 sm:px-8 px-1 overflow-hidden md:px-10">
+    <div className="md:py-6 mt-6 mb-8 sm:px-8 px-1 overflow-hidden md:px-10">
       <CardHeaders
         mobileHeader="Events by categories"
         desktopHeader="Browse events by categories"
@@ -63,15 +63,15 @@ const Category = () => {
               spaceBetween: 16,
             },
             425: {
-              slidesPerView: 3,
-              spaceBetween: 10,
+              slidesPerView: 2.2,
+              spaceBetween: 20,
             },
             768: {
-              slidesPerView: 4,
+              slidesPerView: 3.4,
               spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 5,
+              slidesPerView: 5.2,
               spaceBetween: 20,
             },
           }}
@@ -80,7 +80,7 @@ const Category = () => {
           className="md:mt-6 mt-4 "
         >
           {cardsData?.map((data) => (
-            <SwiperSlide key={data.id}>
+            <SwiperSlide key={data.id} className="w-full">
               <Link href={`/categories/${data._id}`}>
                 <Cards data={data} />
               </Link>

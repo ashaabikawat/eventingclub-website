@@ -7,10 +7,11 @@ import React from "react";
 
 const CardWithText = ({ data }) => {
   const imageUrl = `${URL}/${data?.EventCardImages[0]?.image_path}`;
+  // console.log(imageUrl);
 
   return (
     <div>
-      <Card className="w-full lg:h-[200px] md:h-[150px] h-[150px] relative cursor-pointer overflow-hidden">
+      <Card className="w-full lg:h-[300px] md:h-[250px] h-[150px] relative cursor-pointer overflow-hidden">
         <div className="w-full h-full relative">
           <Image
             src={`${imageUrl}`}
@@ -24,14 +25,14 @@ const CardWithText = ({ data }) => {
         <div className="absolute bottom-2 right-2"></div>
       </Card>
 
-      <div className="px-2 mt-6 mb-4">
+      <div className=" mt-2  mb-4">
         <div
           className={`flex items-center justify-start mb-2 ${
             data.EventName.length > 40 ? "mt-2 mb-2" : "mt-0 mb-0"
           } h-auto`}
         >
           <p
-            className="capitalize md:text-lg text-base line-clamp-2"
+            className="capitalize md:text-base text-sm lg:text-lg font-semibold line-clamp-2"
             style={{
               display: "-webkit-box",
               WebkitBoxOrient: "vertical",
@@ -47,18 +48,18 @@ const CardWithText = ({ data }) => {
         <div className="flex flex-col gap-2">
           <div className="flex gap-2 items-center justify-start">
             <span>
-              <CalendarIcon className="size-4 text-gray-700" />
+              <CalendarIcon className="size-4 lg:size-5 text-gray-800" />
             </span>
-            <span className="md:text-sm text-sm text-center capitalize text-gray-700">
+            <span className="md:text-sm text-sm lg:text-base text-center capitalize text-gray-900">
               {data.EventStartDate}
             </span>
           </div>
 
           <div className="flex gap-2 items-center justify-start">
             <span>
-              <MapPinIcon className="size-4 text-gray-700" />
+              <MapPinIcon className="size-4 lg:size-5 text-gray-900" />
             </span>
-            <span className="md:text-sm text-sm text-center capitalize text-gray-700">
+            <span className="md:text-sm text-sm lg:text-base text-center capitalize text-gray-900">
               {data.VenueName}
             </span>
           </div>
@@ -66,7 +67,7 @@ const CardWithText = ({ data }) => {
 
         {data.LowestticketPrice !== null && (
           <div className="mt-4">
-            <span className="text-sm md:text-base">
+            <span className="text-sm md:text-base lg:text-lg font-semibold">
               &#8377; {data.LowestticketPrice} Onwards
             </span>
           </div>

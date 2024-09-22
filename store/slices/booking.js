@@ -8,6 +8,7 @@ const initialState = {
   ticketData: [],
   count: {},
   showCount: {},
+  eventId: null,
 };
 
 const booking = createSlice({
@@ -21,6 +22,10 @@ const booking = createSlice({
       // console.log("payload", action.payload);
     },
 
+    setEventId: (state, action) => {
+      state.eventId = action.payload;
+      console.log(action.payload);
+    },
     setTicketData: (state, action) => {
       state.ticketData = action.payload; // Store fetched ticket data
       // console.log("setTicketData", action.payload);
@@ -28,7 +33,7 @@ const booking = createSlice({
 
     handleIncrease: (state, action) => {
       const ticketId = action.payload;
-      console.log("increased", ticketId);
+      // console.log("increased", ticketId);
       // Find the booking object for the specific ticket
 
       const bookingObj = current(state.ticketData).find(
@@ -162,6 +167,15 @@ const booking = createSlice({
         },
       };
     },
+
+    reset_state: (state, action) => {
+      (state.selectedTickets = null),
+        (state.totalTickets = null),
+        (state.ticketData = []),
+        (state.count = {}),
+        (state.showCount = {}),
+        (state.eventId = null);
+    },
   },
 });
 
@@ -171,5 +185,7 @@ export const {
   setTicketData,
   handleDecrease,
   setShowCount,
+  setEventId,
+  reset_state,
 } = booking.actions;
 export default booking.reducer;

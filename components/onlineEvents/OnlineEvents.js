@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import CardHeaders from "../common/card headers/CardHeaders";
 import Slider from "react-slick";
 import CardWithText from "../card/CardWithText";
-import { initialLength, settings } from "@/utils/constants";
 import axios from "axios";
 import { onlineEvents } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
@@ -53,7 +52,7 @@ const OnlineEvents = () => {
   }
 
   return (
-    <div className="   mt-2  sm:px-8 px-1 overflow-hidden md:px-10">
+    <div className=" mb-6  mt-2 md:mb-6  sm:px-8 px-1 overflow-hidden md:px-10">
       <CardHeaders
         mobileHeader="Online Events"
         desktopHeader="Online Events"
@@ -72,16 +71,16 @@ const OnlineEvents = () => {
               spaceBetween: 20,
             },
             425: {
-              slidesPerView: 2.5,
-              spaceBetween: 10,
+              slidesPerView: 2.2,
+              spaceBetween: 20,
             },
             768: {
-              slidesPerView: 3.5,
-              // spaceBetween: 0,
+              slidesPerView: 3.2,
+              spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 4.5,
-              spaceBetween: 4,
+              slidesPerView: 4.2,
+              spaceBetween: 20,
             },
           }}
           // onSlideChange={() => console.log("slide change")}
@@ -90,7 +89,7 @@ const OnlineEvents = () => {
         >
           {cardsData?.map((data) => (
             <SwiperSlide key={data.id}>
-              <div key={data.id} className="md:px-2 md:mt-6 mt-4  mb-14 ">
+              <div key={data.id} className="  mt-4   ">
                 <Link href={`/events/${data.event_id}`}>
                   <CardWithText data={data} />
                 </Link>
