@@ -11,13 +11,10 @@ import {
   handleIncrease,
   handleDecrease,
   setBookingDataObj,
+  setPromocodeId,
 } from "../../store/slices/booking";
 
-const BookingSummary = ({
-  handleOpen,
-  isAccordionOpen,
-  setIsAccordionOpen,
-}) => {
+const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   const [promocodes, setPromocodes] = useState([]);
   const { id } = useParams();
   const booking = useSelector((store) => store.booking);
@@ -37,16 +34,46 @@ const BookingSummary = ({
 
   const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(0);
 
+  const ticketAmount = Number(ticket.TicketPrice) * totalTickets;
+  const convenienceFee = Number(promocodes?.ConFeeValue) || 0;
+  const promocodeDiscount = Number(promocodeDiscountPrice) || 0;
+
+  // Calculate GST based on the total before discount
+  const gst = convenienceFee * 0.18;
+
+  // Calculate total amount
+  const totalAmount = ticketAmount + convenienceFee + gst - promocodeDiscount;
+
+  const promocodePrice = promoObject?.Value;
+  const promocodeDiscountAmount =
+    (ticketAmount * Number(promoObject?.Value)) / 100;
+
+  const formatAmount = (amount) => {
+    return amount.toLocaleString("en-IN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
   const handleApplyPromocode = () => {
     const selectedPromocode = promocodes?.applicablePromocodes?.find(
       (promo) => promo.PromoCodeName === promocodeValue
     );
 
-    if (selectedPromocode) {
-      setpromoObject(selectedPromocode);
-      toast.success("Promocode applied successfully!");
+    const minAmount = Number(selectedPromocode?.MinAmount);
+    const ticketAmountNum = Number(ticketAmount);
+
+    if (!isNaN(minAmount) && !isNaN(ticketAmountNum)) {
+      if (minAmount <= ticketAmountNum) {
+        setpromoObject(selectedPromocode);
+        dispatch(setPromocodeId(selectedPromocode._id));
+        toast.success("Promocode applied successfully!");
+      } else {
+        toast.error(`Minimum checkout amount is ${minAmount}`);
+        setPromocodeDiscountPrice(0);
+      }
     } else {
-      toast.error("Invalid promocode!");
+      console.log("Invalid amounts:", minAmount, ticketAmountNum);
     }
   };
 
@@ -106,25 +133,10 @@ const BookingSummary = ({
 
   useEffect(() => {
     setPromocodeValue(promoObject?.PromoCodeName || "");
-    setPromocodeDiscountPrice(promoObject?.Value);
+    setPromocodeDiscountPrice(
+      promoObject?.PromType === 1 ? promocodePrice : promocodeDiscountAmount
+    );
   }, [promoObject]);
-
-  const ticketAmount = Number(ticket.TicketPrice) * totalTickets;
-  const convenienceFee = Number(promocodes?.ConFeeValue) || 0;
-  const promocodeDiscount = Number(promocodeDiscountPrice) || 0;
-
-  // Calculate GST based on the total before discount
-  const gst = (ticketAmount + convenienceFee - promocodeDiscount) * 0.18;
-
-  // Calculate total amount
-  const totalAmount = ticketAmount + convenienceFee + gst - promocodeDiscount;
-
-  const formatAmount = (amount) => {
-    return amount.toLocaleString("en-IN", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  };
 
   return (
     <div>
@@ -299,7 +311,11 @@ const BookingSummary = ({
               <p className="md:text-lg capitalize">promocode</p>
               <p className="md:text-lg font-bold flex gap-2 text-red-500">
                 <span>-</span>
-                &#8377;{formatAmount(promocodeDiscount)}
+                &#8377;
+                {/* {promoObject?.PromType === 1
+                  ? promocodePrice
+                  : promocodeDiscountAmount} */}
+                {promocodeDiscountPrice ? promocodeDiscountPrice : 0}
               </p>
             </div>
             <div className="flex justify-between mb-2">

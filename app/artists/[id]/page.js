@@ -60,6 +60,8 @@ const Page = () => {
 
   const cardsData = otherArtists?.slice(0, 5);
 
+  if (loading) return <Loading />;
+
   return (
     <>
       <div className="md:py-6 md:px-14  ">
@@ -95,7 +97,7 @@ const Page = () => {
           {artistEvents && artistEvents.length > 0 ? (
             <Swiper
               spaceBetween={6}
-              slidesPerView={5}
+              slidesPerView={1}
               // onSlideChange={() => console.log("slide change")}
               // onSwiper={(swiper) => console.log(swiper)}
               // className="mt-3 "
@@ -109,7 +111,7 @@ const Page = () => {
                   spaceBetween: 10,
                 },
                 768: {
-                  slidesPerView: 2.2,
+                  slidesPerView: 3.2,
                   spaceBetween: 10,
                 },
                 1024: {
@@ -147,7 +149,7 @@ const Page = () => {
             {" "}
             <Swiper
               spaceBetween={6}
-              slidesPerView={5}
+              slidesPerView={1}
               // onSlideChange={() => console.log("slide change")}
               // onSwiper={(swiper) => console.log(swiper)}
               // className="mt-3 "

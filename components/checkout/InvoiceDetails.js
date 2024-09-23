@@ -1,38 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import AddAddress from "../common/AddAddress";
+import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { ticket } from "@/utils/config";
 
-const InvoiceDetails = () => {
+const InvoiceDetails = ({ cust_id }) => {
+  const [stateIsoCode, setStateIsoCode] = useState(null);
+  const [stateName, setStateName] = useState(null);
+  const [cityIsoCode, setCityIsoCode] = useState(null);
+  const [cityName, setCityName] = useState(null);
+
+  const address = JSON.parse(localStorage.getItem("address"));
+  // console.log(address);
+  const { id } = useParams();
+  const selectedTicket = useSelector((store) => store.booking.selectedTickets);
+  const totalTickets = useSelector((store) => store.booking.totalTickets);
+  const promocodeId = useSelector((store) => store.booking.promocodeId);
+  const [formData, setFormData] = useState({
+    address: "",
+    pincode: "",
+  });
+
+  const bookTicket = async () => {
+    const payload = {
+      customer_id: cust_id,
+      event_id: id,
+      EventTicket_id: selectedTicket[0]?.Ticket_Id,
+      TicketQuantity: totalTickets,
+
+      //Optional Feilds
+      customer_Address: formData?.address,
+      customer_Pincode: formData?.pincode,
+      customer_Country: "India",
+      customer_CountryIsoCode: "IN",
+      customer_State: address?.stateName,
+      customer_StateIsoCode: address?.stateIsoCode,
+      customer_City: address?.cityName,
+      customer_CityIsoCode: address?.cityIsoCode,
+    };
+    if (promocodeId) payload.Promocode_id = promocodeId;
+    // console.log(payload);
+
+    try {
+      const response = await axios.post(`${ticket.POST_DATA}`, payload);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // console.log(name, value);
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <div>
       <div className=" w-full mt-4 rounded-lg flex justify-between ">
         <form className="w-full">
           <input
             type="text"
-            placeholder="Full name*"
-            className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600 "
-          />
-          <input
-            type="number"
-            placeholder="Phone number*"
-            className="border  md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
-          />
-          <input
-            type="email"
-            placeholder="Email`*"
-            className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
-          />
-          <input
-            type="text"
             placeholder="Address"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
             className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
           />
           <div className="flex  gap-4">
             <input
               type="number"
               placeholder="Pincode"
+              name="pincode"
+              value={formData.pincode}
+              onChange={handleChange}
               className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
             />
 
-            <input
+            {/* <input
               type="text"
               placeholder="State"
               className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
@@ -42,6 +88,16 @@ const InvoiceDetails = () => {
               type="text"
               placeholder="City"
               className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600 mt-4"
+            /> */}
+            <AddAddress
+              stateIsoCode={stateIsoCode}
+              setStateIsoCode={setStateIsoCode}
+              stateName={stateName}
+              setStateName={setStateName}
+              cityIsoCode={cityIsoCode}
+              setCityIsoCode={setCityIsoCode}
+              cityName={cityName}
+              setCityName={setCityName}
             />
           </div>
 
@@ -55,7 +111,11 @@ const InvoiceDetails = () => {
             </span>
           </div>
 
-          <button className="w-full text-white py-2 rounded-lg bg-blue-900 mt-4 ">
+          <button
+            type="button"
+            onClick={bookTicket}
+            className="w-full text-white py-2 rounded-lg bg-blue-900 mt-4 "
+          >
             Continue
           </button>
         </form>

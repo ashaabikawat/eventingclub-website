@@ -61,3 +61,7 @@ export const eventTour = {
 export const promocode = {
   GET_ALL: `${URL}/webiste/promocodes/getPromocodesForEventsWebsite`,
 };
+
+export const ticket = {
+  POST_DATA: `${URL}/webiste/bookticket/bookTicket`,
+};

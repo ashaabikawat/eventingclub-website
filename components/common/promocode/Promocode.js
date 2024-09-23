@@ -15,7 +15,9 @@ const Promocode = ({ promocode }) => {
         <div>
           <div className="flex flex-col mt-3 pl-8 ">
             <p className="text-base capitalize  text-blue-900 font-semibold">
-              save &#8377; {promocode?.Value}
+              {promocode.PromType === Number(1)
+                ? `save ₹ ${promocode?.Value}`
+                : `save ${promocode?.Value}%`}
             </p>
             {/* <p className="text-xs text-gray-700">
               HTML symbol, character and entity codes, ASCII, CSS and HEX values

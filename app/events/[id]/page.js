@@ -32,6 +32,7 @@ const Page = () => {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   // console.log(artists);
+  console.log(eventData);
 
   useEffect(() => {
     fetchEvent();
@@ -70,7 +71,7 @@ const Page = () => {
   return (
     <div className="   mb-16">
       <div className="md:px-6 md:py-1">
-        <div className="grid grid-cols-1 md:grid-cols-2  gap-4  md:p-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10  gap-4  md:p-4 ">
           <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
             {loadings ? (
               "Loading ..."
@@ -140,12 +141,12 @@ const Page = () => {
           </div>
 
           {/* carousel images */}
-          <div className=" mt-4   md:-2 flex flex-col justify-between  ">
+          <div className=" mt-4 flex flex-col justify-between  ">
             <div className="md:flex hidden border-t-2  border-gray-500  flex-col gap-4">
               <div className="">
                 <Swiper
-                  spaceBetween={2}
-                  slidesPerView={3}
+                  spaceBetween={12}
+                  slidesPerView={2.2}
                   // onSlideChange={() => console.log("slide change")}
                   // onSwiper={(swiper) => console.log(swiper)}
                   className="mt-3"
@@ -156,28 +157,10 @@ const Page = () => {
                         key={img.id}
                         navigation={true}
                         modules={[Navigation]}
-                        breakpoints={{
-                          320: {
-                            slidesPerView: 1,
-                            spaceBetween: 16,
-                          },
-                          425: {
-                            slidesPerView: 2,
-                            spaceBetween: 20,
-                          },
-                          768: {
-                            slidesPerView: 1,
-                            spaceBetween: 20,
-                          },
-                          1024: {
-                            slidesPerView: 3,
-                            spaceBetween: 10,
-                          },
-                        }}
                       >
                         <div
                           key={img.id}
-                          className=" h-52 w-52  relative cursor-pointer overflow-hidden "
+                          className=" h-52 w-full  relative cursor-pointer overflow-hidden "
                         >
                           <div className="w-full h-full relative">
                             <Image
@@ -186,7 +169,7 @@ const Page = () => {
                               layout="fill"
                               objectFit="cover"
                               objectPosition="top"
-                              className="rounded"
+                              className="rounded-lg "
                             />
                           </div>
                         </div>
@@ -218,81 +201,88 @@ const Page = () => {
           </div>
 
           {/* about */}
-          <div className="  order-3 md:order-2  px-4">
-            <div className=" md:h-[420px] lg:h-[420px] border border-gray-500 rounded-lg px-4 py-6 ">
-              <h1 className="md:text-2xl font-bold">About</h1>
-              <div
-                className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
-                  showMore ? "max-h-auto" : "max-h-[150px]"
-                } overflow-hidden`}
-                dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
-              ></div>
-              <button
-                className="mt-4 text-blue-700 font-semibold"
-                onClick={() => setShowMore(!showMore)}
-              >
-                {showMore ? "Show Less" : "Read More"}
-              </button>
+          {/* <div className=" px-4 ">
+            <div className=" rounded-lg border border-gray-500  ">
+            
+            </div>
+          </div> */}
+
+          <div className="px-4 order-3  md:px-0 md:order-2 ">
+            <div className="border h-full border-gray-500 rounded-lg px-4">
+              <div className=" h-auto  py-6 ">
+                <h1 className="md:text-2xl font-bold">About</h1>
+                <div
+                  className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
+                    showMore ? "max-h-auto" : "max-h-[150px]"
+                  } overflow-hidden`}
+                  dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
+                ></div>
+              </div>
             </div>
           </div>
 
           {/* gallery */}
-          {eventData?.EventGalleryImages.length > 0 && (
-            <div className="min-h-[200px] md:-2 md:mt-6 lg:mt-10 px-4 order-5 md:order-4">
+          {/* {eventData?.EventGalleryImages.length > 0 && (
+            <div className=" md:-2 md:mt-4 lg:mt-10 px-4 order-5 md:order-4">
               <div className="border border-gray-500 rounded-lg">
-                <h1 className="md:text-xl mt-4 px-4 font-bold">Gallery</h1>
-                <div className=" h-auto md:w-[90%] mx-auto mb-4">
-                  <Swiper
-                    // slidesPerView={1}
-                    // onSlideChange={() => console.log("slide change")}
-                    // onSwiper={(swiper) => console.log(swiper)}
-                    className="mt-3 
-                "
-                  >
-                    {eventData?.EventGalleryImages.map((img) => {
-                      return (
-                        <SwiperSlide
-                          key={img.id}
-                          navigation={true}
-                          modules={[Navigation]}
-                        >
-                          <div
-                            key={img.id}
-                            className="md:w-full w-[90%] mx-auto md:mx-0  md:h-80 h-56  relative cursor-pointer overflow-hidden "
-                          >
-                            <div className="w-full h-full relative">
-                              <Image
-                                src={`${URL}/${img.image_path}`}
-                                alt="carousel-image"
-                                layout="fill"
-                                objectFit="cover"
-                                objectPosition="top"
-                                className="rounded-lg"
-                              />
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
-                </div>
+                
+                
               </div>
             </div>
-          )}
+          )} */}
+          <div className="h-auto order-5 md:order-4 md:px-0 px-4 ">
+            <div className="border border-gray-500 h-full rounded-lg px-4">
+              <h1 className="md:text-xl mt-4  font-bold">Gallery</h1>
+              <div className=" h-auto md:w-[100%] mb-4">
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={12}
+                  // onSlideChange={() => console.log("slide change")}
+                  // onSwiper={(swiper) => console.log(swiper)}
+                  className="mt-3 
+                "
+                >
+                  {eventData?.EventGalleryImages.map((img) => {
+                    return (
+                      <SwiperSlide
+                        key={img.id}
+                        navigation={true}
+                        modules={[Navigation]}
+                      >
+                        <div
+                          key={img.id}
+                          className="md:w-full w-[90%] mx-auto md:mx-0  md:h-80 h-56  relative cursor-pointer overflow-hidden "
+                        >
+                          <div className="w-full h-full relative">
+                            <Image
+                              src={`${URL}/${img.image_path}`}
+                              alt="carousel-image"
+                              layout="fill"
+                              objectFit="cover"
+                              objectPosition="top"
+                              className="rounded-lg"
+                            />
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div>
+            </div>
+          </div>
 
           {/* maps */}
 
-          <div className=" min-h-[100px] md:-2 md:mt-4 lg:mt-4 order-4 md:order-5 px-4 md:px-0 ">
-            <div className="border border-gray-500 rounded-lg  ">
-              <h1 className="md:text-xl px-4 mt-4 font-bold">
+          <div className=" h-auto  md:-2   order-4 md:order-5 px-4 md:px-0 ">
+            <div className="border border-gray-500 rounded-lg h-full px-4">
+              <h1 className="md:text-xl mt-4 font-bold">
                 {eventData?.VenueCity !== "-"
                   ? eventData?.VenueCity
                   : eventData?.VenueName}
               </h1>
-              <p className=" px-4 mt-2 capitalize mb-4">
-                {eventData?.VenueName}
-              </p>
-              <div className=" md:min-h-[200px] h-auto   md:w-[90%] w-[90%] mx-4 mb-4 ">
+              <p className=" mt-2 capitalize mb-4">{eventData?.VenueName}</p>
+              <div className=" md:min-h-[200px] h-auto   md:w-[100%] w-[100%]  mb-4 ">
                 {eventData?.VenueMapLocationLink && (
                   <div className="">
                     <iframe
@@ -330,7 +320,7 @@ const Page = () => {
                   spaceBetween: 20,
                 },
                 1024: {
-                  slidesPerView: 3.2,
+                  slidesPerView: 4,
                   spaceBetween: 20,
                 },
               }}
@@ -381,23 +371,25 @@ const Page = () => {
             </AccordionBody>
           </Accordion>
 
-          <Accordion open={open === 2} className="mt-8">
-            <AccordionHeader
-              className="flex w-full  justify-between "
-              onClick={() => handleOpen(2)}
-            >
-              <p className="flex-grow md:text-2xl text-black">FAQs</p>
-              <span className="ml-auto">
-                <MdKeyboardArrowDown size={30} />
-              </span>
-            </AccordionHeader>
-            <AccordionBody>
-              We&apos;re not always in the position that we want to be at.
-              We&apos;re constantly growing. We&apos;re constantly making
-              mistakes. We&apos;re constantly trying to express ourselves and
-              actualize our dreams.
-            </AccordionBody>
-          </Accordion>
+          {eventData?.EventFaqs?.length > 0 && (
+            <Accordion open={open === 2} className="mt-8">
+              <AccordionHeader
+                className="flex w-full  justify-between "
+                onClick={() => handleOpen(2)}
+              >
+                <p className="flex-grow md:text-2xl text-black">FAQs</p>
+                <span className="ml-auto">
+                  <MdKeyboardArrowDown size={30} />
+                </span>
+              </AccordionHeader>
+              <AccordionBody>
+                We&apos;re not always in the position that we want to be at.
+                We&apos;re constantly growing. We&apos;re constantly making
+                mistakes. We&apos;re constantly trying to express ourselves and
+                actualize our dreams.
+              </AccordionBody>
+            </Accordion>
+          )}
 
           <Accordion open={open === 3} className="mt-8">
             <AccordionHeader

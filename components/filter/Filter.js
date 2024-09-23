@@ -13,6 +13,7 @@ import { dropdownOptions } from "@/utils/constants";
 import Flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.css";
 import DatePicker from "./DatePicker";
+import moment from "moment-timezone";
 
 const Filter = ({
   handleLanguageSelection,
@@ -24,15 +25,19 @@ const Filter = ({
   fetchEvents,
   filterOpenModal,
   setFilterOpenModal,
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
 }) => {
   const [open, setOpen] = useState(1);
   const [active, setActive] = useState("Date");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   const startPickerRef = useRef(null);
   const [selectedDates, setSelectedDates] = useState();
   const [visiblePicker, setVisiblePicker] = useState(null);
   const [range, setRange] = useState("start");
+
+  console.log(setStartDate);
 
   const data = [
     {
@@ -56,7 +61,7 @@ const Filter = ({
   ];
 
   const handleDateRange = (range) => {
-    console.log(range);
+    // console.log("range");
     setRange(range);
     if (range === "start") {
       setVisiblePicker("start");
@@ -103,14 +108,19 @@ const Filter = ({
   };
 
   const handleManualSubmit = () => {
+    if (!startDate || !endDate) {
+      console.log("Please select both start and end dates.");
+      return; // Prevent further execution if dates are not set
+    }
+
     const startdate = `${moment(startDate)
       .startOf("day")
       .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
     const enddate = `${moment(endDate)
       .endOf("day")
       .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
-    console.log(startdate, enddate);
-    // DateFilterApiCall(startdate, enddate);
+
+    console.log("startdate:", startdate, "enddate:", enddate);
   };
 
   useEffect(() => {
@@ -122,8 +132,14 @@ const Filter = ({
         inline: true, // Enable inline mode
         defaultDate: "02/25/2024", // Default date, you can change this to dynamic value
         onChange: (selectedDates) => {
-          console.log("Selected Date:", selectedDates[0]); // Handle date change here
+          // console.log("Selected Date:", selectedDates[0]);
+          // setStartDate(selectedDates[0]); // Handle date change here
           setSelectedDates(selectedDates[0]);
+          if (range === "start") {
+            setStartDate(selectedDates[0]);
+          } else {
+            setEndDate(selectedDates[0]);
+          }
         },
       });
     }
@@ -134,7 +150,7 @@ const Filter = ({
         flatpickrInstance.destroy(); // Destroy the Flatpickr instance
       }
     };
-  }, [isManual]);
+  }, [isManual, range]);
 
   // console.log("fil", filterOpenModal);
 
@@ -144,6 +160,14 @@ const Filter = ({
     } else {
       setEndDate(selectedDates);
     }
+  };
+
+  console.log("start", startDate);
+  console.log("end", endDate);
+
+  const handleClear = () => {
+    fetchEvents();
+    setFilterOpenModal(false);
   };
 
   return (
@@ -204,7 +228,7 @@ const Filter = ({
               </div>
             </AccordionBody>
             <div
-              className={`mb-6 bg-white absolute z-50  p-6 border border-white rounded-lg ${
+              className={`mb-6 bg-white absolute z-50  border border-white rounded-lg ${
                 isManual ? "" : "hidden"
               }`}
             >
@@ -215,7 +239,7 @@ const Filter = ({
                       onClick={() => handleDateRange("start")}
                       className={`${
                         range === "start" ? "text-blue-900 underline" : ""
-                      } text-xl p-2`}
+                      } text-xl  cursor-pointer`}
                     >
                       Start
                     </span>{" "}
@@ -223,7 +247,7 @@ const Filter = ({
                       onClick={() => handleDateRange("end")}
                       className={`${
                         range === "end" ? "text-blue-900 underline" : ""
-                      } text-xl p-2 `}
+                      } text-xl cursor-pointer `}
                     >
                       End
                     </span>
@@ -231,14 +255,19 @@ const Filter = ({
                   <div
                     id="datepicker-start"
                     ref={startPickerRef}
-                    className="absolute top-full left-0 mt-2"
+                    style={{
+                      border: "none",
+                      boxShadow: "none",
+                      outline: "none",
+                    }}
+                    className="absolute top-full left-0 mt-2 shadow-none border-none outline-none focus:border-none focus:ring-  "
                   ></div>
                   <div className="flex gap-6 mt-4 justify-around items-center">
                     <button className="text-base border border-gray-400  px-4 py-2 rounded">
                       Cancel
                     </button>
                     <button
-                      onClick={handleApply}
+                      onClick={handleManualSubmit}
                       className="text-white bg-blue-900  px-4 py-2 rounded"
                     >
                       Apply
@@ -343,9 +372,11 @@ const Filter = ({
           <div className="w-full h-auto">
             <div className="mb-4">
               <div className="w-full border-b-2 border-gray-300 pb-4">
-                <div className="flex justify-between">
-                  <p>Filters</p>
-                  <p>Clear all</p>
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-lg">Filters</p>
+                  <p className="cursor-pointer  " onClick={handleClear}>
+                    Clear all
+                  </p>
                 </div>
               </div>
             </div>

@@ -78,7 +78,7 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" mt-8 mb-10 md:px-10 px-2 ">
+    <div className=" mt-8 mb-10 md:px-6 px-4 ">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <h1 className=" font-bold md:text-2xl px-2">Pick your venue:</h1>
@@ -100,7 +100,7 @@ const Page = () => {
           </label>
         </div>
       </div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-4 w-full mt-6  ">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6 md:gap-4 w-full mt-6  ">
         {venuesDuplicate.map((data) => (
           <Link href={`/venue/${data._id}`} key={data._id}>
             <VenueCard data={data} />

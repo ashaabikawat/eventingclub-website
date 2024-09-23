@@ -55,9 +55,9 @@ const TourEvents = () => {
       <CardHeaders
         mobileHeader="Event Tour"
         desktopHeader="Event Tour"
-        mobileText="See all"
-        desktopText="Discover event tour"
-        url="/eventtour"
+        mobileText=""
+        desktopText=""
+        url=""
       />
       <div className="px-2">
         <Swiper

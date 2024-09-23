@@ -9,6 +9,7 @@ const initialState = {
   count: {},
   showCount: {},
   eventId: null,
+  promocodeId: null,
 };
 
 const booking = createSlice({
@@ -24,8 +25,9 @@ const booking = createSlice({
 
     setEventId: (state, action) => {
       state.eventId = action.payload;
-      console.log(action.payload);
+      // console.log(action.payload);
     },
+
     setTicketData: (state, action) => {
       state.ticketData = action.payload; // Store fetched ticket data
       // console.log("setTicketData", action.payload);
@@ -91,40 +93,6 @@ const booking = createSlice({
       // }));
     },
 
-    // handleDecrease: (state, action) => {
-    //   const ticketId = action.payload;
-    //   const currentCount = state.count[ticketId] || 0;
-
-    //   if (currentCount === 0) {
-    //     return state; // No change if the count is already 0
-    //   }
-
-    //   const newCount = currentCount - 1;
-
-    //   // If the new count is 0, clear the showCount for that ticketId
-    //   if (newCount === 0) {
-    //     return {
-    //       ...state,
-    //       count: {
-    //         ...state.count,
-    //         [ticketId]: newCount, // Set the count to 0 for the specific ticket
-    //       },
-    //       showCount: {
-    //         ...state.showCount,
-    //         [ticketId]: false, // Optionally set to false or remove the entry for this ticketId
-    //       },
-    //     };
-    //   }
-
-    //   return {
-    //     ...state,
-    //     count: {
-    //       ...state.count,
-    //       [ticketId]: newCount, // Update the count for the specific ticket
-    //     },
-    //   };
-    // },
-
     handleDecrease: (state, action) => {
       const ticketId = action.payload;
       const currentCount = state.count[ticketId] || 0;
@@ -168,6 +136,11 @@ const booking = createSlice({
       };
     },
 
+    setPromocodeId: (state, action) => {
+      state.promocodeId = action.payload;
+      console.log(action.payload);
+    },
+
     reset_state: (state, action) => {
       (state.selectedTickets = null),
         (state.totalTickets = null),
@@ -187,5 +160,6 @@ export const {
   setShowCount,
   setEventId,
   reset_state,
+  setPromocodeId,
 } = booking.actions;
 export default booking.reducer;

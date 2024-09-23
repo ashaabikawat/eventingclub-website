@@ -23,6 +23,7 @@ import {
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   const [isMobile, setIsMobile] = useState(false);
   const { id } = useParams();
+  console.log("data", data);
 
   const [eventTicket, setEventTicket] = useState([]);
   const [bookingData, setBookingData] = useState({
@@ -319,7 +320,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
         </div>
 
         <div className=" mt-2 px-4 md:px-14 py-6 mb-20">
-          {showTicket && (
+          {showTicket && ticketData?.length > 0 && (
             <div>
               <h1 className="md:text-2xl   font-bold">Choose ticket</h1>
               {ticketData?.map((ticket) => {
@@ -375,7 +376,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                         {showCount[ticket.Ticket_Id] ? (
                           <div className="flex justify-center items-center mt-4">
                             <button
-                              className="bg-[#666666] text-white py-1 px-2 rounded-l"
+                              className="bg-blue-900 text-white py-1 px-2 rounded-l"
                               onClick={() =>
                                 dispatch(handleDecrease(ticket.Ticket_Id))
                               }
@@ -384,7 +385,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                             </button>
                             <span className="mx-4">{counts}</span>
                             <button
-                              className="bg-[#666666] text-white py-1 px-2 rounded-r"
+                              className="bg-blue-900 text-white py-1 px-2 rounded-r"
                               onClick={() =>
                                 handleIncreaseandSetEventId(ticket.Ticket_Id)
                               }
@@ -396,8 +397,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                           <button
                             className={` ${
                               isAnyCountActive
-                                ? "bg-[#666666] bg-opacity-40 cursor-not-allowed"
-                                : "bg-[#666666]"
+                                ? "bg-blue-900 bg-opacity-40 cursor-not-allowed"
+                                : "bg-blue-900"
                             }   text-white py-2 px-4 rounded mx-auto mt-4`}
                             onClick={() => handleShowCount(ticket.Ticket_Id)}
                             disabled={isAnyCountActive}
@@ -417,7 +418,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
         <>
           {storedEventId === id && totalTickets > 0 && (
-            <div className="fixed bottom-0 w-[90%] h-[100px] bg-white shadow-md p-6 flex justify-between items-center">
+            <div className="fixed bottom-0 w-[100%] h-[100px] bg-white shadow-md p-6 flex justify-between items-center">
               <div className="w-[50%] pl-6">
                 <p className="text-2xl font-bold">Rs.{totalPrice}</p>
                 <p className="text-xl font-bold">{totalTickets} Ticket</p>
@@ -425,7 +426,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
               <div className="w-[35%]">
                 <button
                   onClick={handleContinue}
-                  className="bg-[#666666] w-[50%] text-white py-2 px-4 rounded"
+                  className="bg-blue-900 w-[50%] text-white py-2 px-4 rounded"
                 >
                   Continue
                 </button>

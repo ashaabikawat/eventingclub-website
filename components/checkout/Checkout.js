@@ -94,6 +94,7 @@ const Checkout = () => {
             </AccordionHeader>
             <AccordionBody>
               <BookingSummary
+                cust_id={cust_id}
                 handleOpen={handleOpen}
                 isAccordionOpen={isAccordionOpen}
                 setIsAccordionOpen={setIsAccordionOpen}
@@ -118,7 +119,7 @@ const Checkout = () => {
               </div>
             </AccordionHeader>
             <AccordionBody>
-              <InvoiceDetails />
+              <InvoiceDetails cust_id={cust_id} />
             </AccordionBody>
           </Accordion>
         </div>

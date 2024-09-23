@@ -16,6 +16,8 @@ import PageCardWithText from "@/components/card/PageCardWithText";
 import NotFound from "@/components/not found/NotFound";
 
 const Page = () => {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [events, setEvents] = useState([]);
   const [isManual, setIsManual] = useState(false);
   const { id } = useParams();
@@ -131,7 +133,7 @@ const Page = () => {
 
   return (
     <div className="mt-2 ">
-      {isMobile && (
+      {isMobile && !filterOpenModal && (
         <h1 className="md:text-3xl mb-4 px-4 font-semibold text-lg ">
           Category Events:
         </h1>
@@ -170,6 +172,10 @@ const Page = () => {
                 fetchEvents={fetchEvents}
                 setFilterOpenModal={setFilterOpenModal}
                 filterOpenModal={filterOpenModal}
+                startDate={startDate}
+                endDate={endDate}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
               />
             </div>
           )}
@@ -202,6 +208,10 @@ const Page = () => {
                     fetchEvents={fetchEvents}
                     setFilterOpenModal={setFilterOpenModal}
                     filterOpenModal={filterOpenModal}
+                    startDate={startDate}
+                    endDate={endDate}
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
                   />
                 )}
               </>

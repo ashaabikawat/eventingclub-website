@@ -28,8 +28,8 @@ const Page = () => {
   const [tourEvent, setTourEvent] = useState([]);
   const [loadings, setLoadings] = useState(true);
   const [showMore, setShowMore] = useState(false);
-
-  console.log(eventData);
+  const [open, setOpen] = useState(0);
+  const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   useEffect(() => {
     fetchEvent();
@@ -176,11 +176,11 @@ const Page = () => {
           </div> */}
         </div>
 
-        <div className="flex flex-wrap mt-6 lg:mt-10 px-4">
+        <div className="flex mt-6 gap-4 lg:mt-10 px-4">
           {tourEvent?.map((event) => (
             <div className="md:mb-4 mb-4">
               <Link href={`/events/${event.event_id}`}>
-                <Card className="md:h-80 md:w-80 h-36 w-36 relative cursor-pointer overflow-hidden">
+                <Card className="md:h-80 md:w-80 h-36 w-full relative cursor-pointer overflow-hidden">
                   <div className="w-[100%] h-full relative">
                     <Image
                       src={`${URL}/${event?.EventCardImages[0]?.image_path}`}
