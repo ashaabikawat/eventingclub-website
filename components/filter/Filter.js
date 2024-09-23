@@ -9,7 +9,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Languages from "./Languages";
 import Categories from "./Categories";
 import Genre from "./Genre";
-import { dropdownOptions } from "@/utils/constants";
+import { dropdownOptions, formatDateForInput } from "@/utils/constants";
 import Flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.css";
 import DatePicker from "./DatePicker";
@@ -29,6 +29,7 @@ const Filter = ({
   endDate,
   setStartDate,
   setEndDate,
+  handleManualSubmit,
 }) => {
   const [open, setOpen] = useState(1);
   const [active, setActive] = useState("Date");
@@ -37,7 +38,23 @@ const Filter = ({
   const [visiblePicker, setVisiblePicker] = useState(null);
   const [range, setRange] = useState("start");
 
-  console.log(setStartDate);
+  const [today, setToday] = useState(new Date());
+  const [formattedDate, setFormattedDate] = useState();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setToday(new Date());
+      // setToday(today);
+    }, 60000); // Update every minute
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (today) {
+      const date = formatDateForInput(today.toLocaleDateString("en-US"));
+      setFormattedDate(date);
+    }
+  }, [today]);
 
   const data = [
     {
@@ -107,21 +124,21 @@ const Filter = ({
     }
   };
 
-  const handleManualSubmit = () => {
-    if (!startDate || !endDate) {
-      console.log("Please select both start and end dates.");
-      return; // Prevent further execution if dates are not set
-    }
+  // const handleManualSubmit = () => {
+  //   if (!startDate || !endDate) {
+  //     console.log("Please select both start and end dates.");
+  //     return; // Prevent further execution if dates are not set
+  //   }
 
-    const startdate = `${moment(startDate)
-      .startOf("day")
-      .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
-    const enddate = `${moment(endDate)
-      .endOf("day")
-      .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
+  //   const startdate = `${moment(startDate)
+  //     .startOf("day")
+  //     .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
+  //   const enddate = `${moment(endDate)
+  //     .endOf("day")
+  //     .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
 
-    console.log("startdate:", startdate, "enddate:", enddate);
-  };
+  //   console.log("startdate:", startdate, "enddate:", enddate);
+  // };
 
   useEffect(() => {
     let flatpickrInstance;
@@ -130,7 +147,7 @@ const Filter = ({
       // Initialize Flatpickr when isManual is true
       flatpickrInstance = Flatpickr(startPickerRef.current, {
         inline: true, // Enable inline mode
-        defaultDate: "02/25/2024", // Default date, you can change this to dynamic value
+        defaultDate: formattedDate, // Default date, you can change this to dynamic value
         onChange: (selectedDates) => {
           // console.log("Selected Date:", selectedDates[0]);
           // setStartDate(selectedDates[0]); // Handle date change here

@@ -25,6 +25,14 @@ const Page = () => {
   const [error, setError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
 
+  const handleManualSubmit = () => {
+    console.log(startDate);
+    console.log(endDate);
+
+    DateFilterApiCall(startDate, endDate);
+    setIsManual(false);
+  };
+
   useEffect(() => {
     fetchEvents();
     const handleResize = () => setIsMobile(window.innerWidth < 650);
@@ -176,6 +184,7 @@ const Page = () => {
                 endDate={endDate}
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
+                handleManualSubmit={handleManualSubmit}
               />
             </div>
           )}
@@ -212,6 +221,7 @@ const Page = () => {
                     endDate={endDate}
                     setStartDate={setStartDate}
                     setEndDate={setEndDate}
+                    handleManualSubmit={handleManualSubmit}
                   />
                 )}
               </>

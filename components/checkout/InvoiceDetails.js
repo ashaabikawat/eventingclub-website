@@ -4,12 +4,14 @@ import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { ticket } from "@/utils/config";
+import toast from "react-hot-toast";
 
 const InvoiceDetails = ({ cust_id }) => {
   const [stateIsoCode, setStateIsoCode] = useState(null);
   const [stateName, setStateName] = useState(null);
   const [cityIsoCode, setCityIsoCode] = useState(null);
   const [cityName, setCityName] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
 
   const address = JSON.parse(localStorage.getItem("address"));
   // console.log(address);
@@ -23,6 +25,11 @@ const InvoiceDetails = ({ cust_id }) => {
   });
 
   const bookTicket = async () => {
+    if (!isChecked) {
+      toast.error("Please agree to the terms and conditions");
+      return;
+    }
+
     const payload = {
       customer_id: cust_id,
       event_id: id,
@@ -66,29 +73,18 @@ const InvoiceDetails = ({ cust_id }) => {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
+            className="border md:text-base text-sm border-gray-400 px-4 py-3 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
           />
-          <div className="flex  gap-4">
+          <div className="flex gap-4">
             <input
               type="number"
               placeholder="Pincode"
               name="pincode"
               value={formData.pincode}
               onChange={handleChange}
-              className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
+              className="border md:text-base text-sm border-gray-400 px-4  rounded-lg  relative placeholder:text-gray-600  mt-4"
             />
 
-            {/* <input
-              type="text"
-              placeholder="State"
-              className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600  mt-4"
-            />
-
-            <input
-              type="text"
-              placeholder="City"
-              className="border md:text-base text-sm border-gray-400 px-4 py-2 rounded-lg w-[100%] relative placeholder:text-gray-600 mt-4"
-            /> */}
             <AddAddress
               stateIsoCode={stateIsoCode}
               setStateIsoCode={setStateIsoCode}
@@ -104,6 +100,8 @@ const InvoiceDetails = ({ cust_id }) => {
           <div className="flex justify-start items-center md:gap-2 gap-4 mt-6">
             <input
               type="checkbox"
+              checked={isChecked}
+              onChange={() => setIsChecked(!isChecked)}
               className="md:h-4 md:w-4 w-6 h-6 border border-blue-500"
             />
             <span className="md:text-base text-sm">

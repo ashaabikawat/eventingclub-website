@@ -10,33 +10,39 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { loginSuccess } from "@/store/slices/authSlice";
 
 const Checkout = () => {
   const [open, setOpen] = useState(1); // Control active accordion step
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [details, setDetails] = useState();
-  // console.log("isLoggedIn", isLoggedIn);
-  const getToken = localStorage.getItem("authToken");
-  const cust_id = JSON.parse(getToken)?.cust_id;
-  // console.log(cust_id);
-
+  const getToken = JSON.parse(localStorage.getItem("authToken"));
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
-  useEffect(() => {
-    if (details?.Email) {
-      setIsLoggedIn(true);
-      handleOpen(2);
-    }
-  }, [details]);
+  const isLoggedIn = getToken?.isLoggedIn;
+  console.log(isLoggedIn);
+  const cust_id = getToken?.cust_id;
+  console.log(cust_id);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (open === 2) {
-      setIsAccordionOpen(true);
-    } else {
-      setIsAccordionOpen(false);
+    // Automatically open the Booking Summary (Step 2) if the user is logged in
+    if (isLoggedIn) {
+      handleOpen(2); // Open the Booking Summary step
+    } else if (details?.Email) {
+      // Also open if email is provided in the details (from Verification)
+      handleOpen(2);
     }
-  }, [open]);
+  }, [isLoggedIn]);
+
+  // useEffect(() => {
+  //   if (open === 2) {
+  //     setIsAccordionOpen(true);
+  //   } else {
+  //     setIsAccordionOpen(false);
+  //   }
+  // }, [open]);
 
   return (
     <div className="md:py-6 py-4">
@@ -48,7 +54,7 @@ const Checkout = () => {
 
       <div className="md:px-12 md:mt-0 px-4 mt-4">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4">
-          <Accordion open={open == 1}>
+          <Accordion open={open === 1}>
             <AccordionHeader className="border-none">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 1</p>
@@ -71,7 +77,7 @@ const Checkout = () => {
             <AccordionBody>
               {" "}
               <Verification
-                setIsLoggedIn={setIsLoggedIn}
+                // setIsLoggedIn={setIsLoggedIn}
                 setDetails={setDetails}
                 handleOpen={handleOpen}
               />
@@ -93,12 +99,14 @@ const Checkout = () => {
               </div>
             </AccordionHeader>
             <AccordionBody>
-              <BookingSummary
-                cust_id={cust_id}
-                handleOpen={handleOpen}
-                isAccordionOpen={isAccordionOpen}
-                setIsAccordionOpen={setIsAccordionOpen}
-              />
+              {open === 2 && (
+                <BookingSummary
+                  cust_id={cust_id}
+                  handleOpen={handleOpen}
+                  isAccordionOpen={isAccordionOpen}
+                  setIsAccordionOpen={setIsAccordionOpen}
+                />
+              )}
             </AccordionBody>
           </Accordion>
         </div>

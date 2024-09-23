@@ -135,13 +135,11 @@ const AddAddress = ({
 
   return (
     <div className="w-[100%] flex justify-between">
-      <div className="w-[50%]">
+      <div className="w-[50%]  mt-2">
         <label
           htmlFor="name"
           className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-        >
-          State
-        </label>
+        ></label>
         <select
           id="state"
           name="state"
@@ -167,13 +165,11 @@ const AddAddress = ({
         </select>
       </div>
 
-      <div className="w-[48%] ">
+      <div className="w-[50%] mt-2  ">
         <label
           htmlFor="name"
           className="block mb-2 text-start text-sm font-medium text-gray-900 dark:text-white"
-        >
-          City
-        </label>
+        ></label>
         <select
           id="city"
           name="city"
@@ -181,10 +177,10 @@ const AddAddress = ({
             handlerchangecity(event);
           }}
           // value={values.city}
-          className="bg-gray-50 flex justify-end items-end border w-[100%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500   p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 p-4 flex justify-end items-end border w-[100%] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option value="" disabled>
-            Select City
+          <option value="">
+            {stateIsoCode ? "Select City" : "Select State First"}
           </option>
           {citydata?.map((city) => (
             <option key={city.id} value={city.id}>

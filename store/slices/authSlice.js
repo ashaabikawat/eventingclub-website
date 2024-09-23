@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cust_id: null,
+  cust_id: JSON.parse(localStorage.getItem("authToken"))?.cust_id || null,
   customer_exists: null,
-  isLoggedIn: false,
+  isLoggedIn:
+    JSON.parse(localStorage.getItem("authToken"))?.isLoggedIn || false,
   token: JSON.parse(localStorage.getItem("authToken"))?.token || null,
 };
 

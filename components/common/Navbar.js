@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
@@ -9,31 +9,21 @@ import {
 import Link from "next/link";
 import SearchInput from "./SearchInput";
 import { usePathname } from "next/navigation";
-import { useSelector } from "react-redux";
-import { URL } from "@/utils/constants";
+import { useSelector } from "react-redux"; // Updated
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [token, setToken] = useState(null);
   const pathname = usePathname();
   const homePageUrl = pathname === "/";
 
-  const isLoggedIn = token?.isLoggedIn;
-  console.log(isLoggedIn);
+  // Use Redux to check if the user is logged in
+  const token = useSelector((state) => state.auth.token);
+  // Updated: Getting token from Redux store
+  const getToken = JSON.parse(localStorage.getItem("authToken"));
+  console.log(getToken);
 
-  useEffect(() => {
-    const handleStorage = () => {
-      const token = JSON.parse(localStorage.getItem("authToken"));
-      // console.log(token);
-      setToken(token);
-    };
-
-    handleStorage();
-
-    window.addEventListener("storage", handleStorage);
-
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
+  const cust_id = getToken?.cust_id;
+  const isLoggedIn = !!token; // Check if the user is logged in based on token availability
 
   // Add/Remove class to block scrolling when mobile menu is open
   useEffect(() => {
@@ -53,7 +43,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative  w-full md:px-6 sm:px-8 ">
+    <div className="relative w-full md:px-6 sm:px-8">
       <div className="max-w-8xl md:mx-9 mx-4">
         <div className="flex justify-between items-center py-4 md:space-x-10">
           <div className="flex gap-20 justify-between items-center">
@@ -63,7 +53,6 @@ const Navbar = () => {
                 <span className="cursor-pointer">LOGO</span>
               </Link>
             </div>
-            {/* Desktop search bar */}
             {homePageUrl && (
               <div className="hidden md:block lg:w-600px md:w-96">
                 <SearchInput
@@ -73,25 +62,21 @@ const Navbar = () => {
               </div>
             )}
           </div>
+
           <div className="flex">
-            {isLoggedIn && (
+            {isLoggedIn ? (
               <div className="flex justify-center items-center">
-                <Link href={`/userDetails/${token?.cust_id}`}>
-                  {" "}
+                <Link href={`/userDetails/${cust_id}`}>
                   <UserCircleIcon className="size-10 md:size-12 text-gray-600 cursor-pointer" />
                 </Link>
               </div>
+            ) : (
+              <Link href="/signup">
+                <button className="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-800">
+                  Sign up
+                </button>
+              </Link>
             )}
-            <Link href="/signup">
-              <button
-                disabled={!!token}
-                className={`whitespace-nowrap ${
-                  token && "hidden"
-                } inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-800 `}
-              >
-                Sign up
-              </button>
-            </Link>
             <button
               type="button"
               className="md:hidden md:ml-6 ml-4"
@@ -102,12 +87,12 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        {/* Mobile search bar */}
+
         {homePageUrl && (
           <div className="mt-3 md:hidden">
             <label className="relative w-full">
               <span className="sr-only">search</span>
-              <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6 " />
+              <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6" />
               <input
                 type="text"
                 className="placeholder:text-slate-400 border w-full border-slate-300 rounded-md py-2 pl-12 pr-3"
@@ -116,6 +101,7 @@ const Navbar = () => {
             </label>
           </div>
         )}
+
         <div className="hidden md:flex justify-start gap-20 mt-2 mb-6 text-lg">
           <ul className="flex justify-start gap-16">
             <li>
@@ -136,6 +122,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+
       <div
         className={
           open

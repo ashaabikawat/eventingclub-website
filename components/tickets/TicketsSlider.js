@@ -23,7 +23,7 @@ import {
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   const [isMobile, setIsMobile] = useState(false);
   const { id } = useParams();
-  console.log("data", data);
+  // console.log("data", data);
 
   const [eventTicket, setEventTicket] = useState([]);
   const [bookingData, setBookingData] = useState({
@@ -227,15 +227,46 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
               </p>
 
               {isMobile ? (
-                <Swiper spaceBetween={2} slidesPerView={2} className="mt-3 ">
-                  <SwiperSlide className="p-0">
-                    {data?.DateTimeDate.length > 1 && (
+                <Swiper
+                  className="mt-4"
+                  spaceBetween={6}
+                  slidesPerView={1}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 2.6,
+                      spaceBetween: 20,
+                    },
+                    425: {
+                      slidesPerView: 5.3,
+                      spaceBetween: 20,
+                    },
+                    768: {
+                      slidesPerView: 6.3,
+                      spaceBetween: 20,
+                    },
+                  }}
+                >
+                  {data?.DateTimeDate.map((ticket) => (
+                    <SwiperSlide key={ticket.id}>
+                      <div
+                        className="cursor-pointer"
+                        onClick={() =>
+                          handleShowTicket(ticket.eventDateTime_id)
+                        }
+                      >
+                        <ShortTicket data={ticket} />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+
+                  {data?.DateTimeDate.length > 1 && (
+                    <SwiperSlide>
                       <div
                         onClick={() => handleSeasonPass()}
-                        className="cursor-pointer mt-4"
+                        className="cursor"
                       >
                         <div
-                          className="border border-gray-500 bg-gray-200 flex items-center text-center md:justify-start gap-3 md:gap-5 flex-col rounded-md p-4 
+                          className="border border-gray-500 bg-gray-200 flex items-center justify-start gap-5 flex-col rounded-md px-4 py-2
                       h-auto w-24 md:w-32"
                         >
                           <p
@@ -259,21 +290,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                           </p>
                         </div>
                       </div>
-                    )}
-                  </SwiperSlide>
-                  {data?.DateTimeDate.map((ticket, index) => (
-                    <SwiperSlide key={data.id}>
-                      <div
-                        key={index}
-                        className="md:mt-0 mt-4 cursor-pointer "
-                        onClick={() =>
-                          handleShowTicket(ticket.eventDateTime_id)
-                        }
-                      >
-                        <ShortTicket data={ticket} />
-                      </div>
                     </SwiperSlide>
-                  ))}
+                  )}
                 </Swiper>
               ) : (
                 <div className="mt-4 flex gap-4">
@@ -419,14 +437,16 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
         <>
           {storedEventId === id && totalTickets > 0 && (
             <div className="fixed bottom-0 w-[100%] h-[100px] bg-white shadow-md p-6 flex justify-between items-center">
-              <div className="w-[50%] pl-6">
-                <p className="text-2xl font-bold">Rs.{totalPrice}</p>
-                <p className="text-xl font-bold">{totalTickets} Ticket</p>
+              <div className="w-[50%] ">
+                <p className="md:text-2xl text-lg font-bold">Rs.{totalPrice}</p>
+                <p className="md:text-xl text-lg font-bold">
+                  {totalTickets} Ticket
+                </p>
               </div>
-              <div className="w-[35%]">
+              <div className="w-[100%] text-right ">
                 <button
                   onClick={handleContinue}
-                  className="bg-blue-900 w-[50%] text-white py-2 px-4 rounded"
+                  className="bg-blue-900 md:w-[50%] text-white py-2 px-4 rounded"
                 >
                   Continue
                 </button>

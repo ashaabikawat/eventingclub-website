@@ -71,7 +71,7 @@ const Page = () => {
   return (
     <div className="   mb-16">
       <div className="md:px-6 md:py-1">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10  gap-4  md:p-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6  gap-4  md:p-4 ">
           <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
             {loadings ? (
               "Loading ..."
@@ -131,7 +131,7 @@ const Page = () => {
                 </p>
               )}
               <button
-                className="w-[150px] mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+                className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
                 // onClick={() => console.log(`/events/tickets/${id}`)}
                 onClick={() => router.push(`/events/tickets/${id}`)}
               >
@@ -230,47 +230,49 @@ const Page = () => {
               </div>
             </div>
           )} */}
-          <div className="h-auto order-5 md:order-4 md:px-0 px-4 ">
-            <div className="border border-gray-500 h-full rounded-lg px-4">
-              <h1 className="md:text-xl mt-4  font-bold">Gallery</h1>
-              <div className=" h-auto md:w-[100%] mb-4">
-                <Swiper
-                  slidesPerView={1}
-                  spaceBetween={12}
-                  // onSlideChange={() => console.log("slide change")}
-                  // onSwiper={(swiper) => console.log(swiper)}
-                  className="mt-3 
+          {eventData?.EventGalleryImages.length > 0 && (
+            <div className="h-auto order-5 md:order-4 md:px-0 px-4 ">
+              <div className="border border-gray-500 h-full rounded-lg px-4">
+                <h1 className="md:text-xl mt-4  font-bold">Gallery</h1>
+                <div className=" h-auto md:w-[100%] mb-4">
+                  <Swiper
+                    slidesPerView={1}
+                    spaceBetween={12}
+                    // onSlideChange={() => console.log("slide change")}
+                    // onSwiper={(swiper) => console.log(swiper)}
+                    className="mt-3 
                 "
-                >
-                  {eventData?.EventGalleryImages.map((img) => {
-                    return (
-                      <SwiperSlide
-                        key={img.id}
-                        navigation={true}
-                        modules={[Navigation]}
-                      >
-                        <div
+                  >
+                    {eventData?.EventGalleryImages.map((img) => {
+                      return (
+                        <SwiperSlide
                           key={img.id}
-                          className="md:w-full w-[90%] mx-auto md:mx-0  md:h-80 h-56  relative cursor-pointer overflow-hidden "
+                          navigation={true}
+                          modules={[Navigation]}
                         >
-                          <div className="w-full h-full relative">
-                            <Image
-                              src={`${URL}/${img.image_path}`}
-                              alt="carousel-image"
-                              layout="fill"
-                              objectFit="cover"
-                              objectPosition="top"
-                              className="rounded-lg"
-                            />
+                          <div
+                            key={img.id}
+                            className="md:w-full w-[90%] mx-auto md:mx-0  md:h-80 h-56  relative cursor-pointer overflow-hidden "
+                          >
+                            <div className="w-full h-full relative">
+                              <Image
+                                src={`${URL}/${img.image_path}`}
+                                alt="carousel-image"
+                                layout="fill"
+                                objectFit="cover"
+                                objectPosition="top"
+                                className="rounded-lg"
+                              />
+                            </div>
                           </div>
-                        </div>
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* maps */}
 

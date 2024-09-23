@@ -26,8 +26,6 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
 
   const customerId = useSelector((state) => state.auth.cust_id);
 
-  const token = useSelector((state) => state.auth.token);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",

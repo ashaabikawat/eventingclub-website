@@ -179,25 +179,24 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
             Have a promo code?
           </h1>
 
-          {isAccordionOpen && (
-            <div className="flex justify-between items-center">
-              {/* promo code input */}
-              <input
-                type="text"
-                placeholder="Enter promo code"
-                value={promocodeValue}
-                onChange={(e) => setPromocodeValue(e.target.value)}
-                className="border border-gray-200 md:px-3 md:py-3 p-2 rounded-lg w-[100%] relative"
-                disabled
-              />
-              <button
-                onClick={handleApplyPromocode}
-                className=" absolute right-6   border-l-2 border-black md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
-              >
-                Apply
-              </button>
-            </div>
-          )}
+          <div className="flex justify-between items-center">
+            {/* promo code input */}
+            <input
+              type="text"
+              placeholder="Enter promo code"
+              value={promocodeValue}
+              onChange={(e) => setPromocodeValue(e.target.value)}
+              className="border border-gray-200 md:px-3 md:py-3 p-2 rounded-lg w-[100%] relative"
+              disabled
+            />
+            <button
+              onClick={handleApplyPromocode}
+              className=" absolute right-6   border-l-2 border-black md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
+            >
+              Apply
+            </button>
+          </div>
+
           <div>
             <div>
               <Swiper
