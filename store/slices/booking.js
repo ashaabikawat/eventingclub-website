@@ -147,7 +147,8 @@ const booking = createSlice({
         (state.ticketData = []),
         (state.count = {}),
         (state.showCount = {}),
-        (state.eventId = null);
+        (state.eventId = null),
+        (state.promocodeId = null);
     },
   },
 });

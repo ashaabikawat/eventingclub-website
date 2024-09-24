@@ -1,5 +1,5 @@
 "use client";
-import { updateCustomer } from "@/utils/config";
+import { customer } from "@/utils/config";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -58,7 +58,7 @@ const EditProfile = ({ id, data }) => {
 
     // Call the update API
     try {
-      const response = await axios.post(updateCustomer, payload);
+      const response = await axios.post(`${customer.UPDATE_CUSTOMER}`, payload);
       toast.success(response.data.message);
     } catch (error) {
       if (error.response) {
@@ -80,7 +80,7 @@ const EditProfile = ({ id, data }) => {
   };
 
   return (
-    <div className="text-black">
+    <div className="text-black md:pb-6 p-4">
       <Toaster />
       <div className="flex items-start justify-between flex-col md:gap-6 gap-10">
         <div className="flex justify-between items-start flex-col w-full">

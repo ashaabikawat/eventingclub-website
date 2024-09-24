@@ -1,5 +1,6 @@
 "use client";
 import EditProfile from "@/components/edit profile/EditProfile";
+import TicketById from "@/components/tickets/TicketById";
 import Tickets from "@/components/tickets/Tickets";
 import {
   setAuthDetails,
@@ -7,7 +8,7 @@ import {
   setCustId,
   setToken,
 } from "@/store/slices/authSlice";
-import { getCustomerById } from "@/utils/config";
+import { customer, getCustomerById } from "@/utils/config";
 import axios from "axios";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -27,8 +28,8 @@ const Page = () => {
     // console.log(payload);
 
     try {
-      const response = await axios.post(getCustomerById, payload);
-      console.log(response.data);
+      const response = await axios.post(`${customer.GET_BY_ID}`, payload);
+      // console.log(response.data);
       setData(response.data.data);
       // toast.success(response.data.message)
     } catch (error) {
@@ -123,7 +124,7 @@ const Page = () => {
         </div>
         <div className="px-4 md:px-8 lg:px-64 ">
           <div className="">
-            {isProfile ? <EditProfile id={id} data={data} /> : <Tickets />}
+            {isProfile ? <EditProfile id={id} data={data} /> : <TicketById />}
           </div>
         </div>
       </div>

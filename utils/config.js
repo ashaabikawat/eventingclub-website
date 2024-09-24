@@ -26,9 +26,11 @@ export const validateOtp = `${URL}/webiste/customer/validatotp`;
 
 export const registerUser = `${URL}/webiste/customer/updateCustomerProfile`;
 
-export const getCustomerById = `${URL}/webiste/customer/getCustomerDataById`;
-
-export const updateCustomer = `${URL}/webiste/customer/updateCustomerProfile`;
+export const customer = {
+  GET_BY_ID: `${URL}/webiste/customer/getCustomerDataById`,
+  UPDATE_CUSTOMER: `${URL}/webiste/customer/updateCustomerProfile`,
+  GET_TICKETS_BY_ID: `${URL}/webiste/customer/get_booked_tickets`,
+};
 
 export const onlineEvents = {
   GET_ALL: `${URL}/webiste/events/getAllOnlineEvents`,

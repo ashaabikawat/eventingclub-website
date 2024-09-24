@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import { Provider } from "react-redux";
 import { store, persistor } from "@/store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import Footer from "../footer/Footer";
 
 const Wrapper = ({ children }) => {
   const pathname = usePathname();
@@ -14,6 +15,7 @@ const Wrapper = ({ children }) => {
       <PersistGate loading={null} persistor={persistor}>
         {signup && <Navbar />}
         <main>{children}</main>
+        <Footer />
       </PersistGate>
     </Provider>
   );

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import AddAddress from "../common/AddAddress";
 import { useParams } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { ticket } from "@/utils/config";
 import toast from "react-hot-toast";
+import { reset_state } from "@/store/slices/booking";
 
 const InvoiceDetails = ({ cust_id }) => {
   const [stateIsoCode, setStateIsoCode] = useState(null);
@@ -23,6 +24,8 @@ const InvoiceDetails = ({ cust_id }) => {
     address: "",
     pincode: "",
   });
+
+  const dispatch = useDispatch();
 
   const bookTicket = async () => {
     if (!isChecked) {
@@ -52,6 +55,7 @@ const InvoiceDetails = ({ cust_id }) => {
     try {
       const response = await axios.post(`${ticket.POST_DATA}`, payload);
       console.log(response.data);
+      dispatch(reset_state());
     } catch (error) {
       console.log(error);
     }

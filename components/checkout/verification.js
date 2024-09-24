@@ -1,6 +1,6 @@
 import {
+  customer,
   generateOPT,
-  getCustomerById,
   registerUser,
   validateOtp,
 } from "@/utils/config";
@@ -44,7 +44,7 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
     if (cust_id) {
       const payload = { customer_id: cust_id };
       try {
-        const response = await axios.post(getCustomerById, payload);
+        const response = await axios.post(`${customer.GET_BY_ID}`, payload);
         console.log(response.data.data);
         setDetails(response.data.data);
       } catch (error) {
@@ -112,9 +112,11 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
       const response = await axios.post(validateOtp, payload);
       dispatch(setToken(response.data.data.token));
       toast.success(response.data.message);
-      dispatch(loginSuccess());
       setOtpVerified(true);
       setOtpSent(false);
+      if (userExists) {
+        dispatch(loginSuccess());
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -137,10 +139,9 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
       const response = await axios.post(registerUser, payload);
       toast.success(response.data.message);
       setOtpVerified(false);
-      setReload(true);
-      setIsLoggedIn(true);
       dispatch(loginSuccess());
-      handleOpen(2);
+      setReload(true);
+      // handleOpen(2);
     } catch (error) {
       toast.error(error.data.message);
     }

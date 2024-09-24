@@ -20,9 +20,10 @@ const Checkout = () => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
   const isLoggedIn = getToken?.isLoggedIn;
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
+  console.log(open);
   const cust_id = getToken?.cust_id;
-  console.log(cust_id);
+  // console.log(cust_id);
 
   const dispatch = useDispatch();
 
