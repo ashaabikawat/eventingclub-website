@@ -11,7 +11,7 @@ import SearchInput from "./SearchInput";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux"; // Updated
 
-const Navbar = () => {
+const Navbar = ({ bgColor }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const homePageUrl = pathname === "/";
@@ -41,9 +41,10 @@ const Navbar = () => {
   const handleToggle = () => {
     setOpen(!open);
   };
+  console.log(bgColor);
 
   return (
-    <div className="relative w-full md:px-6 sm:px-8">
+    <div className={`relative w-full md:px-6 sm:px-8 ${bgColor}`}>
       <div className="max-w-8xl md:mx-9 mx-4">
         <div className="flex justify-between items-center py-4 md:space-x-10">
           <div className="flex gap-20 justify-between items-center">
@@ -102,7 +103,7 @@ const Navbar = () => {
           </div>
         )}
 
-        <div className="hidden md:flex justify-start gap-20 mt-2 mb-6 text-lg">
+        <div className="hidden md:flex justify-start gap-20 mt-2 text-lg">
           <ul className="flex justify-start gap-16">
             <li>
               <Link href="/">Home</Link>

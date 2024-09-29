@@ -35,7 +35,7 @@ const Footer = () => {
       <div className="flex justify-between items-center  lg:flex-row flex-col gap-6 ">
         <div className="text-4xl font-bold">LOGO</div>
         <div>
-          <ul className="flex justify-center items-center md:gap-10 gap-4 text-base flex-wrap">
+          <ul className="flex justify-center items-center md:text-xl text-base md:gap-10 gap-4  flex-wrap">
             <li>
               <Link href="/">Home</Link>
             </li>

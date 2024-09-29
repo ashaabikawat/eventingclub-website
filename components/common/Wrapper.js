@@ -10,10 +10,14 @@ import Footer from "../footer/Footer";
 const Wrapper = ({ children }) => {
   const pathname = usePathname();
   const signup = pathname !== "/signup";
+
+  const isCheckout = pathname.startsWith("/events/tickets/");
+  const navbarBgColor = isCheckout ? "bg-gray-50" : "bg-white";
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {signup && <Navbar />}
+        {signup && <Navbar bgColor={navbarBgColor} />}
         <main>{children}</main>
         <Footer />
       </PersistGate>

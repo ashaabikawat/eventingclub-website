@@ -10,6 +10,7 @@ const initialState = {
   showCount: {},
   eventId: null,
   promocodeId: null,
+  ticketId: null,
 };
 
 const booking = createSlice({
@@ -31,6 +32,10 @@ const booking = createSlice({
     setTicketData: (state, action) => {
       state.ticketData = action.payload; // Store fetched ticket data
       // console.log("setTicketData", action.payload);
+    },
+
+    setTicketId: (state, action) => {
+      state.ticketId = action.payload;
     },
 
     handleIncrease: (state, action) => {
@@ -112,6 +117,10 @@ const booking = createSlice({
         updatedCount[ticketId] = newCount; // Update the count for the specific ticket
       }
 
+      // Check if updatedCount is empty and set ticketId to null if it is
+      const newTicketId =
+        Object.keys(updatedCount).length === 0 ? null : state.ticketId;
+
       // Optionally, update showCount
       const updatedShowCount = {
         ...state.showCount,
@@ -122,6 +131,7 @@ const booking = createSlice({
         ...state,
         count: updatedCount,
         showCount: updatedShowCount,
+        ticketId: newTicketId, // Set ticketId to null if count is empty
       };
     },
 
@@ -149,12 +159,14 @@ const booking = createSlice({
         (state.showCount = {}),
         (state.eventId = null),
         (state.promocodeId = null);
+      state.ticketId = null;
     },
   },
 });
 
 export const {
   setBookingDataObj,
+  setTicketId,
   handleIncrease,
   setTicketData,
   handleDecrease,

@@ -16,6 +16,7 @@ const persistConfig = {
     "ticketData",
     "eventId",
     "promocodeId",
+    "ticketId",
   ],
 };
 
