@@ -58,7 +58,7 @@ const AddAddress = ({
   const handlerChangeCity = async (event) => {
     // console.log("Selected _id:", event);
 
-    stateiso2 = event.target.value;
+    stateiso2 = event?.target.value;
     setStateIsoCode(stateiso2);
     console.log("iso2", stateiso2);
 
@@ -116,7 +116,7 @@ const AddAddress = ({
   }, [citydata]);
 
   const handlerchangecity = async (event) => {
-    const selectedIso2 = event.target.value;
+    const selectedIso2 = event?.target.value;
     const selectedCountry = citydata.find((city) => city.id == selectedIso2);
 
     setCityIsoCode(selectedIso2);

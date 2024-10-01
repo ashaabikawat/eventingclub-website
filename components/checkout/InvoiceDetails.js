@@ -44,13 +44,13 @@ const InvoiceDetails = ({ cust_id }) => {
       customer_Pincode: formData?.pincode,
       customer_Country: "India",
       customer_CountryIsoCode: "IN",
-      customer_State: address?.stateName,
-      customer_StateIsoCode: address?.stateIsoCode,
+      customer_State: String(address?.stateName),
+      customer_StateIsoCode: String(address?.stateIsoCode),
       customer_City: address?.cityName,
       customer_CityIsoCode: address?.cityIsoCode,
     };
     if (promocodeId) payload.Promocode_id = promocodeId;
-    // console.log(payload);
+    console.log(payload);
 
     try {
       const response = await axios.post(`${ticket.POST_DATA}`, payload);
