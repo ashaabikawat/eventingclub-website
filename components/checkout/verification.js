@@ -15,16 +15,23 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Accordion } from "@material-tailwind/react";
 
-const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
+const Verification = ({
+  setIsLoggedIn,
+  setDetails,
+  handleOpen,
+  otpVerified,
+  setOtpVerified,
+}) => {
   const dispatch = useDispatch();
   const [number, setNumber] = useState("");
   const inputs = useRef([]);
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState(Array(6).fill(""));
-  const [otpVerified, setOtpVerified] = useState(false);
-  const [reload, setReload] = useState(true);
+
+  const [reload, setReload] = useState(false);
 
   const customerId = useSelector((state) => state.auth.cust_id);
+  const userExists = useSelector((state) => state.auth.customer_exists);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,25 +40,20 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
 
   const getToken = localStorage.getItem("authToken");
   const cust_id = JSON.parse(getToken)?.cust_id;
-  const userExists = useSelector((state) => state.auth.customer_exists);
-  // console.log(reload);
 
   useEffect(() => {
-    fetchCustomerData();
+    if (cust_id) fetchCustomerData();
   }, [cust_id, reload]);
 
   const fetchCustomerData = async () => {
-    if (cust_id) {
-      const payload = { customer_id: cust_id };
-      try {
-        const response = await axios.post(`${customer.GET_BY_ID}`, payload);
-        console.log(response.data.data);
-        setDetails(response.data.data);
-      } catch (error) {
-        console.error(error.message);
-      } finally {
-        setReload(false); // Reset reload to false after fetching
-      }
+    const payload = { customer_id: cust_id };
+    try {
+      const response = await axios.post(`${customer.GET_BY_ID}`, payload);
+      setDetails(response.data.data);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setReload(false);
     }
   };
 
@@ -61,19 +63,15 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
     newOtp[index] = value;
     setOtp(newOtp);
 
-    if (index < otp.length - 1 && value !== "") {
-      if (inputs.current[index + 1]) {
-        inputs.current[index + 1].focus();
-      }
-    } else if (value === "" && index > 0) {
-      if (inputs.current[index - 1]) {
-        inputs.current[index - 1].focus();
-      }
+    if (value && index < otp.length - 1) {
+      inputs.current[index + 1]?.focus();
+    } else if (!value && index > 0) {
+      inputs.current[index - 1]?.focus();
     }
   };
 
   const otpGeneration = async () => {
-    if (!number || number.toString().length !== 10) {
+    if (!number || number.length !== 10) {
       return toast.error("Please enter a valid 10-digit number");
     }
 
@@ -88,8 +86,6 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
         })
       );
       toast.success(response.data.message);
-
-      console.log(response.data.data);
       setOtpSent(true);
     } catch (error) {
       toast.error(error.message);
@@ -97,11 +93,11 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
   };
 
   const handleOtpVerification = async () => {
-    if (!otp || otp.length !== 6) {
+    const stringOtp = otp.join("");
+
+    if (!stringOtp || stringOtp.length !== 6) {
       return toast.error("Please enter a valid OTP");
     }
-
-    const stringOtp = otp.join("");
 
     const payload = {
       Otp: stringOtp,
@@ -113,9 +109,10 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
       dispatch(setToken(response.data.data.token));
       toast.success(response.data.message);
       setOtpVerified(true);
-      setOtpSent(false);
+
       if (userExists) {
         dispatch(loginSuccess());
+        handleOpen(2); // Proceed to the next accordion step automatically
       }
     } catch (error) {
       toast.error(error.message);
@@ -133,7 +130,6 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
       CustomerName: formData.name,
       Email: formData.email,
     };
-    console.log(payload);
 
     try {
       const response = await axios.post(registerUser, payload);
@@ -141,9 +137,9 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
       setOtpVerified(false);
       dispatch(loginSuccess());
       setReload(true);
-      // handleOpen(2);
+      handleOpen(2); // Proceed to next step
     } catch (error) {
-      toast.error(error.data.message);
+      toast.error(error.message);
     }
   };
 
@@ -151,13 +147,14 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
     <>
       <Toaster />
       <div className="flex flex-col gap-2">
+        {/* Show phone number input if OTP hasn't been sent and no token exists */}
         {!otpSent && !getToken && (
           <div>
-            <div className="w-full    ">
+            <div className="w-full">
               <label className="text-xl">Phone number*</label>
               <input
                 type="number"
-                className="border border-gray-400 rounded-lg block w-1/3 md:text-base   mt-2 p-3"
+                className="border border-gray-400 rounded-lg block w-1/3 md:text-base mt-2 p-3"
                 placeholder="+91"
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
@@ -165,7 +162,7 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
               <button
                 onClick={otpGeneration}
                 className={`capitalize border border-gray-400 rounded-lg block md:text-base w-1/3 mt-2 p-2 ${
-                  number.length > 1
+                  number.length === 10
                     ? "bg-blue-900 text-white"
                     : "bg-gray-500 text-white"
                 }`}
@@ -175,10 +172,12 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
             </div>
           </div>
         )}
-        {otpSent && (
-          <div className="">
+
+        {/* Show OTP input if OTP has been sent */}
+        {otpSent && !otpVerified && (
+          <div>
             <h1 className="md:text-xl text-base mb-2 text-white md:text-black">
-              We had sent you a OTP to verify your number
+              We have sent you an OTP to verify your number
             </h1>
 
             <div className="mt-4 flex md:gap-2 gap-1">
@@ -199,17 +198,14 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
               onClick={handleOtpVerification}
               className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 md:w-96"
             >
-              Continue
+              Verify OTP
             </button>
           </div>
         )}
 
+        {/* Show form to collect new user details if user does not exist */}
         {!userExists && otpVerified && (
           <div>
-            <h1 className="md:text-3xl text-base font-bold md:mb-6 mb-4 text-white md:text-black">
-              Lets get started
-            </h1>
-
             <p className="text-sm mb-3 text-white md:text-black">Name*</p>
             <input
               type="text"
@@ -217,8 +213,9 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
               name="name"
               onChange={handleForm}
               placeholder="Enter here"
-              className="placeholder:text-slate-400 border w-full border-gray-500  rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
+              className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
             />
+
             <p className="text-sm mb-3 mt-4 text-white md:text-black">Email*</p>
             <input
               type="text"
@@ -226,15 +223,15 @@ const Verification = ({ setIsLoggedIn, setDetails, handleOpen }) => {
               name="email"
               onChange={handleForm}
               placeholder="Enter here"
-              className="placeholder:text-slate-400 border w-full border-gray-500  rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
+              className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
             />
+
             <button
               type="submit"
               onClick={handleUserDetails}
-              className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full 
-"
+              className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full"
             >
-              continue
+              Continue
             </button>
           </div>
         )}

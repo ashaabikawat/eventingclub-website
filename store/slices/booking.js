@@ -98,41 +98,67 @@ const booking = createSlice({
       // }));
     },
 
+    // handleDecrease: (state, action) => {
+    //   const ticketId = action.payload;
+
+    //   // Find the current count of the ticket
+    //   const currentCount = state.count[ticketId] || 0;
+
+    //   // If the count is greater than 1, decrease the count
+    //   if (currentCount > 1) {
+    //     state.count[ticketId] = currentCount - 1;
+    //   } else if (currentCount === 1) {
+    //     // If the count is 1, reduce it to 0 and remove the ticket from localStorage
+    //     delete state.count[ticketId];
+    //     state.selectedTickets = state.selectedTickets.filter(
+    //       (ticket) => ticket.Ticket_Id !== ticketId
+    //     );
+
+    //     // Update localStorage to remove the ticket
+    //     const storedBookingData = JSON.parse(
+    //       localStorage.getItem("bookingData")
+    //     );
+    //     const updatedBookingData = storedBookingData?.filter(
+    //       (ticket) => ticket.Ticket_Id !== ticketId
+    //     );
+    //     localStorage.setItem("bookingData", JSON.stringify(updatedBookingData));
+    //   }
+    // },
+
     handleDecrease: (state, action) => {
       const ticketId = action.payload;
+
+      // Find the current count of the ticket
       const currentCount = state.count[ticketId] || 0;
 
-      if (currentCount === 0) {
-        return state; // No change if the count is already 0
+      // If the count is greater than 1, decrease the count
+      if (currentCount > 1) {
+        state.count[ticketId] = currentCount - 1;
+      } else if (currentCount === 1) {
+        // If the count is 1, reduce it to 0 and remove the ticket from selectedTickets and localStorage
+        delete state.count[ticketId];
+        state.selectedTickets = state.selectedTickets?.filter(
+          (ticket) => ticket.Ticket_Id !== ticketId
+        );
+
+        // Update localStorage to remove the ticket
+        const storedBookingData = localStorage.getItem("bookingData");
+        if (storedBookingData && storedBookingData !== "undefined") {
+          const parsedBookingData = JSON.parse(storedBookingData);
+          const updatedBookingData = parsedBookingData?.filter(
+            (ticket) => ticket.Ticket_Id !== ticketId
+          );
+          localStorage.setItem(
+            "bookingData",
+            JSON.stringify(updatedBookingData)
+          );
+        } else {
+          console.warn("No booking data found in localStorage");
+        }
+
+        // Set ticketId to null when count reaches 0
+        state.ticketId = null;
       }
-
-      const newCount = currentCount - 1;
-
-      // Create a new count object
-      const updatedCount = { ...state.count };
-
-      if (newCount === 0) {
-        delete updatedCount[ticketId]; // Remove the ticket from count if count is 0
-      } else {
-        updatedCount[ticketId] = newCount; // Update the count for the specific ticket
-      }
-
-      // Check if updatedCount is empty and set ticketId to null if it is
-      const newTicketId =
-        Object.keys(updatedCount).length === 0 ? null : state.ticketId;
-
-      // Optionally, update showCount
-      const updatedShowCount = {
-        ...state.showCount,
-        ...(newCount === 0 ? { [ticketId]: false } : {}),
-      };
-
-      return {
-        ...state,
-        count: updatedCount,
-        showCount: updatedShowCount,
-        ticketId: newTicketId, // Set ticketId to null if count is empty
-      };
     },
 
     setShowCount: (state, action) => {

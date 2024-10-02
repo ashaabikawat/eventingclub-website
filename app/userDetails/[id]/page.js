@@ -3,6 +3,7 @@ import EditProfile from "@/components/edit profile/EditProfile";
 import TicketById from "@/components/tickets/TicketById";
 import Tickets from "@/components/tickets/Tickets";
 import {
+  logout,
   setAuthDetails,
   setCustExists,
   setCustId,
@@ -55,8 +56,8 @@ const Page = () => {
     fetchData();
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem("authToken");
+  const logoutFunction = () => {
+    dispath(logout());
     router.push("/signup");
   };
 
@@ -88,7 +89,7 @@ const Page = () => {
           </div>
           <div>
             <button
-              onClick={logout}
+              onClick={logoutFunction}
               className="whitespace-nowrap text-sm p-2 inline-flex items-center justify-center  border border-white-500 rounded-md bg-transparent shadow-sm md:text-base md:p-2  md:font-medium text-white "
             >
               Sign out

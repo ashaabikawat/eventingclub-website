@@ -12,7 +12,7 @@ const InvoiceDetails = ({ cust_id }) => {
   const [stateName, setStateName] = useState(null);
   const [cityIsoCode, setCityIsoCode] = useState(null);
   const [cityName, setCityName] = useState(null);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
 
   const address = JSON.parse(localStorage.getItem("address"));
   // console.log(address);
@@ -55,7 +55,7 @@ const InvoiceDetails = ({ cust_id }) => {
     try {
       const response = await axios.post(`${ticket.POST_DATA}`, payload);
       console.log(response.data);
-      dispatch(reset_state());
+      // dispatch(reset_state());
     } catch (error) {
       console.log(error);
     }

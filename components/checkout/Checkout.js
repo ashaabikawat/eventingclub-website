@@ -1,49 +1,40 @@
 import React, { useEffect, useState } from "react";
 import Verification from "./verification";
 import BookingSummary from "./BookingSummary";
-import { useDispatch, useSelector } from "react-redux";
-import { setBookingData } from "@/store/slices/booking";
-import { useParams } from "next/navigation";
+import { useDispatch } from "react-redux";
 import InvoiceDetails from "./InvoiceDetails";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { loginSuccess } from "@/store/slices/authSlice";
 
 const Checkout = () => {
   const [open, setOpen] = useState(1); // Control active accordion step
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
   const [details, setDetails] = useState();
   const getToken = JSON.parse(localStorage.getItem("authToken"));
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
 
   const isLoggedIn = getToken?.isLoggedIn;
-  // console.log(isLoggedIn);
-  console.log(open);
   const cust_id = getToken?.cust_id;
-  // console.log(cust_id);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Automatically open the Booking Summary (Step 2) if the user is logged in
-    if (isLoggedIn) {
-      handleOpen(2); // Open the Booking Summary step
-    } else if (details?.Email) {
-      // Also open if email is provided in the details (from Verification)
-      handleOpen(2);
-    }
-  }, [isLoggedIn]);
+    console.log("isLoggedIn:", isLoggedIn);
+    console.log("otpVerified:", otpVerified);
+    console.log("details:", details);
 
-  // useEffect(() => {
-  //   if (open === 2) {
-  //     setIsAccordionOpen(true);
-  //   } else {
-  //     setIsAccordionOpen(false);
-  //   }
-  // }, [open]);
+    // Automatically open Booking Summary if user is logged in
+    if (isLoggedIn) {
+      // Open Booking Summary directly if user is logged in
+      setOpen(2);
+    } else if (details?.Email && otpVerified) {
+      // Open the Booking Summary step if email is present and OTP is verified
+      setOpen(2);
+    }
+  }, [isLoggedIn, otpVerified, details]);
 
   return (
     <div className="md:py-6 py-4">
@@ -60,7 +51,6 @@ const Checkout = () => {
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 1</p>
                 <div>
-                  {" "}
                   {isLoggedIn ? (
                     <div>
                       <p>Logged in as</p>
@@ -76,11 +66,11 @@ const Checkout = () => {
             </AccordionHeader>
 
             <AccordionBody>
-              {" "}
               <Verification
-                // setIsLoggedIn={setIsLoggedIn}
                 setDetails={setDetails}
                 handleOpen={handleOpen}
+                otpVerified={otpVerified}
+                setOtpVerified={setOtpVerified}
               />
             </AccordionBody>
           </Accordion>
@@ -101,12 +91,7 @@ const Checkout = () => {
             </AccordionHeader>
             <AccordionBody>
               {open === 2 && (
-                <BookingSummary
-                  cust_id={cust_id}
-                  handleOpen={handleOpen}
-                  isAccordionOpen={isAccordionOpen}
-                  setIsAccordionOpen={setIsAccordionOpen}
-                />
+                <BookingSummary cust_id={cust_id} handleOpen={handleOpen} />
               )}
             </AccordionBody>
           </Accordion>
@@ -123,7 +108,7 @@ const Checkout = () => {
                   Ticket details
                 </h1>
                 <p className="md:font-semibold md:text-base text-sm ">
-                  These details will be shown on your invoice *{" "}
+                  These details will be shown on your invoice *
                 </p>
               </div>
             </AccordionHeader>

@@ -1,11 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Utility function to safely parse JSON from localStorage
+const getLocalStorageItem = (key) => {
+  if (typeof window !== "undefined") {
+    const item = localStorage.getItem(key);
+    if (!item) return null;
+
+    try {
+      return JSON.parse(item);
+    } catch (error) {
+      console.error(`Failed to parse localStorage item "${key}":, error`);
+      return null; // Return null if parsing fails
+    }
+  }
+  return null; // Return null if window is not defined (SSR)
+};
+
 const initialState = {
-  cust_id: JSON.parse(localStorage.getItem("authToken"))?.cust_id || null,
+  cust_id: getLocalStorageItem("authToken")?.cust_id || null,
   customer_exists: null,
-  isLoggedIn:
-    JSON.parse(localStorage.getItem("authToken"))?.isLoggedIn || false,
-  token: JSON.parse(localStorage.getItem("authToken"))?.token || null,
+  isLoggedIn: getLocalStorageItem("authToken")?.isLoggedIn || false,
+  token: getLocalStorageItem("authToken")?.token || null,
+};
+
+const saveAuthToLocalStorage = (state) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(
+      "authToken",
+      JSON.stringify({
+        token: state.token,
+        cust_id: state.cust_id,
+        isLoggedIn: state.isLoggedIn,
+      })
+    );
+  }
 };
 
 const authSlice = createSlice({
@@ -16,36 +44,29 @@ const authSlice = createSlice({
       const { cust_id, customer_exists } = action.payload;
       state.cust_id = cust_id;
       state.customer_exists = customer_exists;
+      saveAuthToLocalStorage(state); // Save updated state to localStorage
     },
     setToken: (state, action) => {
-      try {
-        state.token = action.payload;
-        localStorage.setItem(
-          "authToken",
-          JSON.stringify({
-            token: state.token,
-            cust_id: state.cust_id,
-            isLoggedIn: state.isLoggedIn,
-          })
-        );
-      } catch (error) {
-        console.error("Failed to save token to localStorage:", error);
-      }
+      state.token = action.payload;
+      saveAuthToLocalStorage(state); // Save updated state to localStorage
     },
     loginSuccess: (state) => {
       state.isLoggedIn = true;
-      // Update localStorage with isLoggedIn state when user logs in
-      localStorage.setItem(
-        "authToken",
-        JSON.stringify({
-          token: state.token,
-          cust_id: state.cust_id,
-          isLoggedIn: true, // Save isLoggedIn as true in localStorage
-        })
-      );
+      saveAuthToLocalStorage(state); // Save updated state to localStorage
+    },
+    logout: (state) => {
+      state.cust_id = null;
+      state.customer_exists = null;
+      state.isLoggedIn = false;
+      state.token = null;
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("authToken"); // Clear token from localStorage
+      }
     },
   },
 });
 
-export const { setAuthDetails, setToken, loginSuccess } = authSlice.actions;
+// Exporting actions
+export const { setAuthDetails, setToken, loginSuccess, logout } =
+  authSlice.actions;
 export default authSlice.reducer;
