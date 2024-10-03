@@ -121,25 +121,81 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   //   );
   // }, [count]);
 
+  // const handleDecreaseTicket = (id) => {
+  //   console.log(id);
+  //   console.log(bookingData);
+  //   if (quantity > 1) {
+  //     const newQuanity = quantity - 1;
+  //     setQuanity(newQuanity);
+  //     dispatch(
+  //       setBookingDataObj({
+  //         selectedTickets: selectedTicket,
+  //         totalPrice: ticketAmount,
+  //         totalTickets: newQuanity,
+  //       })
+  //     );
+  //     const updatedCounts = { [id]: newQuanity };
+  //     localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+  //   } else {
+  //     dispatch(reset_bookingData());
+  //   }
+  // };
+
   const handleDecreaseTicket = (id) => {
     console.log(id);
     console.log(bookingData);
+
     if (quantity > 1) {
-      const newQuanity = quantity - 1;
-      setQuanity(newQuanity);
+      const newQuantity = quantity - 1;
+      setQuanity(newQuantity);
+
       dispatch(
         setBookingDataObj({
           selectedTickets: selectedTicket,
           totalPrice: ticketAmount,
-          totalTickets: newQuanity,
+          totalTickets: newQuantity,
         })
       );
-      const updatedCounts = { [id]: newQuanity };
+
+      // Update the counts for the ticket in localStorage
+      const updatedCounts = {
+        ...JSON.parse(localStorage.getItem("ticketCounts")),
+      };
+      updatedCounts[id] = newQuantity; // Update count for the current ticket
+
       localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
     } else {
+      // Remove the ticket from localStorage if quantity is 1 or less
+      const updatedCounts = {
+        ...JSON.parse(localStorage.getItem("ticketCounts")),
+      };
+      delete updatedCounts[id];
+
+      // Clear the entire localStorage item if no tickets remain
+      if (Object.keys(updatedCounts).length === 0) {
+        localStorage.setItem("ticketCounts", JSON.stringify({}));
+      } else {
+        localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      }
+
+      // Reset showCount in the same manner
+      const updatedShowCount = {
+        ...JSON.parse(localStorage.getItem("showCount")),
+      };
+      delete updatedShowCount[id];
+
+      // Clear the entire showCount if no entries remain
+      if (Object.keys(updatedShowCount).length === 0) {
+        localStorage.setItem("showCount", JSON.stringify({}));
+      } else {
+        localStorage.setItem("showCount", JSON.stringify(updatedShowCount));
+      }
+
+      // Reset booking data in Redux when the quantity reaches 1
       dispatch(reset_bookingData());
     }
   };
+
   const handleIncrease = (id) => {
     console.log(id);
     const bookingLimit = bookingData.selectedTickets[0].BookingMaxLimit;
