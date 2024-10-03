@@ -12,29 +12,44 @@ import {
   handleDecrease,
   setBookingDataObj,
   setPromocodeId,
+  reset_bookingData,
 } from "../../store/slices/booking";
 
 const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
+  const totalTickets = useSelector(
+    (store) => store.booking.bookingData.totalTickets
+  );
+  const [quantity, setQuanity] = useState(totalTickets);
   const [promocodes, setPromocodes] = useState([]);
   const { id } = useParams();
   const booking = useSelector((store) => store.booking);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [promoObject, setpromoObject] = useState();
-  const selectedTicket = useSelector((store) => store.booking.selectedTickets);
-  const totalTickets = useSelector((store) => store.booking.totalTickets);
-  const count = useSelector((store) => store.booking.count);
+
+  const selectedTicket = useSelector(
+    (store) => store.booking.bookingData.selectedTickets
+  );
+  console.log(selectedTicket);
+
+  const bookingData = useSelector((store) => store.booking.bookingData);
+
+  console.log(
+    "bookingdata",
+    useSelector((store) => store.booking.bookingData)
+  );
+
   const [promocodeValue, setPromocodeValue] = useState("");
 
   const dispatch = useDispatch();
   const totalTicketsUi = totalTickets;
   const ticket = selectedTicket[0];
+  const ticketAmount = Number(ticket?.TicketPrice) * totalTickets;
   const getToken = localStorage.getItem("authToken");
   const cust_id = JSON.parse(getToken)?.cust_id;
 
   const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(0);
 
-  const ticketAmount = Number(ticket?.TicketPrice) * totalTickets;
   const convenienceFee = Number(promocodes?.ConFeeValue) || 0;
   const promocodeDiscount = Number(promocodeDiscountPrice) || 0;
 
@@ -77,34 +92,73 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
     }
   };
 
-  const handleDecreaseTicket = (ticketId) => {
-    dispatch(handleDecrease(ticketId));
+  // const handleDecreaseTicket = (ticketId) => {
+  //   dispatch(handleDecrease(ticketId));
 
-    // After updating the Redux state, remove the ticket from localStorage if the count is 0
-    const currentCount = count[ticketId] || 0;
-    if (currentCount === 0) {
-      // Safely parse the stored data, ensuring it's an array
-      const storedBookingData =
-        JSON.parse(localStorage.getItem("bookingData")) || [];
+  //   // After updating the Redux state, remove the ticket from localStorage if the count is 0
+  //   const currentCount = count[ticketId] || 0;
+  //   if (currentCount === 0) {
+  //     // Safely parse the stored data, ensuring it's an array
+  //     const storedBookingData =
+  //       JSON.parse(localStorage.getItem("bookingData")) || [];
 
-      // Only apply .filter if storedBookingData is a valid array
-      if (Array.isArray(storedBookingData)) {
-        const updatedBookingData = storedBookingData.filter(
-          (ticket) => ticket.Ticket_Id !== ticketId
-        );
-        localStorage.setItem("bookingData", JSON.stringify(updatedBookingData));
-      }
+  //     // Only apply .filter if storedBookingData is a valid array
+  //     if (Array.isArray(storedBookingData)) {
+  //       const updatedBookingData = storedBookingData.filter(
+  //         (ticket) => ticket.Ticket_Id !== ticketId
+  //       );
+  //       localStorage.setItem("bookingData", JSON.stringify(updatedBookingData));
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   dispatch(
+  //     setBookingDataObj({
+  //       selectedTickets: selectedTicket,
+  //       totalTickets: Object.values(count)[0],
+  //     })
+  //   );
+  // }, [count]);
+
+  const handleDecreaseTicket = (id) => {
+    console.log(id);
+    console.log(bookingData);
+    if (quantity > 1) {
+      const newQuanity = quantity - 1;
+      setQuanity(newQuanity);
+      dispatch(
+        setBookingDataObj({
+          selectedTickets: selectedTicket,
+          totalPrice: ticketAmount,
+          totalTickets: newQuanity,
+        })
+      );
+      const updatedCounts = { [id]: newQuanity };
+      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+    } else {
+      dispatch(reset_bookingData());
     }
   };
-
-  useEffect(() => {
-    dispatch(
-      setBookingDataObj({
-        selectedTickets: selectedTicket,
-        totalTickets: Object.values(count)[0],
-      })
-    );
-  }, [count]);
+  const handleIncrease = (id) => {
+    console.log(id);
+    const bookingLimit = bookingData.selectedTickets[0].BookingMaxLimit;
+    if (quantity < bookingLimit) {
+      const newQuanity = quantity + 1;
+      setQuanity(newQuanity);
+      dispatch(
+        setBookingDataObj({
+          selectedTickets: selectedTicket,
+          totalPrice: ticketAmount,
+          totalTickets: newQuanity,
+        })
+      );
+      const updatedCounts = { [id]: newQuanity };
+      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+    } else {
+      toast.error("Booking limit reached");
+    }
+  };
 
   useEffect(() => {
     fetchPromocodes();
@@ -188,39 +242,35 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
       <Toaster />
       {selectedTicket.length > 0 ? (
         <>
-          {Object.keys(count).length > 0 && (
-            <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between ">
-              <div className="flex flex-col gap-2">
-                <h1 className="md:text-2xl capitalize">{ticket?.TicketName}</h1>
-                {ticket?.TicketDescprition && (
-                  <p className="text-lg">{ticket?.TicketDescprition}</p>
-                )}
-                <p className="text-lg">&#8377; {ticket?.TicketPrice}</p>
-              </div>
+          <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between ">
+            <div className="flex flex-col gap-2">
+              <h1 className="md:text-2xl capitalize">{ticket?.TicketName}</h1>
+              {ticket?.TicketDescprition && (
+                <p className="text-lg">{ticket?.TicketDescprition}</p>
+              )}
+              <p className="text-lg">&#8377; {ticket?.TicketPrice}</p>
+            </div>
+            <div>
               <div>
-                <div>
-                  {/* delete icon */}
-                  <div className="flex gap-2 items-center">
-                    <button
-                      className="bg-gray-700 px-3 py-1 rounded text-white"
-                      onClick={() => handleDecreaseTicket(ticket?.Ticket_Id)}
-                    >
-                      -
-                    </button>
-                    <span>{Number(totalTicketsUi)}</span>
-                    <button
-                      className="bg-gray-700 px-3 py-1 rounded text-white"
-                      onClick={() =>
-                        dispatch(handleIncrease(ticket?.Ticket_Id))
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
+                {/* delete icon */}
+                <div className="flex gap-2 items-center">
+                  <button
+                    className="bg-gray-700 px-3 py-1 rounded text-white"
+                    onClick={() => handleDecreaseTicket(ticket?.Ticket_Id)}
+                  >
+                    -
+                  </button>
+                  <span>{Number(totalTicketsUi)}</span>
+                  <button
+                    className="bg-gray-700 px-3 py-1 rounded text-white"
+                    onClick={() => handleIncrease(ticket?.Ticket_Id)}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </div>
-          )}
+          </div>
 
           <div className="border  border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
             <div className="flex  flex-col w-full h-auto gap-4">

@@ -15,10 +15,15 @@ const InvoiceDetails = ({ cust_id }) => {
   const [isChecked, setIsChecked] = useState(true);
 
   const address = JSON.parse(localStorage.getItem("address"));
-  // console.log(address);
+  console.log(address);
+  console.log(address);
   const { id } = useParams();
-  const selectedTicket = useSelector((store) => store.booking.selectedTickets);
-  const totalTickets = useSelector((store) => store.booking.totalTickets);
+  const selectedTicket = useSelector(
+    (store) => store.booking.bookingData.selectedTickets
+  );
+  const totalTickets = useSelector(
+    (store) => store.booking.bookingData.totalTickets
+  );
   const promocodeId = useSelector((store) => store.booking.promocodeId);
   const [formData, setFormData] = useState({
     address: "",
@@ -40,21 +45,27 @@ const InvoiceDetails = ({ cust_id }) => {
       TicketQuantity: totalTickets,
 
       //Optional Feilds
-      customer_Address: formData?.address,
-      customer_Pincode: formData?.pincode,
+
       customer_Country: "India",
       customer_CountryIsoCode: "IN",
-      customer_State: String(address?.stateName),
-      customer_StateIsoCode: String(address?.stateIsoCode),
-      customer_City: address?.cityName,
-      customer_CityIsoCode: address?.cityIsoCode,
     };
     if (promocodeId) payload.Promocode_id = promocodeId;
+    if (formData.address) payload.customer_Address = formData?.address;
+
+    if (formData.pincode) payload.customer_Pincode = formData?.pincode;
+    if (address?.stateName) payload.customer_State = String(address?.stateName);
+
+    if (address?.stateIsoCode)
+      payload.customer_StateIsoCode = String(address?.stateIsoCode);
+
+    if (address?.cityName) payload.customer_City = address?.cityName;
+
     console.log(payload);
 
     try {
       const response = await axios.post(`${ticket.POST_DATA}`, payload);
       console.log(response.data);
+      toast.success(response.data.message);
       // dispatch(reset_state());
     } catch (error) {
       console.log(error);

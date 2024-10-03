@@ -9,14 +9,15 @@ const persistConfig = {
   key: "root",
   storage,
   whitelist: [
-    "selectedTickets",
-    "totalTickets",
+    // "selectedTickets",
+    // "totalTickets",
     "count",
-    "showCount",
-    "ticketData",
+    // "showCount",
+    // "ticketData",
     "eventId",
     "promocodeId",
     "ticketId",
+    "bookingData",
   ],
 };
 

@@ -24,37 +24,76 @@ import {
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   const [isMobile, setIsMobile] = useState(false);
   const { id } = useParams();
-  // console.log("data", data);
+
   const [selectedShortTicket, setSelectedShortTicket] = useState();
 
   const [eventTicket, setEventTicket] = useState([]);
-  const [bookingData, setBookingData] = useState({
-    totalPrice: 0,
-    totalTickets: 0,
-    selectedTickets: [],
-  });
+  // console.log("eventticket", eventTicket);
+  const bookingData = useSelector((store) => store.booking.bookingData);
+  // console.log(bookingData);\
+
+  console.log(bookingData?.selectedTickets.length);
+
+  const selectedTicketQuanity = useSelector(
+    (store) => store.booking.bookingData?.totalTickets
+  );
+  const selectedTicketPrice = useSelector(
+    (store) => store.booking.bookingData?.totalPrice
+  );
 
   const storedEventId = useSelector((store) => store.booking.eventId);
   // console.log("bookingData", bookingData);
-  const showCount = useSelector((store) => store.booking.showCount);
+  // const showCount = useSelector((store) => store.booking.showCount);
+  const [showCount, setShowCount] = useState({});
+  // console.log("showCount", showCount);
+
   const ticketData = useSelector((store) => store.booking.ticketData);
-  const count = useSelector((store) => store.booking.count);
+
+  // const [count, setCount] = useState({});
+  const [count, setCount] = useState(() => {
+    const savedCounts = localStorage.getItem("ticketCounts");
+    return savedCounts ? JSON.parse(savedCounts) : {};
+  });
+
   const ticketId = useSelector((store) => store.booking.ticketId);
+
+  const [finalBookingData, setFinalBookingData] = useState({
+    totalTickets: 0,
+    totalPrice: 0,
+    selectedTickets: [],
+  });
+
+  //   // Update bookingData whenever counts change
+  //   setFinalBookingData((prevBookingData) => ({
+  //     ...prevBookingData,
+  //     totalTickets: Number(Object.values(count)),
+  //     totalPrice: eventTicket.reduce(
+  //       (acc, ticket) => acc + (count[ticket._id] || 0) * ticket.Price,
+  //       0
+  //     ),
+  //   }));
+  // }, [count]);
+
+  const [eventIdCheck, setEventIdCheck] = useState(null);
   // const selectedTickets = useSelector((store) => store.booking.selectedTickets);
   const dispatch = useDispatch();
   const router = useRouter();
+  // console.log(id);
+  // console.log(storedEventId);
 
-  console.log(ticketId);
+  // console.log(ticketId);
   useEffect(() => {
-    if (bookingData.selectedTickets.length > 0) {
-      dispatch(
-        setBookingDataObj({
-          selectedTickets: bookingData.selectedTickets,
-          totalTickets: bookingData.totalTickets,
-        })
-      );
+    if (storedEventId !== null) {
+      // console.log("id", id === storedEventId);
+      setEventIdCheck("id", id === storedEventId);
     }
-  }, [bookingData]);
+  }, [count, id]);
+
+  // useEffect(() => {
+  //   if (bookingData?.selectedTickets?.length > 0) {
+
+  //   }
+  // }, [bookingData]);
 
   useEffect(() => {
     if (ticketId) {
@@ -65,8 +104,161 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   // console.log("count", count);
 
   const handleIncreaseandSetEventId = (ticketId) => {
-    dispatch(handleIncrease(ticketId));
-    dispatch(setEventId(id));
+    // console.log(ticketId);
+
+    const bookingObj = eventTicket?.find(
+      (ticket) => ticket.Ticket_Id === ticketId
+    );
+
+    // // console.log("bookingObj", bookingObj);
+
+    // if (!bookingObj) {
+    //   toast.error("Ticket not found");
+    //   return;
+    // }
+    // const bookingLimit = bookingObj.BookingMaxLimit;
+    // const currentCount = count[ticketId] || 0;
+
+    // if (currentCount < bookingLimit) {
+    //   setCount({ [ticketId]: currentCount + 1 });
+    // } else {
+    //   toast.error("Exceeding booking limit");
+    //   return;
+    // }
+
+    const bookingLimit = bookingObj.BookingMaxLimit;
+
+    if (bookingData.selectedTickets.length === 0) {
+      if (Object.values(count) < bookingLimit) {
+        const updatedCount = {
+          [ticketId]: (count[ticketId] || 0) + 1, // Set the count for the selected ticket
+        };
+        setCount(updatedCount);
+        setShowCount({
+          [ticketId]: true,
+        });
+
+        localStorage.setItem("ticketCounts", JSON.stringify(updatedCount));
+        console.log(updatedCount);
+      } else {
+        // alert("Exceeding booking limit");
+        toast.error("Exceeding booking limit");
+      }
+      setFinalBookingData;
+      ({ ...finalBookingData, totalTickets: Number(Object.values(count)) });
+    } else {
+    }
+
+    // Ensure only the selected ticket shows the counter
+  };
+
+  // const handleDecreaseandSetEventId = (ticketId) => {
+  //   // console.log(ticketId);
+
+  //   // const bookingObj = eventTicket?.find(
+  //   //   (ticket) => ticket.Ticket_Id === ticketId
+  //   // );
+
+  //   // console.log("bookingObj", bookingObj);
+
+  //   // if (!bookingObj) {
+  //   //   toast.error("Ticket not found");
+  //   //   return;
+  //   // }
+
+  //   // const currentCount = count[ticketId] || 0;
+
+  //   // if (currentCount > 0) {
+  //   //   setCount({ [ticketId]: currentCount - 1 });
+  //   // }
+  //   // if (currentCount === 1) {
+  //   //   setCount({});
+  //   // }
+
+  //   // console.log(currentCount);
+
+  //   // const totalCount = Object.values(count).reduce(
+  //   //   (acc, value) => acc + value,
+  //   //   0
+  //   // );
+  //   // if (totalCount > 0 && count[ticketId]) {
+  //   // toast.error("You can only select one type of ticket at a time.");
+  //   // return;
+  //   // }
+  //   // if (currentCount + 1 > bookingLimit || totalCount + 1 > bookingLimit) {
+
+  //   // }
+
+  //   // return { count: { ...count, [ticketId]: currentCount + 1 } };
+
+  //   // return {
+  //   //   ...state,
+  //   //   count: {
+  //   //     ...state.count,
+  //   //     [ticketId]: currentCount + 1, // Increment the count for the specific ticket
+  //   //   },
+  //   // };
+
+  //   // dispatch(handleIncrease(ticketId));
+  //   // dispatch(setEventId(id));
+
+  //   setCount((prevCounts) => {
+  //     const newCount = Math.max((prevCounts[ticketId] || 0) - 1, 0);
+
+  //     if (newCount === 0) {
+  //       setShowCount({});
+  //       return {};
+  //     }
+
+  //     const updatedCount = {};
+  //     // console.log("count", count);
+  //     // console.log("newcount", newCount);
+  //     localStorage.setItem("ticketCounts", JSON.stringify(newCount));
+
+  //     // console.log("handledecrement", counts);
+  //     setFinalBookingData;
+  //     ({ ...finalBookingData, totalTickets: Number(Object.values(count)) });
+
+  //     return { [ticketId]: newCount }; // Store only the current ticket's count
+  //   });
+  // };
+  const handleDecreaseandSetEventId = (ticketId) => {
+    setCount((prevCounts) => {
+      // Get the current count for the ticket
+      const currentCount = prevCounts[ticketId] || 0;
+
+      // Calculate the new count, ensuring it doesn't go below 0
+      const newCount = Math.max(currentCount - 1, 0);
+
+      // If the count for the current ticket is zero, you can decide how to handle showCount
+      const updatedShowCount = { ...showCount };
+      if (newCount === 0) {
+        delete updatedShowCount[ticketId]; // Remove the ticket from showCount if it's zero
+      } else {
+        updatedShowCount[ticketId] = true; // Ensure it stays true if count > 0
+      }
+      setShowCount(updatedShowCount); // Update showCount state
+
+      // Prepare the new counts object
+      const updatedCounts = {
+        ...prevCounts,
+        [ticketId]: newCount, // Update the specific ticket's count
+      };
+
+      // Save updated counts in localStorage
+      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+
+      // Update final booking data (if necessary)
+      setFinalBookingData((prevData) => ({
+        ...prevData,
+        totalTickets: Object.values(updatedCounts).reduce(
+          (acc, value) => acc + value,
+          0
+        ),
+      }));
+
+      return updatedCounts; // Return the updated counts
+    });
   };
 
   useEffect(() => {
@@ -81,85 +273,133 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [isMobile]);
 
+  // const handleShowTicket = async (eventTicketId) => {
+  //   setSelectedShortTicket(eventTicketId);
+  //   dispatch(setTicketId(eventTicketId));
+  //   const currentEventId = id;
+
+  //   const totalTicketsInCart = Object.values(count).reduce(
+  //     (acc, num) => acc + num,
+  //     0
+  //   );
+
+  //   if (totalTicketsInCart > 0 && storedEventId !== currentEventId) {
+  //     // Show a message that tickets from another event are already in the cart
+  //     toast.error(
+  //       "You already have tickets from another event. Please clear all tickets before selecting new ones."
+  //     );
+  //     return; // Exit the function early
+  //   }
+
+  //   const payload = {
+  //     event_id: id,
+  //     eventDateTime_id: eventTicketId,
+  //   };
+
+  //   try {
+  //     const response = await axios.post(`${events.GET_TICKETS_BY_ID}`, payload);
+  //     // console.log(response.data.data);
+  //     // setTicketData(response.data.data);
+  //     dispatch(setTicketData(response.data.data));
+  //   } catch (error) {
+  //     if (error.response) {
+  //       const { status, data } = error.response;
+
+  //       if (
+  //         status === 404 ||
+  //         status === 403 ||
+  //         status === 500 ||
+  //         status === 302 ||
+  //         status === 409 ||
+  //         status === 401 ||
+  //         status === 400
+  //       ) {
+  //         // console.log(error.response);
+  //         // setError(true);
+  //         setShowTicket(false);
+  //         toast.error(data.message);
+  //       }
+  //     }
+  //   }
+
+  //   setShowTicket(true);
+  // };
   const handleShowTicket = async (eventTicketId) => {
     setSelectedShortTicket(eventTicketId);
     dispatch(setTicketId(eventTicketId));
-    const currentEventId = id;
 
-    const totalTicketsInCart = Object.values(count).reduce(
-      (acc, num) => acc + num,
-      0
-    );
+    const currentEventId = id; // The event ID from the URL or route params
+    const storedEventData = JSON.parse(localStorage.getItem("eventData"));
 
-    if (totalTicketsInCart > 0 && storedEventId !== currentEventId) {
-      // Show a message that tickets from another event are already in the cart
+    // Check if there's an existing event in localStorage and if it matches the current event
+    if (storedEventData && storedEventData.eventId !== currentEventId) {
       toast.error(
-        "You already have tickets from another event. Please clear all tickets before selecting new ones."
+        "You already have tickets for another event. Please clear your cart before selecting tickets for this event."
       );
-      return; // Exit the function early
+      setShowTicket(false); // Close ticket modal if there's a mismatch
+      return; // Prevent further execution
     }
 
+    // If there's no mismatch, proceed with fetching tickets
     const payload = {
-      event_id: id,
+      event_id: currentEventId,
       eventDateTime_id: eventTicketId,
     };
 
     try {
       const response = await axios.post(`${events.GET_TICKETS_BY_ID}`, payload);
-      // console.log(response.data.data);
-      // setTicketData(response.data.data);
-      dispatch(setTicketData(response.data.data));
+      setEventTicket(response.data.data);
+      // dispatch(setTicketData(response.data.data));
+      setShowTicket(true); // Show ticket modal if tickets are fetched successfully
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
-
-        if (
-          status === 404 ||
-          status === 403 ||
-          status === 500 ||
-          status === 302 ||
-          status === 409 ||
-          status === 401 ||
-          status === 400
-        ) {
-          // console.log(error.response);
-          // setError(true);
-          setShowTicket(false);
-          toast.error(data.message);
-        }
+        setShowTicket(false); // Close modal on error
+        toast.error(data.message);
       }
     }
-
-    setShowTicket(true);
   };
 
   useEffect(() => {
-    setBookingData((prevBookingData) => ({
-      ...prevBookingData,
-      totalTickets: Object.values(count).reduce((acc, num) => acc + num, 0),
-      totalPrice: eventTicket.reduce(
-        (acc, ticket) => acc + (count[ticket._id] || 0) * ticket.Price,
-        0
-      ),
-    }));
+    if (bookingData) {
+      setFinalBookingData((prevBookingData) => ({
+        ...prevBookingData,
+        totalTickets: Object.values(count).reduce((acc, num) => acc + num, 0),
+        totalPrice: eventTicket.reduce(
+          (acc, ticket) => acc + (count[ticket._id] || 0) * ticket.Price,
+          0
+        ),
+      }));
+    }
   }, [count]);
+
+  console.log("finalbooking", finalBookingData);
+
+  useEffect(() => {
+    if (finalBookingData?.totalTickets > 0) {
+      dispatch(setBookingDataObj({ ...finalBookingData }));
+    }
+  }, [finalBookingData]);
 
   //   // console.log("increase", ticketId);
 
   const handleShowCount = (ticketId) => {
     // console.log("handleShow", ticketId);
-    dispatch(setShowCount(ticketId));
-    // setShowCount((prevShowCount) => ({
-    //   ...prevShowCount,
-    //   [ticketId]: true,
-    // }));
+    // dispatch(setShowCount(ticketId));
+    // dispatch(setEventId(id));
+
+    setShowCount((prevShowCount) => ({
+      ...prevShowCount,
+      [ticketId]: true,
+    }));
   };
 
   const totalTickets = Object.values(count).reduce(
     (acc, count) => acc + count,
     0
   );
-  const totalPrice = ticketData.reduce(
+
+  const totalPrice = eventTicket.reduce(
     (acc, ticket) => acc + (count[ticket.Ticket_Id] || 0) * ticket.TicketPrice,
     0
   );
@@ -169,24 +409,36 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       (acc, count) => acc + count,
       0
     );
-    const totalPrice = ticketData.reduce(
+    const totalPrice = eventTicket.reduce(
       (acc, ticket) =>
         acc + (count[ticket.Ticket_Id] || 0) * ticket.TicketPrice,
       0
     );
-    const selectedTickets = ticketData.filter(
+
+    const selectedTickets = eventTicket.filter(
       (ticket) => count[ticket.Ticket_Id] > 0
     );
+    // console.log("selectedtickets", selectedTickets);
 
-    setBookingData({
-      totalPrice,
-      totalTickets,
-      selectedTickets,
-    });
+    // setBookingData({
+    //   totalPrice,
+    //   totalTickets,
+    //   selectedTickets,
+    // });
+
+    const data = { totalPrice, totalTickets, selectedTickets };
+    setFinalBookingData(data);
   };
+
+  // console.log("outside", finalBookingData);
 
   const handleContinue = () => {
     calculateTotals();
+
+    // console.log("inside", finalBookingData);
+
+    // dispatch(setBookingDataObj({ finalBookingData }));
+
     dispatch(setEventId(id));
     router.push(`/events/tickets/${id}/checkout`);
   };
@@ -223,8 +475,13 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     setShowTicket(true);
   };
 
+  // if (!storedEventData) {
+  //   toast.error("You already have tickets of another event");
+  // }
+
   const isAnyCountActive = Object.values(showCount).some((value) => value);
 
+  console.log("count", count);
   return (
     <>
       <div className="bg-gray-50 md:py-10">
@@ -369,13 +626,17 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           </div>
 
           <div className=" mt-2 px-4 md:px-14 py-6">
-            {showTicket && ticketId !== null && ticketData?.length > 0 && (
+            {(eventIdCheck === null || eventIdCheck) &&
+            showTicket &&
+            ticketId !== null &&
+            eventTicket?.length > 0 &&
+            bookingData?.selectedTickets.length === 0 ? (
               <div>
                 <h1 className="md:text-2xl   font-bold">Choose ticket:</h1>
-                {ticketData?.map((ticket) => {
+                {eventTicket?.map((ticket) => {
                   const counts = count[ticket.Ticket_Id] || 0;
                   {
-                    /* console.log(counts); */
+                    // console.log(counts);
                   }
                   return (
                     <div
@@ -426,8 +687,11 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                             <div className="flex justify-center items-center mt-4">
                               <button
                                 className="bg-blue-900 text-white py-1 px-2 rounded-l"
+                                // onClick={() =>
+                                //   dispatch(handleDecrease(ticket.Ticket_Id))
+                                // }
                                 onClick={() =>
-                                  dispatch(handleDecrease(ticket.Ticket_Id))
+                                  handleDecreaseandSetEventId(ticket.Ticket_Id)
                                 }
                               >
                                 -
@@ -461,8 +725,173 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                   );
                 })}
               </div>
+            ) : (
+              // <div>
+              //   <h1 className="md:text-2xl   font-bold">Choose ticket:</h1>
+              //   {eventTicket?.map((ticket) => {
+              //     const counts = count[ticket.Ticket_Id] || 0;
+              //     const selectTicket = bookingData?.selectedTickets[0];
+              //     console.log(selectTicket);
+              //     return (
+              //       <div
+              //         className=" md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
+              //         key={ticket.Ticket_Id}
+              //       >
+              //         <div className="flex items-center justify-between px-4 py-4">
+              //           <div className="flex flex-col gap-2">
+              //             <p className="md:text-xl capitalize">
+              //               {ticket.TicketName}{" "}
+              //             </p>
+              //             {ticket.TicketDescprition && (
+              //               <p className="md:w-[70%] text-gray-600">
+              //                 {ticket.TicketDescprition}
+              //               </p>
+              //             )}
+              //             <p className="font-semibold md:text-lg">
+              //               {" "}
+              //               &#8377; {ticket.TicketPrice}{" "}
+              //             </p>
+              //           </div>
+              //           <div>
+              //             {/* {quantitySelection ? (
+              //           <button className=" text-blue-900 font-bold px-8 py-3 rounded-md border border-blue-900">
+              //             <div className="flex  gap-4">
+              //               <span
+              //                 onClick={() => handleDecrease(ticket.Ticket_Id)}
+              //               >
+              //                 -
+              //               </span>
+              //               <span>{counts}</span>
+              //               <span
+              //                 onClick={() => handleIncrease(ticket.Ticket_Id)}
+              //               >
+              //                 +
+              //               </span>
+              //             </div>
+              //           </button>
+              //         ) : (
+              //           <button
+              //             className="bg-blue-900 text-white md:px-8 md:py-3 py-2 px-4 rounded-md"
+              //             onClick={() => setQuantitySelection(true)}
+              //           >
+              //             Add
+              //           </button>
+              //         )} */}
+              //             {showCount[ticket.Ticket_Id] ? (
+              //               <div className="flex justify-center items-center mt-4">
+              //                 <button
+              //                   className="bg-blue-900 text-white py-1 px-2 rounded-l"
+              //                   // onClick={() =>
+              //                   //   dispatch(handleDecrease(ticket.Ticket_Id))
+              //                   // }
+              //                   onClick={() =>
+              //                     handleDecreaseandSetEventId(ticket.Ticket_Id)
+              //                   }
+              //                 >
+              //                   -
+              //                 </button>
+              //                 <span className="mx-4">{counts}</span>
+              //                 <button
+              //                   className="bg-blue-900 text-white py-1 px-2 rounded-r"
+              //                   onClick={() =>
+              //                     handleIncreaseandSetEventId(ticket.Ticket_Id)
+              //                   }
+              //                 >
+              //                   +
+              //                 </button>
+              //               </div>
+              //             ) : (
+              //               <button
+              //                 className={` ${
+              //                   isAnyCountActive
+              //                     ? "bg-blue-900 bg-opacity-40 cursor-not-allowed"
+              //                     : "bg-blue-900"
+              //                 }   text-white py-3 px-6 rounded mx-auto mt-4`}
+              //                 onClick={() => handleShowCount(ticket.Ticket_Id)}
+              //                 disabled={isAnyCountActive}
+              //               >
+              //                 Add
+              //               </button>
+              //             )}
+              //           </div>
+              //         </div>
+              //       </div>
+              //     );
+              //   })}
+              // </div>
+              <div>
+                <h1 className="md:text-2xl font-bold">Choose ticket:</h1>
+                {eventTicket?.map((ticket) => {
+                  const counts = count[ticket.Ticket_Id] || 0;
+                  const isSelectedTicket = bookingData?.selectedTickets.find(
+                    (selected) => selected.Ticket_Id === ticket.Ticket_Id
+                  );
+
+                  return (
+                    <div
+                      className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
+                      key={ticket.Ticket_Id}
+                    >
+                      <div className="flex items-center justify-between px-4 py-4">
+                        <div className="flex flex-col gap-2">
+                          <p className="md:text-xl capitalize">
+                            {ticket.TicketName}
+                          </p>
+                          {ticket.TicketDescprition && (
+                            <p className="md:w-[70%] text-gray-600">
+                              {ticket.TicketDescprition}
+                            </p>
+                          )}
+                          <p className="font-semibold md:text-lg">
+                            &#8377; {ticket.TicketPrice}
+                          </p>
+                        </div>
+                        <div>
+                          {/* If the ticket is selected, show the quantity counter */}
+                          {isSelectedTicket ? (
+                            <div className="flex justify-center items-center mt-4">
+                              <button
+                                className="bg-blue-900 text-white py-1 px-2 rounded-l"
+                                onClick={() =>
+                                  handleDecreaseandSetEventId(ticket.Ticket_Id)
+                                }
+                              >
+                                -
+                              </button>
+                              <span className="mx-4">
+                                {bookingData?.totalTickets}
+                              </span>
+                              <button
+                                className="bg-blue-900 text-white py-1 px-2 rounded-r"
+                                onClick={() =>
+                                  handleIncreaseandSetEventId(ticket.Ticket_Id)
+                                }
+                              >
+                                +
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              className={`${
+                                isAnyCountActive
+                                  ? "bg-blue-900 bg-opacity-40 cursor-not-allowed"
+                                  : "bg-blue-900"
+                              } text-white py-3 px-6 rounded mx-auto mt-4`}
+                              onClick={() => handleShowCount(ticket.Ticket_Id)}
+                              disabled={isAnyCountActive}
+                            >
+                              Add
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </div>
+
           {/* Footer for Total Count and Price */}
 
           {storedEventId !== null && storedEventId !== id && (
@@ -478,7 +907,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
         </>
       </div>
       <>
-        {storedEventId === id && totalTickets > 0 && (
+        {totalTickets > 0 && bookingData?.totalTickets === 0 ? (
           <div className="relative md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
             <div className="flex flex-col gap-2 ">
               <p className="md:text-2xl text-lg font-semibold">
@@ -486,6 +915,25 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
               </p>
               <p className="md:text-xl text-lg text-gray-600">
                 {totalTickets} Ticket
+              </p>
+            </div>
+            <div className=" text-right ">
+              <button
+                onClick={handleContinue}
+                className="bg-blue-900   text-white py-2 px-14 rounded"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="relative md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
+            <div className="flex flex-col gap-2 ">
+              <p className="md:text-2xl text-lg font-semibold">
+                ₹ {bookingData?.totalPrice}
+              </p>
+              <p className="md:text-xl text-lg text-gray-600">
+                {bookingData?.totalTickets} Ticket
               </p>
             </div>
             <div className=" text-right ">

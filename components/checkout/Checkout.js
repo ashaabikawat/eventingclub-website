@@ -22,9 +22,9 @@ const Checkout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("isLoggedIn:", isLoggedIn);
-    console.log("otpVerified:", otpVerified);
-    console.log("details:", details);
+    // console.log("isLoggedIn:", isLoggedIn);
+    // console.log("otpVerified:", otpVerified);
+    // console.log("details:", details);
 
     // Automatically open Booking Summary if user is logged in
     if (isLoggedIn) {
