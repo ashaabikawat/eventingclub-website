@@ -29,6 +29,7 @@ const booking = createSlice({
       console.log("payload", action.payload);
       state.bookingData = action.payload;
     },
+
     reset_bookingData: (state, action) => {
       state.bookingData = {
         selectedTickets: [],

@@ -92,45 +92,19 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
     }
   };
 
-  // const handleDecreaseTicket = (ticketId) => {
-  //   dispatch(handleDecrease(ticketId));
-
-  //   // After updating the Redux state, remove the ticket from localStorage if the count is 0
-  //   const currentCount = count[ticketId] || 0;
-  //   if (currentCount === 0) {
-  //     // Safely parse the stored data, ensuring it's an array
-  //     const storedBookingData =
-  //       JSON.parse(localStorage.getItem("bookingData")) || [];
-
-  //     // Only apply .filter if storedBookingData is a valid array
-  //     if (Array.isArray(storedBookingData)) {
-  //       const updatedBookingData = storedBookingData.filter(
-  //         (ticket) => ticket.Ticket_Id !== ticketId
-  //       );
-  //       localStorage.setItem("bookingData", JSON.stringify(updatedBookingData));
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   dispatch(
-  //     setBookingDataObj({
-  //       selectedTickets: selectedTicket,
-  //       totalTickets: Object.values(count)[0],
-  //     })
-  //   );
-  // }, [count]);
-
   // const handleDecreaseTicket = (id) => {
   //   console.log(id);
   //   console.log(bookingData);
   //   if (quantity > 1) {
   //     const newQuanity = quantity - 1;
   //     setQuanity(newQuanity);
+  //     const ticketAmount = Number(selectedTicket[0]?.TicketPrice) * newQuanity;
+  //     const updatedAmount = ticketAmount;
+  //     console.log(newQuanity);
   //     dispatch(
   //       setBookingDataObj({
   //         selectedTickets: selectedTicket,
-  //         totalPrice: ticketAmount,
+  //         totalPrice: updatedAmount,
   //         totalTickets: newQuanity,
   //       })
   //     );
@@ -148,6 +122,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuanity(newQuantity);
+      const ticketAmount = Number(selectedTicket[0]?.TicketPrice) * newQuantity;
 
       dispatch(
         setBookingDataObj({
@@ -157,42 +132,12 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
         })
       );
 
-      // Update the counts for the ticket in localStorage
-      const updatedCounts = {
-        ...JSON.parse(localStorage.getItem("ticketCounts")),
-      };
-      updatedCounts[id] = newQuantity; // Update count for the current ticket
-
+      const updatedCounts = { [id]: newQuantity };
       localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
-    } else {
-      // Remove the ticket from localStorage if quantity is 1 or less
-      const updatedCounts = {
-        ...JSON.parse(localStorage.getItem("ticketCounts")),
-      };
-      delete updatedCounts[id];
-
-      // Clear the entire localStorage item if no tickets remain
-      if (Object.keys(updatedCounts).length === 0) {
-        localStorage.setItem("ticketCounts", JSON.stringify({}));
-      } else {
-        localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
-      }
-
-      // Reset showCount in the same manner
-      const updatedShowCount = {
-        ...JSON.parse(localStorage.getItem("showCount")),
-      };
-      delete updatedShowCount[id];
-
-      // Clear the entire showCount if no entries remain
-      if (Object.keys(updatedShowCount).length === 0) {
-        localStorage.setItem("showCount", JSON.stringify({}));
-      } else {
-        localStorage.setItem("showCount", JSON.stringify(updatedShowCount));
-      }
-
-      // Reset booking data in Redux when the quantity reaches 1
+    } else if (quantity === 1) {
+      setQuanity(0);
       dispatch(reset_bookingData());
+      localStorage.removeItem("ticketCounts");
     }
   };
 
@@ -202,10 +147,13 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
     if (quantity < bookingLimit) {
       const newQuanity = quantity + 1;
       setQuanity(newQuanity);
+      const ticketAmount = Number(selectedTicket[0]?.TicketPrice) * newQuanity;
+      const updatedAmount = ticketAmount;
+
       dispatch(
         setBookingDataObj({
           selectedTickets: selectedTicket,
-          totalPrice: ticketAmount,
+          totalPrice: updatedAmount,
           totalTickets: newQuanity,
         })
       );
