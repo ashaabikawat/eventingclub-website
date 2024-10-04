@@ -3,8 +3,8 @@ import React from "react";
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-[600px] ">
-      <div className="relative h-[500px] w-[500px] ">
+    <div className="flex items-center justify-center flex-col">
+      <div className="relative w-72 h-72 ">
         <Image
           src={"/9318694.jpg"}
           alt="Not found"
@@ -14,11 +14,12 @@ const NotFound = () => {
         />
       </div>
       <div>
-        <p className="text-2xl font-bold mb-2">No data available.</p>
-        <p className="text-lg">
+        <p className="md:text-2xl font-bold mb-2">No data available.</p>
+        <p className="md:text-lg">
           Please adjust or reset the filters to view the content.
         </p>
       </div>
+      {/* <p>Not found</p> */}
     </div>
   );
 };
