@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Promocode = ({ promocode }) => {
   return (
-    <div>
+    <div className="w-52">
       <div className=" border border-gray-300 rounded-md px-2 py-4 md:w-full ">
         <div>
           <div className="  flex gap-4 items-center ">

@@ -235,9 +235,17 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
     try {
       const response = await axios.post(`${events.GET_TICKETS_BY_ID}`, payload);
-      // console.log(response.data.data);
+      console.log(response.data.data);
       // setTicketData(response.data.data);
       setEventTicket(response.data.data);
+      console.log(response.data.data[0].ConfeeUnit);
+      localStorage.setItem(
+        "convenienceFee",
+        JSON.stringify({
+          ConfeeUnit: response.data.data[0].ConfeeUnit,
+          ConValue: response.data.data[0].ConValue,
+        })
+      );
       dispatch(setTicketData(response.data.data));
     } catch (error) {
       if (error.response) {
@@ -422,6 +430,9 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   const isAnyCountActive = Object.values(showCount).some((value) => value);
 
   // console.log("count", count);
+
+  console.log(storedEventId === id);
+
   return (
     <>
       <div className="bg-gray-50 md:py-10">
@@ -729,35 +740,17 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           )}
         </>
       </div>
-      <>
-        {totalTickets > 0 ? (
-          <div className="relative md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
-            <div className="flex flex-col gap-2 ">
-              <p className="md:text-2xl text-lg font-semibold">
-                ₹ {totalPrice}
-              </p>
-              <p className="md:text-xl text-lg text-gray-600">
-                {totalTickets} Ticket
-              </p>
-            </div>
-            <div className=" text-right ">
-              <button
-                onClick={handleContinue}
-                className="bg-blue-900   text-white py-2 px-14 rounded"
-              >
-                Continue
-              </button>
-            </div>
-          </div>
-        ) : (
-          bookingData.totalTickets > 0 && (
+
+      {(storedEventId === id || storedEventId === null) && (
+        <div>
+          {totalTickets > 0 ? (
             <div className="relative md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
               <div className="flex flex-col gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
-                  ₹ {bookingData?.totalPrice}
+                  ₹ {totalPrice}
                 </p>
                 <p className="md:text-xl text-lg text-gray-600">
-                  {bookingData?.totalTickets} Ticket
+                  {totalTickets} Ticket
                 </p>
               </div>
               <div className=" text-right ">
@@ -769,9 +762,30 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                 </button>
               </div>
             </div>
-          )
-        )}
-      </>
+          ) : (
+            bookingData.totalTickets > 0 && (
+              <div className="relative md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
+                <div className="flex flex-col gap-2 ">
+                  <p className="md:text-2xl text-lg font-semibold">
+                    ₹ {bookingData?.totalPrice}
+                  </p>
+                  <p className="md:text-xl text-lg text-gray-600">
+                    {bookingData?.totalTickets} Ticket
+                  </p>
+                </div>
+                <div className=" text-right ">
+                  <button
+                    onClick={handleContinue}
+                    className="bg-blue-900   text-white py-2 px-14 rounded"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      )}
     </>
   );
 };

@@ -149,9 +149,9 @@ const Page = () => {
         <div className=" relative w-full h-full">
           <Image src={"/pic.jpg"} alt="image" layout="fill" objectFit="cover" />
         </div>
-        <div className=" md:px-6 md:py-52 px-10 m-4 py-10 absolute md:static backdrop-blur-md border border-gray-500 h-890 rounded-md md:rounded-none md:border-none top-20 md:h-full">
+        <div className=" md:px-6 md:py-52 w-[90%]  px-10 m-4 py-10 absolute md:static  backdrop-blur-md border border-gray-500 h-890 rounded-md md:rounded-none md:border-none md:h-full">
           {!otpSent && !token && (
-            <div>
+            <div className=" w-full  h-full flex  justify-center flex-col">
               <h1 className="md:text-3xl text-base font-bold md:mb-6 mb-4 text-white md:text-black">
                 Welcome to eventing club
               </h1>

@@ -167,7 +167,7 @@ const Page = () => {
       )}
 
       <div className=" w-full md:px-6 px-4">
-        <div className="w-full  grid gap-6  md:grid-cols-[300px_minmax(300px,_1fr)_1fr]">
+        <div className="w-full grid gap-6 md:grid-cols-[300px_minmax(300px,_1fr)_1fr]">
           {!isMobile && (
             <div className="hidden md:block">
               <Filter
@@ -191,7 +191,9 @@ const Page = () => {
 
           <div className="w-full   md:block md:col-span-2">
             {error ? (
-              <NotFound />
+              <div className="md:mt-10 md:mb-10 ">
+                <NotFound />
+              </div>
             ) : (
               <>
                 {!filterOpenModal && (

@@ -50,8 +50,11 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
 
   const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(0);
 
-  const convenienceFee = Number(promocodes?.ConFeeValue) || 0;
-  const promocodeDiscount = Number(promocodeDiscountPrice) || 0;
+  const confee = JSON.parse(localStorage.getItem("convenienceFee"));
+  console.log(confee);
+
+  const convenienceFee = Number(confee?.ConValue) || 0;
+  const promocodeDiscount = Number(confee?.ConfeeUnit) || 0;
 
   // Calculate GST based on the total before discount
   const gst = convenienceFee * 0.18;
@@ -304,23 +307,35 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                 <div>
                   <Swiper
                     // spaceBetween={20}
-                    // slidesPerView={4}
+                    // slidesPerView={6}
                     breakpoints={{
                       320: {
                         slidesPerView: 1,
                         spaceBetween: 6,
                       },
+                      375: {
+                        slidesPerView: 1.2,
+                        spaceBetween: 6,
+                      },
                       425: {
+                        slidesPerView: 1.4,
+                        spaceBetween: 10,
+                      },
+                      480: {
                         slidesPerView: 2,
                         spaceBetween: 10,
                       },
                       768: {
-                        slidesPerView: 4,
-                        spaceBetween: 20,
+                        slidesPerView: 2.6,
+                        spaceBetween: 6,
                       },
                       1024: {
-                        slidesPerView: 3.5,
+                        slidesPerView: 3.8,
                         spaceBetween: 10,
+                      },
+                      1440: {
+                        slidesPerView: 5.6,
+                        spaceBetween: 12,
                       },
                     }}
                   >
@@ -360,8 +375,8 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                           <div className=" border border-gray-300 rounded-md px-2 py-4 md:w-full ">
                             <div className="flex justify-between items-center">
                               <div className=" items-center  flex gap-4 ">
-                                <input type="radio" className="w-4 h-4" />
-                                <label className=" text-blue-900 text-base p-2  rounded-md border border-dashed border-blue-900 font-bold">
+                                {/* <input type="radio" className="w-4 h-4" /> */}
+                                <label className=" text-blue-900 text-base p-2 md:ml-8 rounded-md border border-dashed border-blue-900 font-bold">
                                   {promoObject?.PromoCodeName}
                                 </label>
                               </div>

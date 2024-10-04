@@ -266,13 +266,14 @@ const booking = createSlice({
     },
 
     reset_state: (state, action) => {
-      (state.selectedTickets = null),
-        (state.totalTickets = null),
-        (state.ticketData = []),
-        (state.count = {}),
-        (state.showCount = {}),
-        (state.eventId = null),
-        (state.promocodeId = null);
+      // (state.selectedTickets = null),
+      // (state.totalTickets = null),
+      // (state.ticketData = []),
+      // (state.count = {}),
+      // (state.showCount = {}),
+      state.bookingData = {};
+      state.eventId = null;
+      state.promocodeId = null;
       state.ticketId = null;
     },
   },
