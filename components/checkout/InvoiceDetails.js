@@ -66,6 +66,20 @@ const InvoiceDetails = ({ cust_id }) => {
       const response = await axios.post(`${ticket.POST_DATA}`, payload);
       console.log(response.data);
       toast.success(response.data.message);
+      const form = document.createElement("form");
+      form.setAttribute("method", "POST");
+      form.setAttribute("action", "https://test.payu.in/_payment");
+
+      Object.keys(response.data.data).forEach((key) => {
+        const hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", response.data.data[key]);
+        form.appendChild(hiddenField);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
       // dispatch(reset_state());
     } catch (error) {
       console.log(error);
