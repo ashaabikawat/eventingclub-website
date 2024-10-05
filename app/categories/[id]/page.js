@@ -24,6 +24,7 @@ const Page = () => {
   const [filterOpenModal, setFilterOpenModal] = useState(false);
   const [error, setError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
+  const [range, setRange] = useState("start");
 
   const handleManualSubmit = () => {
     console.log(startDate);
@@ -117,6 +118,8 @@ const Page = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
+    console.log(startDate, endDate);
+
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"
@@ -124,10 +127,27 @@ const Page = () => {
       toast.error("Please select date range");
       return;
     }
+    if (startDate === null) {
+      toast.error("Please select start date range");
+      return;
+    }
+    if (endDate === null) {
+      toast.error("Please select end date range");
+      return;
+    }
+
+    if (startDate === null || endDate === null) {
+      toast.error("Please select date range");
+      return;
+    }
+
     try {
       const payload = { category_id: id, startDate, endDate };
       const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
+      setEndDate(null);
+      setStartDate(null);
+      setRange("start");
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -141,6 +161,7 @@ const Page = () => {
 
   return (
     <div className="mt-2 ">
+      <Toaster />
       {isMobile && !filterOpenModal && (
         <h1 className="md:text-3xl mb-4 px-4 font-semibold text-lg ">
           Category Events:
@@ -185,6 +206,8 @@ const Page = () => {
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 handleManualSubmit={handleManualSubmit}
+                range={range}
+                setRange={setRange}
               />
             </div>
           )}
@@ -224,6 +247,8 @@ const Page = () => {
                     setStartDate={setStartDate}
                     setEndDate={setEndDate}
                     handleManualSubmit={handleManualSubmit}
+                    range={range}
+                    setRange={setRange}
                   />
                 )}
               </>

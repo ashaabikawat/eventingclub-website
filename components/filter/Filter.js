@@ -30,13 +30,14 @@ const Filter = ({
   setStartDate,
   setEndDate,
   handleManualSubmit,
+  setRange,
+  range,
 }) => {
   const [open, setOpen] = useState(1);
   const [active, setActive] = useState("Date");
   const startPickerRef = useRef(null);
   const [selectedDates, setSelectedDates] = useState();
   const [visiblePicker, setVisiblePicker] = useState(null);
-  const [range, setRange] = useState("start");
 
   const [today, setToday] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState();
@@ -55,27 +56,6 @@ const Filter = ({
       setFormattedDate(date);
     }
   }, [today]);
-
-  const data = [
-    {
-      name: "Date",
-      component: <DatePicker handleDateSelection={handleDateSelection} />,
-    },
-    {
-      name: "Language",
-      component: (
-        <Languages handleLanguageSelection={handleLanguageSelection} />
-      ),
-    },
-    {
-      name: "Category",
-      component: <Categories handleCategory={handleCategory} />,
-    },
-    {
-      name: "Genre",
-      component: <Genre handleGenre={handleGenre} />,
-    },
-  ];
 
   const handleDateRange = (range) => {
     // console.log("range");
@@ -187,6 +167,39 @@ const Filter = ({
     setFilterOpenModal(false);
   };
 
+  const data = [
+    {
+      name: "Date",
+      component: (
+        <DatePicker
+          handleDateSelection={handleDateSelection}
+          isManual={isManual}
+          setIsManual={setIsManual}
+          range={range}
+          setRange={setRange}
+          setEndDate={setEndDate}
+          setStartDate={setStartDate}
+          handleManualSubmit={handleManualSubmit}
+          handleClear={handleClear}
+        />
+      ),
+    },
+    {
+      name: "Language",
+      component: (
+        <Languages handleLanguageSelection={handleLanguageSelection} />
+      ),
+    },
+    {
+      name: "Category",
+      component: <Categories handleCategory={handleCategory} />,
+    },
+    {
+      name: "Genre",
+      component: <Genre handleGenre={handleGenre} />,
+    },
+  ];
+
   return (
     <>
       <div className="md:w-80 w-full  md:px-4 hidden md:block md:mt-4">
@@ -250,36 +263,43 @@ const Filter = ({
               }`}
             >
               {isManual && (
-                <div className="relative">
-                  <div className="flex gap-8 mb-4 items-center justify-around">
+                <div className="relative shadow-xl p-4 mb-10">
+                  <div className="flex gap-8 mb-6 items-center justify-around">
                     <span
                       onClick={() => handleDateRange("start")}
-                      className={`${
-                        range === "start" ? "text-blue-900 underline" : ""
-                      } text-xl  cursor-pointer`}
+                      className={`relative text-xl cursor-pointer text-center ${
+                        range === "start" ? "text-blue-900" : ""
+                      }`}
                     >
                       Start
-                    </span>{" "}
+                      <span
+                        className={`absolute left-0 right-0 mx-auto block h-[2px] bg-blue-900 mt-1 transition-transform duration-300 transform ${
+                          range === "start" ? "scale-x-150 " : "scale-x-0"
+                        }`}
+                      />
+                    </span>
+
                     <span
                       onClick={() => handleDateRange("end")}
-                      className={`${
-                        range === "end" ? "text-blue-900 underline" : ""
-                      } text-xl cursor-pointer `}
+                      className={`relative text-xl cursor-pointer text-center ${
+                        range === "end" ? "text-blue-900" : ""
+                      }`}
                     >
                       End
+                      <span
+                        className={`absolute left-0 right-0 mx-auto block h-[2px] bg-blue-900 mt-1 transition-transform duration-300 transform ${
+                          range === "end" ? "scale-x-150" : "scale-x-0"
+                        }`}
+                      />
                     </span>
                   </div>
+
                   <div
                     id="datepicker-start"
                     ref={startPickerRef}
-                    style={{
-                      border: "none",
-                      boxShadow: "none",
-                      outline: "none",
-                    }}
-                    className="absolute top-full left-0 mt-2 shadow-none border-none outline-none focus:border-none focus:ring-  "
+                    className="absolute top-full left-0  shadow-none border-none outline-none focus:border-none focus:ring-  "
                   ></div>
-                  <div className="flex gap-6 mt-4 justify-around items-center">
+                  <div className="flex gap-6 mt-6 justify-around items-center">
                     <button className="text-base border border-gray-400  px-4 py-2 rounded">
                       Cancel
                     </button>
@@ -386,7 +406,7 @@ const Filter = ({
         {" "}
         {/* Ensures it takes full screen height */}
         {filterOpenModal && (
-          <div className="w-full h-auto">
+          <div className="w-full h-full min-h-screen">
             <div className="mb-4">
               <div className="w-full border-b-2 border-gray-300 pb-4">
                 <div className="flex items-center justify-between">
@@ -398,7 +418,7 @@ const Filter = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 w-full min-h-[600px] bg-gray-300">
+            <div className="grid grid-cols-2 w-full min-h-screen bg-gray-300">
               {" "}
               {/* Ensure minimum height */}
               {/* Sidebar */}

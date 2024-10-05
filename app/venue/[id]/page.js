@@ -53,7 +53,7 @@ const Page = () => {
   // console.log(imageUrl);
 
   return (
-    <div className="w-full h-full overflow-x-hidden md:px-16 px-2 ">
+    <div className="w-full h-full overflow-x-hidden md:px-14 py-10">
       <Toaster />
       <div className=" w-full h-full  ">
         <div className=" w-full h-full  lg:border-b-2 lg:border-gray-200 ">
@@ -84,8 +84,15 @@ const Page = () => {
                 {venueData?.venueDescription}
               </p>
             </div>
-            <div className="bg-orange-500 w-3/4 mt-4">
-              <p>map</p>
+            <div className=" w-3/4 mt-4 mb-6">
+              <div className="h-52 w-full overflow-hidden">
+                <div
+                  className=" w-full"
+                  dangerouslySetInnerHTML={{
+                    __html: venueData?.venueMapLocation,
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

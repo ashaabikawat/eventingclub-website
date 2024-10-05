@@ -3,6 +3,9 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "swiper/css";
 @import "swiper/css/navigation";
+@import "flatpickr/dist/flatpickr.css";
+/* @import "swiper/swiper-bundle.min.css"; */
+/* @import "swiper/swiper.min.css"; */
 
 @tailwind base;
 @tailwind components;
@@ -41,4 +44,24 @@
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
+}
+
+.flatpickr-calendar {
+  border: none !important;
+  box-shadow: none !important; /* Remove any box shadow */
+}
+
+/* If you want to remove borders from other elements as well */
+.flatpickr-calendar .flatpickr-day,
+.flatpickr-calendar .flatpickr-month {
+  border: none !important; /* Remove any borders from days/months */
+}
+
+iframe {
+  width: 100%;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none; /* Hides the content of the ::after pseudo-element */
 }

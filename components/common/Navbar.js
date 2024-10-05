@@ -10,6 +10,7 @@ import Link from "next/link";
 import SearchInput from "./SearchInput";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux"; // Updated
+import Image from "next/image";
 
 const Navbar = ({ bgColor }) => {
   const [open, setOpen] = useState(false);
@@ -47,11 +48,19 @@ const Navbar = ({ bgColor }) => {
     <div className={`relative w-full md:px-6 sm:px-8 ${bgColor}`}>
       <div className="max-w-8xl md:mx-9 mx-4">
         <div className="flex justify-between items-center py-4 md:space-x-10">
-          <div className="flex gap-20 justify-between items-center">
+          <div className="flex gap-10 justify-between items-center">
             <div>
               <span className="sr-only">Logo</span>
               <Link href="/">
-                <span className="cursor-pointer">LOGO</span>
+                <div className="cursor-pointer relative h-20 w-52">
+                  <Image
+                    src="/Logo.svg"
+                    alt="logo"
+                    layout="fill"
+                    className="absolute"
+                    objectFit="contain"
+                  ></Image>
+                </div>
               </Link>
             </div>
             {homePageUrl && (
