@@ -59,7 +59,7 @@ const CardWithText = ({ data }) => {
             <span>
               <MapPinIcon className="size-4 lg:size-5 text-gray-900" />
             </span>
-            <span className="md:text-sm text-sm lg:text-base text-center capitalize text-gray-900">
+            <span className="md:text-sm text-sm lg:text-base  capitalize text-gray-900">
               {data.VenueName}
             </span>
           </div>

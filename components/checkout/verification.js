@@ -144,7 +144,7 @@ const Verification = ({
   };
 
   return (
-    <>
+    <div className="w-full">
       <Toaster />
       <div className="flex flex-col gap-2">
         {/* Show phone number input if OTP hasn't been sent and no token exists */}
@@ -154,14 +154,14 @@ const Verification = ({
               <label className="text-xl">Phone number*</label>
               <input
                 type="number"
-                className="border border-gray-400 rounded-lg block w-1/3 md:text-base mt-2 p-3"
+                className="border border-gray-400 rounded-lg block md:w-1/3 w-full md:text-base mt-2 p-3"
                 placeholder="+91"
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
               />
               <button
                 onClick={otpGeneration}
-                className={`capitalize border border-gray-400 rounded-lg block md:text-base w-1/3 mt-2 p-2 ${
+                className={`capitalize border border-gray-400 rounded-lg block md:text-base w-full md:w-1/3 mt-2 p-2 ${
                   number.length === 10
                     ? "bg-blue-900 text-white"
                     : "bg-gray-500 text-white"
@@ -236,7 +236,7 @@ const Verification = ({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -67,3 +67,7 @@ export const promocode = {
 export const ticket = {
   POST_DATA: `${URL}/webiste/bookticket/bookTicket`,
 };
+
+export const homepageSearch = {
+  SEARCH_EVENTS_VENUES: `${URL}/webiste/homepage/searchEventsVenues`,
+};

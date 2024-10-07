@@ -13,6 +13,7 @@ const DatePicker = ({
   setStartDate,
   setEndDate,
   handleClear,
+  setFilterOpenModal,
 }) => {
   const startPickerRef = useRef(null);
   const [selectedDates, setSelectedDates] = useState();
@@ -39,6 +40,7 @@ const DatePicker = ({
     if (isManual && startPickerRef.current) {
       flatpickrInstance = Flatpickr(startPickerRef.current, {
         inline: true,
+        position: "auto",
         defaultDate: formattedDate,
         onChange: (selectedDates) => {
           setSelectedDates(selectedDates[0]);
@@ -96,8 +98,8 @@ const DatePicker = ({
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
 
           {/* Centered Calendar Div */}
-          <div className="fixed inset-0 flex justify-center items-center z-50">
-            <div className="bg-white border border-white rounded-lg p-4 shadow-xl">
+          <div className="fixed inset-0 flex justify-center items-center z-50 ">
+            <div className="bg-white border border-white rounded-lg md:p-6 py-4 shadow-xl max-w-md ">
               <div className="flex gap-8 mb-6 items-center justify-around">
                 <span
                   onClick={() => handleDateRange("start")}

@@ -37,6 +37,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   // console.log(bookingData?.selectedTickets.length);
 
   const storedEventId = useSelector((store) => store.booking.eventId);
+
   // console.log("bookingData", bookingData);
   // const showCount = useSelector((store) => store.booking.showCount);
   // const [showCount, setShowCount] = useState(() => {
@@ -434,8 +435,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   console.log(storedEventId === id);
 
   return (
-    <>
-      <div className="bg-gray-50 md:py-10">
+    <div className="h-full">
+      <div className="bg-gray-50 md:py-10 h-full">
         <Toaster />
 
         <>
@@ -652,7 +653,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                   : eventTicket?.map((ticket) => {
                       const counts = count[ticket.Ticket_Id] || 0;
                       const isSelectedTicket =
-                        bookingData?.selectedTickets.find(
+                        bookingData?.selectedTickets?.find(
                           (selected) => selected.Ticket_Id === ticket.Ticket_Id
                         );
 
@@ -786,7 +787,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -20,8 +20,8 @@ const Wrapper = ({ children }) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         {signup && success && failure && <Navbar bgColor={navbarBgColor} />}
-        <main>{children}</main>
-        {/* <Footer /> */}
+        <main className="flex-grow min-h-[calc(100vh-100px)]">{children}</main>
+        <Footer />
       </PersistGate>
     </Provider>
   );

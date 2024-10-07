@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const page = () => {
   return (
-    <div>
+    <div className="bg-gray-50">
       <Checkout />
     </div>
   );

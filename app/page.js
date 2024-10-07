@@ -17,7 +17,6 @@ export default function Home() {
       <UpcomingEvents />
       <Artists />
       <Featuredevents />
-      <Footer />
     </>
   );
 }

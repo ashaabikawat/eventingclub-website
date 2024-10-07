@@ -44,8 +44,8 @@ const Checkout = () => {
         </h1>
       </div>
 
-      <div className="md:px-12 md:mt-0 px-4 mt-4">
-        <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4">
+      <div className="md:px-12 md:mt-0 px-4 mt-4 ">
+        <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 1}>
             <AccordionHeader className="border-none">
               <div className="flex flex-col gap-2">
@@ -78,7 +78,7 @@ const Checkout = () => {
       </div>
 
       <div className="md:px-12 md:mt-6 px-4 mt-4">
-        <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4">
+        <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 2}>
             <AccordionHeader
               onClick={() => handleOpen(2)}
@@ -99,7 +99,7 @@ const Checkout = () => {
       </div>
 
       <div className="md:px-12 md:mt-6 px-4 mt-4">
-        <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4">
+        <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 3}>
             <AccordionHeader className="border-none">
               <div className="flex flex-col gap-2">

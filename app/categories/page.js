@@ -6,13 +6,15 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import loading from "../loading";
 
 const Page = () => {
   const [category, setCategory] = useState([]);
   const [categoriesDuplicate, setCategoriesDuplicate] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [debounced, setDebounced] = useState("");
-
+  const [loadingData, setLoadingData] = useState(true);
+  console.log(loadingData);
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -24,7 +26,21 @@ const Page = () => {
       setCategoriesDuplicate(response.data.data);
       // setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          toast.error(data.message);
+        }
+      }
     }
   };
 
@@ -78,7 +94,7 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" px-4 py-6 md:py-4 md:px-14">
+    <div className=" px-4 py-6 md:py-4 md:px-14 mb-52">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between   md:items-center  gap-4">
         <h1 className=" font-bold  lg:text-2xl md:text-xl ">
@@ -94,7 +110,7 @@ const Page = () => {
 
             <input
               type="text"
-              className="placeholder:text-slate-400  border w-full placeholder:text-base md:placeholder:text-base border-slate-300 rounded-md py-3 pl-12 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50 "
+              className="placeholder:text-slate-400 py-2  border w-full placeholder:text-sm md:placeholder:text-base border-slate-300 rounded-md md:py-3 pl-12 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50 "
               placeholder="Search for Categories"
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}

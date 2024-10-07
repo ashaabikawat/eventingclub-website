@@ -22,6 +22,16 @@ const Page = () => {
   const [filterOpenModal, setFilterOpenModal] = useState(false);
   const [error, setError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [range, setRange] = useState("start");
+  const handleManualSubmit = () => {
+    console.log(startDate);
+    console.log(endDate);
+
+    DateFilterApiCall(startDate, endDate);
+    setIsManual(false);
+  };
 
   useEffect(() => {
     fetchFeaturedEvents();
@@ -192,11 +202,24 @@ const Page = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    console.log(startDate, endDate);
+    // console.log(startDate, endDate);
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"
     ) {
+      toast.error("Please select date range");
+      return;
+    }
+    if (startDate === null) {
+      toast.error("Please select start date range");
+      return;
+    }
+    if (endDate === null) {
+      toast.error("Please select end date range");
+      return;
+    }
+
+    if (startDate === null || endDate === null) {
       toast.error("Please select date range");
       return;
     }
@@ -308,6 +331,13 @@ const Page = () => {
                     fetchEvents={fetchFeaturedEvents}
                     setFilterOpenModal={setFilterOpenModal}
                     filterOpenModal={filterOpenModal}
+                    startDate={startDate}
+                    endDate={endDate}
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
+                    handleManualSubmit={handleManualSubmit}
+                    range={range}
+                    setRange={setRange}
                   />
                 )}
               </>

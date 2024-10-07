@@ -32,6 +32,7 @@ const Filter = ({
   handleManualSubmit,
   setRange,
   range,
+  setFilters,
 }) => {
   const [open, setOpen] = useState(1);
   const [active, setActive] = useState("Date");
@@ -165,6 +166,7 @@ const Filter = ({
   const handleClear = () => {
     fetchEvents();
     setFilterOpenModal(false);
+    setFilters({});
   };
 
   const data = [
@@ -181,6 +183,7 @@ const Filter = ({
           setStartDate={setStartDate}
           handleManualSubmit={handleManualSubmit}
           handleClear={handleClear}
+          setFilterOpenModal={setFilterOpenModal}
         />
       ),
     },
@@ -223,7 +226,10 @@ const Filter = ({
               </div>
               <span
                 className="text-sm text-blue-900 absolute right-4"
-                onClick={fetchEvents}
+                onClick={() => {
+                  setFilters({});
+                  fetchEvents();
+                }}
               >
                 Clear
               </span>
@@ -333,7 +339,11 @@ const Filter = ({
               </div>
               <span
                 className="text-sm text-blue-900 absolute right-4"
-                onClick={fetchEvents}
+                // onClick={fetchEvents}
+                onClick={() => {
+                  setFilters({});
+                  fetchEvents();
+                }}
               >
                 Clear
               </span>
@@ -361,7 +371,11 @@ const Filter = ({
               </div>
               <span
                 className="text-sm text-blue-900 absolute right-4"
-                onClick={fetchEvents}
+                // onClick={fetchEvents}
+                onClick={() => {
+                  setFilters({});
+                  fetchEvents();
+                }}
               >
                 Clear
               </span>
@@ -389,7 +403,11 @@ const Filter = ({
               </div>
               <span
                 className="text-sm text-blue-900 absolute right-4"
-                onClick={fetchEvents}
+                // onClick={fetchEvents}
+                onClick={() => {
+                  setFilters({});
+                  fetchEvents();
+                }}
               >
                 Clear
               </span>

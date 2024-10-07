@@ -25,6 +25,16 @@ const Page = () => {
   const [error, setError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
 
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [range, setRange] = useState("start");
+  const handleManualSubmit = () => {
+    console.log(startDate);
+    console.log(endDate);
+
+    DateFilterApiCall(startDate, endDate);
+    setIsManual(false);
+  };
   useEffect(() => {
     fetchOnlineEvents();
     const handleResize = () => setIsMobile(window.innerWidth < 650);
@@ -201,6 +211,19 @@ const Page = () => {
       toast.error("Please select date range");
       return;
     }
+    if (startDate === null) {
+      toast.error("Please select start date range");
+      return;
+    }
+    if (endDate === null) {
+      toast.error("Please select end date range");
+      return;
+    }
+
+    if (startDate === null || endDate === null) {
+      toast.error("Please select date range");
+      return;
+    }
 
     try {
       const payload = {
@@ -309,6 +332,13 @@ const Page = () => {
                     fetchEvents={fetchOnlineEvents}
                     setFilterOpenModal={setFilterOpenModal}
                     filterOpenModal={filterOpenModal}
+                    startDate={startDate}
+                    endDate={endDate}
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
+                    handleManualSubmit={handleManualSubmit}
+                    range={range}
+                    setRange={setRange}
                   />
                 )}
               </>

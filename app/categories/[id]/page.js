@@ -25,13 +25,16 @@ const Page = () => {
   const [error, setError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
   const [range, setRange] = useState("start");
+  const [filters, setFilters] = useState({});
+  console.log("filters", filters);
 
   const handleManualSubmit = () => {
-    console.log(startDate);
-    console.log(endDate);
+    // console.log(startDate);
+    // console.log(endDate);
 
     DateFilterApiCall(startDate, endDate);
     setIsManual(false);
+    setFilterOpenModal(false);
   };
 
   useEffect(() => {
@@ -59,7 +62,13 @@ const Page = () => {
   };
 
   const handleLanguageSelection = async (value) => {
-    const payload = { category_id: id, LanguageName: value };
+    let newFilters = { ...filters };
+    newFilters.LanguageName = value;
+
+    setFilters(newFilters);
+    const payload = { category_id: id, ...newFilters };
+    console.log(payload);
+    setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
@@ -69,30 +78,40 @@ const Page = () => {
         if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
           toast.error(data.message);
+          setFilters({});
         }
       }
     }
   };
 
   const handleGenre = async (value) => {
-    const payload = { category_id: id, Genre_id: value };
+    let newFilters = { ...filters };
+    newFilters.Genre_id = value;
+    setFilters(newFilters);
+    const payload = { category_id: id, ...newFilters };
+    console.log(payload);
+    setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
-      setFilterOpenModal(false);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
         if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
           toast.error(data.message);
+          setFilters({});
         }
       }
     }
   };
 
   const handleCategory = async (value) => {
-    const payload = { category_id: value };
+    let newFilters = { ...filters };
+    newFilters.category_id = value;
+    setFilters(newFilters);
+    const payload = { category_id: value, ...newFilters };
+    setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
@@ -102,6 +121,7 @@ const Page = () => {
         if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
           toast.error(data.message);
+          setFilters({});
         }
       }
     }
@@ -118,7 +138,7 @@ const Page = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    console.log(startDate, endDate);
+    // console.log(startDate, endDate);
 
     if (
       startDate === "Invalid date+00:00" ||
@@ -141,8 +161,14 @@ const Page = () => {
       return;
     }
 
+    let newFilters = { ...filters };
+    newFilters.startDate = startDate;
+    newFilters.endDate = endDate;
+
+    setFilters(newFilters);
+    setError(false);
     try {
-      const payload = { category_id: id, startDate, endDate };
+      const payload = { category_id: id, ...newFilters };
       const response = await axios.post(categories.GET_BY_ID, payload);
       setEvents(response.data.data);
       setEndDate(null);
@@ -154,6 +180,7 @@ const Page = () => {
         if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
           toast.error(data.message);
+          setFilters({});
         }
       }
     }
@@ -208,51 +235,53 @@ const Page = () => {
                 handleManualSubmit={handleManualSubmit}
                 range={range}
                 setRange={setRange}
+                setFilters={setFilters}
               />
             </div>
           )}
 
           <div className="w-full   md:block md:col-span-2">
-            {error ? (
-              <div className="md:mt-10 md:mb-10 ">
-                <NotFound />
-              </div>
-            ) : (
-              <>
-                {!filterOpenModal && (
-                  <>
-                    <h1 className="md:text-xl hidden md:block  mt-4 px-4 font-semibold text-lg ">
-                      Category Events:
-                    </h1>
-                    <div className="grid col-span-2 lg:grid-cols-3 mt-6 md:px-4 grid-cols-2 lg:gap-4 md:gap-6 gap-4">
-                      {events?.map((event) => (
+            <>
+              {!filterOpenModal && (
+                <>
+                  <h1 className="md:text-xl hidden md:block  mt-4 px-4 font-semibold text-lg ">
+                    Category Events:
+                  </h1>
+                  <div className="grid col-span-2 lg:grid-cols-3 mt-6 md:px-4 grid-cols-2 lg:gap-4 md:gap-6 gap-4">
+                    {error ? (
+                      <div className="md:mt-10 md:mb-10 col-span-2 lg:col-span-3">
+                        <NotFound />
+                      </div>
+                    ) : (
+                      events?.map((event) => (
                         <PageCardWithText key={event.id} event={event} />
-                      ))}
-                    </div>
-                  </>
-                )}
-                {filterOpenModal && (
-                  <Filter
-                    handleDateSelection={handleDateSelection}
-                    handleLanguageSelection={handleLanguageSelection}
-                    handleCategory={handleCategory}
-                    handleGenre={handleGenre}
-                    isManual={isManual}
-                    setIsManual={setIsManual}
-                    fetchEvents={fetchEvents}
-                    setFilterOpenModal={setFilterOpenModal}
-                    filterOpenModal={filterOpenModal}
-                    startDate={startDate}
-                    endDate={endDate}
-                    setStartDate={setStartDate}
-                    setEndDate={setEndDate}
-                    handleManualSubmit={handleManualSubmit}
-                    range={range}
-                    setRange={setRange}
-                  />
-                )}
-              </>
-            )}
+                      ))
+                    )}
+                  </div>
+                </>
+              )}
+              {filterOpenModal && (
+                <Filter
+                  handleDateSelection={handleDateSelection}
+                  handleLanguageSelection={handleLanguageSelection}
+                  handleCategory={handleCategory}
+                  handleGenre={handleGenre}
+                  isManual={isManual}
+                  setIsManual={setIsManual}
+                  fetchEvents={fetchEvents}
+                  setFilterOpenModal={setFilterOpenModal}
+                  filterOpenModal={filterOpenModal}
+                  startDate={startDate}
+                  endDate={endDate}
+                  setStartDate={setStartDate}
+                  setEndDate={setEndDate}
+                  handleManualSubmit={handleManualSubmit}
+                  range={range}
+                  setRange={setRange}
+                  setFilters={setFilters}
+                />
+              )}
+            </>
           </div>
         </div>
       </div>

@@ -68,7 +68,7 @@ const PageCardWithText = ({ event }) => {
             <span>
               <MapPinIcon className="size-4 text-gray-900" />
             </span>
-            <span className="text-xs md:text-sm  lg:text-sm text-left md:text-center capitalize text-gray-900 ">
+            <span className="text-xs md:text-sm  lg:text-sm capitalize text-gray-900 ">
               {event.VenueName}
             </span>
           </div>

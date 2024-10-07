@@ -275,6 +275,7 @@ const booking = createSlice({
       state.eventId = null;
       state.promocodeId = null;
       state.ticketId = null;
+      localStorage.setItem("ticketCounts", JSON.stringify({}));
     },
   },
 });

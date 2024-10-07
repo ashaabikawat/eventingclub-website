@@ -30,8 +30,11 @@ register();
 const Page = () => {
   const { id } = useParams();
   const swiperRef = useRef(null);
+  const galleryRef = useRef(null);
 
   const [eventData, setEventData] = useState();
+  console.log(eventData?.EventTermsConditions);
+
   useEffect(() => {
     const swiperContainer = swiperRef.current;
 
@@ -43,6 +46,16 @@ const Page = () => {
           prevEl: ".swiper-button-prev",
         },
         pagination: true,
+        breakpoints: {
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+        },
       };
 
       // Initialize Swiper
@@ -53,7 +66,36 @@ const Page = () => {
     }
   }, [swiperRef, eventData]);
 
-  console.log(swiperRef);
+  useEffect(() => {
+    const swiperContainer = galleryRef.current;
+
+    // Check if swiperContainer is defined
+    if (swiperContainer) {
+      const params = {
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: true,
+        breakpoints: {
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 1,
+            spaceBetween: 20,
+          },
+        },
+      };
+
+      // Initialize Swiper
+      Object.assign(swiperContainer, params);
+      swiperContainer.initialize();
+    } else {
+      console.error("Swiper reference is null");
+    }
+  }, [galleryRef, eventData]);
 
   // console.log(id);
   const [artists, setArtists] = useState([]);
@@ -188,7 +230,7 @@ const Page = () => {
                 >
                   {eventData?.EventCarouselImages.map((img) => (
                     <swiper-slide key={img.id}>
-                      <div className="h-52 w-52  relative ">
+                      <div className="h-52 w-full  relative ">
                         <Image
                           src={`${URL}/${img.image_path}`}
                           alt="carousel-image"
@@ -220,7 +262,7 @@ const Page = () => {
             </div>
           </div>
 
-          <div className="min-h-[20px] rounded-lg order-2 md:order-3">
+          <div className="min-h-[20px] rounded-lg order-2 md:order-3 px-4 md:px-0">
             <div className="py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">
                 Share this event
@@ -273,8 +315,8 @@ const Page = () => {
             <div className="h-auto order-5 md:order-4 md:px-0 px-4 ">
               <div className="border border-gray-500 h-full rounded-lg px-4">
                 <h1 className="md:text-xl mt-4  font-bold">Gallery</h1>
-                <div className=" h-auto md:w-[100%] mb-4">
-                  <Swiper
+                <div className=" h-auto md:w-[100%] mb-4 px-10 md:p-4">
+                  {/* <Swiper
                     slidesPerView={1}
                     spaceBetween={12}
                     // onSlideChange={() => console.log("slide change")}
@@ -307,7 +349,40 @@ const Page = () => {
                         </SwiperSlide>
                       );
                     })}
-                  </Swiper>
+                  </Swiper> */}
+                  <swiper-container
+                    ref={galleryRef}
+                    init="false"
+                    slides-per-view="1"
+                    space-between="40"
+                  >
+                    {eventData?.EventGalleryImages.map((img) => (
+                      <swiper-slide key={img.id}>
+                        <div className="h-96 w-full  relative">
+                          <Image
+                            src={`${URL}/${img.image_path}`}
+                            alt="carousel-image"
+                            layout="fill"
+                            objectFit="cover"
+                            objectPosition="top"
+                            className="rounded-lg"
+                          />
+                        </div>
+                      </swiper-slide>
+                    ))}
+                  </swiper-container>
+                </div>
+                <div
+                  style={{ color: "black" }}
+                  className="swiper-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-20 rounded-full flex items-center justify-center h-20 w-10 "
+                >
+                  <MdOutlineKeyboardArrowLeft />
+                </div>
+                <div
+                  style={{ color: "black" }}
+                  className="swiper-button-next absolute right-0 top-1/2 transform -translate-y-1/2 z-20 flex items-center justify-center h-20 w-10"
+                >
+                  <MdOutlineKeyboardArrowRight />
                 </div>
               </div>
             </div>
@@ -324,7 +399,7 @@ const Page = () => {
                     : eventData?.VenueName}
                 </h1>
                 <p className="mt-2 capitalize mb-4">{eventData?.VenueName}</p>
-                <div className="md:min-h-[200px] h-[200px] w-full mb-4">
+                <div className="md:min-h-[300px] h-[300px] w-full mb-4">
                   {eventData?.VenueMapLocationLink && (
                     <div className="h-full w-full overflow-hidden">
                       <div
@@ -450,10 +525,15 @@ const Page = () => {
               </span>
             </AccordionHeader>
             <AccordionBody>
-              We&apos;re not always in the position that we want to be at.
-              We&apos;re constantly growing. We&apos;re constantly making
-              mistakes. We&apos;re constantly trying to express ourselves and
-              actualize our dreams.
+              <div className="h-full w-full ">
+                {/* <div
+                  className="h-full w-full"
+                  dangerouslySetInnerHTML={{
+                    __html: eventData?.EventTermsConditions,
+                  }}
+                /> */}
+                {eventData?.EventTermsConditions}
+              </div>
             </AccordionBody>
           </Accordion>
         </div>

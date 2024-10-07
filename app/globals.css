@@ -48,13 +48,18 @@
 
 .flatpickr-calendar {
   border: none !important;
-  box-shadow: none !important; /* Remove any box shadow */
+  box-shadow: none !important;
+  /* Remove any box shadow */
+  /* max-width: 290px; */
+  /* width: auto; */
 }
 
 /* If you want to remove borders from other elements as well */
 .flatpickr-calendar .flatpickr-day,
 .flatpickr-calendar .flatpickr-month {
-  border: none !important; /* Remove any borders from days/months */
+  border: none !important;
+  /* Remove any borders from days/months */
+  width: auto;
 }
 
 iframe {
@@ -63,5 +68,6 @@ iframe {
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-  display: none; /* Hides the content of the ::after pseudo-element */
+  display: none;
+  /* Hides the content of the ::after pseudo-element */
 }

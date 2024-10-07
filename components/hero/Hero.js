@@ -82,8 +82,8 @@ const Hero = () => {
                 <Image
                   src={
                     isMobile
-                      ? `${URL}/${banner.MobilebannerImage}`
-                      : `${URL}/${banner.DesktopbannerImage}`
+                      ? `${URL}/${banner?.MobilebannerImage}`
+                      : `${URL}/${banner?.DesktopbannerImage}`
                   }
                   alt="carousel-image"
                   layout="fill"
@@ -95,14 +95,6 @@ const Hero = () => {
             </swiper-slide>
           ))}
         </swiper-container>
-        <div className="flex items-center justify-center inset-x-0 md:-bottom-14 bottom-14  absolute  bg-opacity-50 p-4 z-50">
-          <h1 className="text-white md:text-6xl text-4xl font-semibold">
-            Live in concert
-          </h1>
-          {isMobile
-            ? console.log(`${URL}/${banner.MobilebannerImage}`)
-            : console.log(`${URL}/${banner.DesktopbannerImage}`)}
-        </div>
       </div>
     </div>
   );

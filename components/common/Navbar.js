@@ -11,6 +11,9 @@ import SearchInput from "./SearchInput";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux"; // Updated
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import { homepageSearch } from "../../utils/config";
 
 const Navbar = ({ bgColor }) => {
   const [open, setOpen] = useState(false);
@@ -42,151 +45,280 @@ const Navbar = ({ bgColor }) => {
   const handleToggle = () => {
     setOpen(!open);
   };
-  console.log(bgColor);
+  // console.log(bgColor);
+
+  const [searchTerm, setsearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [searchData, setSearchData] = useState([]);
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+    }, 700);
+
+    return () => clearTimeout(delay);
+  }, [searchTerm]);
+
+  const handleChange = (e) => {
+    setsearchTerm(e.target.value);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (debouncedSearch) {
+          if (debouncedSearch.length < 3) {
+            toast.error("Search term must be greater than 3 characters");
+            return;
+          }
+        }
+
+        const payload = {
+          search_keyword: debouncedSearch,
+        };
+
+        const response = await axios.post(
+          `${homepageSearch.SEARCH_EVENTS_VENUES}`,
+          payload
+        );
+        console.log(response.data.data);
+        if (response.data.data.length > 0) {
+          setSearchData(response.data.data);
+        } else {
+          toast.error("Events or venues not found");
+          setSearchData([]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (debouncedSearch !== "") {
+      fetchData();
+    } else {
+      setSearchData([]);
+    }
+  }, [debouncedSearch]);
 
   return (
-    <div className={`relative w-full md:px-6 sm:px-8 ${bgColor}`}>
-      <div className="max-w-8xl md:mx-9 mx-4">
-        <div className="flex justify-between items-center py-4 md:space-x-10">
-          <div className="flex gap-10 justify-between items-center">
-            <div>
-              <span className="sr-only">Logo</span>
-              <Link href="/">
-                <div className="cursor-pointer relative h-20 w-52">
-                  <Image
-                    src="/Logo.svg"
-                    alt="logo"
-                    layout="fill"
-                    className="absolute"
-                    objectFit="contain"
-                  ></Image>
-                </div>
-              </Link>
-            </div>
-            {homePageUrl && (
-              <div className="hidden md:block lg:w-600px md:w-96">
-                <SearchInput
-                  placeholder="Search for Events, Venues"
-                  icon={<MagnifyingGlassIcon />}
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="flex">
-            {isLoggedIn ? (
-              <div className="flex justify-center items-center">
-                <Link href={`/userDetails/${cust_id}`}>
-                  <UserCircleIcon className="size-10 md:size-12 text-gray-600 cursor-pointer" />
+    <>
+      <Toaster />
+      <div className={`relative w-full md:px-4 sm:px-8 ${bgColor}`}>
+        <div className="max-w-8xl md:mx-9 mx-4">
+          <div className="flex justify-between items-center py-4 md:space-x-10">
+            <div className="flex gap-10 justify-between items-center">
+              <div>
+                <span className="sr-only">Logo</span>
+                <Link href="/">
+                  <div className="cursor-pointer relative md:h-20 md:w-52 h-14 w-28">
+                    <Image
+                      src="/TicketEventingClubLogo.png"
+                      alt="logo"
+                      layout="fill"
+                      className="absolute"
+                      objectFit="contain"
+                    ></Image>
+                  </div>
                 </Link>
               </div>
-            ) : (
-              <Link href="/signup">
-                <button className="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-800">
-                  Sign up
-                </button>
-              </Link>
-            )}
-            <button
-              type="button"
-              className="md:hidden md:ml-6 ml-4"
-              onClick={handleToggle}
-            >
-              <span className="sr-only">open menu</span>
-              <Bars3Icon className="w-6 h-6 cursor-pointer" />
-            </button>
-          </div>
-        </div>
+              {homePageUrl && (
+                <div className="hidden md:block lg:w-600px md:w-96 relative">
+                  <label className="relative">
+                    <span className="sr-only">search</span>
 
-        {homePageUrl && (
-          <div className="mt-3 md:hidden">
-            <label className="relative w-full">
-              <span className="sr-only">search</span>
-              <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6" />
-              <input
-                type="text"
-                className="placeholder:text-slate-400 border w-full border-slate-300 rounded-md py-2 pl-12 pr-3"
-                placeholder="Search for Events, Venues"
-              />
-            </label>
-          </div>
-        )}
+                    <div className="w-5 h-5 absolute inset-y-0 left-5">
+                      <MagnifyingGlassIcon />
+                    </div>
 
-        <div className="hidden md:flex justify-start gap-20 mt-2 text-lg">
-          <ul className="flex justify-start gap-16">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/venue">Venue</Link>
-            </li>
-            <li>
-              <Link href="/artists">Artist</Link>
-            </li>
-            <li>
-              <Link href="/blogs">Blogs</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact us</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={handleChange}
+                      className="placeholder:text-slate-400 border w-full md:placeholder:text-base border-slate-300 rounded-md py-3 pl-10 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50"
+                      placeholder="Search for Events, Venues"
+                    />
+                  </label>
 
-      <div
-        className={
-          open
-            ? "opacity-100 scale-100 bg-white transition-transform duration-700 translate-x-0 ease-in-out absolute top-0 inset-x-0  transform md:hidden h-screen w-screen z-50 overflow-hidden"
-            : "opacity-0 scale-95 fixed top-0 inset-x-0   transition transform duration-700 origin-top-left md:hidden -translate-x-full h-screen w-screen z-50 overflow-hidden"
-        }
-      >
-        <div className="ring-black ring-1 ring-opacity-5 w-screen h-full">
-          <div className="pt-5 pb-6 px-5">
-            <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 h-full">
-              <div>
-                <span className="text-xl">LOGO</span>
-              </div>
-              <div className="mr-2">
-                <button type="button">
-                  <XMarkIcon className="w-6 h-6" onClick={handleToggle} />
-                </button>
-              </div>
+                  {searchData.length > 0 && (
+                    <div className="bg-white shadow-2xl rounded-md max-h-72 h-72 z-50 absolute top-full left-0 w-full">
+                      {searchData.map((data) => (
+                        <div>
+                          <div className="">
+                            {data.Name && (
+                              <>
+                                <Link href={`/venue/${data._id}`}>
+                                  <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200 ">
+                                    {data.Name}
+                                  </p>
+                                </Link>
+                              </>
+                            )}
+                          </div>
+                          <div className="  ">
+                            {data.EventName && (
+                              <>
+                                <Link href={`/events/${data._id}`}>
+                                  <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200">
+                                    {data.EventName}
+                                  </p>
+                                </Link>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-            <div className="mt-16">
-              <nav>
-                <ul className="flex justify-center items-center flex-col gap-6 text-xl">
-                  <li>
-                    <Link href="/" onClick={handleToggle}>
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/venue" onClick={handleToggle}>
-                      Venue
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/artists" onClick={handleToggle}>
-                      Artist
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/blogs" onClick={handleToggle}>
-                      Blogs
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/contact" onClick={handleToggle}>
-                      Contact us
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
+
+            <div className="flex">
+              {isLoggedIn ? (
+                <div className="flex justify-center items-center">
+                  <Link href={`/userDetails/${cust_id}`}>
+                    <UserCircleIcon className="size-10 md:size-12 text-gray-600 cursor-pointer" />
+                  </Link>
+                </div>
+              ) : (
+                <Link href="/signup">
+                  <button className="whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-800">
+                    Sign up
+                  </button>
+                </Link>
+              )}
+              <button
+                type="button"
+                className="md:hidden md:ml-6 ml-4"
+                onClick={handleToggle}
+              >
+                <span className="sr-only">open menu</span>
+                <Bars3Icon className="w-6 h-6 cursor-pointer" />
+              </button>
             </div>
           </div>
+
+          {homePageUrl && (
+            <div className="mt-3 md:hidden relative">
+              <label className="relative w-full">
+                <span className="sr-only">search</span>
+                <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6" />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleChange}
+                  className="placeholder:text-slate-400 border w-full border-slate-300 rounded-md py-2 pl-12 pr-3"
+                  placeholder="Search for Events, Venues"
+                />
+              </label>
+
+              {searchData.length > 0 && (
+                <div className="bg-white shadow-2xl rounded-md max-h-72 h-72 z-50 absolute top-full left-0 w-full">
+                  {searchData.map((data) => (
+                    <div>
+                      <div className="">
+                        {data.Name && (
+                          <>
+                            <Link href={`/venue/${data._id}`}>
+                              <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200 ">
+                                {data.Name}
+                              </p>
+                            </Link>
+                          </>
+                        )}
+                      </div>
+                      <div className="  ">
+                        {data.EventName && (
+                          <>
+                            <Link href={`/events/${data._id}`}>
+                              <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200">
+                                {data.EventName}
+                              </p>
+                            </Link>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="hidden md:flex justify-start gap-20 mt-2 text-lg">
+            <ul className="flex justify-start gap-16">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/venue">Venue</Link>
+              </li>
+              <li>
+                <Link href="/artists">Artist</Link>
+              </li>
+              <li>
+                <Link href="/blogs">Blogs</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact us</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          className={
+            open
+              ? "opacity-100 scale-100 bg-white transition-transform duration-700 translate-x-0 ease-in-out absolute top-0 inset-x-0  transform md:hidden h-screen w-screen z-50 overflow-hidden"
+              : "opacity-0 scale-95 fixed top-0 inset-x-0   transition transform duration-700 origin-top-left md:hidden -translate-x-full h-screen w-screen z-50 overflow-hidden"
+          }
+        >
+          <div className="ring-black ring-1 ring-opacity-5 w-screen h-full">
+            <div className="pt-5 pb-6 px-5">
+              <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 h-full">
+                <div>
+                  <span className="text-xl">LOGO</span>
+                </div>
+                <div className="mr-2">
+                  <button type="button">
+                    <XMarkIcon className="w-6 h-6" onClick={handleToggle} />
+                  </button>
+                </div>
+              </div>
+              <div className="mt-16">
+                <nav>
+                  <ul className="flex justify-center items-center flex-col gap-6 text-xl">
+                    <li>
+                      <Link href="/" onClick={handleToggle}>
+                        Home
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/venue" onClick={handleToggle}>
+                        Venue
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/artists" onClick={handleToggle}>
+                        Artist
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blogs" onClick={handleToggle}>
+                        Blogs
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/contact" onClick={handleToggle}>
+                        Contact us
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
