@@ -295,7 +295,7 @@ const Page = () => {
                 <div
                   className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
                     showMore ? "max-h-auto" : "max-h-[150px]"
-                  } overflow-hidden`}
+                  } overflow-scroll`}
                   dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
                 ></div>
               </div>

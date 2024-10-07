@@ -13,6 +13,7 @@ import {
   setBookingDataObj,
   setPromocodeId,
   reset_bookingData,
+  remove_promocode,
 } from "../../store/slices/booking";
 
 const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
@@ -51,7 +52,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(0);
 
   const confee = JSON.parse(localStorage.getItem("convenienceFee"));
-  console.log(confee);
+  // console.log(confee);
 
   const convenienceFee = Number(confee?.ConValue) || 0;
   const promocodeDiscount = Number(confee?.ConfeeUnit) || 0;
@@ -295,6 +296,15 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                   className="border border-gray-200 md:px-3 md:py-3 p-2 rounded-lg w-[100%] relative"
                   disabled
                 />
+                <button
+                  onClick={() => {
+                    dispatch(remove_promocode());
+                    setPromocodeDiscountPrice(0);
+                  }}
+                  className=" absolute right-24  md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
+                >
+                  X
+                </button>
                 <button
                   onClick={handleApplyPromocode}
                   className=" absolute right-6   border-l-2 border-black md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "

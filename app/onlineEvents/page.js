@@ -260,7 +260,7 @@ const Page = () => {
     }
   };
   return (
-    <div className="mt-2 ">
+    <div className="mt-2 mb-20 ">
       {isMobile && !filterOpenModal && (
         <h1 className="md:text-3xl mb-4 px-4 font-semibold text-lg ">
           Online Events:

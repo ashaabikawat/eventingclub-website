@@ -94,7 +94,7 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" px-4 py-6 md:py-4 md:px-14 mb-52">
+    <div className=" px-4 py-6 md:py-4 md:px-14 mb-10">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between   md:items-center  gap-4">
         <h1 className=" font-bold  lg:text-2xl md:text-xl ">

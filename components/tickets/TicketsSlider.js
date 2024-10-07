@@ -435,8 +435,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   console.log(storedEventId === id);
 
   return (
-    <>
-      <div className="bg-gray-50 md:py-10 h-full">
+    <div className="min-h-screen flex flex-col">
+      <div className="bg-gray-50 md:py-10 h-full flex-grow">
         <Toaster />
 
         <>
@@ -787,7 +787,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

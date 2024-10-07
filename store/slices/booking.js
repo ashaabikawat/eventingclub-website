@@ -265,17 +265,19 @@ const booking = createSlice({
       console.log(action.payload);
     },
 
-    reset_state: (state, action) => {
-      // (state.selectedTickets = null),
-      // (state.totalTickets = null),
-      // (state.ticketData = []),
-      // (state.count = {}),
-      // (state.showCount = {}),
-      state.bookingData = {};
-      state.eventId = null;
+    remove_promocode: (state, action) => {
       state.promocodeId = null;
-      state.ticketId = null;
-      localStorage.setItem("ticketCounts", JSON.stringify({}));
+    },
+    reset_state: (state, action) => {
+      // state.bookingData = {};
+      // state.eventId = null;
+      // state.promocodeId = null;
+      // state.ticketId = null;
+      localStorage.removeItem("ticketCounts");
+      localStorage.removeItem("convenienceFee");
+      localStorage.removeItem("persist:root");
+
+      window.location.reload();
     },
   },
 });
@@ -289,6 +291,7 @@ export const {
   setShowCount,
   setEventId,
   reset_state,
+  remove_promocode,
   setPromocodeId,
   reset_bookingData,
 } = booking.actions;

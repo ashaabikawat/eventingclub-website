@@ -19,9 +19,16 @@ const Wrapper = ({ children }) => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {signup && success && failure && <Navbar bgColor={navbarBgColor} />}
-        <main className="flex-grow min-h-[calc(100vh-100px)]">{children}</main>
-        <Footer />
+        <div className="flex flex-col min-h-screen">
+          {/* Navbar only shows if not on signup, success, or failure pages */}
+          {signup && success && failure && <Navbar bgColor={navbarBgColor} />}
+
+          {/* Main content area */}
+          <main className="flex-grow">{children}</main>
+
+          {/* Footer always at the bottom */}
+          <Footer />
+        </div>
       </PersistGate>
     </Provider>
   );
