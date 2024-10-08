@@ -36,7 +36,7 @@ const Page = () => {
       setSingleArtists(response.data.data.currentArtist);
       setArtistEvents(response.data.data.currentArtistEvents);
       setOtherArtists(response.data.data.otherArtists);
-      console.log("upcoming evemts", response.data.data.currentArtistEvents);
+      console.log("upcoming events", response.data.data.currentArtistEvents);
       setLoading(false);
     } catch (error) {
       if (error.response) {
@@ -52,6 +52,7 @@ const Page = () => {
           status === 400
         ) {
           toast.error(data.message);
+          setLoading(false);
         }
       }
     }
@@ -61,7 +62,7 @@ const Page = () => {
   const cardsData = otherArtists?.slice(0, 5);
 
   if (loading) return <Loading />;
-
+  // console.log(loading);
   return (
     <>
       <div className="md:py-6 md:px-14  ">
@@ -131,7 +132,8 @@ const Page = () => {
               ))}
             </Swiper>
           ) : (
-            <Loading />
+            // <Loading />
+            <p className="mt-6 mb-10 text-lg ">No upcoming events</p>
           )}
         </div>
       </div>

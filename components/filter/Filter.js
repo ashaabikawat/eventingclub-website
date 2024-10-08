@@ -269,7 +269,7 @@ const Filter = ({
               }`}
             >
               {isManual && (
-                <div className="relative shadow-xl p-4 mb-10">
+                <div className="relative shadow-xl p-4">
                   <div className="flex gap-8 mb-6 items-center justify-around">
                     <span
                       onClick={() => handleDateRange("start")}

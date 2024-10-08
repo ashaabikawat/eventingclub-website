@@ -25,12 +25,15 @@ const Page = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [range, setRange] = useState("start");
+  const [filters, setFilters] = useState({});
+  console.log("filters", filters);
   const handleManualSubmit = () => {
     console.log(startDate);
     console.log(endDate);
 
     DateFilterApiCall(startDate, endDate);
     setIsManual(false);
+    setFilterOpenModal(false);
   };
 
   useEffect(() => {
@@ -69,9 +72,15 @@ const Page = () => {
 
   const handleLanguageSelection = async (value) => {
     // console.log(value);
+    let newFilters = { ...filters };
+    newFilters.LanguageName = value;
+
+    setFilters(newFilters);
+    // console.log(value);
     const payload = {
-      LanguageName: value,
+      ...newFilters,
     };
+    setError(false);
     try {
       const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
       if (response.data.data.length >= 1) {
@@ -94,15 +103,19 @@ const Page = () => {
           // console.log(error.response);
           setError(true);
           toast.error(data.message);
+          setFilters({});
         }
       }
     }
   };
 
   const handleGenre = async (value) => {
+    let newFilters = { ...filters };
+    newFilters.Genre_id = value;
+    setFilters(newFilters);
     // console.log(value);
     const payload = {
-      Genre_id: value,
+      ...newFilters,
     };
     // console.log(payload);
     try {
@@ -127,6 +140,7 @@ const Page = () => {
           // console.log(error.response);
           setError(true);
           toast.error(data.message);
+          setFilters({});
         }
       }
     }
@@ -134,8 +148,11 @@ const Page = () => {
 
   const handleCategory = async (value) => {
     // console.log(value);
+    let newFilters = { ...filters };
+    newFilters.category_id = value;
+    setFilters(newFilters);
     const payload = {
-      category_id: value,
+      ...newFilters,
     };
     try {
       const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
@@ -159,6 +176,7 @@ const Page = () => {
           // console.log(error.response);
           setError(true);
           toast.error(data.message);
+          setFilters({});
         }
       }
     }
@@ -221,11 +239,16 @@ const Page = () => {
       return;
     }
 
+    let newFilters = { ...filters };
+    newFilters.startDate = startDate;
+    newFilters.endDate = endDate;
+
+    setFilters(newFilters);
+    setError(false);
+
     try {
       const payload = {
-        category_id: id,
-        startDate: startDate,
-        endDate: endDate,
+        ...newFilters,
       };
 
       // console.log({ payload });
@@ -236,6 +259,9 @@ const Page = () => {
         setError(false);
       }
       setAllUpcomingEvents(response.data.data);
+      setEndDate(null);
+      setStartDate(null);
+      setRange("start");
 
       // toast.success(response.data.message);
     } catch (error) {
@@ -254,6 +280,8 @@ const Page = () => {
           // console.log(error.response);
           setError(true);
           toast.error(data.message);
+          setFilterOpenModal(false);
+          setFilters({});
         }
       }
     }
@@ -300,49 +328,53 @@ const Page = () => {
                 fetchEvents={fetchUpcomingEvents}
                 setFilterOpenModal={setFilterOpenModal}
                 filterOpenModal={filterOpenModal}
+                setFilters={setFilters}
               />
             </div>
           )}
 
           <div className="w-full   md:block md:col-span-2">
-            {error ? (
-              <NotFound />
-            ) : (
-              <>
-                {!filterOpenModal && (
-                  <>
-                    <h1 className="md:text-xl hidden md:block  mt-4 px-4 font-semibold text-lg ">
-                      Upcoming Events:
-                    </h1>
-                    <div className="grid col-span-2 lg:grid-cols-3 mt-6 md:px-4 grid-cols-2 lg:gap-4 md:gap-6 gap-4">
-                      {allUpcomingEvents?.map((event) => (
+            <>
+              {!filterOpenModal && (
+                <>
+                  <h1 className="md:text-xl hidden md:block  mt-4 px-4 font-semibold text-lg ">
+                    Upcoming Events:
+                  </h1>
+                  <div className="grid col-span-2 lg:grid-cols-3 mt-6 md:px-4 grid-cols-2 lg:gap-4 md:gap-6 gap-4">
+                    {error ? (
+                      <div className="md:mt-10 md:mb-10 col-span-2 lg:col-span-3">
+                        <NotFound />
+                      </div>
+                    ) : (
+                      allUpcomingEvents?.map((event) => (
                         <PageCardWithText key={event.id} event={event} />
-                      ))}
-                    </div>
-                  </>
-                )}
-                {filterOpenModal && (
-                  <Filter
-                    handleDateSelection={handleDateSelection}
-                    handleLanguageSelection={handleLanguageSelection}
-                    handleCategory={handleCategory}
-                    handleGenre={handleGenre}
-                    isManual={isManual}
-                    setIsManual={setIsManual}
-                    fetchEvents={fetchUpcomingEvents}
-                    setFilterOpenModal={setFilterOpenModal}
-                    filterOpenModal={filterOpenModal}
-                    startDate={startDate}
-                    endDate={endDate}
-                    setStartDate={setStartDate}
-                    setEndDate={setEndDate}
-                    handleManualSubmit={handleManualSubmit}
-                    range={range}
-                    setRange={setRange}
-                  />
-                )}
-              </>
-            )}
+                      ))
+                    )}
+                  </div>
+                </>
+              )}
+              {filterOpenModal && (
+                <Filter
+                  handleDateSelection={handleDateSelection}
+                  handleLanguageSelection={handleLanguageSelection}
+                  handleCategory={handleCategory}
+                  handleGenre={handleGenre}
+                  isManual={isManual}
+                  setIsManual={setIsManual}
+                  fetchEvents={fetchUpcomingEvents}
+                  setFilterOpenModal={setFilterOpenModal}
+                  filterOpenModal={filterOpenModal}
+                  startDate={startDate}
+                  endDate={endDate}
+                  setStartDate={setStartDate}
+                  setEndDate={setEndDate}
+                  handleManualSubmit={handleManualSubmit}
+                  range={range}
+                  setRange={setRange}
+                  setFilters={setFilters}
+                />
+              )}
+            </>
           </div>
         </div>
       </div>

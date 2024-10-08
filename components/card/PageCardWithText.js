@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 
 const PageCardWithText = ({ event }) => {
   const imageUrl = `${URL}/${event.EventCardImages[0].image_path}`;
-
+  console.log(event);
   // State to manage whether the event name has more than two lines
   const [isLongEventName, setIsLongEventName] = useState(false);
   const eventNameRef = useRef(null);

@@ -98,8 +98,8 @@ const DatePicker = ({
           <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
 
           {/* Centered Calendar Div */}
-          <div className="fixed inset-0 flex justify-center items-center z-50 ">
-            <div className="bg-white border border-white rounded-lg md:p-6 py-4 shadow-xl max-w-md ">
+          <div className="fixed inset-0 flex justify-center items-center  z-50 ">
+            <div className="bg-white border border-white rounded-lg py-2 shadow-xl max-w-md mt-20 ">
               <div className="flex gap-8 mb-6 items-center justify-around">
                 <span
                   onClick={() => handleDateRange("start")}

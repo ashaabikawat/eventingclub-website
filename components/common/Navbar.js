@@ -14,6 +14,8 @@ import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { homepageSearch } from "../../utils/config";
+import { LuUser2 } from "react-icons/lu";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 const Navbar = ({ bgColor }) => {
   const [open, setOpen] = useState(false);
@@ -176,7 +178,7 @@ const Navbar = ({ bgColor }) => {
               {isLoggedIn ? (
                 <div className="flex justify-center items-center">
                   <Link href={`/userDetails/${cust_id}`}>
-                    <UserCircleIcon className="size-10 md:size-12 text-gray-600 cursor-pointer" />
+                    <FaRegCircleUser className="size-10 md:size-12 text-gray-600 cursor-pointer" />
                   </Link>
                 </div>
               ) : (

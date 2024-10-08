@@ -15,6 +15,7 @@ import Loading from "@/components/common/loading/Loading";
 import { Card } from "@material-tailwind/react";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import PageCardWithText from "@/components/card/PageCardWithText";
 
 import {
   Accordion,
@@ -24,6 +25,7 @@ import {
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 import { register } from "swiper/element/bundle";
+import Link from "next/link";
 
 register();
 
@@ -33,7 +35,7 @@ const Page = () => {
   const galleryRef = useRef(null);
 
   const [eventData, setEventData] = useState();
-  console.log(eventData?.EventTermsConditions);
+  const [suggestedEvents, setSuggestedEvents] = useState([]);
 
   useEffect(() => {
     const swiperContainer = swiperRef.current;
@@ -106,7 +108,6 @@ const Page = () => {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   // console.log(artists);
-  console.log(eventData);
 
   useEffect(() => {
     fetchEvent();
@@ -118,8 +119,9 @@ const Page = () => {
     try {
       const response = await axios.post(`${events.GET_ALL}`, payload);
       // console.log(response.data.data);
-      setEventData(response.data.data);
+      setEventData(response.data.data.EventDetailsObj);
       setArtists(response.data.data.EventArtists);
+      setSuggestedEvents(response.data.data.suggestedEvents);
       setLoadings(false);
     } catch (error) {
       if (error.response) {
@@ -139,6 +141,14 @@ const Page = () => {
     }
   };
   const imageUrl = eventData?.EventCarouselImages[0].image_path;
+
+  const handleBookNow = () => {
+    if (!eventData?.WhatsAppPhoneNumber) {
+      router.push(`/events/tickets/${id}`);
+    } else {
+      router.push(`https://wa.me/91${eventData?.WhatsAppPhoneNumber}`);
+    }
+  };
 
   if (loadings) return <Loading />;
 
@@ -207,7 +217,7 @@ const Page = () => {
               <button
                 className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
                 // onClick={() => console.log(`/events/tickets/${id}`)}
-                onClick={() => router.push(`/events/tickets/${id}`)}
+                onClick={handleBookNow}
               >
                 Book now
               </button>
@@ -289,13 +299,13 @@ const Page = () => {
           </div> */}
 
           <div className="px-4 order-3  md:px-0 md:order-2 row-span-2 ">
-            <div className="border h-full border-gray-500 rounded-lg px-4">
-              <div className=" h-auto  py-6 ">
+            <div className="border h-full border-gray-500 rounded-lg px-4 ">
+              <div className=" h-full  py-6  ">
                 <h1 className="md:text-2xl font-bold">About</h1>
                 <div
-                  className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
-                    showMore ? "max-h-auto" : "max-h-[150px]"
-                  } overflow-scroll`}
+                  className={`md:mt-4 mt-2 text-base h-full transition-all ${
+                    showMore ? "max-h-auto" : "max-h-[300px]"
+                  } overflow-y-auto`}
                   dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
                 ></div>
               </div>
@@ -315,41 +325,7 @@ const Page = () => {
             <div className="h-auto order-5 md:order-4 md:px-0 px-4 ">
               <div className="border border-gray-500 h-full rounded-lg px-4">
                 <h1 className="md:text-xl mt-4  font-bold">Gallery</h1>
-                <div className=" h-auto md:w-[100%] mb-4 px-10 md:p-4">
-                  {/* <Swiper
-                    slidesPerView={1}
-                    spaceBetween={12}
-                    // onSlideChange={() => console.log("slide change")}
-                    // onSwiper={(swiper) => console.log(swiper)}
-                    className="mt-3 
-                "
-                  >
-                    {eventData?.EventGalleryImages.map((img) => {
-                      return (
-                        <SwiperSlide
-                          key={img.id}
-                          navigation={true}
-                          modules={[Navigation]}
-                        >
-                          <div
-                            key={img.id}
-                            className="md:w-full w-[90%] mx-auto md:mx-0  md:h-80 h-56  relative cursor-pointer overflow-hidden "
-                          >
-                            <div className="w-full h-full relative">
-                              <Image
-                                src={`${URL}/${img.image_path}`}
-                                alt="carousel-image"
-                                layout="fill"
-                                objectFit="cover"
-                                objectPosition="top"
-                                className="rounded-lg"
-                              />
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper> */}
+                <div className=" h-auto md:w-[100%] mb-4 px-10 md:p-4 relative">
                   <swiper-container
                     ref={galleryRef}
                     init="false"
@@ -358,7 +334,7 @@ const Page = () => {
                   >
                     {eventData?.EventGalleryImages.map((img) => (
                       <swiper-slide key={img.id}>
-                        <div className="h-96 w-full  relative">
+                        <div className="h-80 w-full  relative">
                           <Image
                             src={`${URL}/${img.image_path}`}
                             alt="carousel-image"
@@ -371,18 +347,6 @@ const Page = () => {
                       </swiper-slide>
                     ))}
                   </swiper-container>
-                </div>
-                <div
-                  style={{ color: "black" }}
-                  className="swiper-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-20 rounded-full flex items-center justify-center h-20 w-10 "
-                >
-                  <MdOutlineKeyboardArrowLeft />
-                </div>
-                <div
-                  style={{ color: "black" }}
-                  className="swiper-button-next absolute right-0 top-1/2 transform -translate-y-1/2 z-20 flex items-center justify-center h-20 w-10"
-                >
-                  <MdOutlineKeyboardArrowRight />
                 </div>
               </div>
             </div>
@@ -415,7 +379,6 @@ const Page = () => {
             </div>
           )}
         </div>
-
         {/* <div className="mt-8 px-6">
           <h1 className="md:text-3xl font-semibold text-xl">Artists:</h1>
           <div className="mt-6">
@@ -474,26 +437,35 @@ const Page = () => {
 
         {/* accordion */}
         <div className="md:mt-14 mt-10 px-6">
-          <Accordion open={open === 1}>
-            <AccordionHeader
-              className="flex w-full  justify-between "
-              onClick={() => handleOpen(1)}
-            >
-              <p className="flex-grow md:text-2xl text-black">Venue layout</p>
-              <span className="ml-auto">
-                <MdKeyboardArrowDown size={30} />
-              </span>
-            </AccordionHeader>
-            <AccordionBody>
-              We&apos;re not always in the position that we want to be at.
-              We&apos;re constantly growing. We&apos;re constantly making
-              mistakes. We&apos;re constantly trying to express ourselves and
-              actualize our dreams.
-            </AccordionBody>
-          </Accordion>
+          {eventData?.VenueEventFlag && eventData?.VenueLayout && (
+            <Accordion open={open === 1}>
+              <AccordionHeader
+                className="flex w-full  justify-between "
+                onClick={() => handleOpen(1)}
+              >
+                <p className="flex-grow md:text-2xl text-black">Venue layout</p>
+                <span className="ml-auto">
+                  <MdKeyboardArrowDown size={30} />
+                </span>
+              </AccordionHeader>
+              <AccordionBody className="h-full w-full ">
+                {eventData?.VenueLayout !== undefined && (
+                  <div className=" h-[500px] w-full relative ">
+                    <Image
+                      src={`${URL}/${eventData?.VenueLayout}`}
+                      alt=""
+                      objectFit="contain"
+                      layout="fill"
+                      className="absolute"
+                    />
+                  </div>
+                )}
+              </AccordionBody>
+            </Accordion>
+          )}
 
           {eventData?.EventFaqs?.length > 0 && (
-            <Accordion open={open === 2} className="mt-8">
+            <Accordion open={open === 2} className="mt-2">
               <AccordionHeader
                 className="flex w-full  justify-between "
                 onClick={() => handleOpen(2)}
@@ -504,21 +476,25 @@ const Page = () => {
                 </span>
               </AccordionHeader>
               <AccordionBody>
-                We&apos;re not always in the position that we want to be at.
-                We&apos;re constantly growing. We&apos;re constantly making
-                mistakes. We&apos;re constantly trying to express ourselves and
-                actualize our dreams.
+                {eventData?.EventFaqs.map((faq) => (
+                  <div className="mb-4 flex flex-col gap-2">
+                    <p className="font-semibold text-black flex items-center">
+                      -{faq.Question}
+                    </p>
+                    <p>{faq.Answer}</p>
+                  </div>
+                ))}
               </AccordionBody>
             </Accordion>
           )}
 
-          <Accordion open={open === 3} className="mt-8">
+          <Accordion open={open === 3} className="mt-2">
             <AccordionHeader
               className="flex w-full  justify-between "
               onClick={() => handleOpen(3)}
             >
               <p className="flex-grow md:text-2xl text-black">
-                Terms and condtions
+                Terms and conditions
               </p>
               <span className="ml-auto">
                 <MdKeyboardArrowDown size={30} />
@@ -536,6 +512,49 @@ const Page = () => {
               </div>
             </AccordionBody>
           </Accordion>
+        </div>
+
+        <div className=" md:mt-24 mt-14   px-4 md:px-4  ">
+          <h1 className="font-semibold capitalize md:text-3xl text-xl ">
+            You may also like
+          </h1>
+          <div>
+            <Swiper
+              spaceBetween={6}
+              slidesPerView={1}
+              // onSlideChange={() => console.log("slide change")}
+              // onSwiper={(swiper) => console.log(swiper)}
+              // className="mt-3 "
+              breakpoints={{
+                320: {
+                  slidesPerView: 1.5,
+                  spaceBetween: 16,
+                },
+                425: {
+                  slidesPerView: 2.2,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3.2,
+                  spaceBetween: 10,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
+              }}
+            >
+              {suggestedEvents.map((event) => (
+                <SwiperSlide key={event.id}>
+                  <div key={event._id} className=" mt-6 ">
+                    <Link href={`/events/${event.event_id}`}>
+                      <PageCardWithText event={event} />
+                    </Link>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </div>
     </div>

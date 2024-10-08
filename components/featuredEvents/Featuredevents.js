@@ -9,6 +9,7 @@ import { featuredEvents } from "@/utils/config";
 import ShimmerCard from "../card/ShimmerCard";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
+import CardFeatured from "../card/CardFeatured";
 
 const Featuredevents = () => {
   const [allFeaturedEvents, setAllFeaturedEvents] = useState([]);
@@ -77,7 +78,7 @@ const Featuredevents = () => {
             <SwiperSlide key={data.id}>
               <div key={data.id} className=" md:mt-6 mt-4   ">
                 <Link href={`/events/${data.event_id}`}>
-                  <CardWithText data={data} />
+                  <CardFeatured data={data} />
                 </Link>
               </div>
             </SwiperSlide>

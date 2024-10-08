@@ -179,6 +179,7 @@ const Page = () => {
         const { status, data } = error.response;
         if ([400, 401, 403, 404, 409, 500].includes(status)) {
           setError(true);
+          setFilterOpenModal(false);
           toast.error(data.message);
           setFilters({});
         }

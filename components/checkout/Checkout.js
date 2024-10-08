@@ -11,14 +11,17 @@ import {
 
 const Checkout = () => {
   const [open, setOpen] = useState(1); // Control active accordion step
-  const handleOpen = (value) => setOpen(open === value ? 0 : value);
   const [details, setDetails] = useState();
   const getToken = JSON.parse(localStorage.getItem("authToken"));
   const [otpVerified, setOtpVerified] = useState(false);
 
   const isLoggedIn = getToken?.isLoggedIn;
   const cust_id = getToken?.cust_id;
-
+  const handleOpen = (value) => {
+    if (cust_id) {
+      setOpen(open === value ? 0 : value);
+    }
+  };
   const dispatch = useDispatch();
 
   useEffect(() => {

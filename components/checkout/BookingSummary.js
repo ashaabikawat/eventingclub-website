@@ -31,14 +31,14 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   const selectedTicket = useSelector(
     (store) => store.booking.bookingData.selectedTickets
   );
-  console.log(selectedTicket);
+  // console.log(selectedTicket);
 
   const bookingData = useSelector((store) => store.booking.bookingData);
 
-  console.log(
-    "bookingdata",
-    useSelector((store) => store.booking.bookingData)
-  );
+  // console.log(
+  //   "bookingdata",
+  //   useSelector((store) => store.booking.bookingData)
+  // );
 
   const [promocodeValue, setPromocodeValue] = useState("");
 
@@ -86,13 +86,16 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
       if (minAmount <= ticketAmountNum) {
         setpromoObject(selectedPromocode);
         dispatch(setPromocodeId(selectedPromocode._id));
+        setPromocodeDiscountPrice(
+          promoObject?.PromType === 1 ? promocodePrice : promocodeDiscountAmount
+        );
         toast.success("Promocode applied successfully!");
       } else {
         toast.error(`Minimum checkout amount is ${minAmount}`);
         setPromocodeDiscountPrice(0);
       }
     } else {
-      console.log("Invalid amounts:", minAmount, ticketAmountNum);
+      // console.log("Invalid amounts:", minAmount, ticketAmountNum);
     }
   };
 
@@ -240,14 +243,11 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
 
   useEffect(() => {
     setPromocodeValue(promoObject?.PromoCodeName || "");
-    setPromocodeDiscountPrice(
-      promoObject?.PromType === 1 ? promocodePrice : promocodeDiscountAmount
-    );
   }, [promoObject]);
 
   return (
     <div>
-      <Toaster />
+      {/* <Toaster /> */}
       {selectedTicket.length > 0 ? (
         <>
           <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between ">
@@ -301,7 +301,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                     dispatch(remove_promocode());
                     setPromocodeDiscountPrice(0);
                   }}
-                  className=" absolute right-24  md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
+                  className=" absolute md:right-24  right-20 md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
                 >
                   X
                 </button>
@@ -474,7 +474,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
           </button>
         </>
       ) : (
-        "you dont have any tickets"
+        "You dont have any tickets"
       )}
     </div>
   );

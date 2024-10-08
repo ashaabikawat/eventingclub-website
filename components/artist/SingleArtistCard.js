@@ -22,7 +22,7 @@ export const SingleArtistCard = ({ data }) => {
           <h2 className="text-blue-900 font-bold md:text-xl text-sm capitalize">
             {data.Name}
           </h2>
-          <p className="text-sm">{data.Description}</p>
+          {/* <p className="text-sm">{data.Description}</p> */}
         </div>
       </div>
     </div>
