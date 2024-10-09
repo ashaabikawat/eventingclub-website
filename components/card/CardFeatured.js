@@ -23,8 +23,9 @@ const CardFeatured = ({ data }) => {
             className="rounded"
           />
         </div>
-        <span className="absolute top-0 right-0 p-2 ">
-          <FaMedal className="text-yellow-500" size={28} />
+        <span className="absolute top-0 right-0 p-2 bg-yellow-600 text-black font-semibold ">
+          {/* <FaMedal className="text-yellow-500" size={28} /> */}
+          Featured
         </span>
         <div className="absolute bottom-2 right-2"></div>
       </Card>

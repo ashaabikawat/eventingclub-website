@@ -104,16 +104,16 @@ const Navbar = ({ bgColor }) => {
   return (
     <>
       <Toaster />
-      <div className={`relative w-full md:px-4 sm:px-8 ${bgColor} z-50`}>
+      <div className={`relative w-full md:px-4 sm:px-4 ${bgColor} z-50`}>
         <div className="max-w-8xl md:mx-9 mx-4">
-          <div className="flex justify-between items-center py-4 md:space-x-10">
-            <div className="flex gap-10 justify-between items-center">
+          <div className="flex justify-between items-center py-4 space-x-4 ">
+            <div className="flex gap-4 justify-between items-center">
               <div>
                 <span className="sr-only">Logo</span>
                 <Link href="/">
-                  <div className="cursor-pointer relative md:h-20 md:w-52 h-14 w-28">
+                  <div className="cursor-pointer relative md:h-20 md:w-36 h-14 w-28">
                     <Image
-                      src="/TicketEventingClubLogo.png"
+                      src="/Eventing club logo transparent.png"
                       alt="logo"
                       layout="fill"
                       className="absolute"
@@ -178,7 +178,7 @@ const Navbar = ({ bgColor }) => {
               {isLoggedIn ? (
                 <div className="flex justify-center items-center">
                   <Link href={`/userDetails/${cust_id}`}>
-                    <FaRegCircleUser className="size-10 md:size-12 text-gray-600 cursor-pointer" />
+                    <FaRegCircleUser className="size-8 md:size-10 text-black cursor-pointer" />
                   </Link>
                 </div>
               ) : (
@@ -200,7 +200,7 @@ const Navbar = ({ bgColor }) => {
           </div>
 
           {homePageUrl && (
-            <div className="mt-3 md:hidden relative">
+            <div className=" md:hidden relative">
               <label className="relative w-full">
                 <span className="sr-only">search</span>
                 <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6" />
@@ -277,7 +277,20 @@ const Navbar = ({ bgColor }) => {
             <div className="pt-5 pb-6 px-5">
               <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 h-full">
                 <div>
-                  <span className="text-xl">LOGO</span>
+                  <div>
+                    <span className="sr-only">Logo</span>
+                    <Link href="/">
+                      <div className="cursor-pointer relative md:h-20 md:w-52 h-14 w-32">
+                        <Image
+                          src="/Eventing club logo transparent.png"
+                          alt="logo"
+                          layout="fill"
+                          className="absolute"
+                          objectFit="contain"
+                        ></Image>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
                 <div className="mr-2">
                   <button type="button">

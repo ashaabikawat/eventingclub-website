@@ -51,7 +51,7 @@ const TourEvents = () => {
   }
 
   return (
-    <div className=" sm:px-8 px-1 overflow-hidden md:px-10">
+    <div className=" sm:px-4 px-1 overflow-hidden md:px-4">
       <CardHeaders
         mobileHeader="Event Tour"
         desktopHeader="Event Tour"

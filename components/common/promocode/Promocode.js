@@ -15,7 +15,7 @@ const Promocode = ({ promocode }) => {
         <div>
           <div className="flex flex-col mt-3 pl-8 ">
             <p className="text-base capitalize  text-blue-900 font-semibold">
-              {promocode.PromType === Number(1)
+              {promocode?.PromType === Number(1)
                 ? `save ₹ ${promocode?.Value}`
                 : `save ${promocode?.Value}%`}
             </p>

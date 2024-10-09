@@ -14,7 +14,6 @@ import {
   handleIncrease,
   setTicketData,
   handleDecrease,
-  setShowCount,
   setBookingDataObj,
   setEventId,
   reset_state,
@@ -87,6 +86,13 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   // }, [bookingData]);
 
   useEffect(() => {
+    const savedCounts = localStorage.getItem("ticketCounts");
+    if (savedCounts === null || savedCounts === "{}") {
+      setCount({});
+    }
+  }, []);
+
+  useEffect(() => {
     if (ticketId) {
       handleShowTicket(ticketId);
       // Automatically show the ticket section
@@ -145,6 +151,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       if (newCount === 0) {
         // Remove ticket from showCount if count is 0
         delete updatedShowCount[ticketId];
+        dispatch(setTicketId(null));
       } else {
         // Ensure it stays true if count > 0
         updatedShowCount[ticketId] = true;
@@ -429,10 +436,18 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   // }
 
   const isAnyCountActive = Object.values(showCount).some((value) => value);
-
+  console.log("isAnyCountActive", isAnyCountActive);
+  console.log("showCount", showCount);
   // console.log("count", count);
+  const clearCart = () => {
+    dispatch(reset_state());
+    setCount({});
+  };
 
-  console.log(storedEventId === id);
+  const handleContinueCheckout = () => {
+    // router.push(`/events/tickets/${id}/checkout`);
+    router.push(`/events/tickets/${storedEventId}/checkout`);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -730,13 +745,37 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           {/* Footer for Total Count and Price */}
 
           {storedEventId !== null && storedEventId !== id && (
-            <div className="flex items-center justify-center">
-              <button
-                onClick={() => dispatch(reset_state())}
-                className="bg-[#666666] w-[20%] text-white py-4 px-4 rounded fixed bottom-0 "
-              >
-                Clear
-              </button>
+            // <div className="flex items-center justify-center">
+            //   <button
+            //     onClick={clearCart}
+            //     className="bg-[#666666] w-[20%] text-white py-4 px-4 rounded fixed bottom-0 "
+            //   >
+            //     Clear
+            //   </button>
+            // </div>
+            <div className="fixed bottom-0 left-0 right-0 md:px-20 bg-white shadow-md p-6 flex justify-between items-center z-50">
+              <div className="flex flex-col gap-2">
+                <p className="md:text-2xl text-lg font-semibold">
+                  You already have tickets from another event.
+                </p>
+                <p className="md:text-lg text-lg text-gray-600">
+                  Either proceed to checkout or clear the cart
+                </p>
+              </div>
+              <div className="text-right flex justify-between gap-4 ">
+                <button
+                  onClick={handleContinueCheckout}
+                  className="bg-blue-900 text-white py-2 px-14 rounded"
+                >
+                  Continue
+                </button>
+                <button
+                  onClick={clearCart}
+                  className="bg-gray-300 text-black py-2 px-14 rounded"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
           )}
         </>

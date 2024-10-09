@@ -44,7 +44,7 @@ const Category = () => {
   if (loading) return;
 
   return (
-    <div className="md:py-6 mt-6 mb-8 sm:px-8 px-1 overflow-hidden md:px-10">
+    <div className="md:py-6 mt-6 mb-8 sm:px-4 px-1 overflow-hidden md:px-4">
       <CardHeaders
         mobileHeader="Events by categories"
         desktopHeader="Browse events by categories"

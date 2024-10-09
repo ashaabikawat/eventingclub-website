@@ -9,9 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http", // or 'https'
-        hostname: "192.168.1.107",
-        // hostname: "13.233.237.119",
-        // hostname: "localhost",
+        hostname: process.env.NEXT_PUBLIC_IMAGE_HOSTNAME,
         port: "2000",
         pathname: "/uploads/**",
       },

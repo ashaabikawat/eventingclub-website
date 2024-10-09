@@ -1,10 +1,11 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Promocode from "../common/promocode/Promocode";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { promocode } from "@/utils/config";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
 import {
@@ -14,6 +15,7 @@ import {
   setPromocodeId,
   reset_bookingData,
   remove_promocode,
+  setTicketId,
 } from "../../store/slices/booking";
 
 const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
@@ -26,6 +28,8 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   const booking = useSelector((store) => store.booking);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  console.log(promocodes);
+
   const [promoObject, setpromoObject] = useState();
 
   const selectedTicket = useSelector(
@@ -34,6 +38,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   // console.log(selectedTicket);
 
   const bookingData = useSelector((store) => store.booking.bookingData);
+  const router = useRouter();
 
   // console.log(
   //   "bookingdata",
@@ -49,7 +54,13 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   const getToken = localStorage.getItem("authToken");
   const cust_id = JSON.parse(getToken)?.cust_id;
 
-  const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(0);
+  const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(() => {
+    const savedPromocode = localStorage.getItem("promocodeDiscountAmount");
+    return savedPromocode ? JSON.parse(savedPromocode) : 0;
+  });
+
+  // console.log(promocodeDiscountPrice);
+  // const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(0);
 
   const confee = JSON.parse(localStorage.getItem("convenienceFee"));
   // console.log(confee);
@@ -86,9 +97,14 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
       if (minAmount <= ticketAmountNum) {
         setpromoObject(selectedPromocode);
         dispatch(setPromocodeId(selectedPromocode._id));
-        setPromocodeDiscountPrice(
-          promoObject?.PromType === 1 ? promocodePrice : promocodeDiscountAmount
-        );
+
+        const discountPrice =
+          promoObject?.PromType === 1
+            ? promocodePrice
+            : promocodeDiscountAmount;
+
+        setPromocodeDiscountPrice(discountPrice);
+        localStorage.setItem("promocodeDiscountAmount", discountPrice);
         toast.success("Promocode applied successfully!");
       } else {
         toast.error(`Minimum checkout amount is ${minAmount}`);
@@ -98,7 +114,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
       // console.log("Invalid amounts:", minAmount, ticketAmountNum);
     }
   };
-
+  console.log(promocodeDiscountPrice);
   // const handleDecreaseTicket = (id) => {
   //   console.log(id);
   //   console.log(bookingData);
@@ -144,6 +160,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
     } else if (quantity === 1) {
       setQuanity(0);
       dispatch(reset_bookingData());
+
       localStorage.removeItem("ticketCounts");
     }
   };
@@ -300,6 +317,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                   onClick={() => {
                     dispatch(remove_promocode());
                     setPromocodeDiscountPrice(0);
+                    localStorage.removeItem("promocodeDiscountAmount");
                   }}
                   className=" absolute md:right-24  right-20 md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
                 >
@@ -351,9 +369,9 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                   >
                     {promocodes?.applicablePromocodes?.map((promocode) => (
                       <SwiperSlide
-                        key={promocode._id}
+                        key={promocode?._id}
                         className="w-full cursor-pointer"
-                        onClick={() => handleTermsAndConditions(promocode._id)}
+                        onClick={() => handleTermsAndConditions(promocode?._id)}
                       >
                         <Promocode promocode={promocode} />
                       </SwiperSlide>
@@ -474,7 +492,20 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
           </button>
         </>
       ) : (
-        "You dont have any tickets"
+        <div className="flex flex-col gap-4 items-center">
+          <p className="md:text-lg font-semibold text-black">
+            You dont have any tickets
+          </p>
+          <button
+            className="bg-blue-900 text-white py-2 px-14 rounded"
+            onClick={() => {
+              dispatch(setTicketId(null));
+              router.push("/");
+            }}
+          >
+            Back to main page
+          </button>
+        </div>
       )}
     </div>
   );

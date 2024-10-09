@@ -133,7 +133,7 @@ const Page = () => {
             </Swiper>
           ) : (
             // <Loading />
-            <p className="mt-6 mb-10 text-lg ">No upcoming events</p>
+            <p className="mt-6 mb-32 text-xl ">No upcoming events</p>
           )}
         </div>
       </div>

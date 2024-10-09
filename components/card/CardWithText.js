@@ -22,7 +22,12 @@ const CardWithText = ({ data }) => {
             className="rounded"
           />
         </div>
-        <div className="absolute bottom-2 right-2"></div>
+        {Boolean(data?.isFeatured) && (
+          <span className="absolute top-0 right-0 p-2 bg-yellow-600 text-black font-semibold ">
+            {/* <FaMedal className="text-yellow-500" size={28} /> */}
+            Featured
+          </span>
+        )}
       </Card>
 
       <div className=" mt-2  mb-4">

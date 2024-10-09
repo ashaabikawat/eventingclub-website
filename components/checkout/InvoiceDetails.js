@@ -65,7 +65,7 @@ const InvoiceDetails = ({ cust_id }) => {
     try {
       const response = await axios.post(`${ticket.POST_DATA}`, payload);
       console.log(response.data);
-      toast.success(response.data.message);
+      // toast.success(response.data.message);
       const form = document.createElement("form");
       form.setAttribute("method", "POST");
       form.setAttribute("action", "https://test.payu.in/_payment");

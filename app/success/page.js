@@ -1,8 +1,10 @@
 "use client";
+import { reset_state } from "@/store/slices/booking";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
 
 const Page = () => {
   const search = useSearchParams();
@@ -11,6 +13,11 @@ const Page = () => {
   const Booking_id = search.get("Booking_id");
   const amount = search.get("amount");
   const paymentmode = search.get("paymentmode");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(reset_state());
+  }, []);
 
   return (
     <div>
