@@ -16,6 +16,9 @@ import { Card } from "@material-tailwind/react";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import PageCardWithText from "@/components/card/PageCardWithText";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 
 import {
   Accordion,
@@ -302,12 +305,20 @@ const Page = () => {
             <div className="border h-full border-gray-500 rounded-lg px-4 ">
               <div className=" h-full  py-6  ">
                 <h1 className="md:text-2xl font-bold">About</h1>
-                <div
+                {/* <div
                   className={`md:mt-4 mt-2 text-base h-full transition-all ${
                     showMore ? "max-h-auto" : "max-h-[300px]"
                   } overflow-y-auto`}
                   dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
-                ></div>
+                ></div> */}
+                <div className="max-h-[300px] overflow-y-auto">
+                  <ReactQuill
+                    readOnly
+                    value={eventData?.AboutEvent}
+                    modules={{ toolbar: false }}
+                    className="text-black font-medium "
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -501,15 +512,20 @@ const Page = () => {
               </span>
             </AccordionHeader>
             <AccordionBody>
-              <div className="h-full w-full ">
-                {/* <div
+              {/* <div className="h-full w-full ">
+                <div
                   className="h-full w-full"
                   dangerouslySetInnerHTML={{
                     __html: eventData?.EventTermsConditions,
                   }}
-                /> */}
-                {eventData?.EventTermsConditions}
-              </div>
+                />
+              </div> */}
+              <ReactQuill
+                readOnly
+                value={eventData?.EventTermsConditions}
+                modules={{ toolbar: false }}
+                className="text-black font-medium"
+              />
             </AccordionBody>
           </Accordion>
         </div>

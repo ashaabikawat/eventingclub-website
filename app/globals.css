@@ -71,3 +71,7 @@ iframe {
   display: none;
   /* Hides the content of the ::after pseudo-element */
 }
+
+.ql-container.ql-snow {
+  border: none !important;
+}
