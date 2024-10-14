@@ -11,12 +11,14 @@ const CardWithText = ({ data }) => {
 
   return (
     <div>
-      <Card className="w-full lg:h-[300px] md:h-[250px] h-[150px] relative cursor-pointer overflow-hidden">
+      {/* <Card className="w-full lg:h-[300px] md:h-[250px] h-[150px] relative cursor-pointer overflow-hidden">
         <div className="w-full h-full relative">
           <Image
             src={`${imageUrl}`}
             alt="profile-picture"
-            layout="fill"
+            // layout="fill"
+            height={500}
+            width={500}
             objectFit="cover"
             objectPosition="top"
             className="rounded"
@@ -25,10 +27,24 @@ const CardWithText = ({ data }) => {
         {Boolean(data?.isFeatured) && (
           <span className="absolute top-0 right-0 p-2 bg-yellow-600 text-black font-semibold ">
             {/* <FaMedal className="text-yellow-500" size={28} /> */}
-            Featured
+      {/* Featured
           </span>
         )}
-      </Card>
+      </Card>  */}
+      <div>
+        <div>
+          <Image
+            src={`${imageUrl}`}
+            alt="profile-picture"
+            // layout="fill"
+            height={375}
+            width={500}
+            objectFit="cover"
+            // objectPosition="top"
+            className="rounded"
+          />
+        </div>
+      </div>
 
       <div className=" mt-2  mb-4">
         <div

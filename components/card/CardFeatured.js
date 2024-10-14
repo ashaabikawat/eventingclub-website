@@ -12,23 +12,24 @@ const CardFeatured = ({ data }) => {
 
   return (
     <div>
-      <Card className="w-full lg:h-[300px] md:h-[250px] h-[150px] relative cursor-pointer overflow-hidden">
-        <div className="w-full h-full relative">
+      <div>
+        <div className="relative">
           <Image
             src={`${imageUrl}`}
             alt="profile-picture"
-            layout="fill"
+            // layout="fill"
             objectFit="cover"
+            height={375}
+            width={500}
             objectPosition="top"
-            className="rounded"
+            className="rounded "
           />
+          <span className="absolute top-0 shadow-md rounded-sm right-0 p-2 bg-yellow-600 text-black font-semibold ">
+            {/* <FaMedal className="text-yellow-500" size={28} /> */}
+            Featured
+          </span>
         </div>
-        <span className="absolute top-0 right-0 p-2 bg-yellow-600 text-black font-semibold ">
-          {/* <FaMedal className="text-yellow-500" size={28} /> */}
-          Featured
-        </span>
-        <div className="absolute bottom-2 right-2"></div>
-      </Card>
+      </div>
 
       <div className=" mt-2  mb-4">
         <div

@@ -78,7 +78,7 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" mt-8 mb-10 md:px-6 px-4 ">
+    <div className=" mt-8 mb-16 md:px-6 px-4 ">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <h1 className=" font-bold md:text-2xl px-2">Pick your venue:</h1>

@@ -89,18 +89,20 @@ const TourEvents = () => {
             <SwiperSlide key={data.id}>
               <div key={data.id} className=" md:mt-6 mt-4">
                 <Link href={`/eventtour/${data.Tour_id}`}>
-                  <Card className="w-full  md:h-56 h-44  relative cursor-pointer overflow-hidden  ">
+                  <div className="w-full h-full relative cursor-pointer overflow-hidden  ">
                     <div className="w-full h-full relative  ">
                       <Image
                         src={`${URL}/${data?.EventCardImages[0]?.image_path}`}
                         alt="profile-picture"
-                        layout="fill"
+                        // layout="fill"
+                        height={375}
+                        width={500}
                         objectFit="cover"
-                        objectPosition="top"
+                        // objectPosition="top"
                         className="rounded"
                       />
                     </div>
-                  </Card>
+                  </div>
                 </Link>
               </div>
             </SwiperSlide>

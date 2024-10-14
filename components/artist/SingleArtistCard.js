@@ -8,14 +8,16 @@ export const SingleArtistCard = ({ data }) => {
   return (
     <div className="border border-gray-400 h-full w-full cursor-pointer rounded  ">
       <div>
-        <div className="relative h-72 w-full">
+        <div>
           <Image
             src={`${URL}/${imageUrl}`}
             alt="venue card"
             objectFit="cover"
-            layout="fill"
+            // layout="fill"
+            height={375}
+            width={500}
             className="rounded"
-            objectPosition="top"
+            // objectPosition="top"
           />
         </div>
         <div className="flex flex-col gap-4 justify-between  md:p-4  p-3">

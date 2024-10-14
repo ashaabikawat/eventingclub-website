@@ -10,6 +10,7 @@ import ShimmerCard from "../card/ShimmerCard";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image";
 
 const UpcomingEvents = () => {
   const [allUpcomingEvents, setAllUpcomingEvents] = useState([]);
@@ -155,6 +156,7 @@ const UpcomingEvents = () => {
     //     </Swiper>
     //   </div>
     // </div>
+
     <div className=" mb-2  mt-10 md:mb-6  sm:px-4 px-1 overflow-hidden md:px-4">
       <div className="flex md:mt-0  md:flex-row flex-col justify-between px-4">
         <h1 className="capitalize text-base md:text-2xl font-bold">
@@ -220,6 +222,10 @@ const UpcomingEvents = () => {
         </Swiper>
       </div>
     </div>
+
+    // <div>
+    //   <Image src={"/img3.jpg"} width={300} height={300} />
+    // </div>
   );
 };
 

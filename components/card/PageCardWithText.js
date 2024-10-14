@@ -35,18 +35,20 @@ const PageCardWithText = ({ event }) => {
   return (
     <div className="md:mb-4 mb-4">
       <Link href={`/events/${event.event_id}`}>
-        <Card className="md:h-60 h-40 relative cursor-pointer overflow-hidden">
-          <div className="w-[100%] h-full relative">
-            <Image
-              src={imageUrl}
-              alt="profile-picture"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="top"
-              className="rounded"
-            />
-          </div>
-        </Card>
+        {/* <Card className="md:h-60 h-40 relative cursor-pointer overflow-hidden"> */}
+        <div className=" ">
+          <Image
+            src={imageUrl}
+            alt="profile-picture"
+            // layout="fill"
+            objectFit="cover"
+            height={375}
+            width={500}
+            // objectPosition="top"
+            className="rounded"
+          />
+        </div>
+        {/* </Card> */}
       </Link>
 
       <div className="px-2">

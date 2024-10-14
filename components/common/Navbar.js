@@ -11,10 +11,12 @@ import SearchInput from "./SearchInput";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux"; // Updated
 import Image from "next/image";
+import { LuMapPin } from "react-icons/lu";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { homepageSearch } from "../../utils/config";
 import { LuUser2 } from "react-icons/lu";
+import { MdEventAvailable } from "react-icons/md";
 import { FaRegCircleUser } from "react-icons/fa6";
 
 const Navbar = ({ bgColor }) => {
@@ -141,29 +143,41 @@ const Navbar = ({ bgColor }) => {
                   </label>
 
                   {searchData.length > 0 && (
-                    <div className="bg-white shadow-2xl rounded-md max-h-72 h-72 z-50 absolute top-full left-0 w-full">
+                    <div className="bg-white shadow-2xl mt-2 rounded-md h-auto z-50 absolute top-full left-0 w-full">
                       {searchData.map((data) => (
                         <div>
                           <div className="">
                             {data.Name && (
-                              <>
+                              <div className="w-full">
                                 <Link href={`/venue/${data._id}`}>
-                                  <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200 ">
-                                    {data.Name}
-                                  </p>
+                                  <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
+                                    <MdEventAvailable
+                                      className="text-gray-500"
+                                      size={20}
+                                    />
+                                    <p className="cursor-pointer">
+                                      {data.Name}
+                                    </p>
+                                  </div>
                                 </Link>
-                              </>
+                              </div>
                             )}
                           </div>
-                          <div className="  ">
+                          <div className="">
                             {data.EventName && (
-                              <>
+                              <div className="w-full">
                                 <Link href={`/events/${data._id}`}>
-                                  <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200">
-                                    {data.EventName}
-                                  </p>
+                                  <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
+                                    <LuMapPin
+                                      className="text-gray-500"
+                                      size={20}
+                                    />
+                                    <p className=" cursor-pointer ">
+                                      {data.EventName}
+                                    </p>
+                                  </div>
                                 </Link>
-                              </>
+                              </div>
                             )}
                           </div>
                         </div>
@@ -214,29 +228,36 @@ const Navbar = ({ bgColor }) => {
               </label>
 
               {searchData.length > 0 && (
-                <div className="bg-white shadow-2xl rounded-md max-h-72 h-72 z-50 absolute top-full left-0 w-full">
+                <div className="bg-white  shadow-2xl rounded-md h-auto z-50 absolute top-full left-0 w-full">
                   {searchData.map((data) => (
                     <div>
                       <div className="">
                         {data.Name && (
-                          <>
+                          <div className="w-full">
                             <Link href={`/venue/${data._id}`}>
-                              <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200 ">
-                                {data.Name}
-                              </p>
+                              <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
+                                <MdEventAvailable
+                                  className="text-gray-500"
+                                  size={20}
+                                />
+                                <p className="cursor-pointer">{data.Name}</p>
+                              </div>
                             </Link>
-                          </>
+                          </div>
                         )}
                       </div>
                       <div className="  ">
                         {data.EventName && (
-                          <>
+                          <div className="w-full">
                             <Link href={`/events/${data._id}`}>
-                              <p className="p-4 border-gray-300 border-b-2 cursor-pointer hover:bg-gray-200">
-                                {data.EventName}
-                              </p>
+                              <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
+                                <LuMapPin className="text-gray-500" size={20} />
+                                <p className=" cursor-pointer ">
+                                  {data.EventName}
+                                </p>
+                              </div>
                             </Link>
-                          </>
+                          </div>
                         )}
                       </div>
                     </div>

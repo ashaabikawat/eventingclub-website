@@ -66,7 +66,8 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   // console.log(confee);
 
   const convenienceFee = Number(confee?.ConValue) || 0;
-  const promocodeDiscount = Number(confee?.ConfeeUnit) || 0;
+  const promocodeDiscount = 0;
+  // const promocodeDiscount = Number(confee?.ConfeeUnit) || 0;
 
   // Calculate GST based on the total before discount
   const gst = convenienceFee * 0.18;
@@ -92,6 +93,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
 
     const minAmount = Number(selectedPromocode?.MinAmount);
     const ticketAmountNum = Number(ticketAmount);
+    console.log(ticketAmount);
 
     if (!isNaN(minAmount) && !isNaN(ticketAmountNum)) {
       if (minAmount <= ticketAmountNum) {

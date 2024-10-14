@@ -8,14 +8,16 @@ export const VenueCard = ({ data }) => {
   return (
     <div className="border border-gray-400 h-full w-full cursor-pointer rounded-lg overflow-hidden ">
       <div>
-        <div className="relative h-72 md:h-72  lg:h-96 w-full">
+        <div className="">
           <Image
             src={`${URL}/${imageUrl}`}
             alt="venue card"
             objectFit="cover"
-            layout="fill"
+            // layout="fill"
             className="rounded"
-            objectPosition="top"
+            height={375}
+            width={500}
+            // objectPosition="top"
           />
         </div>
         <div className="flex flex-col gap-2 justify-between  md:p-4  p-3">
