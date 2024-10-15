@@ -144,14 +144,27 @@ const Navbar = ({ bgColor }) => {
 
                   {searchData.length > 0 && (
                     <div className="bg-white shadow-2xl mt-2 rounded-md h-auto z-50 absolute top-full left-0 w-full">
-                      {searchData.map((data) => (
-                        <div>
+                      {searchData.map((data, index) => (
+                        <div key={data._id}>
                           <div className="">
                             {data.Name && (
                               <div className="w-full">
-                                <Link href={`/venue/${data._id}`}>
-                                  <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
-                                    <MdEventAvailable
+                                <Link
+                                  href={`/venue/${data._id}`}
+                                  key={data._id}
+                                >
+                                  <div
+                                    className={`p-4 flex items-center space-x-2 w-full  hover:bg-gray-200  ${
+                                      index === searchData.length - 1
+                                        ? " border-none"
+                                        : "border-b-[1px] border-gray-200 "
+                                    }`}
+                                  >
+                                    {/* <MdEventAvailable
+                                      className="text-gray-500"
+                                      size={20}
+                                    /> */}
+                                    <LuMapPin
                                       className="text-gray-500"
                                       size={20}
                                     />
@@ -165,10 +178,28 @@ const Navbar = ({ bgColor }) => {
                           </div>
                           <div className="">
                             {data.EventName && (
-                              <div className="w-full">
-                                <Link href={`/events/${data._id}`}>
-                                  <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
-                                    <LuMapPin
+                              <div className="w-full" key={data._id}>
+                                <Link
+                                  href={`/events/${data._id}`}
+                                  key={data._id}
+                                >
+                                  <div
+                                    className={`p-4 flex items-center space-x-2 w-full  hover:bg-gray-200  ${
+                                      index === searchData.length - 1
+                                        ? " border-none"
+                                        : "border-b-[1px] border-gray-200 "
+                                    }`}
+                                    // className={`p-4 flex items-center space-x-2 w-full border-gray-300  hover:bg-gray-200 ${
+                                    //   data.EventName.length - 1
+                                    //     ? "border-none"
+                                    //     : "border-b-2"
+                                    // }`}
+                                  >
+                                    {/* <LuMapPin
+                                      className="text-gray-500"
+                                      size={20}
+                                    /> */}
+                                    <MdEventAvailable
                                       className="text-gray-500"
                                       size={20}
                                     />
@@ -229,17 +260,25 @@ const Navbar = ({ bgColor }) => {
 
               {searchData.length > 0 && (
                 <div className="bg-white  shadow-2xl rounded-md h-auto z-50 absolute top-full left-0 w-full">
-                  {searchData.map((data) => (
-                    <div>
+                  {searchData.map((data, index) => (
+                    <div key={data._id}>
                       <div className="">
                         {data.Name && (
                           <div className="w-full">
-                            <Link href={`/venue/${data._id}`}>
-                              <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
-                                <MdEventAvailable
+                            <Link href={`/venue/${data._id}`} key={data._id}>
+                              <div
+                                className={`p-4 flex items-center space-x-2 w-full  hover:bg-gray-200  ${
+                                  index === searchData.length - 1
+                                    ? " border-none"
+                                    : "border-b-[1px] border-gray-200 "
+                                }`}
+                              >
+                                {/* <MdEventAvailable
                                   className="text-gray-500"
                                   size={20}
-                                />
+                                /> */}
+                                <LuMapPin className="text-gray-500" size={20} />
+
                                 <p className="cursor-pointer">{data.Name}</p>
                               </div>
                             </Link>
@@ -249,9 +288,19 @@ const Navbar = ({ bgColor }) => {
                       <div className="  ">
                         {data.EventName && (
                           <div className="w-full">
-                            <Link href={`/events/${data._id}`}>
-                              <div className="p-4 flex items-center space-x-2 w-full border-gray-300 border-b-2 hover:bg-gray-200">
-                                <LuMapPin className="text-gray-500" size={20} />
+                            <Link href={`/events/${data._id}`} key={data._id}>
+                              <div
+                                className={`p-4 flex items-center space-x-2 w-full  hover:bg-gray-200  ${
+                                  index === searchData.length - 1
+                                    ? " border-none"
+                                    : "border-b-[1px] border-gray-200 "
+                                }`}
+                              >
+                                {/* <LuMapPin className="text-gray-500" size={20} /> */}
+                                <MdEventAvailable
+                                  className="text-gray-500"
+                                  size={20}
+                                />
                                 <p className=" cursor-pointer ">
                                   {data.EventName}
                                 </p>

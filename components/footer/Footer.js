@@ -30,7 +30,7 @@ const Footer = () => {
 
   return (
     <div
-      className="px-16  md:py-20 py-14   text-white"
+      className="px-16  md:py-16 py-10   text-white"
       style={{ backgroundColor: "#2f3e93" }}
     >
       <div className="flex justify-between items-center  lg:flex-row flex-col gap-6 ">

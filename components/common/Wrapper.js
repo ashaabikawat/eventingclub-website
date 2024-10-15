@@ -27,7 +27,7 @@ const Wrapper = ({ children }) => {
           <main className="flex-grow">{children}</main>
 
           {/* Footer always at the bottom */}
-          <Footer />
+          {signup && <Footer />}
         </div>
       </PersistGate>
     </Provider>

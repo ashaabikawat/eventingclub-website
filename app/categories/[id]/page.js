@@ -14,6 +14,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import PageCardWithText from "@/components/card/PageCardWithText";
 import NotFound from "@/components/not found/NotFound";
+import Link from "next/link";
 
 const Page = () => {
   const [startDate, setStartDate] = useState(null);
@@ -210,7 +211,9 @@ const Page = () => {
             <button>
               <FaMapMarkerAlt size={18} color="gray" />
             </button>
-            <span className="text-center">Venues</span>
+            <Link href={`/venue`}>
+              <span className="text-center">Venues</span>
+            </Link>
           </div>
         </div>
       )}

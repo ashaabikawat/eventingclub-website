@@ -64,7 +64,7 @@ const Artists = () => {
               spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 4.2,
+              slidesPerView: 5.2,
               spaceBetween: 20,
             },
           }}

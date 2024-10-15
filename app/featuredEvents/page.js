@@ -10,6 +10,7 @@ import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
 import { Card } from "@material-tailwind/react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -311,7 +312,9 @@ const Page = () => {
             <button>
               <FaMapMarkerAlt size={18} color="gray" />
             </button>
-            <span className="text-center">Venues</span>
+            <Link href={`/venue`}>
+              <span className="text-center">Venues</span>
+            </Link>
           </div>
         </div>
       )}

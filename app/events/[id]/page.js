@@ -92,6 +92,10 @@ const Page = () => {
             spaceBetween: 20,
           },
         },
+        autoplay: {
+          delay: 2000, // Delay in milliseconds
+          disableOnInteraction: false, // Autoplay continues after user interactions
+        },
       };
 
       // Initialize Swiper
@@ -287,7 +291,7 @@ const Page = () => {
           </div>
 
           <div className="min-h-[20px] rounded-lg order-2 md:order-3 px-4 md:px-0">
-            <div className="py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
+            <div className="py-4 px-4 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">
                 Share this event
               </p>
@@ -343,11 +347,12 @@ const Page = () => {
               </div>
             </div>
           )} */}
+
           {eventData?.EventGalleryImages.length > 0 && (
-            <div className="h-auto order-5 md:order-4 md:px-0 px-4 ">
+            <div className="order-5 md:order-4 md:px-0 px-4">
               <div className="border border-gray-500 h-full rounded-lg px-4">
-                <h1 className="md:text-xl mt-4  font-bold">Gallery</h1>
-                <div className=" h-auto md:w-[100%] mb-4 px-10 md:p-4 relative bg-red-500">
+                <h1 className="md:text-xl mt-4 font-bold">Gallery</h1>
+                <div className="py-4">
                   <swiper-container
                     ref={galleryRef}
                     init="false"
@@ -356,15 +361,15 @@ const Page = () => {
                   >
                     {eventData?.EventGalleryImages.map((img) => (
                       <swiper-slide key={img.id}>
-                        <div className="">
+                        <div className="h-full w-full">
+                          {" "}
+                          {/* Fixed container size */}
                           <Image
                             src={`${URL}/${img.image_path}`}
                             alt="carousel-image"
-                            height={400}
-                            width={500}
-                            // layout="fill"
-                            objectFit="cover"
-                            objectPosition="top"
+                            height={325} // Fixed height
+                            width={600} // Fixed width
+                            objectFit="cover" // Ensures the image covers the container
                             className="rounded-lg"
                           />
                         </div>
@@ -387,11 +392,11 @@ const Page = () => {
                     : eventData?.VenueName}
                 </h1>
                 <p className="mt-2 capitalize mb-4">{eventData?.VenueName}</p>
-                <div className="md:min-h-[300px] h-[300px] w-full mb-4">
+                <div className="md:max-h-full lg:h-[300px] h-[200px] w-full mb-4">
                   {eventData?.VenueMapLocationLink && (
                     <div className="h-full w-full overflow-hidden">
                       <div
-                        className="h-full w-full"
+                        className="-h-full w-full"
                         dangerouslySetInnerHTML={{
                           __html: eventData?.VenueMapLocationLink,
                         }}

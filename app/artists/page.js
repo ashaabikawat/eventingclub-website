@@ -95,7 +95,7 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" md:px-14 mt-10 md:mb-10  px-4">
+    <div className=" md:px-14 mt-10 md:mb-10 mb-10 px-4">
       <Toaster />
       {/* <PageHeader text="Explore events by artists:" /> */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center  gap-4">
