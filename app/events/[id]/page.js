@@ -347,7 +347,7 @@ const Page = () => {
             <div className="h-auto order-5 md:order-4 md:px-0 px-4 ">
               <div className="border border-gray-500 h-full rounded-lg px-4">
                 <h1 className="md:text-xl mt-4  font-bold">Gallery</h1>
-                <div className=" h-auto md:w-[100%] mb-4 px-10 md:p-4 relative">
+                <div className=" h-auto md:w-[100%] mb-4 px-10 md:p-4 relative bg-red-500">
                   <swiper-container
                     ref={galleryRef}
                     init="false"
@@ -356,11 +356,13 @@ const Page = () => {
                   >
                     {eventData?.EventGalleryImages.map((img) => (
                       <swiper-slide key={img.id}>
-                        <div className="h-80 w-full  relative">
+                        <div className="">
                           <Image
                             src={`${URL}/${img.image_path}`}
                             alt="carousel-image"
-                            layout="fill"
+                            height={400}
+                            width={500}
+                            // layout="fill"
                             objectFit="cover"
                             objectPosition="top"
                             className="rounded-lg"

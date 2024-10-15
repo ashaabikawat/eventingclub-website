@@ -88,7 +88,7 @@ const Hero = () => {
                   alt="carousel-image"
                   // layout="fill"
                   height={isMobile ? 600 : 600} // Set height for both mobile and desktop
-                  width={isMobile ? 700 : 1200}
+                  width={isMobile ? 700 : 1800}
                   objectFit="cover"
                   // objectPosition="top"
                   // className=" absolute"
