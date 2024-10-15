@@ -327,12 +327,12 @@ const Navbar = ({ bgColor }) => {
               <li>
                 <Link href="/artists">Artist</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/blogs">Blogs</Link>
               </li>
               <li>
                 <Link href="/contact">Contact us</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -386,7 +386,7 @@ const Navbar = ({ bgColor }) => {
                         Artist
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link href="/blogs" onClick={handleToggle}>
                         Blogs
                       </Link>
@@ -395,7 +395,7 @@ const Navbar = ({ bgColor }) => {
                       <Link href="/contact" onClick={handleToggle}>
                         Contact us
                       </Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </nav>
               </div>
