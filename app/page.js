@@ -10,7 +10,7 @@ import UpcomingEvents from "@/components/upcomingEvents/UpcomingEvents";
 export default function Home() {
   return (
     <>
-      {/* <Hero /> */}
+      <Hero />
       <Categories />
       <OnlineEvents />
       <TourEvents />

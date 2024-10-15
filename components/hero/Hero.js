@@ -57,7 +57,7 @@ const Hero = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 650);
+      setIsMobile(window.innerWidth < 600);
     };
 
     handleResize();
@@ -68,7 +68,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className=" h-96 md:h-[600px] mt-6 w-full">
+    <div className=" h-full mt-6 w-full">
       <div className=" h-full  w-full">
         <swiper-container
           ref={swiperRef}
@@ -78,7 +78,7 @@ const Hero = () => {
         >
           {banner?.map((banner) => (
             <swiper-slide key={banner.id}>
-              <div className="h-96 md:h-[600px] w-full  relative  ">
+              <div className="w-full h-full relative  ">
                 <Image
                   src={
                     isMobile
@@ -86,10 +86,12 @@ const Hero = () => {
                       : `${URL}/${banner?.DesktopbannerImage}`
                   }
                   alt="carousel-image"
-                  layout="fill"
+                  // layout="fill"
+                  height={isMobile ? 600 : 600} // Set height for both mobile and desktop
+                  width={isMobile ? 700 : 1200}
                   objectFit="cover"
-                  objectPosition="top"
-                  className=" absolute"
+                  // objectPosition="top"
+                  // className=" absolute"
                 />
               </div>
             </swiper-slide>

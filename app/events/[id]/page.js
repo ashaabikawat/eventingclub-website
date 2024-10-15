@@ -53,7 +53,7 @@ const Page = () => {
         pagination: true,
         breakpoints: {
           640: {
-            slidesPerView: 1,
+            slidesPerView: 2,
             spaceBetween: 10,
           },
           1024: {
@@ -159,16 +159,25 @@ const Page = () => {
     <div className="   mb-16">
       <div className="md:px-6 md:py-1">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6  gap-4  md:p-4 ">
-          <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
+          {/* <div className=" md:min-h-[400px] relative  max-h-[300px]   "> */}
+          <div className="   ">
             {loadings ? (
               "Loading ..."
             ) : imageUrl ? (
-              <div className=" md:aspect-auto  aspect-square ">
+              <div className=" h-full w-full ">
                 <Image
                   src={`${URL}/${imageUrl}`}
                   alt="image"
-                  layout="fill"
-                  className="absolute md:rounded-xl overflow-hidden"
+                  // layout="fill"
+                  height={500}
+                  width={800}
+                  // className=" overflow-hidden"
+                  className="md:w-[1000px] md:h-[400px] 
+                   sm:w-[700px] sm:h-[450px]  /* Adjust for smaller screens */
+                   lg:w-[1000px] lg:h-[400px] /* Adjust for larger screens */
+                   xl:w-[1200px] xl:h-[400px] md:rounded-xl "
+                  objectFit="cover
+                  "
                 />
               </div>
             ) : (
@@ -243,14 +252,16 @@ const Page = () => {
                 >
                   {eventData?.EventCarouselImages.map((img) => (
                     <swiper-slide key={img.id}>
-                      <div className="h-52 w-full  relative ">
+                      <div className="  ">
                         <Image
                           src={`${URL}/${img.image_path}`}
                           alt="carousel-image"
-                          layout="fill"
+                          // layout="fill"
+                          height={300}
+                          width={500}
                           objectFit="cover"
-                          objectPosition="top"
-                          className="rounded-lg absolute"
+                          // objectPosition="top"
+                          className="rounded-lg "
                         />
                       </div>
                     </swiper-slide>
@@ -448,7 +459,7 @@ const Page = () => {
 
         {/* accordion */}
         <div className="md:mt-14 mt-10 px-6">
-          {eventData?.VenueEventFlag && eventData?.VenueLayout && (
+          {Boolean(eventData?.VenueEventFlag && eventData?.VenueLayout) && (
             <Accordion open={open === 1}>
               <AccordionHeader
                 className="flex w-full  justify-between "
@@ -475,7 +486,7 @@ const Page = () => {
             </Accordion>
           )}
 
-          {eventData?.EventFaqs?.length > 0 && (
+          {Boolean(eventData?.EventFaqs?.length > 0) && (
             <Accordion open={open === 2} className="mt-2">
               <AccordionHeader
                 className="flex w-full  justify-between "

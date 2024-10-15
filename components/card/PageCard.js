@@ -7,13 +7,15 @@ const PageCard = ({ data }) => {
   const imageUrl = data?.Images[0].image_path;
 
   return (
-    <Card className="w-full md:h-64 h-52  relative cursor-pointer overflow-hidden">
+    <div className="w-full h-full relative cursor-pointer overflow-hidden">
       {/* <CardHeader floated={false} className="h-80"> */}
-      <div className="w-full h-full relative  ">
+      <div>
         <Image
           src={`${URL}/${imageUrl}`}
           alt="profile-picture"
-          layout="fill"
+          // layout="fill"
+          height={375}
+          width={500}
           objectFit="cover"
           objectPosition="top"
           className="rounded  "
@@ -23,7 +25,7 @@ const PageCard = ({ data }) => {
       <div className="absolute inset-x-4 bottom-6">
         <p className="text-white text-sm md:text-base">{data.Name}</p>
       </div>
-    </Card>
+    </div>
   );
 };
 export default PageCard;
