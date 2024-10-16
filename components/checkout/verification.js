@@ -145,7 +145,7 @@ const Verification = ({
 
   return (
     <div className="w-full">
-      <Toaster />
+      {/* <Toaster /> */}
       <div className="flex flex-col gap-2">
         {/* Show phone number input if OTP hasn't been sent and no token exists */}
         {!otpSent && !getToken && (

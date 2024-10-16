@@ -11,21 +11,21 @@ const Footer = () => {
       name: "facebook",
       icon: "fa-facebook-f",
     },
+    // {
+    //   id: 2,
+    //   name: "twitter",
+    //   icon: "fa-twitter",
+    // },
     {
       id: 2,
-      name: "twitter",
-      icon: "fa-twitter",
-    },
-    {
-      id: 3,
       name: "instagram",
       icon: "fa-instagram",
     },
-    {
-      id: 4,
-      name: "pinterest",
-      icon: "fa-pinterest",
-    },
+    // {
+    //   id: 4,
+    //   name: "pinterest",
+    //   icon: "fa-pinterest",
+    // },
   ];
 
   return (
@@ -39,7 +39,7 @@ const Footer = () => {
           <Link href="/">
             <div className="cursor-pointer relative md:h-20 md:w-52 h-14 w-28">
               <Image
-                src="/Eventing club logo transparent.png"
+                src="/Frame 8107.png"
                 alt="logo"
                 layout="fill"
                 className="absolute"
@@ -59,12 +59,12 @@ const Footer = () => {
             <li>
               <Link href="/artists">Artist</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/blogs">Blogs</Link>
             </li>
             <li>
               <Link href="/contact">Contact us</Link>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="flex items-center justify-center gap-4 ">

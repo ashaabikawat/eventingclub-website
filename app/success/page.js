@@ -1,20 +1,26 @@
 "use client";
 import { reset_state } from "@/store/slices/booking";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 
 const Page = () => {
   const search = useSearchParams();
+
   const router = useRouter();
+
+  const formatAmount = (amount) => {
+    return amount.toLocaleString("en-IN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
 
   const Booking_id = search.get("Booking_id");
   const amount = search.get("amount");
   const paymentmode = search.get("paymentmode");
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(reset_state());
   }, []);
@@ -58,7 +64,9 @@ const Page = () => {
               <div className="flex flex-col md:gap-6 gap-6">
                 <div className="flex md:flex-row flex-col gap-1 justify-between">
                   <p className="md:text-xl capitalize text-gray-500">Amount</p>
-                  <p className="md:text-xl font-semibold">₹ {amount}</p>
+                  <p className="md:text-xl font-semibold">
+                    ₹ {formatAmount(Number(amount))}
+                  </p>
                 </div>
                 <div className="flex  md:flex-row flex-col gap-1  justify-between">
                   <p className="md:text-xl  capitalize text-gray-500">
@@ -79,7 +87,7 @@ const Page = () => {
           <div className="md:mt-6  mt-8">
             <button
               className="bg-blue-900 hover:bg-blue-800 md:text-lg text-sm text-white md:p-4  px-4 py-3 rounded-md"
-              onclick={() => router.push("/")}
+              onClick={() => router.push("/")}
             >
               Back to the main page
             </button>

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Promocode from "../common/promocode/Promocode";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import { promocode } from "@/utils/config";
+import { bookTicketApi, promocode } from "@/utils/config";
 import { useParams, useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
@@ -18,7 +18,7 @@ import {
   setTicketId,
 } from "../../store/slices/booking";
 
-const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
+const BookingSummary = ({ handleOpen }) => {
   const totalTickets = useSelector(
     (store) => store.booking.bookingData.totalTickets
   );
@@ -28,7 +28,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   const booking = useSelector((store) => store.booking);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  console.log(promocodes);
+  const promocodeId = useSelector((store) => store.booking.promocodeId);
 
   const [promoObject, setpromoObject] = useState();
 
@@ -38,6 +38,9 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   // console.log(selectedTicket);
 
   const bookingData = useSelector((store) => store.booking.bookingData);
+  const PromocodeIdFromLs = useSelector((store) => store.booking.promocodeId);
+  console.log(PromocodeIdFromLs);
+
   const router = useRouter();
 
   // console.log(
@@ -73,7 +76,8 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
   const gst = convenienceFee * 0.18;
 
   // Calculate total amount
-  const totalAmount = ticketAmount + convenienceFee + gst - promocodeDiscount;
+  const totalAmount =
+    ticketAmount + convenienceFee + gst - promocodeDiscountPrice;
 
   const promocodePrice = promoObject?.Value;
   const promocodeDiscountAmount =
@@ -85,6 +89,16 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
       maximumFractionDigits: 2,
     });
   };
+
+  useEffect(() => {
+    if (promocodes?.applicablePromocodes) {
+      const selectedPromocode = promocodes.applicablePromocodes.find(
+        (promo) => promo._id === PromocodeIdFromLs
+      );
+      setpromoObject(selectedPromocode);
+      console.log("selectedPromocode", selectedPromocode);
+    }
+  }, [PromocodeIdFromLs, promocodes]);
 
   const handleApplyPromocode = () => {
     const selectedPromocode = promocodes?.applicablePromocodes?.find(
@@ -218,10 +232,59 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
           status === 400
         ) {
           // console.log(error.response);
-          toast.error(data.message);
+          // toast.error(data.message);
           // setLoading(false);
         }
       }
+    }
+  };
+
+  const bookTicket = async () => {
+    const payload = {
+      customer_id: cust_id,
+      event_id: id,
+      EventTicket_id: selectedTicket[0]?.Ticket_Id,
+      TicketQuantity: totalTickets,
+
+      //Optional Feilds
+
+      // customer_Country: "India",
+      // customer_CountryIsoCode: "IN",
+    };
+    if (promocodeId) payload.Promocode_id = promocodeId;
+    // if (formData.address) payload.customer_Address = formData?.address;
+
+    // if (formData.pincode) payload.customer_Pincode = formData?.pincode;
+    // if (address?.stateName) payload.customer_State = String(address?.stateName);
+
+    // if (address?.stateIsoCode)
+    //   payload.customer_StateIsoCode = String(address?.stateIsoCode);
+
+    // if (address?.cityName) payload.customer_City = address?.cityName;
+
+    console.log(payload);
+
+    try {
+      const response = await axios.post(`${bookTicketApi.POST_DATA}`, payload);
+      console.log(response.data);
+      // toast.success(response.data.message);
+      const form = document.createElement("form");
+      form.setAttribute("method", "POST");
+      form.setAttribute("action", "https://test.payu.in/_payment");
+
+      Object.keys(response.data.data).forEach((key) => {
+        const hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", response.data.data[key]);
+        form.appendChild(hiddenField);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+      // dispatch(reset_state());
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -264,6 +327,8 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
     setPromocodeValue(promoObject?.PromoCodeName || "");
   }, [promoObject]);
 
+  const baseAmount = convenienceFee + gst;
+
   return (
     <div>
       {/* <Toaster /> */}
@@ -299,143 +364,151 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
             </div>
           </div>
 
-          <div className="border  border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
-            <div className="flex  flex-col w-full h-auto gap-4">
-              <h1 className="md:font-bold md:text-2xl text-xl">
-                Have a promo code?
-              </h1>
+          {promocodes?.applicablePromocodes?.length > 0 && (
+            <div className="border  border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
+              <div className="flex  flex-col w-full h-auto gap-4">
+                <h1 className="md:font-bold md:text-2xl text-xl">
+                  Have a PromoCode?
+                </h1>
 
-              <div className="flex justify-between items-center">
-                {/* promo code input */}
-                <input
-                  type="text"
-                  placeholder="Enter promo code"
-                  value={promocodeValue}
-                  onChange={(e) => setPromocodeValue(e.target.value)}
-                  className="border border-gray-200 md:px-3 md:py-3 p-2 rounded-lg w-[100%] relative"
-                  disabled
-                />
-                <button
-                  onClick={() => {
-                    dispatch(remove_promocode());
-                    setPromocodeDiscountPrice(0);
-                    localStorage.removeItem("promocodeDiscountAmount");
-                  }}
-                  className=" absolute md:right-24  right-20 md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
-                >
-                  X
-                </button>
-                <button
-                  onClick={handleApplyPromocode}
-                  className=" absolute right-6   border-l-2 border-black md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
-                >
-                  Apply
-                </button>
-              </div>
-
-              <div>
-                <div>
-                  <Swiper
-                    // spaceBetween={20}
-                    // slidesPerView={6}
-                    breakpoints={{
-                      320: {
-                        slidesPerView: 1,
-                        spaceBetween: 6,
-                      },
-                      375: {
-                        slidesPerView: 1.2,
-                        spaceBetween: 6,
-                      },
-                      425: {
-                        slidesPerView: 1.4,
-                        spaceBetween: 10,
-                      },
-                      480: {
-                        slidesPerView: 2,
-                        spaceBetween: 10,
-                      },
-                      768: {
-                        slidesPerView: 2.6,
-                        spaceBetween: 6,
-                      },
-                      1024: {
-                        slidesPerView: 3.8,
-                        spaceBetween: 10,
-                      },
-                      1440: {
-                        slidesPerView: 5.6,
-                        spaceBetween: 12,
-                      },
+                <div className="flex justify-between items-center">
+                  {/* promo code input */}
+                  <input
+                    type="text"
+                    placeholder="Enter promocode"
+                    value={promocodeValue}
+                    onChange={(e) => setPromocodeValue(e.target.value)}
+                    className="border border-gray-200 md:px-3 md:py-3 p-2 rounded-lg w-[100%] relative"
+                    disabled
+                  />
+                  <button
+                    onClick={() => {
+                      dispatch(remove_promocode());
+                      setPromocodeDiscountPrice(0);
+                      localStorage.removeItem("promocodeDiscountAmount");
                     }}
+                    className=" absolute md:right-24  right-20 md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
                   >
-                    {promocodes?.applicablePromocodes?.map((promocode) => (
-                      <SwiperSlide
-                        key={promocode?._id}
-                        className="w-full cursor-pointer"
-                        onClick={() => handleTermsAndConditions(promocode?._id)}
-                      >
-                        <Promocode promocode={promocode} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                  {/* <Promocode /> */}
+                    X
+                  </button>
+                  <button
+                    onClick={handleApplyPromocode}
+                    className=" absolute right-6   border-l-2 border-black md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
+                  >
+                    Apply
+                  </button>
                 </div>
-                {isOpen && (
-                  <>
-                    <div
-                      className="fixed inset-0 bg-black opacity-50 z-40"
-                      aria-hidden="true"
-                    ></div>
 
-                    <div
-                      id="static-modal"
-                      data-modal-backdrop="static"
-                      tabIndex="-1"
-                      aria-hidden="true"
-                      className="fixed inset-0 z-50 flex justify-center items-center w-full h-full"
+                <div>
+                  <div>
+                    <Swiper
+                      // spaceBetween={20}
+                      // slidesPerView={6}
+                      breakpoints={{
+                        320: {
+                          slidesPerView: 1,
+                          spaceBetween: 6,
+                        },
+                        375: {
+                          slidesPerView: 1.2,
+                          spaceBetween: 6,
+                        },
+                        425: {
+                          slidesPerView: 1.4,
+                          spaceBetween: 10,
+                        },
+                        480: {
+                          slidesPerView: 2,
+                          spaceBetween: 10,
+                        },
+                        768: {
+                          slidesPerView: 2.6,
+                          spaceBetween: 6,
+                        },
+                        1024: {
+                          slidesPerView: 3.8,
+                          spaceBetween: 10,
+                        },
+                        1440: {
+                          slidesPerView: 5.6,
+                          spaceBetween: 12,
+                        },
+                      }}
                     >
-                      <div className="relative p-4 flex items-center justify-center">
-                        {/* <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 text-center ">
+                      {promocodes?.applicablePromocodes?.map((promocode) => (
+                        <SwiperSlide
+                          key={promocode?._id}
+                          className="w-full cursor-pointer"
+                          onClick={() =>
+                            handleTermsAndConditions(promocode?._id)
+                          }
+                        >
+                          <Promocode
+                            promocode={promocode}
+                            selectedId={PromocodeIdFromLs}
+                            setpromoObject={setpromoObject}
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                    {/* <Promocode /> */}
+                  </div>
+                  {isOpen && (
+                    <>
+                      <div
+                        className="fixed inset-0 bg-black opacity-50 z-40"
+                        aria-hidden="true"
+                      ></div>
+
+                      <div
+                        id="static-modal"
+                        data-modal-backdrop="static"
+                        tabIndex="-1"
+                        aria-hidden="true"
+                        className="fixed inset-0 z-50 flex justify-center items-center w-full h-full"
+                      >
+                        <div className="relative p-4 flex items-center justify-center">
+                          {/* <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 text-center ">
                           <div className="relative  ">
 
                           </div>
                         </div> */}
-                        <div className="relative  bg-white rounded-lg shadow dark:bg-gray-700 w-72 md:w-96">
-                          <div className=" border border-gray-300 rounded-md px-2 py-4 md:w-full ">
-                            <div className="flex justify-between items-center">
-                              <div className=" items-center  flex gap-4 ">
-                                {/* <input type="radio" className="w-4 h-4" /> */}
-                                <label className=" text-blue-900 text-base p-2 md:ml-8 rounded-md border border-dashed border-blue-900 font-bold">
-                                  {promoObject?.PromoCodeName}
-                                </label>
+                          <div className="relative  bg-white rounded-lg shadow dark:bg-gray-700 w-72 md:w-96">
+                            <div className=" border border-gray-300 rounded-md px-2 py-4 md:w-full ">
+                              <div className="flex justify-between items-center">
+                                <div className=" items-center  flex gap-4 ">
+                                  {/* <input type="radio" className="w-4 h-4" /> */}
+                                  <label className=" text-blue-900 text-base p-2 md:ml-8 rounded-md border border-dashed border-blue-900 font-bold">
+                                    {promoObject?.PromoCodeName}
+                                  </label>
+                                </div>
+                                <button>
+                                  <IoIosCloseCircle
+                                    size={25}
+                                    onClick={() => setIsOpen(false)}
+                                  />
+                                </button>
                               </div>
-                              <button>
-                                <IoIosCloseCircle
-                                  size={25}
-                                  onClick={() => setIsOpen(false)}
-                                />
-                              </button>
-                            </div>
-                            <div>
-                              <div className="flex flex-col gap-2 mt-3 pl-8 ">
-                                <p className="text-base capitalize  pt-4 border-t-2 border-gray-200 text-blue-900 font-semibold">
-                                  save &#8377; {promoObject?.Value}
-                                </p>
-                                <p className="text-xs text-gray-700">
-                                  {promoObject?.TermsCondition}
-                                </p>
+                              <div>
+                                <div className="flex flex-col gap-2 mt-3 pl-8 ">
+                                  <p className="text-base capitalize  pt-4 border-t-2 border-gray-200 text-blue-900 font-semibold">
+                                    save &#8377; {promoObject?.Value}
+                                  </p>
+                                  <p className="text-xs text-gray-700">
+                                    {promoObject?.TermsCondition}
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="border  border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
             <div className="flex  flex-col w-full h-auto gap-4">
@@ -449,13 +522,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                     &#8377;{formatAmount(ticketAmount)}
                   </p>
                 </div>
-                <div className="flex justify-between">
-                  <p className="md:text-lg capitalize">convenience fee</p>
-                  <p className="md:text-lg font-bold flex gap-2 text-green-500">
-                    <span>+</span>
-                    &#8377;{formatAmount(convenienceFee)}
-                  </p>
-                </div>
+
                 <div className="flex justify-between">
                   <p className="md:text-lg capitalize">promocode</p>
                   <p className="md:text-lg font-bold flex gap-2 text-red-500">
@@ -467,10 +534,28 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
                     {promocodeDiscountPrice ? promocodeDiscountPrice : 0}
                   </p>
                 </div>
-                <div className="flex justify-between mb-2">
-                  <p className="md:text-lg capitalize">GST</p>
+
+                <div className="flex justify-between">
+                  <p className="md:text-lg capitalize">convenience fee</p>
                   <p className="md:text-lg font-bold flex gap-2 text-green-500">
-                    <span>+</span> &#8377;{formatAmount(gst)}
+                    <span>+</span>
+                    &#8377;{formatAmount(baseAmount)}
+                  </p>
+                </div>
+
+                <div className="flex justify-between">
+                  <p className="text-sm capitalize text-gray-500">
+                    Base amount
+                  </p>
+                  <p className="text-sm flex gap-2 text-gray-500">
+                    &#8377;{formatAmount(convenienceFee)}
+                  </p>
+                </div>
+
+                <div className="flex justify-between mb-2">
+                  <p className="text-sm capitalize text-gray-500">GST</p>
+                  <p className="text-sm  flex gap-2 text-gray-500">
+                    &#8377;{formatAmount(gst)}
                   </p>
                 </div>
               </div>
@@ -487,7 +572,7 @@ const BookingSummary = ({ handleOpen, isAccordionOpen }) => {
             </div>
           </div>
           <button
-            onClick={() => handleOpen(3)}
+            onClick={bookTicket}
             className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 md:w-full"
           >
             Continue

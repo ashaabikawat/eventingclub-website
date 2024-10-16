@@ -47,7 +47,7 @@ const Page = () => {
               <button
                 className="bg-blue-900 hover:bg-blue-800 md:text-lg text-sm text-white md:p-4  px-4 py-3 rounded-md"
                 // onclick={() => console.log("backed")}
-                onclick={() => router.push("/")}
+                onClick={() => router.push("/")}
               >
                 Back to the main page
               </button>

@@ -278,7 +278,8 @@ const booking = createSlice({
       state.promocodeId = null;
       state.ticketId = null;
       localStorage.setItem("ticketCounts", JSON.stringify({}));
-      // localStorage.removeItem("convenienceFee");
+      localStorage.removeItem("promocodeDiscountAmount");
+      localStorage.removeItem("convenienceFee");
       // localStorage.removeItem("persist:root");
 
       // window.location.reload();

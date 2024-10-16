@@ -101,7 +101,7 @@ const Checkout = () => {
         </div>
       </div>
 
-      <div className="md:px-12 md:mt-6 px-4 mt-4">
+      {/* <div className="md:px-12 md:mt-6 px-4 mt-4">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 3}>
             <AccordionHeader className="border-none">
@@ -120,7 +120,7 @@ const Checkout = () => {
             </AccordionBody>
           </Accordion>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

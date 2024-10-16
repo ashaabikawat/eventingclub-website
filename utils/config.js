@@ -64,7 +64,7 @@ export const promocode = {
   GET_ALL: `${URL}/webiste/promocodes/getPromocodesForEventsWebsite`,
 };
 
-export const ticket = {
+export const bookTicketApi = {
   POST_DATA: `${URL}/webiste/bookticket/bookTicket`,
 };
 
