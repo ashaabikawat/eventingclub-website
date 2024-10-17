@@ -13,7 +13,7 @@ const Page = () => {
   const [ticketDate, setTicketDate] = useState();
   const [showTicket, setShowTicket] = useState(false);
   const [quantitySelection, setQuantitySelection] = useState(false);
-  console.log("tciketdate", ticketDate);
+  // console.log("tciketdate", ticketDate);
 
   useEffect(() => {
     bookTicket();

@@ -8,6 +8,8 @@ import { bookTicketApi, promocode } from "@/utils/config";
 import { useParams, useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
+import CryptoJS from "crypto-js";
+
 import {
   handleIncrease,
   handleDecrease,
@@ -39,7 +41,7 @@ const BookingSummary = ({ handleOpen }) => {
 
   const bookingData = useSelector((store) => store.booking.bookingData);
   const PromocodeIdFromLs = useSelector((store) => store.booking.promocodeId);
-  console.log(PromocodeIdFromLs);
+  // console.log(PromocodeIdFromLs);
 
   const router = useRouter();
 
@@ -49,6 +51,18 @@ const BookingSummary = ({ handleOpen }) => {
   // );
 
   const [promocodeValue, setPromocodeValue] = useState("");
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
+
+  // encrypt data
+  const encryptData = (data) => {
+    return CryptoJS.AES.encrypt(JSON.stringify(data), passphrase).toString();
+  };
+
+  // Decryption function
+  const decryptData = (encryptedData) => {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, passphrase);
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  };
 
   const dispatch = useDispatch();
   const totalTicketsUi = totalTickets;
@@ -96,7 +110,7 @@ const BookingSummary = ({ handleOpen }) => {
         (promo) => promo._id === PromocodeIdFromLs
       );
       setpromoObject(selectedPromocode);
-      console.log("selectedPromocode", selectedPromocode);
+      // console.log("selectedPromocode", selectedPromocode);
     }
   }, [PromocodeIdFromLs, promocodes]);
 
@@ -107,7 +121,7 @@ const BookingSummary = ({ handleOpen }) => {
 
     const minAmount = Number(selectedPromocode?.MinAmount);
     const ticketAmountNum = Number(ticketAmount);
-    console.log(ticketAmount);
+    // console.log(ticketAmount);
 
     if (!isNaN(minAmount) && !isNaN(ticketAmountNum)) {
       if (minAmount <= ticketAmountNum) {
@@ -130,7 +144,7 @@ const BookingSummary = ({ handleOpen }) => {
       // console.log("Invalid amounts:", minAmount, ticketAmountNum);
     }
   };
-  console.log(promocodeDiscountPrice);
+  // console.log(promocodeDiscountPrice);
   // const handleDecreaseTicket = (id) => {
   //   console.log(id);
   //   console.log(bookingData);
@@ -155,8 +169,8 @@ const BookingSummary = ({ handleOpen }) => {
   // };
 
   const handleDecreaseTicket = (id) => {
-    console.log(id);
-    console.log(bookingData);
+    // console.log(id);
+    // console.log(bookingData);
 
     if (quantity > 1) {
       const newQuantity = quantity - 1;
@@ -182,7 +196,7 @@ const BookingSummary = ({ handleOpen }) => {
   };
 
   const handleIncrease = (id) => {
-    console.log(id);
+    // console.log(id);
     const bookingLimit = bookingData.selectedTickets[0].BookingMaxLimit;
     if (quantity < bookingLimit) {
       const newQuanity = quantity + 1;
@@ -262,21 +276,29 @@ const BookingSummary = ({ handleOpen }) => {
 
     // if (address?.cityName) payload.customer_City = address?.cityName;
 
-    console.log(payload);
+    // console.log(payload);
 
+    const encryptedPayload = encryptData(JSON.stringify(payload));
+    // console.log(encryptedPayload);
     try {
-      const response = await axios.post(`${bookTicketApi.POST_DATA}`, payload);
-      console.log(response.data);
+      const response = await axios.post(`${bookTicketApi.POST_DATA}`, {
+        string: encryptedPayload,
+      });
+      // console.log(response.data);
       // toast.success(response.data.message);
+      // const decryptedData = decryptData(response.data.data);
+      const data = decryptData(response.data.data);
+      console.log(data);
+
       const form = document.createElement("form");
       form.setAttribute("method", "POST");
       form.setAttribute("action", "https://test.payu.in/_payment");
 
-      Object.keys(response.data.data).forEach((key) => {
+      Object.keys(data).forEach((key) => {
         const hiddenField = document.createElement("input");
         hiddenField.setAttribute("type", "hidden");
         hiddenField.setAttribute("name", key);
-        hiddenField.setAttribute("value", response.data.data[key]);
+        hiddenField.setAttribute("value", data[key]);
         form.appendChild(hiddenField);
       });
 
@@ -284,7 +306,7 @@ const BookingSummary = ({ handleOpen }) => {
       form.submit();
       // dispatch(reset_state());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -599,3 +621,25 @@ const BookingSummary = ({ handleOpen }) => {
 };
 
 export default BookingSummary;
+
+// // Use the same encryption key from the environment or a secure source
+// const ENCRYPTION_KEY = process.env.NEXT_PUBLIC_ENCRYPTION_KEY; // Same 32-byte key as in the backend
+// const IV_LENGTH = 16;
+
+// // Function to encrypt data on the frontend
+// const encryptData = (data) => {
+//   const iv = crypto.randomBytes(IV_LENGTH);
+//   const cipher = crypto.createCipheriv(
+//     "aes-256-cbc",
+//     Buffer.from(ENCRYPTION_KEY, "hex"),
+//     iv
+//   );
+
+//   let encrypted = cipher.update(data, "utf8", "hex");
+//   encrypted += cipher.final("hex");
+
+//   return {
+//     iv: iv.toString("hex"), // Send IV along with the encrypted data
+//     encryptedData: encrypted,
+//   };
+// };

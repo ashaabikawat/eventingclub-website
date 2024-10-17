@@ -14,7 +14,7 @@ const Page = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [debounced, setDebounced] = useState("");
   const [loadingData, setLoadingData] = useState(true);
-  console.log(loadingData);
+  // console.log(loadingData);
   useEffect(() => {
     fetchCategories();
   }, []);

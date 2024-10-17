@@ -25,7 +25,7 @@ const Page = () => {
       setAllVenues(response.data.data);
       setVenuesDuplicate(response.data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   useEffect(() => {
@@ -64,7 +64,7 @@ const Page = () => {
             status === 401 ||
             status === 400
           ) {
-            console.log(error.response);
+            // console.log(error.response);
             toast.error(data.message);
           }
         }

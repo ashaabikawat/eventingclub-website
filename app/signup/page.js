@@ -57,10 +57,10 @@ const Page = () => {
       MobileNumber: number,
     };
 
-    console.log(payload);
+    // console.log(payload);
     try {
       const response = await axios.post(generateOPT, payload);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       dispatch(
         setAuthDetails({
           cust_id: response.data.data.customer_id,
@@ -108,7 +108,7 @@ const Page = () => {
       Otp: stringOtp,
       customer_id: customerId,
     };
-    console.log(payload);
+    // console.log(payload);
 
     try {
       const response = await axios.post(validateOtp, payload);
@@ -128,7 +128,7 @@ const Page = () => {
       CustomerName: formData.name,
       Email: formData.email,
     };
-    console.log(payload);
+    // console.log(payload);
 
     try {
       const response = await axios.post(registerUser, payload);

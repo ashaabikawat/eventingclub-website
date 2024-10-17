@@ -41,7 +41,7 @@ const Page = () => {
     };
     try {
       const response = await axios.post(`${eventTour.GET_BY_ID}`, payload);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setEventData(response.data.data);
       setTourEvent(response.data.data.TourEvents);
 

@@ -26,7 +26,7 @@ const Page = () => {
     };
     try {
       const response = await axios.post(`${venues.GET_BY_ID}`, payload);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setVenueData(response.data.data);
       setVenueEventsdata(response.data.data.venueEvents);
     } catch (error) {

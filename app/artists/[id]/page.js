@@ -36,7 +36,7 @@ const Page = () => {
       setSingleArtists(response.data.data.currentArtist);
       setArtistEvents(response.data.data.currentArtistEvents);
       setOtherArtists(response.data.data.otherArtists);
-      console.log("upcoming events", response.data.data.currentArtistEvents);
+      // console.log("upcoming events", response.data.data.currentArtistEvents);
       setLoading(false);
     } catch (error) {
       if (error.response) {

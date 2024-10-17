@@ -30,10 +30,10 @@ const Page = () => {
   const [endDate, setEndDate] = useState(null);
   const [range, setRange] = useState("start");
   const [filters, setFilters] = useState({});
-  console.log("filters", filters);
+  // console.log("filters", filters);
   const handleManualSubmit = () => {
-    console.log(startDate);
-    console.log(endDate);
+    // console.log(startDate);
+    // console.log(endDate);
 
     DateFilterApiCall(startDate, endDate);
     setIsManual(false);

@@ -27,7 +27,7 @@ const Page = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
   const [range, setRange] = useState("start");
   const [filters, setFilters] = useState({});
-  console.log("filters", filters);
+  // console.log("filters", filters);
 
   const handleManualSubmit = () => {
     // console.log(startDate);
@@ -68,7 +68,7 @@ const Page = () => {
 
     setFilters(newFilters);
     const payload = { category_id: id, ...newFilters };
-    console.log(payload);
+    // console.log(payload);
     setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
@@ -90,7 +90,7 @@ const Page = () => {
     newFilters.Genre_id = value;
     setFilters(newFilters);
     const payload = { category_id: id, ...newFilters };
-    console.log(payload);
+    // console.log(payload);
     setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
