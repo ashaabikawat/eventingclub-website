@@ -288,7 +288,7 @@ const BookingSummary = ({ handleOpen }) => {
       // toast.success(response.data.message);
       // const decryptedData = decryptData(response.data.data);
       const data = decryptData(response.data.data);
-      console.log(data);
+      // console.log(data);
 
       const form = document.createElement("form");
       form.setAttribute("method", "POST");

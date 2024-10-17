@@ -190,6 +190,13 @@ const Verification = ({
                   placeholder="0"
                   ref={(el) => (inputs.current[index] = el)}
                   onChange={(e) => handleChange(e, index)}
+                  onInput={(e) => {
+                    // Allow only one numeric character
+                    const value = e.target.value;
+                    if (value.length > 1 || isNaN(value)) {
+                      e.target.value = value.slice(0, 1).replace(/[^0-9]/g, "");
+                    }
+                  }}
                 />
               ))}
             </div>
