@@ -17,6 +17,7 @@ const Checkout = () => {
 
   const isLoggedIn = getToken?.isLoggedIn;
   const cust_id = getToken?.cust_id;
+
   const handleOpen = (value) => {
     if (cust_id) {
       setOpen(open === value ? 0 : value);

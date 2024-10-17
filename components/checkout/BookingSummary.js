@@ -623,23 +623,3 @@ const BookingSummary = ({ handleOpen }) => {
 export default BookingSummary;
 
 // // Use the same encryption key from the environment or a secure source
-// const ENCRYPTION_KEY = process.env.NEXT_PUBLIC_ENCRYPTION_KEY; // Same 32-byte key as in the backend
-// const IV_LENGTH = 16;
-
-// // Function to encrypt data on the frontend
-// const encryptData = (data) => {
-//   const iv = crypto.randomBytes(IV_LENGTH);
-//   const cipher = crypto.createCipheriv(
-//     "aes-256-cbc",
-//     Buffer.from(ENCRYPTION_KEY, "hex"),
-//     iv
-//   );
-
-//   let encrypted = cipher.update(data, "utf8", "hex");
-//   encrypted += cipher.final("hex");
-
-//   return {
-//     iv: iv.toString("hex"), // Send IV along with the encrypted data
-//     encryptedData: encrypted,
-//   };
-// };

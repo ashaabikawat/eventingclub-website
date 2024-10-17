@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useMemo, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../components/common/loading/Loading";
 
 const Page = () => {
   const dispatch = useDispatch();
@@ -57,10 +58,10 @@ const Page = () => {
       MobileNumber: number,
     };
 
-    // console.log(payload);
+    console.log(payload);
     try {
       const response = await axios.post(generateOPT, payload);
-      // console.log(response.data.data);
+      console.log(response.data.data);
       dispatch(
         setAuthDetails({
           cust_id: response.data.data.customer_id,
@@ -70,7 +71,22 @@ const Page = () => {
       toast.success(response.data.message);
       setOtpSent(true);
     } catch (error) {
-      toast.error(error.message);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          // console.log(error.response);
+          toast.error(data.message);
+        }
+      }
     }
   };
 
@@ -108,7 +124,7 @@ const Page = () => {
       Otp: stringOtp,
       customer_id: customerId,
     };
-    // console.log(payload);
+    console.log(payload);
 
     try {
       const response = await axios.post(validateOtp, payload);
@@ -118,7 +134,22 @@ const Page = () => {
       toast.success(response.data.message);
       setOtpSent(false);
     } catch (error) {
-      toast.error(error.message);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          // console.log(error.response);
+          toast.error(data.message);
+        }
+      }
     }
   };
 
@@ -128,19 +159,34 @@ const Page = () => {
       CustomerName: formData.name,
       Email: formData.email,
     };
-    // console.log(payload);
+    console.log(payload);
 
     try {
       const response = await axios.post(registerUser, payload);
       toast.success(response.data.message);
       dispatch(loginSuccess());
+      router.push("/");
     } catch (error) {
-      toast.error(error.data.message);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          // console.log(error.response);
+          toast.error(data.message);
+        }
+      }
     }
-    router.push("/");
   };
 
-  if (loading) return <h1>loading ...</h1>;
+  if (loading) return <Loading />;
 
   return (
     <div className=" h-screen  ">

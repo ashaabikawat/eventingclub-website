@@ -19,8 +19,10 @@ import {
   reset_state,
   setTicketId,
 } from "../../store/slices/booking";
+import Loading from "../common/loading/Loading";
 
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const { id } = useParams();
 
@@ -244,6 +246,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     try {
       const response = await axios.post(`${events.GET_TICKETS_BY_ID}`, payload);
       console.log(response.data.data);
+      setIsLoading(false);
       // setTicketData(response.data.data);
       setEventTicket(response.data.data);
       console.log(response.data.data[0].ConfeeUnit);
@@ -256,6 +259,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       );
       dispatch(setTicketData(response.data.data));
     } catch (error) {
+      setIsLoading(false);
       if (error.response) {
         const { status, data } = error.response;
 
@@ -449,7 +453,9 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     router.push(`/events/tickets/${storedEventId}/checkout`);
   };
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div className="min-h-screen flex flex-col">
       <div className="bg-gray-50 md:py-10 h-full flex-grow">
         <Toaster />
@@ -509,7 +515,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                       <SwiperSlide>
                         <div
                           onClick={() => handleSeasonPass()}
-                          className="cursor"
+                          className="cursor-pointer"
                         >
                           <div
                             className="border border-blue-900 bg-white flex items-center justify-start gap-5 flex-col rounded-md px-4 py-2
@@ -558,7 +564,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                     {data?.DateTimeDate.length > 1 && (
                       <div
                         onClick={() => handleSeasonPass()}
-                        className="cursor"
+                        className="cursor-pointer"
                       >
                         <div
                           className="border border-blue-900 bg-white flex items-center justify-start gap-5 flex-col rounded-md p-2

@@ -31,6 +31,7 @@ const saveAuthToLocalStorage = (state) => {
         token: state.token,
         cust_id: state.cust_id,
         isLoggedIn: state.isLoggedIn,
+        customer_exists: state.customer_exists,
       })
     );
   }
