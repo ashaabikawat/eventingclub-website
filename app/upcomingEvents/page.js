@@ -1,17 +1,13 @@
 "use client";
 
 import Filter from "@/components/filter/Filter";
-import { categories, upcomingEvents } from "@/utils/config";
-import { dateFilter, URL } from "@/utils/constants";
-import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
-import { Card } from "@material-tailwind/react";
+import { upcomingEvents } from "@/utils/config";
+import { dateFilter } from "@/utils/constants";
 import axios from "axios";
-import Image from "next/image";
-import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { TbFilter } from "react-icons/tb";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import PageCardWithText from "@/components/card/PageCardWithText";
 import NotFound from "@/components/not found/NotFound";
 import Link from "next/link";
@@ -19,7 +15,6 @@ import Link from "next/link";
 const Page = () => {
   const [allUpcomingEvents, setAllUpcomingEvents] = useState([]);
   const [isManual, setIsManual] = useState(false);
-  const { id } = useParams();
   const [filterOpenModal, setFilterOpenModal] = useState(false);
   const [error, setError] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
@@ -27,11 +22,8 @@ const Page = () => {
   const [endDate, setEndDate] = useState(null);
   const [range, setRange] = useState("start");
   const [filters, setFilters] = useState({});
-  // console.log("filters", filters);
-  const handleManualSubmit = () => {
-    // console.log(startDate);
-    // console.log(endDate);
 
+  const handleManualSubmit = () => {
     DateFilterApiCall(startDate, endDate);
     setIsManual(false);
     setFilterOpenModal(false);
@@ -48,7 +40,7 @@ const Page = () => {
     setError(false);
     try {
       const response = await axios.post(upcomingEvents.GET_ALL);
-      // console.log(response.data.data);
+
       setAllUpcomingEvents(response.data.data);
     } catch (error) {
       if (error.response) {
@@ -63,7 +55,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
         }
@@ -72,12 +63,11 @@ const Page = () => {
   };
 
   const handleLanguageSelection = async (value) => {
-    // console.log(value);
     let newFilters = { ...filters };
     newFilters.LanguageName = value;
 
     setFilters(newFilters);
-    // console.log(value);
+
     const payload = {
       ...newFilters,
     };
@@ -101,7 +91,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
           setFilters({});
@@ -114,11 +103,11 @@ const Page = () => {
     let newFilters = { ...filters };
     newFilters.Genre_id = value;
     setFilters(newFilters);
-    // console.log(value);
+
     const payload = {
       ...newFilters,
     };
-    // console.log(payload);
+
     try {
       const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
       if (response.data.data.length >= 1) {
@@ -138,7 +127,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
           setFilters({});
@@ -148,7 +136,6 @@ const Page = () => {
   };
 
   const handleCategory = async (value) => {
-    // console.log(value);
     let newFilters = { ...filters };
     newFilters.category_id = value;
     setFilters(newFilters);
@@ -174,7 +161,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
           setFilters({});
@@ -184,13 +170,6 @@ const Page = () => {
   };
 
   const handleDateSelection = (option) => {
-    // setIsManual(option === "Manual");
-    // setIsOpen(false);
-    // console.log({ option });
-    // if (option === "Reset") {
-    //   handleReset();
-    // }
-    // console.log(value);
     if (option !== "Manual" && option !== "Reset") {
       const currentDate = new Date();
       let TodayStartDateTimeStr, TodayEndDatetimeStr;
@@ -213,12 +192,10 @@ const Page = () => {
           TodayEndDatetimeStr = null;
       }
       DateFilterApiCall(TodayStartDateTimeStr, TodayEndDatetimeStr);
-      // console.log(TodayStartDateTimeStr, TodayEndDatetimeStr);
     }
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    // console.log(startDate, endDate);
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"
@@ -252,10 +229,8 @@ const Page = () => {
         ...newFilters,
       };
 
-      // console.log({ payload });
-
       const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
-      // console.log(response.data.data.length);
+
       if (response.data.data.length >= 1) {
         setError(false);
       }
@@ -263,8 +238,6 @@ const Page = () => {
       setEndDate(null);
       setStartDate(null);
       setRange("start");
-
-      // toast.success(response.data.message);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -278,7 +251,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
           setFilterOpenModal(false);

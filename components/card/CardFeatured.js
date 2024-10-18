@@ -1,23 +1,20 @@
 "use client";
 import { URL } from "@/utils/constants";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
-import { Card } from "@material-tailwind/react";
 import Image from "next/image";
 import React from "react";
-import { FaMedal } from "react-icons/fa";
 
 const CardFeatured = ({ data }) => {
   const imageUrl = `${URL}/${data?.EventCardImages[0]?.image_path}`;
-  // console.log(imageUrl);
 
   return (
     <div>
       <div>
+        {/* image */}
         <div className="relative">
           <Image
             src={`${imageUrl}`}
             alt="profile-picture"
-            // layout="fill"
             objectFit="cover"
             height={375}
             width={500}
@@ -25,12 +22,12 @@ const CardFeatured = ({ data }) => {
             className="rounded "
           />
           <span className="absolute top-0 shadow-md rounded-sm right-0 p-2 bg-yellow-600 text-black font-semibold ">
-            {/* <FaMedal className="text-yellow-500" size={28} /> */}
             Featured
           </span>
         </div>
       </div>
 
+      {/* data */}
       <div className=" mt-2  mb-4">
         <div
           className={`flex items-center justify-start mb-2 ${

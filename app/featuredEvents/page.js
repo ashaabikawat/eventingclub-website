@@ -27,12 +27,8 @@ const Page = () => {
   const [endDate, setEndDate] = useState(null);
   const [range, setRange] = useState("start");
   const [filters, setFilters] = useState({});
-  // console.log("filters", filters);
 
   const handleManualSubmit = () => {
-    // console.log(startDate);
-    // console.log(endDate);
-
     DateFilterApiCall(startDate, endDate);
     setIsManual(false);
     setFilterOpenModal(false);
@@ -49,9 +45,8 @@ const Page = () => {
     setError(false);
     try {
       const response = await axios.post(featuredEvents.GET_ALL);
-      // console.log(response.data.data);
+
       setAllFeaturedEvents(response.data.data);
-      // duplicateFeaturedEvents(response.data.data);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -65,7 +60,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
         }
@@ -78,7 +72,7 @@ const Page = () => {
     newFilters.LanguageName = value;
 
     setFilters(newFilters);
-    // console.log(value);
+
     const payload = {
       ...newFilters,
     };
@@ -102,7 +96,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
           setFilters({});
@@ -115,15 +108,14 @@ const Page = () => {
     let newFilters = { ...filters };
     newFilters.Genre_id = value;
     setFilters(newFilters);
-    // console.log(value);
+
     const payload = {
       ...newFilters,
     };
-    // console.log(payload);
 
     try {
       const response = await axios.post(`${featuredEvents.GET_ALL}`, payload);
-      // console.log(response.data);
+
       if (response.data.data.length >= 1) {
         setError(false);
       }
@@ -141,7 +133,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
           setFilters({});
@@ -151,7 +142,6 @@ const Page = () => {
   };
 
   const handleCategory = async (value) => {
-    // console.log(value);
     let newFilters = { ...filters };
     newFilters.category_id = value;
     setFilters(newFilters);
@@ -161,7 +151,7 @@ const Page = () => {
 
     try {
       const response = await axios.post(`${featuredEvents.GET_ALL}`, payload);
-      // console.log(response.data);
+
       if (response.data.data.length >= 1) {
         setError(false);
       }
@@ -179,7 +169,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           setError(true);
           toast.error(data.message);
           setFilters({});
@@ -189,15 +178,7 @@ const Page = () => {
   };
 
   const handleDateSelection = (option) => {
-    // setIsManual(option === "Manual");
-    // setIsOpen(false);
-    // console.log({ option });
-    // if (option === "Reset") {
-    //   handleReset();
-    // }
-    // console.log(value);
     if (option !== "Manual" && option !== "Reset") {
-      const currentDate = new Date();
       let TodayStartDateTimeStr, TodayEndDatetimeStr;
       switch (option) {
         case "Today":
@@ -218,12 +199,10 @@ const Page = () => {
           TodayEndDatetimeStr = null;
       }
       DateFilterApiCall(TodayStartDateTimeStr, TodayEndDatetimeStr);
-      // console.log(TodayStartDateTimeStr, TodayEndDatetimeStr);
     }
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    // console.log(startDate, endDate);
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"
@@ -257,10 +236,8 @@ const Page = () => {
         ...newFilters,
       };
 
-      // console.log({ payload });
-
       const response = await axios.post(`${featuredEvents.GET_ALL}`, payload);
-      // console.log(response.data.data.length);
+
       if (response.data.data.length >= 1) {
         setError(false);
       }
@@ -281,7 +258,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
           setError(true);
           setFilterOpenModal(false);

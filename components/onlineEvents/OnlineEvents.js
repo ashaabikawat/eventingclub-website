@@ -1,11 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CardHeaders from "../common/card headers/CardHeaders";
-import Slider from "react-slick";
 import CardWithText from "../card/CardWithText";
 import axios from "axios";
 import { onlineEvents } from "@/utils/config";
-import ShimmerCard from "../card/ShimmerCard";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -20,7 +18,6 @@ const OnlineEvents = () => {
   const fetchOnlineEvents = async () => {
     try {
       const response = await axios.post(onlineEvents.GET_ALL);
-      console.log(response.data.data);
       setAllOnlineEvents(response.data.data);
       setLoading(false);
     } catch (error) {
@@ -36,8 +33,7 @@ const OnlineEvents = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
-          // toast.error(data.message);
+          setLoading(false);
         }
       }
     }
@@ -83,9 +79,6 @@ const OnlineEvents = () => {
               spaceBetween: 20,
             },
           }}
-          // onSlideChange={() => console.log("slide change")}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // className="mt-3"
         >
           {cardsData?.map((data) => (
             <SwiperSlide key={data.id}>

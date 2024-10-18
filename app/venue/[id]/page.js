@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import Slider from "react-slick";
 
 const Page = () => {
   const [venueData, setVenueData] = useState();
@@ -26,7 +25,7 @@ const Page = () => {
     };
     try {
       const response = await axios.post(`${venues.GET_BY_ID}`, payload);
-      // console.log(response.data.data);
+
       setVenueData(response.data.data);
       setVenueEventsdata(response.data.data.venueEvents);
     } catch (error) {
@@ -42,7 +41,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
         }
       }
@@ -50,7 +48,6 @@ const Page = () => {
   };
 
   const imageUrl = venueData?.venueImages[0]?.image_path;
-  // console.log(imageUrl);
 
   return (
     <div className="w-full h-full overflow-x-hidden md:px-14 py-10">
@@ -97,9 +94,6 @@ const Page = () => {
           </div>
         </div>
         <div>
-          {/* {venueEventsdata.map((event) => (
-            <PageCardWithText event={event} key={event.id} />
-          ))} */}
           <h1 className="text-bold mt-10   md:text-3xl capitalize font-bold ">
             upcoming events at this venue:
           </h1>

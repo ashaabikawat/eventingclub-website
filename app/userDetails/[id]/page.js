@@ -1,21 +1,14 @@
 "use client";
 import EditProfile from "@/components/edit profile/EditProfile";
 import TicketById from "@/components/tickets/TicketById";
-import Tickets from "@/components/tickets/Tickets";
-import {
-  logout,
-  setAuthDetails,
-  setCustExists,
-  setCustId,
-  setToken,
-} from "@/store/slices/authSlice";
-import { customer, getCustomerById } from "@/utils/config";
+import { logout } from "@/store/slices/authSlice";
+import { customer } from "@/utils/config";
 import axios from "axios";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Page = () => {
   const [isProfile, setIsProfile] = useState(true);
@@ -26,13 +19,11 @@ const Page = () => {
 
   const fetchData = async () => {
     const payload = { customer_id: id };
-    // console.log(payload);
 
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);
-      // console.log(response.data);
+
       setData(response.data.data);
-      // toast.success(response.data.message)
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;

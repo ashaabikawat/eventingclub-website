@@ -13,18 +13,15 @@ export const SingleArtistCard = ({ data }) => {
             src={`${URL}/${imageUrl}`}
             alt="venue card"
             objectFit="cover"
-            // layout="fill"
             height={375}
             width={500}
             className="rounded"
-            // objectPosition="top"
           />
         </div>
         <div className="flex flex-col gap-4 justify-between  md:p-4  p-3">
           <h2 className="text-blue-900 font-bold md:text-xl text-sm capitalize">
             {data.Name}
           </h2>
-          {/* <p className="text-sm">{data.Description}</p> */}
         </div>
       </div>
     </div>

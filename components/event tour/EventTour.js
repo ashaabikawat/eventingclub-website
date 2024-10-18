@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CardHeaders from "../common/card headers/CardHeaders";
-import { initialLength, settings, URL } from "@/utils/constants";
-import { Card } from "@material-tailwind/react";
+import { URL } from "@/utils/constants";
 import axios from "axios";
-import { eventTour, featuredEvents } from "@/utils/config";
+import { eventTour } from "@/utils/config";
 import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,7 +19,6 @@ const TourEvents = () => {
   const fetchEventTour = async () => {
     try {
       const response = await axios.post(eventTour.GET_ALL);
-      // console.log(response.data.data);
       setAllEventTour(response.data.data);
       setLoading(false);
     } catch (error) {
@@ -36,8 +34,7 @@ const TourEvents = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
-          toast.error(data.message);
+          setLoading(false);
         }
       }
     }
@@ -52,6 +49,7 @@ const TourEvents = () => {
 
   return (
     <div className=" sm:px-4 px-1 overflow-hidden md:px-4">
+      {/* headers */}
       <CardHeaders
         mobileHeader="Event Tour"
         desktopHeader="Event Tour"
@@ -59,13 +57,12 @@ const TourEvents = () => {
         desktopText=""
         url=""
       />
+
+      {/* cards */}
       <div className="px-2">
         <Swiper
           spaceBetween={20}
           slidesPerView={5}
-          // onSlideChange={() => console.log("slide change")}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // className="mt-3 "
           breakpoints={{
             320: {
               slidesPerView: 1.5,
@@ -94,11 +91,9 @@ const TourEvents = () => {
                       <Image
                         src={`${URL}/${data?.EventCardImages[0]?.image_path}`}
                         alt="profile-picture"
-                        // layout="fill"
                         height={375}
                         width={500}
                         objectFit="cover"
-                        // objectPosition="top"
                         className="rounded"
                       />
                     </div>

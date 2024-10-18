@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Promocode from "../common/promocode/Promocode";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
 import { bookTicketApi, promocode } from "@/utils/config";
 import { useParams, useRouter } from "next/navigation";
@@ -10,9 +10,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
 import CryptoJS from "crypto-js";
 
+// Redux actions for managing booking state
 import {
-  handleIncrease,
-  handleDecrease,
   setBookingDataObj,
   setPromocodeId,
   reset_bookingData,
@@ -20,54 +19,37 @@ import {
   setTicketId,
 } from "../../store/slices/booking";
 
-const BookingSummary = ({ handleOpen }) => {
+const BookingSummary = () => {
   const totalTickets = useSelector(
     (store) => store.booking.bookingData.totalTickets
   );
   const [quantity, setQuanity] = useState(totalTickets);
   const [promocodes, setPromocodes] = useState([]);
   const { id } = useParams();
-  const booking = useSelector((store) => store.booking);
+
+  // State to manage whether the terms and conditions modal is open
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const promocodeId = useSelector((store) => store.booking.promocodeId);
-
   const [promoObject, setpromoObject] = useState();
+  const [promocodeValue, setPromocodeValue] = useState("");
 
   const selectedTicket = useSelector(
     (store) => store.booking.bookingData.selectedTickets
   );
-  // console.log(selectedTicket);
-
   const bookingData = useSelector((store) => store.booking.bookingData);
   const PromocodeIdFromLs = useSelector((store) => store.booking.promocodeId);
-  // console.log(PromocodeIdFromLs);
 
   const router = useRouter();
 
-  // console.log(
-  //   "bookingdata",
-  //   useSelector((store) => store.booking.bookingData)
-  // );
-
-  const [promocodeValue, setPromocodeValue] = useState("");
   const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
-
-  // encrypt data
-  const encryptData = (data) => {
-    return CryptoJS.AES.encrypt(JSON.stringify(data), passphrase).toString();
-  };
-
-  // Decryption function
-  const decryptData = (encryptedData) => {
-    const bytes = CryptoJS.AES.decrypt(encryptedData, passphrase);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  };
 
   const dispatch = useDispatch();
   const totalTicketsUi = totalTickets;
   const ticket = selectedTicket[0];
+
   const ticketAmount = Number(ticket?.TicketPrice) * totalTickets;
+
   const getToken = localStorage.getItem("authToken");
   const cust_id = JSON.parse(getToken)?.cust_id;
 
@@ -76,15 +58,9 @@ const BookingSummary = ({ handleOpen }) => {
     return savedPromocode ? JSON.parse(savedPromocode) : 0;
   });
 
-  // console.log(promocodeDiscountPrice);
-  // const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(0);
-
   const confee = JSON.parse(localStorage.getItem("convenienceFee"));
-  // console.log(confee);
 
   const convenienceFee = Number(confee?.ConValue) || 0;
-  const promocodeDiscount = 0;
-  // const promocodeDiscount = Number(confee?.ConfeeUnit) || 0;
 
   // Calculate GST based on the total before discount
   const gst = convenienceFee * 0.18;
@@ -97,11 +73,23 @@ const BookingSummary = ({ handleOpen }) => {
   const promocodeDiscountAmount =
     (ticketAmount * Number(promoObject?.Value)) / 100;
 
+  // Amount format function
   const formatAmount = (amount) => {
     return amount.toLocaleString("en-IN", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+  };
+
+  // encrypt function
+  const encryptData = (data) => {
+    return CryptoJS.AES.encrypt(JSON.stringify(data), passphrase).toString();
+  };
+
+  // Decryption function
+  const decryptData = (encryptedData) => {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, passphrase);
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   };
 
   useEffect(() => {
@@ -110,9 +98,12 @@ const BookingSummary = ({ handleOpen }) => {
         (promo) => promo._id === PromocodeIdFromLs
       );
       setpromoObject(selectedPromocode);
-      // console.log("selectedPromocode", selectedPromocode);
     }
   }, [PromocodeIdFromLs, promocodes]);
+
+  useEffect(() => {
+    handleApplyPromocode();
+  }, [ticketAmount]);
 
   const handleApplyPromocode = () => {
     const selectedPromocode = promocodes?.applicablePromocodes?.find(
@@ -121,7 +112,6 @@ const BookingSummary = ({ handleOpen }) => {
 
     const minAmount = Number(selectedPromocode?.MinAmount);
     const ticketAmountNum = Number(ticketAmount);
-    // console.log(ticketAmount);
 
     if (!isNaN(minAmount) && !isNaN(ticketAmountNum)) {
       if (minAmount <= ticketAmountNum) {
@@ -140,38 +130,10 @@ const BookingSummary = ({ handleOpen }) => {
         toast.error(`Minimum checkout amount is ${minAmount}`);
         setPromocodeDiscountPrice(0);
       }
-    } else {
-      // console.log("Invalid amounts:", minAmount, ticketAmountNum);
     }
   };
-  // console.log(promocodeDiscountPrice);
-  // const handleDecreaseTicket = (id) => {
-  //   console.log(id);
-  //   console.log(bookingData);
-  //   if (quantity > 1) {
-  //     const newQuanity = quantity - 1;
-  //     setQuanity(newQuanity);
-  //     const ticketAmount = Number(selectedTicket[0]?.TicketPrice) * newQuanity;
-  //     const updatedAmount = ticketAmount;
-  //     console.log(newQuanity);
-  //     dispatch(
-  //       setBookingDataObj({
-  //         selectedTickets: selectedTicket,
-  //         totalPrice: updatedAmount,
-  //         totalTickets: newQuanity,
-  //       })
-  //     );
-  //     const updatedCounts = { [id]: newQuanity };
-  //     localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
-  //   } else {
-  //     dispatch(reset_bookingData());
-  //   }
-  // };
 
   const handleDecreaseTicket = (id) => {
-    // console.log(id);
-    // console.log(bookingData);
-
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuanity(newQuantity);
@@ -196,7 +158,6 @@ const BookingSummary = ({ handleOpen }) => {
   };
 
   const handleIncrease = (id) => {
-    // console.log(id);
     const bookingLimit = bookingData.selectedTickets[0].BookingMaxLimit;
     if (quantity < bookingLimit) {
       const newQuanity = quantity + 1;
@@ -227,10 +188,10 @@ const BookingSummary = ({ handleOpen }) => {
       event_id: id,
       customer_id: cust_id,
     };
-    // console.log(payload);
+
     try {
       const response = await axios.post(`${promocode.GET_ALL}`, payload);
-      // console.log(response.data.data);
+
       setPromocodes(response.data.data);
     } catch (error) {
       if (error.response) {
@@ -245,9 +206,6 @@ const BookingSummary = ({ handleOpen }) => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
-          // toast.error(data.message);
-          // setLoading(false);
         }
       }
     }
@@ -259,36 +217,17 @@ const BookingSummary = ({ handleOpen }) => {
       event_id: id,
       EventTicket_id: selectedTicket[0]?.Ticket_Id,
       TicketQuantity: totalTickets,
-
-      //Optional Feilds
-
-      // customer_Country: "India",
-      // customer_CountryIsoCode: "IN",
     };
     if (promocodeId) payload.Promocode_id = promocodeId;
-    // if (formData.address) payload.customer_Address = formData?.address;
-
-    // if (formData.pincode) payload.customer_Pincode = formData?.pincode;
-    // if (address?.stateName) payload.customer_State = String(address?.stateName);
-
-    // if (address?.stateIsoCode)
-    //   payload.customer_StateIsoCode = String(address?.stateIsoCode);
-
-    // if (address?.cityName) payload.customer_City = address?.cityName;
-
-    // console.log(payload);
 
     const encryptedPayload = encryptData(JSON.stringify(payload));
-    // console.log(encryptedPayload);
+
     try {
       const response = await axios.post(`${bookTicketApi.POST_DATA}`, {
         string: encryptedPayload,
       });
-      // console.log(response.data);
-      // toast.success(response.data.message);
-      // const decryptedData = decryptData(response.data.data);
+
       const data = decryptData(response.data.data);
-      // console.log(data);
 
       const form = document.createElement("form");
       form.setAttribute("method", "POST");
@@ -304,10 +243,7 @@ const BookingSummary = ({ handleOpen }) => {
 
       document.body.appendChild(form);
       form.submit();
-      // dispatch(reset_state());
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleTermsAndConditions = (id) => {
@@ -353,7 +289,6 @@ const BookingSummary = ({ handleOpen }) => {
 
   return (
     <div>
-      {/* <Toaster /> */}
       {selectedTicket.length > 0 ? (
         <>
           <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between ">
@@ -424,8 +359,6 @@ const BookingSummary = ({ handleOpen }) => {
                 <div>
                   <div>
                     <Swiper
-                      // spaceBetween={20}
-                      // slidesPerView={6}
                       breakpoints={{
                         320: {
                           slidesPerView: 1,
@@ -473,6 +406,7 @@ const BookingSummary = ({ handleOpen }) => {
                         </SwiperSlide>
                       ))}
                     </Swiper>
+
                     {/* <Promocode /> */}
                   </div>
                   {isOpen && (
@@ -490,16 +424,10 @@ const BookingSummary = ({ handleOpen }) => {
                         className="fixed inset-0 z-50 flex justify-center items-center w-full h-full"
                       >
                         <div className="relative p-4 flex items-center justify-center">
-                          {/* <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 text-center ">
-                          <div className="relative  ">
-
-                          </div>
-                        </div> */}
                           <div className="relative  bg-white rounded-lg shadow dark:bg-gray-700 w-72 md:w-96">
                             <div className=" border border-gray-300 rounded-md px-2 py-4 md:w-full ">
                               <div className="flex justify-between items-center">
                                 <div className=" items-center  flex gap-4 ">
-                                  {/* <input type="radio" className="w-4 h-4" /> */}
                                   <label className=" text-blue-900 text-base p-2 md:ml-8 rounded-md border border-dashed border-blue-900 font-bold">
                                     {promoObject?.PromoCodeName}
                                   </label>
@@ -514,7 +442,9 @@ const BookingSummary = ({ handleOpen }) => {
                               <div>
                                 <div className="flex flex-col gap-2 mt-3 pl-8 ">
                                   <p className="text-base capitalize  pt-4 border-t-2 border-gray-200 text-blue-900 font-semibold">
-                                    save &#8377; {promoObject?.Value}
+                                    {promoObject?.PromType === Number(1)
+                                      ? `save ₹ ${promoObject?.Value}`
+                                      : `save ${promoObject?.Value}%`}
                                   </p>
                                   <p className="text-xs text-gray-700">
                                     {promoObject?.TermsCondition}
@@ -545,17 +475,16 @@ const BookingSummary = ({ handleOpen }) => {
                   </p>
                 </div>
 
-                <div className="flex justify-between">
-                  <p className="md:text-lg capitalize">promocode</p>
-                  <p className="md:text-lg font-bold flex gap-2 text-red-500">
-                    <span>-</span>
-                    &#8377;
-                    {/* {promoObject?.PromType === 1
-                  ? promocodePrice
-                  : promocodeDiscountAmount} */}
-                    {promocodeDiscountPrice ? promocodeDiscountPrice : 0}
-                  </p>
-                </div>
+                {promocodeId && (
+                  <div className="flex justify-between">
+                    <p className="md:text-lg capitalize">promocode</p>
+                    <p className="md:text-lg font-bold flex gap-2 text-red-500">
+                      <span>-</span>
+                      &#8377;
+                      {promocodeDiscountPrice ? promocodeDiscountPrice : 0}
+                    </p>
+                  </div>
+                )}
 
                 <div className="flex justify-between">
                   <p className="md:text-lg capitalize">convenience fee</p>
@@ -621,5 +550,3 @@ const BookingSummary = ({ handleOpen }) => {
 };
 
 export default BookingSummary;
-
-// // Use the same encryption key from the environment or a secure source

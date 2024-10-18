@@ -1,51 +1,29 @@
 "use client";
 import { URL } from "@/utils/constants";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
-import { Card } from "@material-tailwind/react";
 import Image from "next/image";
 import React from "react";
 
 const CardWithText = ({ data }) => {
   const imageUrl = `${URL}/${data?.EventCardImages[0]?.image_path}`;
-  // console.log(imageUrl);
 
   return (
     <div>
-      {/* <Card className="w-full lg:h-[300px] md:h-[250px] h-[150px] relative cursor-pointer overflow-hidden">
-        <div className="w-full h-full relative">
-          <Image
-            src={`${imageUrl}`}
-            alt="profile-picture"
-            // layout="fill"
-            height={500}
-            width={500}
-            objectFit="cover"
-            objectPosition="top"
-            className="rounded"
-          />
-        </div>
-        {Boolean(data?.isFeatured) && (
-          <span className="absolute top-0 right-0 p-2 bg-yellow-600 text-black font-semibold ">
-            {/* <FaMedal className="text-yellow-500" size={28} /> */}
-      {/* Featured
-          </span>
-        )}
-      </Card>  */}
       <div>
+        {/* image */}
         <div>
           <Image
             src={`${imageUrl}`}
             alt="profile-picture"
-            // layout="fill"
             height={375}
             width={500}
             objectFit="cover"
-            // objectPosition="top"
             className="rounded"
           />
         </div>
       </div>
 
+      {/* data */}
       <div className=" mt-2  mb-4">
         <div
           className={`flex items-center justify-start mb-2 ${

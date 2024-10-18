@@ -1,58 +1,34 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ShortTicket from "./ShortTicket";
-import Slider from "react-slick";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { events } from "@/utils/config";
 import toast, { Toaster } from "react-hot-toast";
-import Checkout from "../checkout/Checkout";
-import SeasonPass from "./SeasonPass";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  handleIncrease,
   setTicketData,
-  handleDecrease,
   setBookingDataObj,
   setEventId,
   reset_state,
   setTicketId,
 } from "../../store/slices/booking";
-import Loading from "../common/loading/Loading";
 
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const { id } = useParams();
 
   const [selectedShortTicket, setSelectedShortTicket] = useState();
 
   const [eventTicket, setEventTicket] = useState([]);
-  // console.log("eventticket", eventTicket);
-  const bookingData = useSelector((store) => store.booking.bookingData);
-  const selectedTickets = bookingData?.selectedTickets;
-  const selectedTicketTotalPrice = bookingData?.totalPrice;
-  // console.log(bookingData);\
 
-  // console.log(bookingData?.selectedTickets.length);
+  const bookingData = useSelector((store) => store.booking.bookingData);
 
   const storedEventId = useSelector((store) => store.booking.eventId);
 
-  // console.log("bookingData", bookingData);
-  // const showCount = useSelector((store) => store.booking.showCount);
-  // const [showCount, setShowCount] = useState(() => {
-  //   const savedShowCount = localStorage.getItem("showCount");
-  //   return savedShowCount ? JSON.parse(savedShowCount) : {};
-  // });
-
   const [showCount, setShowCount] = useState({});
 
-  // console.log("showCount", showCount);
-
-  const ticketData = useSelector((store) => store.booking.ticketData);
-
-  // const [count, setCount] = useState({});
   const [count, setCount] = useState(() => {
     const savedCounts = localStorage.getItem("ticketCounts");
     return savedCounts ? JSON.parse(savedCounts) : {};
@@ -67,25 +43,15 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   });
 
   const [eventIdCheck, setEventIdCheck] = useState(null);
-  // const selectedTickets = useSelector((store) => store.booking.selectedTickets);
+
   const dispatch = useDispatch();
   const router = useRouter();
-  // console.log(id);
-  // console.log(storedEventId);
 
-  // console.log(ticketId);
   useEffect(() => {
     if (storedEventId !== null) {
-      // console.log("id", id === storedEventId);
       setEventIdCheck("id", id === storedEventId);
     }
   }, [count, id]);
-
-  // useEffect(() => {
-  //   if (bookingData?.selectedTickets?.length > 0) {
-
-  //   }
-  // }, [bookingData]);
 
   useEffect(() => {
     const savedCounts = localStorage.getItem("ticketCounts");
@@ -95,24 +61,19 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   }, []);
 
   useEffect(() => {
-    if (ticketId) {
+    if (ticketId !== null) {
       handleShowTicket(ticketId);
       // Automatically show the ticket section
     }
   }, [ticketId]);
 
-  // console.log("count", count);
-
   const handleIncreaseandSetEventId = (ticketId) => {
-    // console.log(ticketId);
-
     const bookingObj = eventTicket?.find(
       (ticket) => ticket.Ticket_Id === ticketId
     );
 
     const bookingLimit = bookingObj.BookingMaxLimit;
 
-    // if (bookingData.selectedTickets.length === 0) {
     if (Object.values(count) < bookingLimit) {
       const updatedCount = {
         [ticketId]: (count[ticketId] || 0) + 1, // Set the count for the selected ticket
@@ -125,18 +86,11 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       setShowCount(updatedShowCount);
 
       localStorage.setItem("ticketCounts", JSON.stringify(updatedCount));
-      // localStorage.setItem("showCount", JSON.stringify(updatedShowCount));
     } else {
-      // alert("Exceeding booking limit");
       toast.error("Exceeding booking limit");
     }
     setFinalBookingData;
     ({ ...finalBookingData, totalTickets: Number(Object.values(count)) });
-    // } else {
-    //   alert("hi");
-    // }
-
-    // Ensure only the selected ticket shows the counter
   };
 
   const handleDecreaseandSetEventId = (ticketId) => {
@@ -246,10 +200,9 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     try {
       const response = await axios.post(`${events.GET_TICKETS_BY_ID}`, payload);
       console.log(response.data.data);
-      setIsLoading(false);
       // setTicketData(response.data.data);
       setEventTicket(response.data.data);
-      console.log(response.data.data[0].ConfeeUnit);
+
       localStorage.setItem(
         "convenienceFee",
         JSON.stringify({
@@ -259,7 +212,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       );
       dispatch(setTicketData(response.data.data));
     } catch (error) {
-      setIsLoading(false);
+      // setIsLoading(false);
       if (error.response) {
         const { status, data } = error.response;
 
@@ -282,23 +235,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
     setShowTicket(true);
   };
-
-  // useEffect(() => {
-  //   if (bookingData) {
-  //     setFinalBookingData((prevBookingData) => ({
-  //       ...prevBookingData,
-  //       totalTickets: Object.values(count).reduce((acc, num) => acc + num, 0),
-  //       // totalPrice: eventTicket.reduce(
-  //       //   (acc, ticket) =>
-  //       //     acc + (count[ticket.Ticket_Id] || 0) * ticket.TicketPrice,
-  //       //   0
-  //       // ),
-  //       totalPrice: bookingData?.totalPrice, // Use existing totalPrice if available
-
-  //       selectedTickets: bookingData?.selectedTickets,
-  //     }));
-  //   }
-  // }, [count]);
 
   useEffect(() => {
     if (bookingData) {
@@ -327,13 +263,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     dispatch(setBookingDataObj({ ...finalBookingData }));
   }, [finalBookingData]);
 
-  //   // console.log("increase", ticketId);
-
   const handleShowCount = (ticketId) => {
-    // console.log("handleShow", ticketId);
-    // dispatch(setShowCount(ticketId));
-    // dispatch(setEventId(id));
-
     setShowCount((prevShowCount) => ({
       ...prevShowCount,
       [ticketId]: true,
@@ -344,11 +274,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     (acc, count) => acc + count,
     0
   );
-
-  // const totalPrice = eventTicket.reduce(
-  //   (acc, ticket) => acc + (count[ticket.Ticket_Id] || 0) * ticket.TicketPrice,
-  //   0
-  // );
 
   const totalPrice =
     bookingData?.totalPrice > 0
@@ -381,23 +306,11 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
         : eventTicket.filter((ticket) => count[ticket.Ticket_Id] > 0);
     console.log("selectedtickets", selectedTickets);
 
-    // setBookingData({
-    //   totalPrice,
-    //   totalTickets,
-    //   selectedTickets,
-    // });
-
     setFinalBookingData({ totalPrice, totalTickets, selectedTickets });
   };
 
-  // console.log("outside", finalBookingData);
-
   const handleContinue = () => {
     calculateTotals();
-
-    // console.log("inside", finalBookingData);
-
-    // dispatch(setBookingDataObj({ finalBookingData }));
 
     dispatch(setEventId(id));
     router.push(`/events/tickets/${id}/checkout`);
@@ -409,7 +322,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     };
     try {
       const response = await axios.post(`${events.GET_SEASON_PASS}`, payload);
-      console.log("data", response.data.data[0].Ticket_Id);
       dispatch(setTicketData(response.data.data));
       setSelectedShortTicket(response.data.data[0].Ticket_Id);
       dispatch(setTicketId(response.data.data[0].Ticket_Id));
@@ -426,8 +338,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
-          // setError(true);
           toast.error(data.message);
         }
       }
@@ -435,27 +345,20 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     setShowTicket(true);
   };
 
-  // if (!storedEventData) {
-  //   toast.error("You already have tickets of another event");
-  // }
-
   const isAnyCountActive = Object.values(showCount).some((value) => value);
   console.log("isAnyCountActive", isAnyCountActive);
   console.log("showCount", showCount);
-  // console.log("count", count);
+
   const clearCart = () => {
     dispatch(reset_state());
     setCount({});
   };
 
   const handleContinueCheckout = () => {
-    // router.push(`/events/tickets/${id}/checkout`);
     router.push(`/events/tickets/${storedEventId}/checkout`);
   };
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <div className="min-h-screen flex flex-col">
       <div className="bg-gray-50 md:py-10 h-full flex-grow">
         <Toaster />
@@ -489,10 +392,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                         slidesPerView: 4,
                         spaceBetween: 20,
                       },
-                      // 768: {
-                      //   slidesPerView: 3,
-                      //   spaceBetween: 20,
-                      // },
                     }}
                   >
                     {data?.DateTimeDate.map((ticket) => (
@@ -751,14 +650,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           {/* Footer for Total Count and Price */}
 
           {storedEventId !== null && storedEventId !== id && (
-            // <div className="flex items-center justify-center">
-            //   <button
-            //     onClick={clearCart}
-            //     className="bg-[#666666] w-[20%] text-white py-4 px-4 rounded fixed bottom-0 "
-            //   >
-            //     Clear
-            //   </button>
-            // </div>
             <div className="fixed bottom-0 left-0 right-0 md:px-20 bg-white shadow-md p-6 flex justify-between items-center z-50">
               <div className="flex flex-col gap-2">
                 <p className="md:text-2xl text-lg font-semibold">
@@ -790,7 +681,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       {(storedEventId === id || storedEventId === null) && (
         <div>
           {totalTickets > 0 ? (
-            <div className="relative md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
+            <div className="fixed bottom-0 w-[100%] h-[100px] z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
               <div className="flex flex-col gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
                   ₹ {totalPrice}

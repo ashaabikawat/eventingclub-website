@@ -8,24 +8,10 @@ const Footer = () => {
   const socialIcons = [
     {
       id: 1,
-      name: "facebook",
-      icon: "fa-facebook-f",
-    },
-    // {
-    //   id: 2,
-    //   name: "twitter",
-    //   icon: "fa-twitter",
-    // },
-    {
-      id: 2,
       name: "instagram",
       icon: "fa-instagram",
+      url: "https://www.instagram.com/eventingclub/",
     },
-    // {
-    //   id: 4,
-    //   name: "pinterest",
-    //   icon: "fa-pinterest",
-    // },
   ];
 
   return (
@@ -59,24 +45,20 @@ const Footer = () => {
             <li>
               <Link href="/artists">Artist</Link>
             </li>
-            {/* <li>
-              <Link href="/blogs">Blogs</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact us</Link>
-            </li> */}
           </ul>
         </div>
         <div className="flex items-center justify-center gap-4 ">
           {socialIcons.map((icon) => (
-            <IconButton
-              key={icon.id}
-              size="lg"
-              className="bg-white border-transparent rounded-full p-6"
-              variant="outlined"
-            >
-              <i class={`fab ${icon.icon} md:fa-lg fa-xl text-blue-900`}></i>
-            </IconButton>
+            <Link href={icon.url}>
+              <IconButton
+                key={icon.id}
+                size="lg"
+                className="bg-white border-transparent rounded-full p-6"
+                variant="outlined"
+              >
+                <i class={`fab ${icon.icon} md:fa-lg fa-xl text-blue-900`}></i>
+              </IconButton>
+            </Link>
           ))}
         </div>
       </div>

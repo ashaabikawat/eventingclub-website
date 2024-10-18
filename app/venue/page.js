@@ -1,8 +1,8 @@
 "use client";
-import PageHeader from "@/components/common/single page header/PageHeader";
+
 import { VenueCard } from "@/components/venue card/VenueCard";
-import useFetch from "@/hooks/useFetch";
-import { getVenues, venues } from "@/utils/config";
+
+import { venues } from "@/utils/config";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import Link from "next/link";
@@ -24,9 +24,7 @@ const Page = () => {
       const response = await axios.get(venues.GET_ALL);
       setAllVenues(response.data.data);
       setVenuesDuplicate(response.data.data);
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -46,11 +44,9 @@ const Page = () => {
         const payload = {
           search_keyword: debounced,
         };
-        // console.log(payload);
 
         const response = await axios.post(venues.SEARCH_KEYWORD, payload);
         setVenuesDuplicate(response.data.data);
-        // console.log(response.data.data);
       } catch (error) {
         if (error.response) {
           const { status, data } = error.response;
@@ -64,7 +60,6 @@ const Page = () => {
             status === 401 ||
             status === 400
           ) {
-            // console.log(error.response);
             toast.error(data.message);
           }
         }

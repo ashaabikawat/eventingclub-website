@@ -10,7 +10,6 @@ const CardHeaders = ({
   url,
 }) => {
   const [isMobile, setIsMobile] = useState(false);
-  // console.log(mobileHeader, mobileText, desktopHeader, desktopText);
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,6 +22,7 @@ const CardHeaders = ({
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <div className="flex justify-between items-center px-2">
       <h1 className=" capitalize text-base md:text-xl lg:text-3xl font-bold">

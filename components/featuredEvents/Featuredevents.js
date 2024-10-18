@@ -1,12 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CardHeaders from "../common/card headers/CardHeaders";
-import Slider from "react-slick";
-import CardWithText from "../card/CardWithText";
-import { initialLength, settings } from "@/utils/constants";
 import axios from "axios";
 import { featuredEvents } from "@/utils/config";
-import ShimmerCard from "../card/ShimmerCard";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CardFeatured from "../card/CardFeatured";
@@ -22,11 +18,24 @@ const Featuredevents = () => {
   const fetchFeaturedEvents = async () => {
     try {
       const response = await axios.post(featuredEvents.GET_ALL);
-      console.log(response.data.data);
       setAllFeaturedEvents(response.data.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          setLoading(false);
+        }
+      }
     }
   };
 
@@ -40,6 +49,7 @@ const Featuredevents = () => {
 
   return (
     <div className=" mb-6  mt-10 md:mb-6  sm:px-4 px-1 overflow-hidden md:px-4">
+      {/* headers */}
       <CardHeaders
         mobileHeader="Featured Events"
         desktopHeader="Featured Events"
@@ -48,6 +58,7 @@ const Featuredevents = () => {
         url="/featuredEvents"
       />
 
+      {/* cards */}
       <div className="px-3">
         <Swiper
           spaceBetween={6}
@@ -70,9 +81,6 @@ const Featuredevents = () => {
               spaceBetween: 20,
             },
           }}
-          // onSlideChange={() => console.log("slide change")}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // className="mt-3"
         >
           {cardsData?.map((data) => (
             <SwiperSlide key={data.id}>

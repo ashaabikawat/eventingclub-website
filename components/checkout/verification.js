@@ -72,16 +72,17 @@ const verification = ({ setDetails, handleOpen }) => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
         }
       }
     }
   };
+
   const handleForm = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const handleUserDetails = async () => {
     const payload = {
       customer_id: authToken?.cust_id,
@@ -211,23 +212,6 @@ const verification = ({ setDetails, handleOpen }) => {
         }
       }
     }
-    // try {
-    //   const payload = { MobileNumber: String(number) };
-    //   const response = await axios.post(resendOTPApi, payload);
-
-    //   dispatch(
-    //     setAuthDetails({
-    //       cust_id: response.data.data.customer_id,
-    //       customer_exists: response.data.data.customerExists,
-    //     })
-    //   );
-
-    //   // Do NOT modify isNewCustomer on resend
-    //   toast.success(response.data.message);
-    //   setOtpSent(true);
-    // } catch (error) {
-    //   toast.error("Failed to resend OTP");
-    // }
   };
 
   useEffect(() => {
@@ -254,18 +238,16 @@ const verification = ({ setDetails, handleOpen }) => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
         }
       }
     }
   };
 
-  console.log(isNewCustomer);
-
   return (
     <div className="w-full">
       <div className="flex flex-col gap-2">
+        {/* initial number section */}
         {!authToken?.isLoggedIn && !authToken?.token && !authToken?.cust_id && (
           <div className="mb-8">
             <div className="w-full">
@@ -296,6 +278,7 @@ const verification = ({ setDetails, handleOpen }) => {
           </div>
         )}
 
+        {/* change number section */}
         {numberModal && (
           <div className="mb-8">
             <div className="w-full">
@@ -326,6 +309,7 @@ const verification = ({ setDetails, handleOpen }) => {
           </div>
         )}
 
+        {/* otp section */}
         {authToken?.cust_id && !authToken?.token && !numberModal && (
           <div className="">
             <h1 className="md:text-xl text-base mb-2 text-white md:text-black">
@@ -373,6 +357,7 @@ const verification = ({ setDetails, handleOpen }) => {
           </div>
         )}
 
+        {/* form for new user */}
         {authToken?.cust_id &&
           authToken?.token &&
           (!authToken?.customer_exists || isNewCustomer || otpVerified) && (

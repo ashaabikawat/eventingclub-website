@@ -13,7 +13,6 @@ const DatePicker = ({
   setStartDate,
   setEndDate,
   handleClear,
-  setFilterOpenModal,
 }) => {
   const startPickerRef = useRef(null);
   const [selectedDates, setSelectedDates] = useState();

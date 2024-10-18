@@ -3,16 +3,14 @@
 import Cards from "@/components/card/Cards";
 import PageCardWithText from "@/components/card/PageCardWithText";
 import Loading from "@/components/common/loading/Loading";
-import useFetch from "@/hooks/useFetch";
-import { artists, getArtistById } from "@/utils/config";
-import { settings, URL } from "@/utils/constants";
+import { artists } from "@/utils/config";
+import { URL } from "@/utils/constants";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Slider from "react-slick";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Page = () => {
@@ -32,11 +30,10 @@ const Page = () => {
     };
     try {
       const response = await axios.post(`${artists.ARTIST_BY_ID}`, payload);
-      // console.log(response.data.data);
+
       setSingleArtists(response.data.data.currentArtist);
       setArtistEvents(response.data.data.currentArtistEvents);
       setOtherArtists(response.data.data.otherArtists);
-      // console.log("upcoming events", response.data.data.currentArtistEvents);
       setLoading(false);
     } catch (error) {
       if (error.response) {
@@ -62,7 +59,7 @@ const Page = () => {
   const cardsData = otherArtists?.slice(0, 5);
 
   if (loading) return <Loading />;
-  // console.log(loading);
+
   return (
     <>
       <div className="md:py-6 md:px-14  ">
@@ -99,9 +96,6 @@ const Page = () => {
             <Swiper
               spaceBetween={6}
               slidesPerView={1}
-              // onSlideChange={() => console.log("slide change")}
-              // onSwiper={(swiper) => console.log(swiper)}
-              // className="mt-3 "
               breakpoints={{
                 320: {
                   slidesPerView: 1.5,
@@ -132,7 +126,6 @@ const Page = () => {
               ))}
             </Swiper>
           ) : (
-            // <Loading />
             <p className="mt-6 mb-32 text-xl ">No upcoming events</p>
           )}
         </div>
@@ -152,9 +145,6 @@ const Page = () => {
             <Swiper
               spaceBetween={6}
               slidesPerView={1}
-              // onSlideChange={() => console.log("slide change")}
-              // onSwiper={(swiper) => console.log(swiper)}
-              // className="mt-3 "
               breakpoints={{
                 320: {
                   slidesPerView: 1.5,

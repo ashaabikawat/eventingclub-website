@@ -8,17 +8,11 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaRegCalendarAlt, FaFacebookF, FaTwitter } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
-import toast, { Toaster } from "react-hot-toast";
-import { Swiper, SwiperSlide } from "swiper/react";
-import PageCardWithText from "@/components/card/PageCardWithText";
+import toast from "react-hot-toast";
+
 import Loading from "@/components/common/loading/Loading";
-import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
-  Card,
-} from "@material-tailwind/react";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { Card } from "@material-tailwind/react";
+
 import Link from "next/link";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
 
@@ -27,9 +21,6 @@ const Page = () => {
   const [eventData, setEventData] = useState();
   const [tourEvent, setTourEvent] = useState([]);
   const [loadings, setLoadings] = useState(true);
-  const [showMore, setShowMore] = useState(false);
-  const [open, setOpen] = useState(0);
-  const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   useEffect(() => {
     fetchEvent();
@@ -41,7 +32,7 @@ const Page = () => {
     };
     try {
       const response = await axios.post(`${eventTour.GET_BY_ID}`, payload);
-      // console.log(response.data.data);
+
       setEventData(response.data.data);
       setTourEvent(response.data.data.TourEvents);
 
@@ -59,7 +50,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
         }
       }
@@ -96,20 +86,7 @@ const Page = () => {
               <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize">
                 {eventData?.TourName}
               </h1>
-              <div className="flex gap-1  mt-4 md:text-base">
-                {/* <span className="border-r-2 border-gray-800 pr-2 text-gray-800 capitalize">
-                  {eventData?.categoryName}
-                </span> */}
-                {/* {eventData?.Language.map((lang) => (
-                  <span
-                    className="border-r-2 border-gray-800 pr-2 text-gray-800  capitalize"
-                    key={lang}
-                  >
-                    {lang}
-                  </span>
-                ))} */}
-                {/* <span>{eventData?.BestSuitedFor}</span> */}
-              </div>
+              <div className="flex gap-1  mt-4 md:text-base"></div>
               <div className="flex flex-col">
                 <div className="flex items-center justify-start gap-2">
                   <span>
@@ -153,27 +130,6 @@ const Page = () => {
               </div>
             </div>
           </div>
-          {/* </div>
-          </div> */}
-
-          {/* about */}
-          {/* <div className="  order-3 md:order-2 lg:-mt-18  md:-mt-20 px-4">
-            <div className=" md:h-[420px] lg:h-[420px] border border-gray-500 rounded-lg px-4 py-6 ">
-              <h1 className="md:text-2xl font-bold">About</h1>
-              <div
-                className={`md:mt-4 mt-2 text-base md:min-h-[200px] transition-all ${
-                  showMore ? "max-h-auto" : "max-h-[150px]"
-                } overflow-hidden`}
-                dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
-              ></div>
-              <button
-                className="mt-4 text-blue-700 font-semibold"
-                onClick={() => setShowMore(!showMore)}
-              >
-                {showMore ? "Show Less" : "Read More"}
-              </button>
-            </div>
-          </div> */}
         </div>
 
         <div className="flex mt-6 gap-4 lg:mt-10 px-4">

@@ -3,10 +3,7 @@
 import Filter from "@/components/filter/Filter";
 import { categories } from "@/utils/config";
 import { dateFilter } from "@/utils/constants";
-import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
-import { Card } from "@material-tailwind/react";
 import axios from "axios";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { TbFilter } from "react-icons/tb";
@@ -27,12 +24,8 @@ const Page = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
   const [range, setRange] = useState("start");
   const [filters, setFilters] = useState({});
-  // console.log("filters", filters);
 
   const handleManualSubmit = () => {
-    // console.log(startDate);
-    // console.log(endDate);
-
     DateFilterApiCall(startDate, endDate);
     setIsManual(false);
     setFilterOpenModal(false);
@@ -68,7 +61,7 @@ const Page = () => {
 
     setFilters(newFilters);
     const payload = { category_id: id, ...newFilters };
-    // console.log(payload);
+
     setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
@@ -90,7 +83,7 @@ const Page = () => {
     newFilters.Genre_id = value;
     setFilters(newFilters);
     const payload = { category_id: id, ...newFilters };
-    // console.log(payload);
+
     setError(false);
     try {
       const response = await axios.post(categories.GET_BY_ID, payload);
@@ -139,8 +132,6 @@ const Page = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    // console.log(startDate, endDate);
-
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"

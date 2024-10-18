@@ -3,7 +3,6 @@ import Tickets from "./Tickets";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { customer } from "@/utils/config";
-import Footer from "../footer/Footer";
 
 const TicketById = () => {
   const { id } = useParams();
@@ -23,11 +22,25 @@ const TicketById = () => {
         `${customer.GET_TICKETS_BY_ID}`,
         payload
       );
-      console.log(response.data.data);
       setUpcomingEventsTicket(response.data.data.UpcomingEventTickets);
       setPastEventsTicket(response.data.data.PastEventTickets);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          setUpcomingEventsTicket([]);
+          setPastEventsTicket([]);
+        }
+      }
     }
   };
 

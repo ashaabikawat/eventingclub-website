@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Promocode = ({ promocode, selectedId, setpromoObject }) => {
-  console.log(promocode);
   return (
     <div className="w-52">
       <div className=" border border-gray-300 rounded-md px-2 py-4 md:w-full ">
@@ -27,10 +26,6 @@ const Promocode = ({ promocode, selectedId, setpromoObject }) => {
                 ? `save ₹ ${promocode?.Value}`
                 : `save ${promocode?.Value}%`}
             </p>
-            {/* <p className="text-xs text-gray-700">
-              HTML symbol, character and entity codes, ASCII, CSS and HEX values
-              for Indian Rupee Sign, plus a panoply of others.
-            </p> */}
           </div>
         </div>
       </div>

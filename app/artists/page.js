@@ -1,8 +1,6 @@
 "use client";
 import { SingleArtistCard } from "@/components/artist/SingleArtistCard";
-import PageHeader from "@/components/common/single page header/PageHeader";
-import useFetch from "@/hooks/useFetch";
-import { artists, getArtists } from "@/utils/config";
+import { artists } from "@/utils/config";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import Link from "next/link";
@@ -22,10 +20,9 @@ const Page = () => {
   const fetchArtist = async () => {
     try {
       const response = await axios.get(artists.GET_ALL);
-      // console.log(response.data.data);
+
       setAllArtists(response.data.data);
       setArtistsDuplicate(response.data.data);
-      // setLoading(false);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -97,7 +94,6 @@ const Page = () => {
   return (
     <div className=" md:px-14 mt-10 md:mb-10 mb-10 px-4">
       <Toaster />
-      {/* <PageHeader text="Explore events by artists:" /> */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center  gap-4">
         <h1 className=" font-bold md:text-lg ">Explore Events By Artists</h1>
         <div className="md:w-96">

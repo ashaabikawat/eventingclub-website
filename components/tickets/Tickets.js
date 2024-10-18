@@ -1,7 +1,6 @@
 import React from "react";
 
 const Tickets = ({ ticket }) => {
-  // console.log(ticket);
   return (
     <div className="md:pb-6 pb-4">
       <div className="bg-white rounded-lg h-full p-4 relative border-gray-400  border before:h-8 before:w-8 before:inline-block before:border-r-2 before:border-gray-400  before:rounded-r-full before:absolute before:-left-5 before:bg-gray-100 before:z-100 before:top-16 after:h-8 after:w-8 after:inline-block after:border-l-2 after:border-gray-400  after:rounded-l-full after:absolute after:-right-5 after:bg-gray-100 after:z-100 after:top-16  ">

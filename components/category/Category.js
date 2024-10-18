@@ -33,8 +33,7 @@ const Category = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
-          toast.error(data.message);
+          setLoading(false);
         }
       }
     }
@@ -45,6 +44,7 @@ const Category = () => {
 
   return (
     <div className="md:py-6 mt-6 mb-8 sm:px-4 px-1 overflow-hidden md:px-4">
+      {/* headers */}
       <CardHeaders
         mobileHeader="Events by categories"
         desktopHeader="Browse events by categories"
@@ -53,6 +53,7 @@ const Category = () => {
         url="/categories"
       />
 
+      {/* cards */}
       <div className="px-2">
         <Swiper
           spaceBetween={20}
@@ -75,8 +76,6 @@ const Category = () => {
               spaceBetween: 20,
             },
           }}
-          // onSlideChange={() => console.log("slide change")}
-          // onSwiper={(swiper) => console.log(swiper)}
           className="md:mt-6 mt-4 "
         >
           {cardsData?.map((data) => (

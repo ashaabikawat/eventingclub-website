@@ -13,11 +13,9 @@ export const VenueCard = ({ data }) => {
             src={`${URL}/${imageUrl}`}
             alt="venue card"
             objectFit="cover"
-            // layout="fill"
             className="rounded"
             height={375}
             width={500}
-            // objectPosition="top"
           />
         </div>
         <div className="flex flex-col gap-2 justify-between  md:p-4  p-3">

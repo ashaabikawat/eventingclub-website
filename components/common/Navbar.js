@@ -3,24 +3,26 @@ import React, { useState, useEffect } from "react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
-  UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import SearchInput from "./SearchInput";
 import { usePathname } from "next/navigation";
-import { useSelector } from "react-redux"; // Updated
+import { useSelector } from "react-redux";
 import Image from "next/image";
 import { LuMapPin } from "react-icons/lu";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { homepageSearch } from "../../utils/config";
-import { LuUser2 } from "react-icons/lu";
 import { MdEventAvailable } from "react-icons/md";
 import { FaRegCircleUser } from "react-icons/fa6";
 
 const Navbar = ({ bgColor }) => {
   const [open, setOpen] = useState(false);
+
+  const [searchTerm, setsearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [searchData, setSearchData] = useState([]);
+
   const pathname = usePathname();
   const homePageUrl = pathname === "/";
 
@@ -28,7 +30,6 @@ const Navbar = ({ bgColor }) => {
   const token = useSelector((state) => state.auth.token);
   // Updated: Getting token from Redux store
   const getToken = JSON.parse(localStorage.getItem("authToken"));
-  console.log(getToken);
 
   const cust_id = getToken?.cust_id;
   const isLoggedIn = !!token; // Check if the user is logged in based on token availability
@@ -49,11 +50,6 @@ const Navbar = ({ bgColor }) => {
   const handleToggle = () => {
     setOpen(!open);
   };
-  // console.log(bgColor);
-
-  const [searchTerm, setsearchTerm] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [searchData, setSearchData] = useState([]);
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -85,7 +81,7 @@ const Navbar = ({ bgColor }) => {
           `${homepageSearch.SEARCH_EVENTS_VENUES}`,
           payload
         );
-        console.log(response.data.data);
+
         if (response.data.data.length > 0) {
           setSearchData(response.data.data);
         } else {
@@ -93,7 +89,21 @@ const Navbar = ({ bgColor }) => {
           setSearchData([]);
         }
       } catch (error) {
-        console.log(error);
+        if (error.response) {
+          const { status, data } = error.response;
+
+          if (
+            status === 404 ||
+            status === 403 ||
+            status === 500 ||
+            status === 302 ||
+            status === 409 ||
+            status === 401 ||
+            status === 400
+          ) {
+            setSearchData([]);
+          }
+        }
       }
     };
     if (debouncedSearch !== "") {
@@ -160,10 +170,6 @@ const Navbar = ({ bgColor }) => {
                                         : "border-b-[1px] border-gray-200 "
                                     }`}
                                   >
-                                    {/* <MdEventAvailable
-                                      className="text-gray-500"
-                                      size={20}
-                                    /> */}
                                     <LuMapPin
                                       className="text-gray-500"
                                       size={20}
@@ -189,16 +195,7 @@ const Navbar = ({ bgColor }) => {
                                         ? " border-none"
                                         : "border-b-[1px] border-gray-200 "
                                     }`}
-                                    // className={`p-4 flex items-center space-x-2 w-full border-gray-300  hover:bg-gray-200 ${
-                                    //   data.EventName.length - 1
-                                    //     ? "border-none"
-                                    //     : "border-b-2"
-                                    // }`}
                                   >
-                                    {/* <LuMapPin
-                                      className="text-gray-500"
-                                      size={20}
-                                    /> */}
                                     <MdEventAvailable
                                       className="text-gray-500"
                                       size={20}
@@ -248,7 +245,7 @@ const Navbar = ({ bgColor }) => {
             <div className=" md:hidden relative">
               <label className="relative w-full">
                 <span className="sr-only">search</span>
-                <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6" />
+                <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6 text-gray-400" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -273,10 +270,6 @@ const Navbar = ({ bgColor }) => {
                                     : "border-b-[1px] border-gray-200 "
                                 }`}
                               >
-                                {/* <MdEventAvailable
-                                  className="text-gray-500"
-                                  size={20}
-                                /> */}
                                 <LuMapPin className="text-gray-500" size={20} />
 
                                 <p className="cursor-pointer">{data.Name}</p>
@@ -296,7 +289,6 @@ const Navbar = ({ bgColor }) => {
                                     : "border-b-[1px] border-gray-200 "
                                 }`}
                               >
-                                {/* <LuMapPin className="text-gray-500" size={20} /> */}
                                 <MdEventAvailable
                                   className="text-gray-500"
                                   size={20}
@@ -318,21 +310,15 @@ const Navbar = ({ bgColor }) => {
 
           <div className="hidden md:flex justify-start gap-20 mt-2 text-lg">
             <ul className="flex justify-start gap-16">
-              <li>
+              <li className="hover:text-gray-600 text-black">
                 <Link href="/">Home</Link>
               </li>
-              <li>
+              <li className="hover:text-gray-600 text-black">
                 <Link href="/venue">Venue</Link>
               </li>
-              <li>
+              <li className="hover:text-gray-600 text-black">
                 <Link href="/artists">Artist</Link>
               </li>
-              {/* <li>
-                <Link href="/blogs">Blogs</Link>
-              </li>
-              <li>
-                <Link href="/contact">Contact us</Link>
-              </li> */}
             </ul>
           </div>
         </div>
@@ -386,16 +372,6 @@ const Navbar = ({ bgColor }) => {
                         Artist
                       </Link>
                     </li>
-                    {/* <li>
-                      <Link href="/blogs" onClick={handleToggle}>
-                        Blogs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/contact" onClick={handleToggle}>
-                        Contact us
-                      </Link>
-                    </li> */}
                   </ul>
                 </nav>
               </div>

@@ -1,6 +1,5 @@
 "use client";
 import { URL } from "@/utils/constants";
-import { Card } from "@material-tailwind/react";
 import Image from "next/image";
 
 const Cards = ({ data }) => {
@@ -8,20 +7,19 @@ const Cards = ({ data }) => {
 
   return (
     <div className="w-full h-full relative cursor-pointer overflow-hidden">
-      {/* <CardHeader floated={false} className="h-80"> */}
+      {/* image */}
       <div>
         <Image
           src={`${URL}/${imageUrl}`}
           alt="profile-picture"
-          // layout="fill"
           objectFit="cover"
           height={375}
           width={500}
-          // objectPosition="top"
           className="rounded "
         />
       </div>
-      {/* </CardHeader> */}
+
+      {/* data */}
       <div className="absolute inset-x-4 bottom-6">
         <p className="text-white text-sm md:text-base">{data.Name}</p>
       </div>

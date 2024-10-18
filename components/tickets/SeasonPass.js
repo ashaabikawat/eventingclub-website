@@ -1,7 +1,6 @@
 import React from "react";
 
 const SeasonPass = ({ data, handleSeasonPass, handleShowTicket }) => {
-  //   console.log("data", data);
   const startsFrom = data?.DateTimeDate[0].Date;
   const endsTo = data?.DateTimeDate[data.DateTimeDate.length - 1].Date;
 

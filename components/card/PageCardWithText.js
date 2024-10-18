@@ -1,16 +1,13 @@
 "use client";
 import { URL } from "@/utils/constants";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/solid";
-import { Card } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const PageCardWithText = ({ event }) => {
   const imageUrl = `${URL}/${event.EventCardImages[0].image_path}`;
-  console.log(event);
-  // State to manage whether the event name has more than two lines
-  const [isLongEventName, setIsLongEventName] = useState(false);
+
   const eventNameRef = useRef(null);
 
   useEffect(() => {
@@ -34,23 +31,21 @@ const PageCardWithText = ({ event }) => {
 
   return (
     <div className="md:mb-4 mb-4">
+      {/* image */}
       <Link href={`/events/${event.event_id}`}>
-        {/* <Card className="md:h-60 h-40 relative cursor-pointer overflow-hidden"> */}
-        <div className=" ">
+        <div>
           <Image
             src={imageUrl}
             alt="profile-picture"
-            // layout="fill"
             objectFit="cover"
             height={375}
             width={500}
-            // objectPosition="top"
             className="rounded"
           />
         </div>
-        {/* </Card> */}
       </Link>
 
+      {/* data */}
       <div className="px-2">
         <div className=" mt-2 h-auto  sm:mt-2 ">
           <p className="text-[16px] capitalize  font-semibold sm:text-base">

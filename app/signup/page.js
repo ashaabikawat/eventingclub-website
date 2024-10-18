@@ -30,26 +30,16 @@ const Page = () => {
 
   const customerId = useSelector((state) => state.auth.cust_id);
   const userExists = useSelector((state) => state.auth.customer_exists);
-  // console.log(userExists);
+
   const token = useSelector((state) => state.auth.token);
-  // console.log(token);
 
   const navigate = () => {
     setLoading(true);
     router.push("/");
   };
 
-  const userDetails = useMemo(() => {
-    return {
-      customer_id: customerId,
-      CustomerName: formData.name,
-      Email: formData.email,
-    };
-  }, [customerId, formData.name, formData.email]);
-
   //otp generation
   const otpGeneration = async () => {
-    // console.log(number);
     if (!number || number.toString().length !== 10 || number === null) {
       return toast.error("Please enter a valid 10-digit number");
     }
@@ -58,10 +48,9 @@ const Page = () => {
       MobileNumber: number,
     };
 
-    console.log(payload);
     try {
       const response = await axios.post(generateOPT, payload);
-      console.log(response.data.data);
+
       dispatch(
         setAuthDetails({
           cust_id: response.data.data.customer_id,
@@ -83,7 +72,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
         }
       }
@@ -124,12 +112,11 @@ const Page = () => {
       Otp: stringOtp,
       customer_id: customerId,
     };
-    console.log(payload);
 
     try {
       const response = await axios.post(validateOtp, payload);
       dispatch(setToken(response.data.data.token));
-      // console.log(response.data);
+
       dispatch(loginSuccess());
       toast.success(response.data.message);
       setOtpSent(false);
@@ -146,7 +133,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
         }
       }
@@ -159,7 +145,6 @@ const Page = () => {
       CustomerName: formData.name,
       Email: formData.email,
     };
-    console.log(payload);
 
     try {
       const response = await axios.post(registerUser, payload);
@@ -179,7 +164,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
         }
       }

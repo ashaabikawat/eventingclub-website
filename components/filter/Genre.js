@@ -16,10 +16,23 @@ const Genre = ({ handleGenre }) => {
   const fetchGenre = async () => {
     try {
       const response = await axios.get(`${genre.GET_ALL}`);
-      // console.log(response.data.data);
       setAllGenre(response.data.data);
     } catch (error) {
-      console.log(error.message);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          setAllGenre([]);
+        }
+      }
     }
   };
 

@@ -1,7 +1,6 @@
 import React from "react";
 
 const ShortTicket = ({ data, selectedShortTicket }) => {
-  // console.log(data);
   return (
     <div>
       <div

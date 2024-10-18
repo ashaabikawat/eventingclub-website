@@ -60,8 +60,10 @@ const authSlice = createSlice({
       state.customer_exists = null;
       state.isLoggedIn = false;
       state.token = null;
+
       if (typeof window !== "undefined") {
         localStorage.removeItem("authToken"); // Clear token from localStorage
+        localStorage.removeItem("mobile");
       }
     },
   },

@@ -1,23 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import CardHeaders from "../common/card headers/CardHeaders";
-import Slider from "react-slick";
+
 import CardWithText from "../card/CardWithText";
-import { dateFilter, initialLength, settings } from "@/utils/constants";
+import { dateFilter } from "@/utils/constants";
 import axios from "axios";
-import { getAllUpcomingEvents, upcomingEvents } from "@/utils/config";
-import ShimmerCard from "../card/ShimmerCard";
-import toast, { Toaster } from "react-hot-toast";
+import { upcomingEvents } from "@/utils/config";
+import toast from "react-hot-toast";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Image from "next/image";
 
 const UpcomingEvents = () => {
   const [allUpcomingEvents, setAllUpcomingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const filterEvents = async (value) => {
-    const currentDate = new Date();
     let TodayStartDateTimeStr, TodayEndDatetimeStr;
     switch (value) {
       case "All":
@@ -41,7 +37,6 @@ const UpcomingEvents = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
-    // console.log(startDate, endDate);
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"
@@ -55,8 +50,6 @@ const UpcomingEvents = () => {
         startDate: startDate,
         endDate: endDate,
       };
-
-      // console.log({ payload });
 
       const response = await axios.post(`${upcomingEvents.GET_ALL}`, payload);
 
@@ -80,7 +73,6 @@ const UpcomingEvents = () => {
           status === 401 ||
           status === 400
         ) {
-          // console.log(error.response);
           toast.error(data.message);
           setEvents([]);
         }
@@ -95,11 +87,25 @@ const UpcomingEvents = () => {
   const fetchUpcomingEvents = async () => {
     try {
       const response = await axios.post(upcomingEvents.GET_ALL);
-      // console.log(response.data.data);
+
       setAllUpcomingEvents(response.data.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          setAllUpcomingEvents([]);
+        }
+      }
     }
   };
 
@@ -112,51 +118,6 @@ const UpcomingEvents = () => {
   }
 
   return (
-    // <div className="   sm:px-8 px-1 overflow-hidden md:px-10">
-    //   <Toaster />
-
-    //   <div className="px-2">
-    //     <Swiper
-    //       spaceBetween={6}
-    //       slidesPerView={5}
-    //       breakpoints={{
-    //         320: {
-    //           slidesPerView: 1.5,
-    //           spaceBetween: 16,
-    //         },
-    //         425: {
-    //           slidesPerView: 2.5,
-    //           spaceBetween: 10,
-    //         },
-    //         768: {
-    //           slidesPerView: 3.5,
-    //           // spaceBetween: 20,
-    //         },
-    //         1024: {
-    //           slidesPerView: 4.5,
-    //           spaceBetween: 4,
-    //         },
-    //       }}
-    //       // onSlideChange={() => console.log("slide change")}
-    //       // onSwiper={(swiper) => console.log(swiper)}
-    //       // className="mt-3 "
-    //     >
-    //       {cardsData.map((data) => (
-    //         <SwiperSlide key={data.id}>
-    //           <div
-    //             key={data.id}
-    //             className=" md:px-2 mt-6 md:h-[330px] lg:h-[400px]"
-    //           >
-    //             <Link href={`/events/${data.event_id}`}>
-    //               <CardWithText data={data} />
-    //             </Link>
-    //           </div>
-    //         </SwiperSlide>
-    //       ))}
-    //     </Swiper>
-    //   </div>
-    // </div>
-
     <div className=" mb-2  mt-10 md:mb-6  sm:px-4 px-1 overflow-hidden md:px-4">
       <div className="flex md:mt-0  md:flex-row flex-col justify-between px-4">
         <h1 className="capitalize text-base md:text-2xl font-bold">
@@ -206,9 +167,6 @@ const UpcomingEvents = () => {
               spaceBetween: 20,
             },
           }}
-          // onSlideChange={() => console.log("slide change")}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // className="mt-3"
         >
           {cardsData?.map((data) => (
             <SwiperSlide key={data.id}>
@@ -222,10 +180,6 @@ const UpcomingEvents = () => {
         </Swiper>
       </div>
     </div>
-
-    // <div>
-    //   <Image src={"/img3.jpg"} width={300} height={300} />
-    // </div>
   );
 };
 

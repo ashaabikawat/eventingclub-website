@@ -1,14 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Card, Carousel } from "@material-tailwind/react";
 import Image from "next/image";
 import { getBanner } from "@/utils/config";
 import { URL } from "@/utils/constants";
-import ShimmerCard from "../card/ShimmerCard";
-import { PhotoIcon } from "@heroicons/react/24/solid";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { register } from "swiper/element/bundle";
+import axios from "axios";
 
 register();
 
@@ -17,7 +13,6 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(true);
   const swiperRef = useRef(null);
-  console.log(banner);
 
   useEffect(() => {
     const swiperContainer = swiperRef.current;
@@ -40,15 +35,31 @@ const Hero = () => {
       Object.assign(swiperContainer, params);
       swiperContainer.initialize();
     } else {
-      console.error("Swiper reference is null");
     }
   }, [swiperRef, banner]);
 
   const fetchImages = async () => {
-    const response = await fetch(getBanner);
-    const data = await response.json();
-    setBanner(data.data);
-    setLoading(false);
+    try {
+      const response = await axios.get(getBanner);
+      setBanner(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          setLoading(false);
+        }
+      }
+    }
   };
 
   useEffect(() => {
@@ -66,6 +77,8 @@ const Hero = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (loading) return;
 
   return (
     <div className=" h-96 md:h-[600px] mt-6 w-full">

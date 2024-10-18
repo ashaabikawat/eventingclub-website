@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Verification from "./verification";
 import BookingSummary from "./BookingSummary";
-import { useDispatch } from "react-redux";
-import InvoiceDetails from "./InvoiceDetails";
 import {
   Accordion,
   AccordionHeader,
@@ -23,13 +21,8 @@ const Checkout = () => {
       setOpen(open === value ? 0 : value);
     }
   };
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log("isLoggedIn:", isLoggedIn);
-    // console.log("otpVerified:", otpVerified);
-    // console.log("details:", details);
-
     // Automatically open Booking Summary if user is logged in
     if (isLoggedIn) {
       // Open Booking Summary directly if user is logged in
@@ -48,6 +41,7 @@ const Checkout = () => {
         </h1>
       </div>
 
+      {/* verification */}
       <div className="md:px-12 md:mt-0 px-4 mt-4 ">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 1}>
@@ -81,6 +75,7 @@ const Checkout = () => {
         </div>
       </div>
 
+      {/* booking summary */}
       <div className="md:px-12 md:mt-6 px-4 mt-4">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 2}>
@@ -101,27 +96,6 @@ const Checkout = () => {
           </Accordion>
         </div>
       </div>
-
-      {/* <div className="md:px-12 md:mt-6 px-4 mt-4">
-        <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
-          <Accordion open={open === 3}>
-            <AccordionHeader className="border-none">
-              <div className="flex flex-col gap-2">
-                <p className="text-sm">Step 3</p>
-                <h1 className="md:text-2xl text-xl font-bold">
-                  Ticket details
-                </h1>
-                <p className="md:font-semibold md:text-base text-sm ">
-                  These details will be shown on your invoice *
-                </p>
-              </div>
-            </AccordionHeader>
-            <AccordionBody>
-              <InvoiceDetails cust_id={cust_id} />
-            </AccordionBody>
-          </Accordion>
-        </div>
-      </div> */}
     </div>
   );
 };

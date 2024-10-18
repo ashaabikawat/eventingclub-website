@@ -13,7 +13,6 @@ import { dropdownOptions, formatDateForInput } from "@/utils/constants";
 import Flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.css";
 import DatePicker from "./DatePicker";
-import moment from "moment-timezone";
 
 const Filter = ({
   handleLanguageSelection,
@@ -59,19 +58,13 @@ const Filter = ({
   }, [today]);
 
   const handleDateRange = (range) => {
-    // console.log("range");
     setRange(range);
     if (range === "start") {
       setVisiblePicker("start");
-      // setStartDate(selectedDates);
     } else if (range === "end") {
       setVisiblePicker("end");
-      // setEndDate(selectedDates);
     }
   };
-
-  // console.log("start", startDate);
-  // console.log("end", endDate);
 
   const [isMobile, setIsMobile] = useState(false);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
@@ -105,22 +98,6 @@ const Filter = ({
     }
   };
 
-  // const handleManualSubmit = () => {
-  //   if (!startDate || !endDate) {
-  //     console.log("Please select both start and end dates.");
-  //     return; // Prevent further execution if dates are not set
-  //   }
-
-  //   const startdate = `${moment(startDate)
-  //     .startOf("day")
-  //     .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
-  //   const enddate = `${moment(endDate)
-  //     .endOf("day")
-  //     .format("YYYY-MM-DDTHH:mm:ss")}+00:00`;
-
-  //   console.log("startdate:", startdate, "enddate:", enddate);
-  // };
-
   useEffect(() => {
     let flatpickrInstance;
 
@@ -130,8 +107,6 @@ const Filter = ({
         inline: true, // Enable inline mode
         defaultDate: formattedDate, // Default date, you can change this to dynamic value
         onChange: (selectedDates) => {
-          // console.log("Selected Date:", selectedDates[0]);
-          // setStartDate(selectedDates[0]); // Handle date change here
           setSelectedDates(selectedDates[0]);
           if (range === "start") {
             setStartDate(selectedDates[0]);
@@ -149,19 +124,6 @@ const Filter = ({
       }
     };
   }, [isManual, range]);
-
-  // console.log("fil", filterOpenModal);
-
-  const handleApply = () => {
-    if (range === "start") {
-      setStartDate(selectedDates);
-    } else {
-      setEndDate(selectedDates);
-    }
-  };
-
-  console.log("start", startDate);
-  console.log("end", endDate);
 
   const handleClear = () => {
     fetchEvents();
@@ -339,7 +301,6 @@ const Filter = ({
               </div>
               <span
                 className="text-sm text-blue-900 absolute right-4"
-                // onClick={fetchEvents}
                 onClick={() => {
                   setFilters({});
                   fetchEvents();
@@ -371,7 +332,6 @@ const Filter = ({
               </div>
               <span
                 className="text-sm text-blue-900 absolute right-4"
-                // onClick={fetchEvents}
                 onClick={() => {
                   setFilters({});
                   fetchEvents();
@@ -403,7 +363,6 @@ const Filter = ({
               </div>
               <span
                 className="text-sm text-blue-900 absolute right-4"
-                // onClick={fetchEvents}
                 onClick={() => {
                   setFilters({});
                   fetchEvents();

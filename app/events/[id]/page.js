@@ -67,7 +67,6 @@ const Page = () => {
       Object.assign(swiperContainer, params);
       swiperContainer.initialize();
     } else {
-      console.error("Swiper reference is null");
     }
   }, [swiperRef, eventData]);
 
@@ -102,19 +101,15 @@ const Page = () => {
       Object.assign(swiperContainer, params);
       swiperContainer.initialize();
     } else {
-      console.error("Swiper reference is null");
     }
   }, [galleryRef, eventData]);
 
-  // console.log(id);
   const [artists, setArtists] = useState([]);
   const [loadings, setLoadings] = useState(true);
   const [showMore, setShowMore] = useState(false);
   const router = useRouter();
   const [open, setOpen] = useState(0);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-
-  // console.log(artists);
 
   useEffect(() => {
     fetchEvent();
@@ -125,7 +120,7 @@ const Page = () => {
     };
     try {
       const response = await axios.post(`${events.GET_ALL}`, payload);
-      // console.log(response.data.data);
+
       setEventData(response.data.data.EventDetailsObj);
       setArtists(response.data.data.EventArtists);
       setSuggestedEvents(response.data.data.suggestedEvents);
@@ -163,7 +158,6 @@ const Page = () => {
     <div className="   mb-16">
       <div className="md:px-6 md:py-1">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6  gap-4  md:p-4 ">
-          {/* <div className=" md:min-h-[400px] relative  max-h-[300px]   "> */}
           <div className="   ">
             {loadings ? (
               "Loading ..."
@@ -172,10 +166,8 @@ const Page = () => {
                 <Image
                   src={`${URL}/${imageUrl}`}
                   alt="image"
-                  // layout="fill"
                   height={500}
                   width={800}
-                  // className=" overflow-hidden"
                   className="md:w-[1000px] md:h-[400px] 
                    sm:w-[700px] sm:h-[450px]  /* Adjust for smaller screens */
                    lg:w-[1000px] lg:h-[400px] /* Adjust for larger screens */
@@ -232,7 +224,6 @@ const Page = () => {
               )}
               <button
                 className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
-                // onClick={() => console.log(`/events/tickets/${id}`)}
                 onClick={handleBookNow}
               >
                 Book now
@@ -244,10 +235,6 @@ const Page = () => {
           <div className="mt-4 flex flex-col h-full w-full justify-between relative">
             <div className="md:flex hidden h-auto   border-t-2 border-gray-500 flex-col gap-4">
               <div className=" h-full w-full mt-4 relative px-10 py-1 ">
-                {/* <div className="bg-yellow-500 h-52 w-52 "></div>
-                <div className="bg-yellow-500 h-52 w-52 "></div>
-                <div className="bg-yellow-500 h-52 w-52 "></div> */}
-
                 <swiper-container
                   ref={swiperRef}
                   init="false"
@@ -310,22 +297,12 @@ const Page = () => {
           </div>
 
           {/* about */}
-          {/* <div className=" px-4 ">
-            <div className=" rounded-lg border border-gray-500  ">
-            
-            </div>
-          </div> */}
 
           <div className="px-4 order-3  md:px-0 md:order-2 row-span-2 ">
             <div className="border h-full border-gray-500 rounded-lg px-4 ">
               <div className=" h-full  py-6  ">
                 <h1 className="md:text-2xl font-bold">About</h1>
-                {/* <div
-                  className={`md:mt-4 mt-2 text-base h-full transition-all ${
-                    showMore ? "max-h-auto" : "max-h-[300px]"
-                  } overflow-y-auto`}
-                  dangerouslySetInnerHTML={{ __html: eventData?.AboutEvent }}
-                ></div> */}
+
                 <div className="max-h-[300px] overflow-y-auto">
                   <ReactQuill
                     readOnly
@@ -339,14 +316,6 @@ const Page = () => {
           </div>
 
           {/* gallery */}
-          {/* {eventData?.EventGalleryImages.length > 0 && (
-            <div className=" md:-2 md:mt-4 lg:mt-10 px-4 order-5 md:order-4">
-              <div className="border border-gray-500 rounded-lg">
-                
-                
-              </div>
-            </div>
-          )} */}
 
           {eventData?.EventGalleryImages.length > 0 && (
             <div className="order-5 md:order-4 md:px-0 px-4">
@@ -408,61 +377,6 @@ const Page = () => {
             </div>
           )}
         </div>
-        {/* <div className="mt-8 px-6">
-          <h1 className="md:text-3xl font-semibold text-xl">Artists:</h1>
-          <div className="mt-6">
-            <swiper-container
-              ref={swiperRef}
-              init="false"
-              spaceBetween={6}
-              slidesPerView={5}
-              // onSlideChange={() => console.log("slide change")}
-              // onSwiper={(swiper) => console.log(swiper)}
-              // className="mt-3 "
-              breakpoints={{
-                320: {
-                  slidesPerView: 1.5,
-                  spaceBetween: 10,
-                },
-                425: {
-                  slidesPerView: 2.2,
-                  spaceBetween: 10,
-                },
-                768: {
-                  slidesPerView: 3.2,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-              }}
-            >
-              {artists?.map((artist) => (
-                <swiper-slide key={artist.id}>
-                  <Card className="w-full md:h-60  h-52 relative cursor-pointer overflow-hidden">
-                    <div className="w-full h-full relative  ">
-                      <Image
-                        src={`${URL}/${artist?.ArtistImage}`}
-                        alt="profile-picture"
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="top"
-                        className="rounded "
-                      />
-                    </div>
-
-                    <div className="absolute inset-x-4 bottom-6">
-                      <p className="text-white text-sm md:text-base">
-                        {artist?.ArtistName}
-                      </p>
-                    </div>
-                  </Card>
-                </swiper-slide>
-              ))}
-            </swiper-container>
-          </div>
-        </div> */}
 
         {/* accordion */}
         <div className="md:mt-14 mt-10 px-6">
@@ -556,9 +470,6 @@ const Page = () => {
             <Swiper
               spaceBetween={6}
               slidesPerView={1}
-              // onSlideChange={() => console.log("slide change")}
-              // onSwiper={(swiper) => console.log(swiper)}
-              // className="mt-3 "
               breakpoints={{
                 320: {
                   slidesPerView: 1.5,
