@@ -342,7 +342,10 @@ const verification = ({ setDetails, handleOpen }) => {
               </span>
               <span
                 className="cursor-pointer underline"
-                onClick={() => setNumberModal(true)}
+                onClick={() => {
+                  setOtp(Array(6).fill(""));
+                  setNumberModal(true);
+                }}
               >
                 Change Number
               </span>

@@ -79,10 +79,7 @@ const Checkout = () => {
       <div className="md:px-12 md:mt-6 px-4 mt-4">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 2}>
-            <AccordionHeader
-              onClick={() => handleOpen(2)}
-              className="border-none"
-            >
+            <AccordionHeader className="border-none">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 2</p>
                 <h1 className="font-semibold text-2xl">Booking Summary</h1>

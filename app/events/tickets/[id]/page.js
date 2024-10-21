@@ -41,7 +41,6 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          setError(true);
           toast.error(data.message);
           setIsLoading(false);
         }

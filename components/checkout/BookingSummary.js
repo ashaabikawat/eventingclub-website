@@ -59,7 +59,6 @@ const BookingSummary = () => {
   });
 
   const confee = JSON.parse(localStorage.getItem("convenienceFee"));
-
   const convenienceFee = Number(confee?.ConValue) || 0;
 
   // Calculate GST based on the total before discount
@@ -467,7 +466,7 @@ const BookingSummary = () => {
               <h1 className="md:font-bold md:text-2xl text-xl">
                 Payment details
               </h1>
-              <div className="flex flex-col gap-1  border-b-2 border-gray-500">
+              <div className="flex flex-col gap-1  border-b-2 border-gray-500 pb-2">
                 <div className="flex justify-between">
                   <p className="md:text-lg capitalize">Ticket amount</p>
                   <p className="md:text-lg font-bold text-green-500">
@@ -486,29 +485,33 @@ const BookingSummary = () => {
                   </div>
                 )}
 
-                <div className="flex justify-between">
-                  <p className="md:text-lg capitalize">convenience fee</p>
-                  <p className="md:text-lg font-bold flex gap-2 text-green-500">
-                    <span>+</span>
-                    &#8377;{formatAmount(baseAmount)}
-                  </p>
-                </div>
+                {convenienceFee > 0 && (
+                  <div>
+                    <div className="flex justify-between">
+                      <p className="md:text-lg capitalize">convenience fee</p>
+                      <p className="md:text-lg font-bold flex gap-2 text-green-500">
+                        <span>+</span>
+                        &#8377;{formatAmount(baseAmount)}
+                      </p>
+                    </div>
 
-                <div className="flex justify-between">
-                  <p className="text-sm capitalize text-gray-500">
-                    Base amount
-                  </p>
-                  <p className="text-sm flex gap-2 text-gray-500">
-                    &#8377;{formatAmount(convenienceFee)}
-                  </p>
-                </div>
+                    <div className="flex justify-between">
+                      <p className="text-sm capitalize text-gray-500">
+                        Base amount
+                      </p>
+                      <p className="text-sm flex gap-2 text-gray-500">
+                        &#8377;{formatAmount(convenienceFee)}
+                      </p>
+                    </div>
 
-                <div className="flex justify-between mb-2">
-                  <p className="text-sm capitalize text-gray-500">GST</p>
-                  <p className="text-sm  flex gap-2 text-gray-500">
-                    &#8377;{formatAmount(gst)}
-                  </p>
-                </div>
+                    <div className="flex justify-between mb-2">
+                      <p className="text-sm capitalize text-gray-500">GST</p>
+                      <p className="text-sm  flex gap-2 text-gray-500">
+                        &#8377;{formatAmount(gst)}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
               <div>
                 <div className="flex justify-between">

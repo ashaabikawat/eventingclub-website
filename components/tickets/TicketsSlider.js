@@ -17,6 +17,7 @@ import {
 
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   const [isMobile, setIsMobile] = useState(false);
+  // const [isSeasonPass]
   const { id } = useParams();
 
   const [selectedShortTicket, setSelectedShortTicket] = useState();
@@ -43,7 +44,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   });
 
   const [eventIdCheck, setEventIdCheck] = useState(null);
-
+  const [showTicketId, setShowTicketId] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -64,6 +65,11 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     if (ticketId !== null) {
       handleShowTicket(ticketId);
       // Automatically show the ticket section
+    }
+    if (data.DateTimeDate.length === 1) {
+      // console.log(data.DateTimeDate[0].eventDateTime_id);
+      setShowTicketId(data.DateTimeDate[0].eventDateTime_id);
+      handleShowTicket(data.DateTimeDate[0].eventDateTime_id);
     }
   }, [ticketId]);
 
@@ -176,7 +182,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
   const handleShowTicket = async (eventTicketId) => {
     setSelectedShortTicket(eventTicketId);
-    dispatch(setTicketId(eventTicketId));
+    setShowTicketId(eventTicketId);
+    // dispatch(setTicketId(eventTicketId));
     const currentEventId = id;
 
     const totalTicketsInCart = Object.values(count).reduce(
@@ -199,7 +206,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
     try {
       const response = await axios.post(`${events.GET_TICKETS_BY_ID}`, payload);
-      console.log(response.data.data);
+
       // setTicketData(response.data.data);
       setEventTicket(response.data.data);
 
@@ -226,8 +233,9 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           status === 400
         ) {
           // console.log(error.response);
-          // setError(true);
+
           setShowTicket(false);
+          setEventTicket([]);
           toast.error(data.message);
         }
       }
@@ -284,8 +292,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           0
         );
 
-  console.log("finalBookingData", finalBookingData);
-
   const calculateTotals = () => {
     const totalTickets = Object.values(count).reduce(
       (acc, count) => acc + count,
@@ -304,7 +310,6 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       bookingData?.selectedTickets.length > 0
         ? bookingData?.selectedTickets
         : eventTicket.filter((ticket) => count[ticket.Ticket_Id] > 0);
-    console.log("selectedtickets", selectedTickets);
 
     setFinalBookingData({ totalPrice, totalTickets, selectedTickets });
   };
@@ -313,6 +318,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     calculateTotals();
 
     dispatch(setEventId(id));
+    dispatch(setTicketId(showTicketId));
     router.push(`/events/tickets/${id}/checkout`);
   };
 
@@ -322,9 +328,11 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     };
     try {
       const response = await axios.post(`${events.GET_SEASON_PASS}`, payload);
+      setEventTicket(response.data.data);
       dispatch(setTicketData(response.data.data));
       setSelectedShortTicket(response.data.data[0].Ticket_Id);
-      dispatch(setTicketId(response.data.data[0].Ticket_Id));
+      // dispatch(setTicketId(response.data.data[0].Ticket_Id));
+      setShowTicketId(response.data.data[0].Ticket_Id);
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -346,8 +354,10 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   };
 
   const isAnyCountActive = Object.values(showCount).some((value) => value);
-  console.log("isAnyCountActive", isAnyCountActive);
-  console.log("showCount", showCount);
+
+  // console.log(isAnyCountActive);
+  // console.log(showCount);
+  // console.log(count);
 
   const clearCart = () => {
     dispatch(reset_state());
@@ -410,10 +420,10 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                       </SwiperSlide>
                     ))}
 
-                    {data?.DateTimeDate.length > 1 && (
+                    {data?.SeasonPassCount > 0 && (
                       <SwiperSlide>
                         <div
-                          onClick={() => handleSeasonPass()}
+                          onClick={handleSeasonPass}
                           className="cursor-pointer"
                         >
                           <div
@@ -460,9 +470,9 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                         />
                       </div>
                     ))}
-                    {data?.DateTimeDate.length > 1 && (
+                    {data?.SeasonPassCount > 0 && (
                       <div
-                        onClick={() => handleSeasonPass()}
+                        onClick={handleSeasonPass}
                         className="cursor-pointer"
                       >
                         <div
@@ -497,7 +507,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
             </div>
           </div>
 
-          <div className="mt-2 px-4 md:px-14 py-6">
+          <div className="mt-2 px-4 md:px-14 pt-6 pb-32">
             {(eventIdCheck === null || eventIdCheck) &&
             showTicket &&
             eventTicket?.length > 0 ? (
@@ -681,7 +691,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       {(storedEventId === id || storedEventId === null) && (
         <div>
           {totalTickets > 0 ? (
-            <div className="fixed bottom-0 w-[100%] h-[100px] z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
+            <div className="fixed  bottom-0 w-[100%] h-[100px] z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
               <div className="flex flex-col gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
                   ₹ {totalPrice}

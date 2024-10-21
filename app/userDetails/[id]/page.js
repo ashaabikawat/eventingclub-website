@@ -6,7 +6,7 @@ import { customer } from "@/utils/config";
 import axios from "axios";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 

@@ -9,7 +9,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaRegCalendarAlt, FaFacebookF, FaTwitter } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Loading from "@/components/common/loading/Loading";
 import { Card } from "@material-tailwind/react";
@@ -19,6 +18,7 @@ import PageCardWithText from "@/components/card/PageCardWithText";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
+import { LuClock } from "react-icons/lu";
 
 import {
   Accordion,
@@ -137,7 +137,7 @@ const Page = () => {
           status === 401 ||
           status === 400
         ) {
-          toast.error(data.message);
+          // toast.error(data.message);
         }
       }
     }
@@ -212,7 +212,7 @@ const Page = () => {
               <div className="flex flex-col mt-4">
                 <div className="flex items-center justify-start gap-2">
                   <span>
-                    <FiMapPin />
+                    <LuClock />
                   </span>
                   <span>{eventData?.EventStartTime}</span>
                 </div>
