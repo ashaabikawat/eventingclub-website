@@ -92,16 +92,18 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" md:px-14 mt-10 md:mb-10 mb-10 px-4">
+    <div className="  px-4 py-6 md:py-8 md:px-6 mb-16">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between md:items-center  gap-4">
-        <h1 className=" font-bold md:text-lg ">Explore Events By Artists</h1>
+        <h1 className=" font-bold  lg:text-2xl md:text-xl ">
+          Explore Events By Artists
+        </h1>
         <div className="md:w-96">
           <label className="relative">
             <span className="sr-only">search</span>
 
             <div className="w-5 h-5 absolute inset-y-0 left-5">
-              <MagnifyingGlassIcon />
+              <MagnifyingGlassIcon className="text-gray-400" />
             </div>
 
             <input

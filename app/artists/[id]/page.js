@@ -62,7 +62,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="md:py-6 md:px-14  ">
+      <div className="md:py-10 md:px-10 ">
         <div className="flex md:flex-row items-center md:gap-10 gap-2   flex-col  ">
           <div className=" md:h-64 md:w-64 h-52 w-52 relative">
             {loading ? (
@@ -87,7 +87,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="md:py-6 mt-2 border-t-2 md:pt-10  border-gray-300 px-4 md:px-14 py-4 ">
+      <div className="md:py-6 mt-2 border-t-2 md:pt-10  border-gray-300 px-4 md:px-6 py-4 ">
         <h1 className="font-semibold capitalize md:text-3xl text-xl ">
           Upcoming events:
         </h1>
@@ -130,8 +130,8 @@ const Page = () => {
           )}
         </div>
       </div>
-      <div className=" md:px-14 px-4 mb-8">
-        <div className="flex justify-between">
+      <div className=" md:px-6 md:mt-4 px-4 mb-8">
+        <div className="flex justify-between items-center">
           <h1 className="font-bold capitalize md:text-3xl text-xl ">
             Other artists:
           </h1>

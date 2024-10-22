@@ -156,7 +156,7 @@ const Page = () => {
 
   return (
     <div className="   mb-16">
-      <div className="md:px-6 md:py-1">
+      <div className=" md:py-1">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6  gap-4  md:p-4 ">
           <div className="   ">
             {loadings ? (
@@ -462,7 +462,7 @@ const Page = () => {
           </Accordion>
         </div>
 
-        <div className=" md:mt-24 mt-14   px-4 md:px-4  ">
+        <div className=" md:mt-16 mt-14   px-4 md:px-4  ">
           <h1 className="font-semibold capitalize md:text-3xl text-xl ">
             You may also like
           </h1>

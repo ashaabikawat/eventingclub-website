@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const Page = () => {
   const [venueData, setVenueData] = useState();
@@ -50,11 +51,11 @@ const Page = () => {
   const imageUrl = venueData?.venueImages[0]?.image_path;
 
   return (
-    <div className="w-full h-full overflow-x-hidden md:px-14 py-10">
+    <div className="w-full h-full overflow-x-hidden md:px-6 py-10 md:mb-16">
       <Toaster />
       <div className=" w-full h-full  ">
-        <div className=" w-full h-full  lg:border-b-2 lg:border-gray-200 ">
-          <div className="relative w-full h-80 md:mb-8 mb-6">
+        <div className=" w-full h-full  lg:border-b-2 lg:border-gray-200 grid md:grid-cols-2">
+          <div className="relative w-full h-[500px] md:mb-8 mb-6">
             {loading ? (
               "Loading ..."
             ) : imageUrl ? (
@@ -62,6 +63,7 @@ const Page = () => {
                 src={`${URL}/${imageUrl}`}
                 alt="image"
                 layout="fill"
+                objectPosition="top center"
                 objectFit="cover"
                 className="rounded-md"
               />
@@ -69,7 +71,8 @@ const Page = () => {
               "Loading ..."
             )}
           </div>
-          <div className="flex justify-between lg:gap-20 md:gap-2 lg:flex-row flex-col px-4   ">
+          <div className="flex md:mt-6 lg:gap-4  md:gap-2 flex-col px-4   ">
+            {/* venue details */}
             <div className="  w-full border-b-2 border-gray-300 lg:border-none  md:border-none ">
               <h1 className="md:text-3xl text-2xl  font-bold capitalize mb-4 text-blue-900">
                 {venueData?.venueName}
@@ -81,8 +84,10 @@ const Page = () => {
                 {venueData?.venueDescription}
               </p>
             </div>
-            <div className=" w-3/4 mt-4 mb-6">
-              <div className="h-52 w-full overflow-hidden">
+
+            {/* map */}
+            <div className=" w-full  mb-6">
+              <div className="h-72 w-full overflow-hidden">
                 <div
                   className=" w-full"
                   dangerouslySetInnerHTML={{
@@ -98,15 +103,40 @@ const Page = () => {
             upcoming events at this venue:
           </h1>
           {venueEventsdata && venueEventsdata.length > 0 ? (
-            <Slider {...settings}>
-              {venueEventsdata.map((event) => (
-                <div key={event._id} className="px-2 mt-10  w-full">
-                  <Link href={`/events/${event.event_id}`}>
-                    <PageCardWithText event={event} />
-                  </Link>
-                </div>
-              ))}
-            </Slider>
+            <>
+              <Swiper
+                spaceBetween={6}
+                slidesPerView={1}
+                breakpoints={{
+                  320: {
+                    slidesPerView: 1.5,
+                    spaceBetween: 16,
+                  },
+                  425: {
+                    slidesPerView: 2.2,
+                    spaceBetween: 10,
+                  },
+                  768: {
+                    slidesPerView: 3.2,
+                    spaceBetween: 10,
+                  },
+                  1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                  },
+                }}
+              >
+                {venueEventsdata.map((event) => (
+                  <SwiperSlide key={event.id}>
+                    <div key={event._id} className="px-2 mt-10  w-full">
+                      <Link href={`/events/${event.event_id}`}>
+                        <PageCardWithText event={event} />
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </>
           ) : (
             <p className="mt-4 ">No events available</p>
           )}

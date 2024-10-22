@@ -73,22 +73,24 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" mt-8 mb-16 md:px-6 px-4 ">
+    <div className=" mt-8 mb-16  px-6 md:mb-16 ">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-        <h1 className=" font-bold md:text-2xl px-2">Pick your venue:</h1>
+        <h1 className="  font-bold  lg:text-2xl md:text-xl ">
+          Pick your venue:
+        </h1>
         <div className="md:w-96">
           <label className="relative">
             <span className="sr-only">search</span>
 
             <div className="w-5 h-5 absolute inset-y-0 left-5">
-              <MagnifyingGlassIcon />
+              <MagnifyingGlassIcon className="text-gray-400" />
             </div>
 
             <input
               type="text"
               className="placeholder:text-slate-400 border w-full placeholder:text-sm md:placeholder:text-base border-slate-300 rounded-md py-3 pl-10 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50 "
-              placeholder="Search for Events, Venues"
+              placeholder="Search for Venues"
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
             />
