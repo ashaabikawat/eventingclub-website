@@ -167,7 +167,7 @@ const Filter = ({
 
   return (
     <>
-      <div className="md:w-80 w-full  md:px-4 hidden md:block md:mt-4 mb-20">
+      <div className="md:w-80 w-full   hidden md:block md:mt-4 mb-20">
         <h1 className="md:text-xl mb-4 font-semibold">Filters:</h1>
         <div className="border border-gray-400 rounded-md p-4">
           <Accordion

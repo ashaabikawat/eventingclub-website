@@ -6,7 +6,6 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import loading from "../loading";
 
 const Page = () => {
   const [category, setCategory] = useState([]);
@@ -89,7 +88,7 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" px-4 py-6 md:py-4 md:px-14 mb-10">
+    <div className=" px-4 py-6 md:py-8 md:px-6 mb-16">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between   md:items-center  gap-4">
         <h1 className=" font-bold  lg:text-2xl md:text-xl ">
@@ -100,7 +99,7 @@ const Page = () => {
             <span className="sr-only">search</span>
 
             <div className="w-5 h-5 absolute inset-y-0 left-5">
-              <MagnifyingGlassIcon />
+              <MagnifyingGlassIcon className="text-gray-400" />
             </div>
 
             <input
@@ -113,7 +112,7 @@ const Page = () => {
           </label>
         </div>
       </div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-6  cursor-pointer">
+      <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-6  cursor-pointer">
         {categoriesDuplicate.map((data) => (
           <Link key={data.id} href={`/categories/${data._id}`}>
             <PageCard key={data.id} data={data} />

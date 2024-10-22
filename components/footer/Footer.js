@@ -23,7 +23,7 @@ const Footer = () => {
         <div>
           <span className="sr-only">Logo</span>
           <Link href="/">
-            <div className="cursor-pointer relative md:h-20 md:w-52 h-14 w-28">
+            <div className="cursor-pointer relative md:h-20 md:w-44 h-14 w-28">
               <Image
                 src="/Frame 8107.png"
                 alt="logo"

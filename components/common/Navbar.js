@@ -116,8 +116,8 @@ const Navbar = ({ bgColor }) => {
   return (
     <>
       <Toaster />
-      <div className={`relative w-full md:px-4 sm:px-4 ${bgColor} z-50`}>
-        <div className="max-w-8xl md:mx-9 mx-4">
+      <div className={`relative  w-full ${bgColor} z-50`}>
+        <div className=" md:px-2 mx-4">
           <div className="flex justify-between items-center py-4 space-x-4 ">
             <div className="flex gap-4 justify-between items-center">
               <div>
@@ -139,8 +139,8 @@ const Navbar = ({ bgColor }) => {
                   <label className="relative">
                     <span className="sr-only">search</span>
 
-                    <div className="w-5 h-5 absolute inset-y-0 left-5">
-                      <MagnifyingGlassIcon />
+                    <div className="w-5 h-5 absolute inset-y-0 left-5 ">
+                      <MagnifyingGlassIcon className="text-gray-400" />
                     </div>
 
                     <input
@@ -220,7 +220,7 @@ const Navbar = ({ bgColor }) => {
               {isLoggedIn ? (
                 <div className="flex justify-center items-center">
                   <Link href={`/userDetails/${cust_id}`}>
-                    <FaRegCircleUser className="size-8 md:size-10 text-black cursor-pointer" />
+                    <FaRegCircleUser className="size-8 md:size-10 text-gray-700 cursor-pointer" />
                   </Link>
                 </div>
               ) : (

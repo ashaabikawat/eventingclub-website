@@ -20,7 +20,7 @@ const Cards = ({ data }) => {
       </div>
 
       {/* data */}
-      <div className="absolute inset-x-4 bottom-6">
+      <div className="absolute inset-x-4 bottom-4">
         <p className="text-white text-sm md:text-base">{data.Name}</p>
       </div>
     </div>
