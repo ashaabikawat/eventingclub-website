@@ -71,9 +71,9 @@ const Page = () => {
               "Loading ..."
             )}
           </div>
-          <div className="flex md:mt-6 lg:gap-4  md:gap-2 flex-col px-4   ">
+          <div className="flex  lg:gap-4  md:gap-2 flex-col px-4   ">
             {/* venue details */}
-            <div className="  w-full border-b-2 border-gray-300 lg:border-none  md:border-none ">
+            <div className="  w-full h-[200px] border-b-2 border-gray-300 lg:border-none  md:border-none overflow-y-auto">
               <h1 className="md:text-3xl text-2xl  font-bold capitalize mb-4 text-blue-900">
                 {venueData?.venueName}
               </h1>
@@ -86,8 +86,8 @@ const Page = () => {
             </div>
 
             {/* map */}
-            <div className=" w-full  mb-6">
-              <div className="h-72 w-full overflow-hidden">
+            <div className=" w-full mt-4 h-[260px]  mb-6">
+              <div className="h-full w-full overflow-hidden">
                 <div
                   className=" w-full"
                   dangerouslySetInnerHTML={{
