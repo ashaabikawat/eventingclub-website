@@ -16,10 +16,10 @@ const Footer = () => {
 
   return (
     <div
-      className="px-10  md:py-16 py-10   text-white"
+      className="px-10  md:py-8 py-6   text-white"
       style={{ backgroundColor: "#2f3e93" }}
     >
-      <div className="flex justify-between items-center  lg:flex-row flex-col gap-6 ">
+      <div className="flex justify-between items-center  md:flex-row flex-col gap-6 ">
         <div>
           <span className="sr-only">Logo</span>
           <Link href="/">
