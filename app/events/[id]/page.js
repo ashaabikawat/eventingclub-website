@@ -262,13 +262,13 @@ const Page = () => {
               {/* Swiper buttons */}
               <div
                 style={{ color: "black" }}
-                className="swiper-button-prev absolute left-[-10px] top-1/2 transform -translate-y-1/2 z-20 rounded-full flex items-center justify-center h-20 w-10 "
+                className="swiper-button-prev absolute left-[-10px] top-[60%] transform -translate-y-1/2 z-20 rounded-full flex items-center justify-center h-20 w-10 "
               >
                 <MdOutlineKeyboardArrowLeft />
               </div>
               <div
                 style={{ color: "black" }}
-                className="swiper-button-next absolute right-[-10px] top-1/2 transform -translate-y-1/2 z-20 flex items-center justify-center h-20 w-10"
+                className="swiper-button-next absolute right-[-10px] top-[60%] transform -translate-y-1/2 z-20 flex items-center justify-center h-20 w-10"
               >
                 <MdOutlineKeyboardArrowRight />
               </div>
@@ -299,9 +299,9 @@ const Page = () => {
           {/* about */}
 
           <div className="px-4 order-3  md:px-0 md:order-2 row-span-2 ">
-            <div className="border h-full border-gray-500 rounded-lg px-4 ">
+            <div className="border h-full border-gray-500 rounded-lg  ">
               <div className=" h-full  py-6  ">
-                <h1 className="md:text-2xl font-bold">About</h1>
+                <h1 className="md:text-2xl font-bold px-4">About</h1>
 
                 <div className="max-h-[300px] overflow-y-auto">
                   <ReactQuill
@@ -330,14 +330,15 @@ const Page = () => {
                   >
                     {eventData?.EventGalleryImages.map((img) => (
                       <swiper-slide key={img.id}>
-                        <div className="h-full w-full">
+                        <div className="h-60 lg:h-80 w-full">
                           {" "}
                           {/* Fixed container size */}
                           <Image
                             src={`${URL}/${img.image_path}`}
                             alt="carousel-image"
-                            height={325} // Fixed height
-                            width={600} // Fixed width
+                            // height={325} // Fixed height
+                            // width={600} // Fixed width
+                            layout="fill"
                             objectFit="cover" // Ensures the image covers the container
                             className="rounded-lg"
                           />
