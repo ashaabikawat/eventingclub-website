@@ -71,22 +71,24 @@ const Page = () => {
               "Loading ..."
             )}
           </div>
-          <div className="flex  lg:gap-4  md:gap-2 flex-col px-4   ">
+          <div className="flex  lg:gap-4  md:gap-2 flex-col px-4  gap-4 ">
             {/* venue details */}
-            <div className="  w-full h-[200px] border-b-2 border-gray-300 lg:border-none  md:border-none overflow-y-auto">
+            <div className="  w-full h-[200px] border-b-2 border-gray-300 lg:border-none  md:border-none ">
               <h1 className="md:text-3xl text-2xl  font-bold capitalize mb-4 text-blue-900">
                 {venueData?.venueName}
               </h1>
               <p className="mb-4 md:text-lg text-sm">
                 {venueData?.venueAddress}
               </p>
-              <p className="md:mb-6 mb-4 text-gray-600 text-sm">
-                {venueData?.venueDescription}
-              </p>
+              <div className="max-h-20 overflow-y-auto">
+                <p className="md:mb-6 mb-4 text-gray-600 text-sm">
+                  {venueData?.venueDescription}
+                </p>
+              </div>
             </div>
 
             {/* map */}
-            <div className=" w-full mt-4 h-[260px]  mb-6">
+            <div className=" w-full  h-[260px]  mb-6">
               <div className="h-full w-full overflow-hidden">
                 <div
                   className=" w-full"
@@ -99,7 +101,7 @@ const Page = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-bold mt-10   md:text-3xl capitalize font-bold ">
+          <h1 className="text-bold mt-10 px-4  md:text-3xl capitalize font-bold ">
             upcoming events at this venue:
           </h1>
           {venueEventsdata && venueEventsdata.length > 0 ? (
@@ -128,7 +130,7 @@ const Page = () => {
               >
                 {venueEventsdata.map((event) => (
                   <SwiperSlide key={event.id}>
-                    <div key={event._id} className="px-2 mt-10  w-full">
+                    <div key={event._id} className="px-4 mt-10  w-full">
                       <Link href={`/events/${event.event_id}`}>
                         <PageCardWithText event={event} />
                       </Link>
@@ -138,7 +140,7 @@ const Page = () => {
               </Swiper>
             </>
           ) : (
-            <p className="mt-4 ">No events available</p>
+            <p className="mt-4 px-4 ">No events available</p>
           )}
         </div>
       </div>
