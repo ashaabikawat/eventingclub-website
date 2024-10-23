@@ -80,7 +80,7 @@ const EditProfile = ({ id, data }) => {
   };
 
   return (
-    <div className="text-black md:pb-6 p-4">
+    <div className="text-black md:pb-6 pb-4">
       <Toaster />
       <div className="flex items-start justify-between flex-col md:gap-6 gap-10">
         <div className="flex justify-between items-start flex-col w-full">
@@ -169,7 +169,7 @@ const EditProfile = ({ id, data }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-4">
         <button
           type="submit"
           onClick={handleSubmit}

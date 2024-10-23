@@ -55,9 +55,9 @@ const Page = () => {
   return (
     <>
       <Toaster />
-      <div className="mt-4 text-white w-full bg-gray-100">
+      <div className="mt-4 text-white w-full h-full bg-gray-100">
         <div
-          className="flex justify-between  
+          className="flex custom-flex-row  flex-col sm:flex-row justify-between  
           lg:px-60 md:px-6 px-4 items-center py-4  "
           style={{ backgroundColor: "#2f3e93" }}
         >
@@ -81,7 +81,7 @@ const Page = () => {
           <div>
             <button
               onClick={logoutFunction}
-              className="whitespace-nowrap text-sm p-2 inline-flex items-center justify-center  border border-white-500 rounded-md bg-transparent shadow-sm md:text-base md:p-2  md:font-medium text-white "
+              className="whitespace-nowrap mt-6 text-sm p-2 inline-flex items-center justify-center  border border-white-500 rounded-md bg-transparent shadow-sm md:text-base md:p-2  md:font-medium text-white "
             >
               Sign out
             </button>

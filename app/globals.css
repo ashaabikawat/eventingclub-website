@@ -75,3 +75,9 @@ iframe {
 .ql-container.ql-snow {
   border: none !important;
 }
+
+@media (min-width: 320px) {
+  .custom-flex-row {
+    flex-direction: row;
+  }
+}
