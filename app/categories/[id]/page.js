@@ -180,7 +180,7 @@ const Page = () => {
   };
 
   return (
-    <div className="md:py-6 md:mb-16 ">
+    <div className="md:py-6 md:mb-16 mb-16 ">
       <Toaster />
       {isMobile && !filterOpenModal && (
         <h1 className="md:text-3xl mb-4 px-4 font-semibold text-lg ">
