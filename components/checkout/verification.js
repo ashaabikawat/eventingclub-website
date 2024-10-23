@@ -311,8 +311,8 @@ const verification = ({ setDetails, handleOpen }) => {
 
         {/* otp section */}
         {authToken?.cust_id && !authToken?.token && !numberModal && (
-          <div className="">
-            <h1 className="md:text-xl text-base mb-2 text-white md:text-black">
+          <div className="mt-2 md:mt-0">
+            <h1 className="md:text-xl text-base mb-2  md:text-black">
               We have sent you an OTP to verify your number
             </h1>
 
@@ -336,7 +336,7 @@ const verification = ({ setDetails, handleOpen }) => {
                 />
               ))}
             </div>
-            <div className="flex gap-4 mt-4 md:w-96 mb-2 ">
+            <div className="flex gap-4 mt-6 md:mt-4 md:w-96 mb-2 ">
               <span className="cursor-pointer underline" onClick={resendOtp}>
                 Resend
               </span>
@@ -353,7 +353,7 @@ const verification = ({ setDetails, handleOpen }) => {
             <button
               type="submit"
               onClick={handleOtpVerification}
-              className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 md:w-96"
+              className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full md:w-96"
             >
               Verify OTP
             </button>

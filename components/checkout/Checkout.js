@@ -34,15 +34,15 @@ const Checkout = () => {
   }, [isLoggedIn, otpVerified, details]);
 
   return (
-    <div className="md:py-6 py-4">
-      <div className="px-4 md:px-12">
+    <div className="md:py-6 py-4 h-full w-full">
+      <div className="px-4 ">
         <h1 className="capitalize md:text-3xl md:mb-8 font-bold">
           Confirm your ticket details and pay
         </h1>
       </div>
 
       {/* verification */}
-      <div className="md:px-12 md:mt-0 px-4 mt-4 ">
+      <div className=" md:mt-0 px-4 mt-4 ">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 1}>
             <AccordionHeader className="border-none">
@@ -76,7 +76,7 @@ const Checkout = () => {
       </div>
 
       {/* booking summary */}
-      <div className="md:px-12 md:mt-6 px-4 mt-4">
+      <div className=" md:mt-6 px-4 mt-4">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 2}>
             <AccordionHeader className="border-none">

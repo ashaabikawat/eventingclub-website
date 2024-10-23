@@ -24,7 +24,11 @@ const Wrapper = ({ children }) => {
           {signup && success && failure && <Navbar bgColor={navbarBgColor} />}
 
           {/* Main content area */}
-          <main className="flex-grow">{children}</main>
+          <main
+            className={`${isCheckout ? "bg-gray-50" : "bg-white"} flex-grow`}
+          >
+            {children}
+          </main>
 
           {/* Footer always at the bottom */}
           {signup && !isCheckout && <Footer />}
