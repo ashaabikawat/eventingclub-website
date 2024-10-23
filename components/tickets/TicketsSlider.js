@@ -370,12 +370,12 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="bg-gray-50 md:py-10 h-full flex-grow">
+      <div className="bg-gray-50 md:py-6 h-full flex-grow">
         <Toaster />
 
         <>
-          <div className="p-4 md:px-8">
-            <div className="md:px-6">
+          <div className="p-4 ">
+            <div className="md:px-2">
               <h1 className="md:text-3xl  text-xl md:mt-0 mt-4 capitalize text-blue-900 font-bold border-b-2 border-gray-200 pb-3">
                 {data?.EventName}
               </h1>
@@ -391,7 +391,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                     slidesPerView={1}
                     breakpoints={{
                       320: {
-                        slidesPerView: 3,
+                        slidesPerView: 2.6,
                         spaceBetween: 20,
                       },
                       425: {
@@ -507,7 +507,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
             </div>
           </div>
 
-          <div className="mt-2 px-4 md:px-14 pt-6 pb-32">
+          <div className="mt-2 px-4  pt-6 pb-32">
             {(eventIdCheck === null || eventIdCheck) &&
             showTicket &&
             eventTicket?.length > 0 ? (
@@ -660,25 +660,25 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
           {/* Footer for Total Count and Price */}
 
           {storedEventId !== null && storedEventId !== id && (
-            <div className="fixed bottom-0 left-0 right-0 md:px-20 bg-white shadow-md p-6 flex justify-between items-center z-50">
+            <div className="fixed bottom-0 left-0 right-0  bg-white shadow-md p-6 flex md:flex-row flex-col gap-6 justify-between items-center z-50">
               <div className="flex flex-col gap-2">
-                <p className="md:text-2xl text-lg font-semibold">
+                <p className="lg:text-2xl md:text-lg text-base font-semibold">
                   You already have tickets from another event.
                 </p>
-                <p className="md:text-lg text-lg text-gray-600">
+                <p className="md:text-lg text-base text-gray-600">
                   Either proceed to checkout or clear the cart
                 </p>
               </div>
               <div className="text-right flex justify-between gap-4 ">
                 <button
                   onClick={handleContinueCheckout}
-                  className="bg-blue-900 text-white py-2 px-14 rounded"
+                  className="bg-blue-900 text-white py-2 px-8 md:px-14 rounded"
                 >
                   Continue
                 </button>
                 <button
                   onClick={clearCart}
-                  className="bg-gray-300 text-black py-2 px-14 rounded"
+                  className="bg-gray-300 text-black py-2 px-8 md:px-14 rounded"
                 >
                   Clear
                 </button>
