@@ -38,6 +38,7 @@ const BookingSummary = () => {
     (store) => store.booking.bookingData.selectedTickets
   );
   const bookingData = useSelector((store) => store.booking.bookingData);
+  console.log(bookingData);
   const PromocodeIdFromLs = useSelector((store) => store.booking.promocodeId);
 
   const router = useRouter();

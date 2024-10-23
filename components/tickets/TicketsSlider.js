@@ -194,7 +194,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     if (totalTicketsInCart > 0 && storedEventId !== currentEventId) {
       // Show a message that tickets from another event are already in the cart
       toast.error(
-        "You already have tickets from another event. Please clear all tickets before selecting new ones."
+        "You already have tickets in your cart. Please clear previous tickets before selecting new ones."
       );
       return; // Exit the function early
     }
@@ -323,6 +323,19 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   };
 
   const handleSeasonPass = async () => {
+    const currentEventId = id;
+
+    const totalTicketsInCart = Object.values(count).reduce(
+      (acc, num) => acc + num,
+      0
+    );
+    if (totalTicketsInCart > 0 && storedEventId !== currentEventId) {
+      // Show a message that tickets from another event are already in the cart
+      toast.error(
+        "You already have tickets in your cart. Please clear previous tickets before selecting new ones."
+      );
+      return; // Exit the function early
+    }
     const payload = {
       event_id: id,
     };
@@ -362,6 +375,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
   const clearCart = () => {
     dispatch(reset_state());
     setCount({});
+    setShowTicketId(null);
+    setShowCount({});
   };
 
   const handleContinueCheckout = () => {
@@ -589,7 +604,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
                       return (
                         <div
-                          className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
+                          className="md:h-auto bg-blue-500 rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
                           key={ticket.Ticket_Id}
                         >
                           <div className="flex items-center justify-between px-4 py-4">
@@ -691,8 +706,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       {(storedEventId === id || storedEventId === null) && (
         <div>
           {totalTickets > 0 ? (
-            <div className="fixed  bottom-0 w-[100%] h-[100px] z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
-              <div className="flex flex-col gap-2 ">
+            <div className="fixed  bottom-0 w-[100%]  z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center flex-col">
+              <div className="flex flex-col md:gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
                   ₹ {totalPrice}
                 </p>
@@ -700,12 +715,18 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                   {totalTickets} Ticket
                 </p>
               </div>
-              <div className=" text-right ">
+              <div className=" text-right flex gap-4">
                 <button
                   onClick={handleContinue}
-                  className="bg-blue-900   text-white py-2 px-14 rounded"
+                  className="bg-blue-900   text-white md:py-2 px-14 rounded"
                 >
                   Continue
+                </button>
+                <button
+                  onClick={clearCart}
+                  className="bg-gray-300 text-black py-2 px-8 md:px-14 rounded"
+                >
+                  Clear
                 </button>
               </div>
             </div>
@@ -720,12 +741,18 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                     {bookingData?.totalTickets} Ticket
                   </p>
                 </div>
-                <div className=" text-right ">
+                <div className=" text-right flex gap-4 ">
                   <button
                     onClick={handleContinue}
                     className="bg-blue-900   text-white py-2 px-14 rounded"
                   >
                     Continue
+                  </button>
+                  <button
+                    onClick={clearCart}
+                    className="bg-gray-300 text-black py-2 px-8 md:px-14 rounded"
+                  >
+                    Clear
                   </button>
                 </div>
               </div>
