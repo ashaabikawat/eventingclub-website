@@ -153,7 +153,13 @@ const Navbar = ({ bgColor }) => {
                   </label>
 
                   {searchData.length > 0 && (
-                    <div className="bg-white shadow-2xl mt-2 rounded-md h-auto z-50 absolute top-full left-0 w-full">
+                    <div
+                      className={`bg-white shadow-2xl mt-2 rounded-md z-50 absolute top-full left-0 w-full ${
+                        searchData.length > 5
+                          ? "max-h-52 overflow-y-scroll"
+                          : "h-auto"
+                      }`}
+                    >
                       {searchData.map((data, index) => (
                         <div key={data._id}>
                           <div className="">
@@ -256,7 +262,13 @@ const Navbar = ({ bgColor }) => {
               </label>
 
               {searchData.length > 0 && (
-                <div className="bg-white  shadow-2xl rounded-md h-auto z-50 absolute top-full left-0 w-full">
+                <div
+                  className={`bg-white shadow-2xl mt-2 rounded-md z-50 absolute top-full left-0 w-full ${
+                    searchData.length > 5
+                      ? "max-h-52 overflow-y-scroll"
+                      : "h-auto"
+                  }`}
+                >
                   {searchData.map((data, index) => (
                     <div key={data._id}>
                       <div className="">
