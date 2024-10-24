@@ -581,7 +581,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                                     isAnyCountActive
                                       ? "bg-blue-900 bg-opacity-40 cursor-not-allowed"
                                       : "bg-blue-900"
-                                  } text-white py-3 px-6 rounded mx-auto mt-4`}
+                                  } text-white md:py-3 py-2 md:px-6 px-3 rounded mx-auto mt-4`}
                                   onClick={() =>
                                     handleShowCount(ticket.Ticket_Id)
                                   }
@@ -674,39 +674,41 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
           {/* Footer for Total Count and Price */}
 
-          {storedEventId !== null && storedEventId !== id && (
-            <div className="fixed bottom-0 left-0 right-0  bg-white shadow-md p-6 flex md:flex-row flex-col gap-6 justify-between items-center z-50">
-              <div className="flex flex-col gap-2">
-                <p className="lg:text-2xl md:text-lg text-base font-semibold">
-                  You already have tickets from another event.
-                </p>
-                <p className="md:text-lg text-base text-gray-600">
-                  Either proceed to checkout or clear the cart
-                </p>
+          <div className="mt-14">
+            {storedEventId !== null && storedEventId !== id && (
+              <div className="fixed bottom-0 left-0 right-0  bg-white shadow-md p-6 flex md:flex-row flex-col gap-6 justify-between items-center z-50">
+                <div className="flex flex-col gap-2">
+                  <p className="lg:text-2xl md:text-lg text-base font-semibold">
+                    You already have tickets from another event.
+                  </p>
+                  <p className="md:text-lg text-base text-gray-600">
+                    Either proceed to checkout or clear the cart
+                  </p>
+                </div>
+                <div className="text-right flex justify-between gap-4 ">
+                  <button
+                    onClick={handleContinueCheckout}
+                    className="bg-blue-900 text-white py-2 px-8 md:px-14 rounded"
+                  >
+                    Continue
+                  </button>
+                  <button
+                    onClick={clearCart}
+                    className="bg-gray-300 text-black py-2 px-8 md:px-14 rounded"
+                  >
+                    Clear
+                  </button>
+                </div>
               </div>
-              <div className="text-right flex justify-between gap-4 ">
-                <button
-                  onClick={handleContinueCheckout}
-                  className="bg-blue-900 text-white py-2 px-8 md:px-14 rounded"
-                >
-                  Continue
-                </button>
-                <button
-                  onClick={clearCart}
-                  className="bg-gray-300 text-black py-2 px-8 md:px-14 rounded"
-                >
-                  Clear
-                </button>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </>
       </div>
 
       {(storedEventId === id || storedEventId === null) && (
         <div>
           {totalTickets > 0 ? (
-            <div className="fixed  bottom-0 w-[100%]  z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center flex-col">
+            <div className="fixed  bottom-0 w-[100%]  z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center  ">
               <div className="flex flex-col md:gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
                   ₹ {totalPrice}
@@ -715,10 +717,10 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                   {totalTickets} Ticket
                 </p>
               </div>
-              <div className=" text-right flex gap-4">
+              <div className=" text-right md:flex-row flex-col flex gap-4">
                 <button
                   onClick={handleContinue}
-                  className="bg-blue-900   text-white md:py-2 px-14 rounded"
+                  className="bg-blue-900 text-white py-2 px-8 md:px-14 rounded"
                 >
                   Continue
                 </button>
@@ -741,10 +743,10 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
                     {bookingData?.totalTickets} Ticket
                   </p>
                 </div>
-                <div className=" text-right flex gap-4 ">
+                <div className=" text-right md:flex-row flex-col flex gap-4 ">
                   <button
                     onClick={handleContinue}
-                    className="bg-blue-900   text-white py-2 px-14 rounded"
+                    className="bg-blue-900 text-white py-2 px-8 md:px-14 rounded"
                   >
                     Continue
                   </button>
