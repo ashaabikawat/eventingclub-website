@@ -8,7 +8,7 @@ import { bookTicketApi, promocode } from "@/utils/config";
 import { useParams, useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
-import CryptoJS from "crypto-js";
+import { encryptData, decryptData } from "@/utils/constants";
 
 // Redux actions for managing booking state
 import {
@@ -17,6 +17,7 @@ import {
   reset_bookingData,
   remove_promocode,
   setTicketId,
+  setTicketCounts,
 } from "../../store/slices/booking";
 
 const BookingSummary = () => {
@@ -81,16 +82,16 @@ const BookingSummary = () => {
     });
   };
 
-  // encrypt function
-  const encryptData = (data) => {
-    return CryptoJS.AES.encrypt(JSON.stringify(data), passphrase).toString();
-  };
+  // // encrypt function
+  // const encryptData = (data) => {
+  //   return CryptoJS.AES.encrypt(JSON.stringify(data), passphrase).toString();
+  // };
 
-  // Decryption function
-  const decryptData = (encryptedData) => {
-    const bytes = CryptoJS.AES.decrypt(encryptedData, passphrase);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  };
+  // // Decryption function
+  // const decryptData = (encryptedData) => {
+  //   const bytes = CryptoJS.AES.decrypt(encryptedData, passphrase);
+  //   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  // };
 
   useEffect(() => {
     if (promocodes?.applicablePromocodes) {
@@ -148,12 +149,14 @@ const BookingSummary = () => {
       );
 
       const updatedCounts = { [id]: newQuantity };
-      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      // localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      dispatch(setTicketCounts(updatedCounts));
     } else if (quantity === 1) {
       setQuanity(0);
       dispatch(reset_bookingData());
 
-      localStorage.removeItem("ticketCounts");
+      // localStorage.removeItem("ticketCounts");
+      dispatch(setTicketCounts({}));
     }
   };
 
@@ -173,7 +176,8 @@ const BookingSummary = () => {
         })
       );
       const updatedCounts = { [id]: newQuanity };
-      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      // localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      dispatch(setTicketCounts(updatedCounts));
     } else {
       toast.error("Booking limit reached");
     }
@@ -220,14 +224,14 @@ const BookingSummary = () => {
     };
     if (promocodeId) payload.Promocode_id = promocodeId;
 
-    const encryptedPayload = encryptData(JSON.stringify(payload));
+    const encryptedPayload = encryptData(JSON.stringify(payload), passphrase);
 
     try {
       const response = await axios.post(`${bookTicketApi.POST_DATA}`, {
         string: encryptedPayload,
       });
 
-      const data = decryptData(response.data.data);
+      const data = decryptData(response.data.data, passphrase);
 
       const form = document.createElement("form");
       form.setAttribute("method", "POST");

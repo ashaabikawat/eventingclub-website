@@ -8,11 +8,13 @@ import { events } from "@/utils/config";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setTicketData,
+  // setTicketData,
   setBookingDataObj,
   setEventId,
   reset_state,
   setTicketId,
+  setTicketCounts,
+  setConvenienceFee,
 } from "../../store/slices/booking";
 
 const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
@@ -30,9 +32,15 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
 
   const [showCount, setShowCount] = useState({});
 
+  // const [count, setCount] = useState(() => {
+  //   const savedCounts = localStorage.getItem("ticketCounts");
+  //   return savedCounts ? JSON.parse(savedCounts) : {};
+  // });
+
+  const savedCounts = useSelector((store) => store.booking.ticketCounts);
+
   const [count, setCount] = useState(() => {
-    const savedCounts = localStorage.getItem("ticketCounts");
-    return savedCounts ? JSON.parse(savedCounts) : {};
+    savedCounts ? savedCounts : {};
   });
 
   const ticketId = useSelector((store) => store.booking.ticketId);
@@ -54,12 +62,19 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     }
   }, [count, id]);
 
+  // useEffect(() => {
+  //   // const savedCounts = localStorage.getItem("ticketCounts");
+  //   if (savedCounts === null || savedCounts === "{}") {
+  //     setCount({});
+  //   }
+  // }, []);
   useEffect(() => {
-    const savedCounts = localStorage.getItem("ticketCounts");
-    if (savedCounts === null || savedCounts === "{}") {
+    if (!savedCounts || savedCounts === "{}") {
       setCount({});
+    } else {
+      setCount(savedCounts); // Optional: Set the count to savedCounts if available
     }
-  }, []);
+  }, [savedCounts]); // Add savedCounts as a dependency if it changes over time
 
   useEffect(() => {
     if (ticketId !== null) {
@@ -91,7 +106,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       };
       setShowCount(updatedShowCount);
 
-      localStorage.setItem("ticketCounts", JSON.stringify(updatedCount));
+      // localStorage.setItem("ticketCounts", JSON.stringify(updatedCount));
+      dispatch(setTicketCounts(updatedCount));
     } else {
       toast.error("Exceeding booking limit");
     }
@@ -133,7 +149,8 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       }
 
       // Save updated counts in localStorage
-      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      // localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      dispatch(setTicketCounts(updatedCounts));
 
       // Calculate the total number of tickets remaining
       const totalTickets = Object.values(updatedCounts).reduce(
@@ -186,7 +203,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     // dispatch(setTicketId(eventTicketId));
     const currentEventId = id;
 
-    const totalTicketsInCart = Object.values(count).reduce(
+    const totalTicketsInCart = Object.values(count || {}).reduce(
       (acc, num) => acc + num,
       0
     );
@@ -210,14 +227,21 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
       // setTicketData(response.data.data);
       setEventTicket(response.data.data);
 
-      localStorage.setItem(
-        "convenienceFee",
-        JSON.stringify({
+      // localStorage.setItem(
+      //   "convenienceFee",
+      //   JSON.stringify({
+      //     ConfeeUnit: response.data.data[0].ConfeeUnit,
+      //     ConValue: response.data.data[0].ConValue,
+      //   })
+      // );
+      dispatch(
+        setConvenienceFee({
           ConfeeUnit: response.data.data[0].ConfeeUnit,
           ConValue: response.data.data[0].ConValue,
         })
       );
-      dispatch(setTicketData(response.data.data));
+
+      // dispatch(setTicketData(response.data.data));
     } catch (error) {
       // setIsLoading(false);
       if (error.response) {
@@ -240,13 +264,12 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
         }
       }
     }
-
     setShowTicket(true);
   };
 
   useEffect(() => {
     if (bookingData) {
-      const updatedTotalTickets = Object.values(count).reduce(
+      const updatedTotalTickets = Object.values(count || {}).reduce(
         (acc, num) => acc + num,
         0
       );
@@ -278,7 +301,11 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     }));
   };
 
-  const totalTickets = Object.values(count).reduce(
+  // const totalTickets = Object?.values(count).reduce(
+  //   (acc, count) => acc + count,
+  //   0
+  // );
+  const totalTickets = Object.values(count || {}).reduce(
     (acc, count) => acc + count,
     0
   );
@@ -342,7 +369,7 @@ const TicketsSlider = ({ data, setShowTicket, showTicket }) => {
     try {
       const response = await axios.post(`${events.GET_SEASON_PASS}`, payload);
       setEventTicket(response.data.data);
-      dispatch(setTicketData(response.data.data));
+      // dispatch(setTicketData(response.data.data));
       setSelectedShortTicket(response.data.data[0].Ticket_Id);
       // dispatch(setTicketId(response.data.data[0].Ticket_Id));
       setShowTicketId(response.data.data[0].Ticket_Id);

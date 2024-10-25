@@ -1,3 +1,4 @@
+import { decryptData, encryptData } from "@/utils/constants";
 import { createSlice } from "@reduxjs/toolkit";
 
 // Utility function to safely parse JSON from localStorage
@@ -7,7 +8,10 @@ const getLocalStorageItem = (key) => {
     if (!item) return null;
 
     try {
-      return JSON.parse(item);
+      return decryptData(item);
+      // const decryptedItem = decryptData(item);
+      // return JSON.parse(decryptedItem);
+      // return JSON.parse(item);
     } catch (error) {
       console.error(`Failed to parse localStorage item "${key}":, error`);
       return null; // Return null if parsing fails
@@ -23,17 +27,28 @@ const initialState = {
   token: getLocalStorageItem("authToken")?.token || null,
 };
 
+// const saveAuthToLocalStorage = (state) => {
+//   if (typeof window !== "undefined") {
+//     localStorage.setItem(
+//       "authToken",
+//       JSON.stringify({
+//         token: state.token,
+//         cust_id: state.cust_id,
+//         isLoggedIn: state.isLoggedIn,
+//         customer_exists: state.customer_exists,
+//       })
+//     );
+//   }
+// };
 const saveAuthToLocalStorage = (state) => {
   if (typeof window !== "undefined") {
-    localStorage.setItem(
-      "authToken",
-      JSON.stringify({
-        token: state.token,
-        cust_id: state.cust_id,
-        isLoggedIn: state.isLoggedIn,
-        customer_exists: state.customer_exists,
-      })
-    );
+    const encryptedState = encryptData({
+      token: state.token,
+      cust_id: state.cust_id,
+      isLoggedIn: state.isLoggedIn,
+      customer_exists: state.customer_exists,
+    });
+    localStorage.setItem("authToken", encryptedState);
   }
 };
 

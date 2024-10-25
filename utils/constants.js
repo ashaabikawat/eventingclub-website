@@ -1,4 +1,5 @@
 import moment from "moment-timezone";
+import CryptoJS from "crypto-js";
 
 export const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
 
@@ -236,4 +237,15 @@ export const dateFilter = (option) => {
       TodayEndDatetimeStr = `${monthEndOf}+00:00`;
       return { TodayStartDateTimeStr, TodayEndDatetimeStr };
   }
+};
+
+// encrypt function
+export const encryptData = (data, secretKey) => {
+  return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+};
+
+// Decryption function
+export const decryptData = (encryptedData, secretKey) => {
+  const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+  return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 };
