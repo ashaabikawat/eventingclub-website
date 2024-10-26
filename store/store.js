@@ -7,16 +7,7 @@ import booking from "./slices/booking";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [
-    "count",
-    "eventId",
-    "promocodeId",
-    "ticketId",
-    "bookingData",
-    "ticketCounts",
-    "mobileNo",
-    "convenienceFee",
-  ],
+  whitelist: ["count", "eventId", "promocodeId", "ticketId", "bookingData"],
 };
 
 const persistedReducer = persistReducer(persistConfig, booking);
