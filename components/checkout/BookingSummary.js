@@ -17,6 +17,8 @@ import {
   reset_bookingData,
   remove_promocode,
   setTicketId,
+  setTicketCounts,
+  setEventId,
 } from "../../store/slices/booking";
 
 const BookingSummary = () => {
@@ -148,12 +150,16 @@ const BookingSummary = () => {
       );
 
       const updatedCounts = { [id]: newQuantity };
-      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      // localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      dispatch(setTicketCounts(updatedCounts));
     } else if (quantity === 1) {
       setQuanity(0);
       dispatch(reset_bookingData());
 
-      localStorage.removeItem("ticketCounts");
+      // localStorage.removeItem("ticketCounts");
+      dispatch(setTicketCounts({}));
+      dispatch(setEventId(null));
+      dispatch(setTicketId(null));
     }
   };
 
@@ -173,7 +179,8 @@ const BookingSummary = () => {
         })
       );
       const updatedCounts = { [id]: newQuanity };
-      localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      // localStorage.setItem("ticketCounts", JSON.stringify(updatedCounts));
+      dispatch(setTicketCounts(updatedCounts));
     } else {
       toast.error("Booking limit reached");
     }

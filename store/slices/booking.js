@@ -1,5 +1,4 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import authSlice from "./authSlice";
 import toast from "react-hot-toast";
 
 const initialState = {
@@ -11,6 +10,8 @@ const initialState = {
   eventId: null,
   promocodeId: null,
   ticketId: null,
+  convenienceFee: {},
+  ticketCounts: {},
 };
 
 const booking = createSlice({
@@ -130,6 +131,14 @@ const booking = createSlice({
       state.promocodeId = null;
     },
 
+    setTicketCounts: (state, action) => {
+      state.ticketCounts = action.payload;
+    },
+
+    setConvenienceFee: (state, action) => {
+      state.convenienceFee = action.payload;
+    },
+
     reset_state: (state, action) => {
       state.bookingData = {
         selectedTickets: [],
@@ -137,9 +146,11 @@ const booking = createSlice({
       state.eventId = null;
       state.promocodeId = null;
       state.ticketId = null;
-      localStorage.setItem("ticketCounts", JSON.stringify({}));
-      localStorage.removeItem("promocodeDiscountAmount");
-      localStorage.removeItem("convenienceFee");
+      state.ticketCounts = {};
+      state.convenienceFee = {};
+      // localStorage.setItem("ticketCounts", JSON.stringify({}));
+      // localStorage.removeItem("promocodeDiscountAmount");
+      // localStorage.removeItem("convenienceFee");
     },
   },
 });
@@ -154,6 +165,8 @@ export const {
   reset_state,
   remove_promocode,
   setPromocodeId,
+  setConvenienceFee,
   reset_bookingData,
+  setTicketCounts,
 } = booking.actions;
 export default booking.reducer;
