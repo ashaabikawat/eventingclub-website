@@ -1,4 +1,5 @@
 import moment from "moment-timezone";
+import CryptoJS from "crypto-js";
 
 export const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
 
@@ -235,5 +236,35 @@ export const dateFilter = (option) => {
       TodayStartDateTimeStr = `${monthStartOff}+00:00`;
       TodayEndDatetimeStr = `${monthEndOf}+00:00`;
       return { TodayStartDateTimeStr, TodayEndDatetimeStr };
+  }
+};
+
+// encrypt function
+export const encryptData = (data, secretKey) => {
+  return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+};
+
+// Decryption function
+// export const decryptData = (encryptedData, secretKey) => {
+//   const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+//   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+// };
+
+export const decryptData = (encryptedData, secretKey) => {
+  if (!encryptedData) return null; // Return null if data is empty
+
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+
+    if (!decryptedString) {
+      console.warn("Decrypted data is empty or malformed.");
+      return null;
+    }
+
+    return JSON.parse(decryptedString); // Parse and return JSON if valid
+  } catch (error) {
+    console.error("Decryption error:", error);
+    return null; // Return null on error
   }
 };

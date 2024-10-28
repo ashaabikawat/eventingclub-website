@@ -8,7 +8,6 @@ import { bookTicketApi, promocode } from "@/utils/config";
 import { useParams, useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
-import CryptoJS from "crypto-js";
 
 // Redux actions for managing booking state
 import {
@@ -20,6 +19,7 @@ import {
   setTicketCounts,
   setEventId,
 } from "../../store/slices/booking";
+import { decryptData, encryptData } from "@/utils/constants";
 
 const BookingSummary = () => {
   const totalTickets = useSelector(
@@ -39,8 +39,7 @@ const BookingSummary = () => {
   const selectedTicket = useSelector(
     (store) => store.booking.bookingData.selectedTickets
   );
-  const bookingData = useSelector((store) => store.booking.bookingData);
-  console.log(bookingData);
+
   const PromocodeIdFromLs = useSelector((store) => store.booking.promocodeId);
 
   const router = useRouter();
@@ -83,16 +82,16 @@ const BookingSummary = () => {
     });
   };
 
-  // encrypt function
-  const encryptData = (data) => {
-    return CryptoJS.AES.encrypt(JSON.stringify(data), passphrase).toString();
-  };
+  // // encrypt function
+  // const encryptData = (data) => {
+  //   return CryptoJS.AES.encrypt(JSON.stringify(data), passphrase).toString();
+  // };
 
-  // Decryption function
-  const decryptData = (encryptedData) => {
-    const bytes = CryptoJS.AES.decrypt(encryptedData, passphrase);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  };
+  // // Decryption function
+  // const decryptData = (encryptedData) => {
+  //   const bytes = CryptoJS.AES.decrypt(encryptedData, passphrase);
+  //   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  // };
 
   useEffect(() => {
     if (promocodes?.applicablePromocodes) {
@@ -227,14 +226,14 @@ const BookingSummary = () => {
     };
     if (promocodeId) payload.Promocode_id = promocodeId;
 
-    const encryptedPayload = encryptData(JSON.stringify(payload));
+    const encryptedPayload = encryptData(JSON.stringify(payload), passphrase);
 
     try {
       const response = await axios.post(`${bookTicketApi.POST_DATA}`, {
         string: encryptedPayload,
       });
 
-      const data = decryptData(response.data.data);
+      const data = decryptData(response.data.data, passphrase);
 
       const form = document.createElement("form");
       form.setAttribute("method", "POST");
