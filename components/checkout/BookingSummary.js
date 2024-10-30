@@ -13,11 +13,11 @@ import { IoIosCloseCircle } from "react-icons/io";
 import {
   setBookingDataObj,
   setPromocodeId,
-  reset_bookingData,
   remove_promocode,
   setTicketId,
   setTicketCounts,
   setEventId,
+  reset_state,
 } from "../../store/slices/booking";
 import { decryptData, encryptData } from "@/utils/constants";
 
@@ -25,6 +25,8 @@ const BookingSummary = () => {
   const totalTickets = useSelector(
     (store) => store.booking.bookingData.totalTickets
   );
+
+  const bookingData = useSelector((store) => store.booking.bookingData);
   const [quantity, setQuanity] = useState(totalTickets);
   const [promocodes, setPromocodes] = useState([]);
   const { id } = useParams();
@@ -60,7 +62,9 @@ const BookingSummary = () => {
     return savedPromocode ? JSON.parse(savedPromocode) : 0;
   });
 
-  const confee = JSON.parse(localStorage.getItem("convenienceFee"));
+  // const confee = JSON.parse(localStorage.getItem("convenienceFee"));
+  const confee = useSelector((store) => store.booking.convenienceFee);
+  console.log(confee);
   const convenienceFee = Number(confee?.ConValue) || 0;
 
   // Calculate GST based on the total before discount
@@ -142,9 +146,9 @@ const BookingSummary = () => {
 
       dispatch(
         setBookingDataObj({
-          selectedTickets: selectedTicket,
-          totalPrice: ticketAmount,
           totalTickets: newQuantity,
+          totalPrice: ticketAmount,
+          selectedTickets: selectedTicket,
         })
       );
 
@@ -153,12 +157,12 @@ const BookingSummary = () => {
       dispatch(setTicketCounts(updatedCounts));
     } else if (quantity === 1) {
       setQuanity(0);
-      dispatch(reset_bookingData());
 
       // localStorage.removeItem("ticketCounts");
-      dispatch(setTicketCounts({}));
-      dispatch(setEventId(null));
-      dispatch(setTicketId(null));
+      // dispatch(setTicketCounts({}));
+      // dispatch(setEventId(null));
+      // dispatch(setTicketId(null));
+      dispatch(reset_state());
     }
   };
 
@@ -172,9 +176,9 @@ const BookingSummary = () => {
 
       dispatch(
         setBookingDataObj({
-          selectedTickets: selectedTicket,
-          totalPrice: updatedAmount,
           totalTickets: newQuanity,
+          totalPrice: updatedAmount,
+          selectedTickets: selectedTicket,
         })
       );
       const updatedCounts = { [id]: newQuanity };

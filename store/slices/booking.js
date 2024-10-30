@@ -12,6 +12,7 @@ const initialState = {
   ticketId: null,
   convenienceFee: {},
   ticketCounts: {},
+  seasonPass: null,
 };
 
 const booking = createSlice({
@@ -20,14 +21,6 @@ const booking = createSlice({
   reducers: {
     setBookingDataObj: (state, action) => {
       state.bookingData = action.payload;
-    },
-
-    reset_bookingData: (state, action) => {
-      state.bookingData = {
-        selectedTickets: [],
-        totalPrice: 0,
-        totalTickets: 0,
-      };
     },
 
     setEventId: (state, action) => {
@@ -134,6 +127,9 @@ const booking = createSlice({
     setTicketCounts: (state, action) => {
       state.ticketCounts = action.payload;
     },
+    setSeasonPass: (state, action) => {
+      state.seasonPass = action.payload;
+    },
 
     setConvenienceFee: (state, action) => {
       state.convenienceFee = action.payload;
@@ -141,13 +137,15 @@ const booking = createSlice({
 
     reset_state: (state, action) => {
       state.bookingData = {
+        totalPrice: 0,
         selectedTickets: [],
+        totalTickets: 0,
       };
       state.eventId = null;
       state.promocodeId = null;
       state.ticketId = null;
       state.ticketCounts = {};
-      state.convenienceFee = {};
+      // state.convenienceFee = {};
       // localStorage.setItem("ticketCounts", JSON.stringify({}));
       // localStorage.removeItem("promocodeDiscountAmount");
       // localStorage.removeItem("convenienceFee");
@@ -166,7 +164,6 @@ export const {
   remove_promocode,
   setPromocodeId,
   setConvenienceFee,
-  reset_bookingData,
   setTicketCounts,
 } = booking.actions;
 export default booking.reducer;

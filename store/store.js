@@ -4,8 +4,8 @@ import storage from "redux-persist/lib/storage";
 import authSlice from "./slices/authSlice";
 import booking from "./slices/booking";
 
-const persistConfig = {
-  key: "root",
+const bookingPersistConfig = {
+  key: "booking",
   storage,
   whitelist: [
     "count",
@@ -18,12 +18,26 @@ const persistConfig = {
   ],
 };
 
-const persistedReducer = persistReducer(persistConfig, booking);
+const authPersistConfig = {
+  key: "auth",
+  storage,
+  whitelist: [
+    "custId",
+    "customerExists",
+    "isLoggedIn",
+    "token",
+    "isNewCustomer",
+    "mobileNumber",
+  ],
+};
+
+const bookingPersistedReducer = persistReducer(bookingPersistConfig, booking);
+const authPersistReducer = persistReducer(authPersistConfig, authSlice);
 
 const store = configureStore({
   reducer: {
-    auth: authSlice,
-    booking: persistedReducer,
+    auth: authPersistReducer,
+    booking: bookingPersistedReducer,
   },
 });
 

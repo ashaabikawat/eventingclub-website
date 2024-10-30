@@ -6,15 +6,16 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
   const [open, setOpen] = useState(1); // Control active accordion step
   const [details, setDetails] = useState();
-  const getToken = JSON.parse(localStorage.getItem("authToken"));
+  const auth = useSelector((store) => store.auth);
   const [otpVerified, setOtpVerified] = useState(false);
 
-  const isLoggedIn = getToken?.isLoggedIn;
-  const cust_id = getToken?.cust_id;
+  const isLoggedIn = auth?.isLoggedIn;
+  const cust_id = auth?.custId;
 
   const handleOpen = (value) => {
     if (cust_id) {
@@ -44,7 +45,7 @@ const Checkout = () => {
       {/* verification */}
       <div className=" md:mt-0 px-4 mt-4 ">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
-          <Accordion open={open === 1}>
+          <Accordion open={open === 1} className="p-0">
             <AccordionHeader className="border-none">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 1</p>

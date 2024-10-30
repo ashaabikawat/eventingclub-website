@@ -1,7 +1,10 @@
 import {
-  loginSuccess,
+  setMobileNumber,
   setAuthDetails,
+  setIsNewCustomer,
   setToken,
+  logout,
+  loggedInSucces,
 } from "@/store/slices/authSlice";
 import {
   customer,
@@ -12,31 +15,32 @@ import {
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const verification = ({ setDetails, handleOpen }) => {
+  const auth = useSelector((store) => store.auth);
+  console.log(auth);
   const [reload, setReload] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
   });
   const [otpVerified, setOtpVerified] = useState(false);
-  const [isNewCustomer, setIsNewCustomer] = useState(false);
   const [numberModal, setNumberModal] = useState(false);
 
-  const [number, setNumber] = useState(() => {
-    const savedNumber = localStorage.getItem("mobile");
-    return savedNumber ? JSON.parse(savedNumber) : "";
-  });
+  // const [number, setNumber] = useState(() => {
+  //   const savedNumber = localStorage.getItem("mobile");
+  //   return savedNumber ? JSON.parse(savedNumber) : "";
+  // });
 
-  const [otpSent, setOtpSent] = useState(false);
+  const number = auth?.mobileNumber;
+
   const inputs = useRef([]);
   const dispatch = useDispatch();
   const [otp, setOtp] = useState(Array(6).fill(""));
-  const authToken = JSON.parse(localStorage.getItem("authToken"));
 
   const otpGeneration = async () => {
-    if (!number || number.length < 10) {
+    if (!number || number.length < 10 || number.length > 10) {
       return toast.error("Please enter a valid 10-digit number");
     }
 
@@ -52,12 +56,11 @@ const verification = ({ setDetails, handleOpen }) => {
       );
 
       if (response.data.data.customerExists === 0) {
-        setIsNewCustomer(true);
+        dispatch(setIsNewCustomer(true));
       } else {
-        setIsNewCustomer(false);
+        dispatch(setIsNewCustomer(false));
       }
       toast.success(response.data.message);
-      setOtpSent(true);
       setNumberModal(false);
     } catch (error) {
       if (error.response) {
@@ -85,7 +88,7 @@ const verification = ({ setDetails, handleOpen }) => {
 
   const handleUserDetails = async () => {
     const payload = {
-      customer_id: authToken?.cust_id,
+      customer_id: auth?.custId,
       CustomerName: formData.name,
       Email: formData.email,
     };
@@ -93,8 +96,9 @@ const verification = ({ setDetails, handleOpen }) => {
     try {
       const response = await axios.post(registerUser, payload);
       toast.success(response.data.message);
+      dispatch(setIsNewCustomer(null));
       fetchCustomerData();
-      dispatch(loginSuccess());
+      dispatch(loggedInSucces());
       handleOpen(2); // Proceed to next step
     } catch (error) {
       if (error.response) {
@@ -139,7 +143,7 @@ const verification = ({ setDetails, handleOpen }) => {
 
     const payload = {
       Otp: stringOtp,
-      customer_id: authToken?.cust_id,
+      customer_id: auth?.custId,
     };
 
     try {
@@ -149,9 +153,9 @@ const verification = ({ setDetails, handleOpen }) => {
       setOtpVerified(true);
       setReload(true);
 
-      if (authToken?.customer_exists === 1 && !isNewCustomer) {
+      if (auth?.customerExists === 1 && !auth?.isNewCustomer) {
         fetchCustomerData();
-        dispatch(loginSuccess());
+        dispatch(loggedInSucces());
         handleOpen(2); // Proceed to the next accordion step automatically
       }
     } catch (error) {
@@ -192,7 +196,7 @@ const verification = ({ setDetails, handleOpen }) => {
       );
 
       toast.success(response.data.message);
-      setOtpSent(true);
+
       setNumberModal(false);
     } catch (error) {
       if (error.response) {
@@ -215,13 +219,13 @@ const verification = ({ setDetails, handleOpen }) => {
   };
 
   useEffect(() => {
-    if (authToken?.cust_id) {
+    if (auth?.custId) {
       fetchCustomerData();
     }
-  }, [authToken?.cust_id, reload]);
+  }, [auth?.custId, reload]);
 
   const fetchCustomerData = async () => {
-    const payload = { customer_id: authToken?.cust_id };
+    const payload = { customer_id: auth?.custId };
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);
       setDetails(response.data.data);
@@ -247,8 +251,8 @@ const verification = ({ setDetails, handleOpen }) => {
   return (
     <div className="w-full">
       <div className="flex flex-col gap-2">
-        {/* initial number section */}
-        {!authToken?.isLoggedIn && !authToken?.token && !authToken?.cust_id && (
+        {/* initial mobile number section */}
+        {!auth?.isLoggedIn && !auth?.token && !auth?.custId && (
           <div className="mb-8">
             <div className="w-full">
               <label className="text-xl">Phone number*</label>
@@ -259,39 +263,7 @@ const verification = ({ setDetails, handleOpen }) => {
                 value={number}
                 onChange={(e) => {
                   {
-                    localStorage.setItem("mobile", e.target.value);
-                    setNumber(e.target.value);
-                  }
-                }}
-              />
-              <button
-                onClick={otpGeneration}
-                className={`capitalize border border-gray-400 rounded-lg block md:text-base w-full md:w-96 mt-2 p-2 ${
-                  String(number).length
-                    ? "bg-blue-900 text-white"
-                    : "bg-gray-500 text-white"
-                }`}
-              >
-                Continue
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* change number section */}
-        {numberModal && (
-          <div className="mb-8">
-            <div className="w-full">
-              <label className="text-xl">Phone number*</label>
-              <input
-                type="number"
-                className="border border-gray-400 rounded-lg block md:w-96 w-full md:text-base mt-2 p-3"
-                placeholder="+91"
-                value={number}
-                onChange={(e) => {
-                  {
-                    localStorage.setItem("mobile", e.target.value);
-                    setNumber(e.target.value);
+                    dispatch(setMobileNumber(e.target.value));
                   }
                 }}
               />
@@ -310,7 +282,8 @@ const verification = ({ setDetails, handleOpen }) => {
         )}
 
         {/* otp section */}
-        {authToken?.cust_id && !authToken?.token && !numberModal && (
+
+        {auth?.custId && !auth?.token && !numberModal && (
           <div className="mt-2 md:mt-0">
             <h1 className="md:text-xl text-base mb-2  md:text-black">
               We have sent you an OTP to verify your number
@@ -361,11 +334,11 @@ const verification = ({ setDetails, handleOpen }) => {
         )}
 
         {/* form for new user */}
-        {authToken?.cust_id &&
-          authToken?.token &&
-          (!authToken?.customer_exists || isNewCustomer || otpVerified) && (
+        {auth?.custId &&
+          auth?.token &&
+          (!auth?.customerExists || auth?.isNewCustomer || otpVerified) && (
             <div>
-              <p className="text-sm mb-3 text-white md:text-black">Name*</p>
+              <p className="text-sm mb-3  text-black">Name*</p>
               <input
                 type="text"
                 value={formData.name}
@@ -375,9 +348,7 @@ const verification = ({ setDetails, handleOpen }) => {
                 className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
               />
 
-              <p className="text-sm mb-3 mt-4 text-white md:text-black">
-                Email*
-              </p>
+              <p className="text-sm mb-3 mt-4 text-black">Email*</p>
               <input
                 type="text"
                 value={formData.email}
@@ -396,6 +367,36 @@ const verification = ({ setDetails, handleOpen }) => {
               </button>
             </div>
           )}
+
+        {/* change number section */}
+        {numberModal && (
+          <div className="mb-8">
+            <div className="w-full">
+              <label className="text-xl">Phone number*</label>
+              <input
+                type="number"
+                className="border border-gray-400 rounded-lg block md:w-96 w-full md:text-base mt-2 p-3"
+                placeholder="+91"
+                value={number}
+                onChange={(e) => {
+                  {
+                    dispatch(setMobileNumber(e.target.value));
+                  }
+                }}
+              />
+              <button
+                onClick={otpGeneration}
+                className={`capitalize border border-gray-400 rounded-lg block md:text-base w-full md:w-96 mt-2 p-2 ${
+                  String(number).length
+                    ? "bg-blue-900 text-white"
+                    : "bg-gray-500 text-white"
+                }`}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
