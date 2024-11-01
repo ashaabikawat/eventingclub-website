@@ -3,7 +3,6 @@ import {
   setAuthDetails,
   setIsNewCustomer,
   setToken,
-  logout,
   loggedInSucces,
 } from "@/store/slices/authSlice";
 import {
@@ -17,21 +16,15 @@ import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-const verification = ({ setDetails, handleOpen }) => {
+const verification = ({ setDetails, handleOpen, details }) => {
   const auth = useSelector((store) => store.auth);
-  console.log(auth);
-  const [reload, setReload] = useState(false);
+  // const [reload, setReload] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
   });
-  const [otpVerified, setOtpVerified] = useState(false);
+  // const [otpVerified, setOtpVerified] = useState(false);
   const [numberModal, setNumberModal] = useState(false);
-
-  // const [number, setNumber] = useState(() => {
-  //   const savedNumber = localStorage.getItem("mobile");
-  //   return savedNumber ? JSON.parse(savedNumber) : "";
-  // });
 
   const number = auth?.mobileNumber;
 
@@ -55,11 +48,63 @@ const verification = ({ setDetails, handleOpen }) => {
         })
       );
 
-      if (response.data.data.customerExists === 0) {
-        dispatch(setIsNewCustomer(true));
-      } else {
-        dispatch(setIsNewCustomer(false));
+      // if (response.data.data.customerExists === 0) {
+      //   dispatch(setIsNewCustomer(true));
+      // } else {
+      //   dispatch(setIsNewCustomer(false));
+      // }
+      toast.success(response.data.message);
+      setNumberModal(false);
+    } catch (error) {
+      if (error.response) {
+        const { status, data } = error.response;
+
+        if (
+          status === 404 ||
+          status === 403 ||
+          status === 500 ||
+          status === 302 ||
+          status === 409 ||
+          status === 401 ||
+          status === 400
+        ) {
+          toast.error(data.message);
+        }
       }
+    }
+  };
+
+  const changeNumberOtpGeneration = async () => {
+    if (!number || number.length < 10 || number.length > 10) {
+      return toast.error("Please enter a valid 10-digit number");
+    }
+
+    const payload = { MobileNumber: String(number) };
+
+    try {
+      const response = await axios.post(generateOPT, payload);
+      dispatch(
+        setAuthDetails({
+          cust_id: response.data.data.customer_id,
+          customer_exists: response.data.data.customerExists,
+        })
+      );
+
+      // const customerResponse = await axios.post(`${customer.GET_BY_ID}`, {
+      //   customer_id: auth?.custId,
+      // });
+      // const customerData = customerResponse.data;
+      // console.log(customerData.CustomerName);
+
+      // if (!details?.CustomerName) {
+      //   console.log("!details?.CustomerName");
+      //   console.log(details.CustomerName);
+      //   dispatch(setIsNewCustomer(true));
+      // } else {
+      //   console.log("details?.CustomerName");
+      //   console.log(details.CustomerName);
+      //   dispatch(setIsNewCustomer(false));
+      // }
       toast.success(response.data.message);
       setNumberModal(false);
     } catch (error) {
@@ -134,7 +179,7 @@ const verification = ({ setDetails, handleOpen }) => {
   };
 
   const handleOtpVerification = async () => {
-    setReload(false);
+    // setReload(false);
     const stringOtp = otp.join("");
 
     if (!stringOtp || stringOtp.length !== 6) {
@@ -150,13 +195,20 @@ const verification = ({ setDetails, handleOpen }) => {
       const response = await axios.post(validateOtp, payload);
       dispatch(setToken(response.data.data.token));
       toast.success(response.data.message);
-      setOtpVerified(true);
-      setReload(true);
+      // setOtpVerified(true);
+      // setReload(true);
 
-      if (auth?.customerExists === 1 && !auth?.isNewCustomer) {
-        fetchCustomerData();
+      // if (auth?.customerExists === 1 && !auth?.isNewCustomer) {
+      // dispatch(loggedInSucces());
+      // handleOpen(2); // Proceed to the next accordion step automatically
+      // }
+      await fetchCustomerData();
+      if (!details?.CustomerName) {
+        dispatch(setIsNewCustomer(true));
+      } else {
+        dispatch(setIsNewCustomer(false));
         dispatch(loggedInSucces());
-        handleOpen(2); // Proceed to the next accordion step automatically
+        handleOpen(2);
       }
     } catch (error) {
       if (error.response) {
@@ -222,7 +274,7 @@ const verification = ({ setDetails, handleOpen }) => {
     if (auth?.custId) {
       fetchCustomerData();
     }
-  }, [auth?.custId, reload]);
+  }, [auth?.custId]);
 
   const fetchCustomerData = async () => {
     const payload = { customer_id: auth?.custId };
@@ -336,7 +388,7 @@ const verification = ({ setDetails, handleOpen }) => {
         {/* form for new user */}
         {auth?.custId &&
           auth?.token &&
-          (!auth?.customerExists || auth?.isNewCustomer || otpVerified) && (
+          (!auth?.customerExists || auth?.isNewCustomer) && (
             <div>
               <p className="text-sm mb-3  text-black">Name*</p>
               <input
@@ -385,7 +437,7 @@ const verification = ({ setDetails, handleOpen }) => {
                 }}
               />
               <button
-                onClick={otpGeneration}
+                onClick={changeNumberOtpGeneration}
                 className={`capitalize border border-gray-400 rounded-lg block md:text-base w-full md:w-96 mt-2 p-2 ${
                   String(number).length
                     ? "bg-blue-900 text-white"

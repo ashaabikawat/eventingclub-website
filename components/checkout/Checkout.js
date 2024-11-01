@@ -66,6 +66,7 @@ const Checkout = () => {
 
             <AccordionBody>
               <Verification
+                details={details}
                 setDetails={setDetails}
                 handleOpen={handleOpen}
                 otpVerified={otpVerified}

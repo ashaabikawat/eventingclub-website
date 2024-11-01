@@ -27,12 +27,13 @@ const Navbar = ({ bgColor }) => {
   const homePageUrl = pathname === "/";
 
   // Use Redux to check if the user is logged in
-  const token = useSelector((state) => state.auth.token);
+  const auth = useSelector((store) => store.auth);
+  console.log(auth);
   // Updated: Getting token from Redux store
-  const getToken = JSON.parse(localStorage.getItem("authToken"));
+  const getToken = auth?.token;
 
-  const cust_id = getToken?.cust_id;
-  const isLoggedIn = !!token; // Check if the user is logged in based on token availability
+  const cust_id = auth?.custId;
+  const isLoggedIn = !!getToken; // Check if the user is logged in based on token availability
 
   // Add/Remove class to block scrolling when mobile menu is open
   useEffect(() => {
