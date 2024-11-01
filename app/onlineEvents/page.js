@@ -317,7 +317,10 @@ const Page = () => {
                 filterOpenModal={filterOpenModal}
                 setFilters={setFilters}
                 startDate={startDate}
+                handleManualSubmit={handleManualSubmit}
                 endDate={endDate}
+                range={range}
+                setRange={setRange}
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 handleCancel={handleCancel}
