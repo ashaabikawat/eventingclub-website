@@ -202,6 +202,13 @@ const Page = () => {
     }
   };
 
+  const handleCancel = () => {
+    setIsManual(false);
+    setEndDate(null);
+    setStartDate(null);
+    setRange("start");
+  };
+
   const DateFilterApiCall = async (startDate, endDate) => {
     if (
       startDate === "Invalid date+00:00" ||
@@ -310,6 +317,15 @@ const Page = () => {
                 setFilterOpenModal={setFilterOpenModal}
                 filterOpenModal={filterOpenModal}
                 setFilters={setFilters}
+                fetchFeaturedEvents={fetchFeaturedEvents}
+                startDate={startDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+                setStartDate={setStartDate}
+                handleManualSubmit={handleManualSubmit}
+                range={range}
+                setRange={setRange}
+                handleCancel={handleCancel}
               />
             </div>
           )}
@@ -353,6 +369,7 @@ const Page = () => {
                   range={range}
                   setRange={setRange}
                   setFilters={setFilters}
+                  handleCancel={handleCancel}
                 />
               )}
             </>

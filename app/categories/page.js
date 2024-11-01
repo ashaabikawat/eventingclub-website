@@ -94,7 +94,7 @@ const Page = () => {
         <h1 className=" font-bold  lg:text-2xl md:text-xl ">
           Explore Events By Categories
         </h1>
-        <div className="md:w-64">
+        <div className="md:w-96 ">
           <label className="relative">
             <span className="sr-only">search</span>
 

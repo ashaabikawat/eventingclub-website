@@ -110,7 +110,7 @@ const Page = () => {
                   spaceBetween: 10,
                 },
                 1024: {
-                  slidesPerView: 4,
+                  slidesPerView: 4.2,
                   spaceBetween: 10,
                 },
               }}
@@ -140,7 +140,7 @@ const Page = () => {
           </Link>
         </div>
         <div className=" ">
-          <div className=" md:mt-12 mt-4">
+          <div className=" md:mt-8 mt-4">
             {" "}
             <Swiper
               spaceBetween={6}

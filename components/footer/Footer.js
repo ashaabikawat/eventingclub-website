@@ -16,26 +16,29 @@ const Footer = () => {
 
   return (
     <div
-      className="px-10  md:py-8 py-6   text-white"
+      className="px-10 md:py-8 py-6 text-white"
       style={{ backgroundColor: "#2f3e93" }}
     >
-      <div className="flex justify-between items-center  md:flex-row flex-col gap-6 ">
-        <div>
+      <div className="flex justify-between items-center md:flex-row flex-col gap-6">
+        {/* Logo Section */}
+        <div className="flex-shrink-0">
           <span className="sr-only">Logo</span>
           <Link href="/">
-            <div className="cursor-pointer relative md:h-20 md:w-44 h-14 w-28">
+            <div className="cursor-pointer relative md:h-20 md:w-32 h-14 w-24">
               <Image
                 src="/Frame 8107.png"
                 alt="logo"
                 layout="fill"
                 className="absolute"
                 objectFit="contain"
-              ></Image>
+              />
             </div>
           </Link>
         </div>
-        <div>
-          <ul className="flex justify-center items-center md:text-xl text-base md:gap-10 gap-4  flex-wrap">
+
+        {/* Navigation Links */}
+        <div className="flex-grow">
+          <ul className="flex justify-center items-center md:text-xl text-base md:gap-10 gap-4 flex-wrap">
             <li>
               <Link href="/">Home</Link>
             </li>
@@ -47,16 +50,19 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="flex items-center justify-center gap-4 ">
+
+        {/* Social Icons */}
+        <div className="flex items-center justify-center gap-4">
           {socialIcons.map((icon) => (
-            <Link href={icon.url}>
+            <Link key={icon.id} href={icon.url}>
               <IconButton
-                key={icon.id}
                 size="lg"
                 className="bg-white border-transparent rounded-full p-6"
                 variant="outlined"
               >
-                <i class={`fab ${icon.icon} md:fa-lg fa-xl text-blue-900`}></i>
+                <i
+                  className={`fab ${icon.icon} md:fa-lg fa-xl text-blue-900`}
+                ></i>
               </IconButton>
             </Link>
           ))}

@@ -29,6 +29,13 @@ const Page = () => {
     setFilterOpenModal(false);
   };
 
+  const handleCancel = () => {
+    setIsManual(false);
+    setEndDate(null);
+    setStartDate(null);
+    setRange("start");
+  };
+
   useEffect(() => {
     fetchUpcomingEvents();
     const handleResize = () => setIsMobile(window.innerWidth < 650);
@@ -303,7 +310,15 @@ const Page = () => {
                 fetchEvents={fetchUpcomingEvents}
                 setFilterOpenModal={setFilterOpenModal}
                 filterOpenModal={filterOpenModal}
+                startDate={startDate}
+                endDate={endDate}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+                handleManualSubmit={handleManualSubmit}
+                range={range}
+                setRange={setRange}
                 setFilters={setFilters}
+                handleCancel={handleCancel}
               />
             </div>
           )}
@@ -347,6 +362,7 @@ const Page = () => {
                   range={range}
                   setRange={setRange}
                   setFilters={setFilters}
+                  handleCancel={handleCancel}
                 />
               )}
             </>

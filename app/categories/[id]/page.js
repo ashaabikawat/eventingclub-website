@@ -179,6 +179,13 @@ const Page = () => {
     }
   };
 
+  const handleCancel = () => {
+    setIsManual(false);
+    setEndDate(null);
+    setStartDate(null);
+    setRange("start");
+  };
+
   return (
     <div className="md:py-6 md:mb-16 mb-16 ">
       <Toaster />
@@ -231,6 +238,7 @@ const Page = () => {
                 range={range}
                 setRange={setRange}
                 setFilters={setFilters}
+                handleCancel={handleCancel}
               />
             </div>
           )}
@@ -262,6 +270,7 @@ const Page = () => {
                   handleCategory={handleCategory}
                   handleGenre={handleGenre}
                   isManual={isManual}
+                  handleCancel={handleCancel}
                   setIsManual={setIsManual}
                   fetchEvents={fetchEvents}
                   setFilterOpenModal={setFilterOpenModal}

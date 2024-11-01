@@ -28,7 +28,7 @@ const Navbar = ({ bgColor }) => {
 
   // Use Redux to check if the user is logged in
   const auth = useSelector((store) => store.auth);
-  console.log(auth);
+
   // Updated: Getting token from Redux store
   const getToken = auth?.token;
 
@@ -199,7 +199,7 @@ const Navbar = ({ bgColor }) => {
                                   <div
                                     className={`p-4 flex items-center space-x-2 w-full  hover:bg-gray-200  ${
                                       index === searchData.length - 1
-                                        ? " border-none"
+                                        ? " border-none hover:rounded-b-md "
                                         : "border-b-[1px] border-gray-200 "
                                     }`}
                                   >
@@ -298,7 +298,7 @@ const Navbar = ({ bgColor }) => {
                               <div
                                 className={`p-4 flex items-center space-x-2 w-full  hover:bg-gray-200  ${
                                   index === searchData.length - 1
-                                    ? " border-none"
+                                    ? " border-none hover:rounded-b-md"
                                     : "border-b-[1px] border-gray-200 "
                                 }`}
                               >
@@ -323,13 +323,13 @@ const Navbar = ({ bgColor }) => {
 
           <div className="hidden md:flex justify-start gap-20 mt-2 text-lg">
             <ul className="flex justify-start gap-16">
-              <li className="hover:text-gray-600 text-black">
+              <li className=" text-black">
                 <Link href="/">Home</Link>
               </li>
-              <li className="hover:text-gray-600 text-black">
+              <li className=" text-black">
                 <Link href="/venue">Venue</Link>
               </li>
-              <li className="hover:text-gray-600 text-black">
+              <li className=" text-black">
                 <Link href="/artists">Artist</Link>
               </li>
             </ul>

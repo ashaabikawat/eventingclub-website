@@ -29,6 +29,13 @@ const Page = () => {
   const [range, setRange] = useState("start");
   const [filters, setFilters] = useState({});
 
+  const handleCancel = () => {
+    setIsManual(false);
+    setEndDate(null);
+    setStartDate(null);
+    setRange("start");
+  };
+
   const handleManualSubmit = () => {
     DateFilterApiCall(startDate, endDate);
     setIsManual(false);
@@ -309,6 +316,11 @@ const Page = () => {
                 setFilterOpenModal={setFilterOpenModal}
                 filterOpenModal={filterOpenModal}
                 setFilters={setFilters}
+                startDate={startDate}
+                endDate={endDate}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+                handleCancel={handleCancel}
               />
             </div>
           )}
@@ -352,6 +364,7 @@ const Page = () => {
                   range={range}
                   setRange={setRange}
                   setFilters={setFilters}
+                  handleCancel={handleCancel}
                 />
               )}
             </>

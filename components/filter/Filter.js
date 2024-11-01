@@ -18,6 +18,7 @@ const Filter = ({
   handleLanguageSelection,
   handleDateSelection,
   handleCategory,
+  handleCancel,
   handleGenre,
   isManual,
   setIsManual,
@@ -191,6 +192,7 @@ const Filter = ({
                 onClick={() => {
                   setFilters({});
                   fetchEvents();
+                  setIsManual(false);
                 }}
               >
                 Clear
@@ -268,7 +270,10 @@ const Filter = ({
                     className="absolute top-full left-0  shadow-none border-none outline-none focus:border-none focus:ring-  "
                   ></div>
                   <div className="flex gap-6 mt-6 justify-around items-center">
-                    <button className="text-base border border-gray-400  px-4 py-2 rounded">
+                    <button
+                      className="text-base border border-gray-400  px-4 py-2 rounded"
+                      onClick={handleCancel}
+                    >
                       Cancel
                     </button>
                     <button

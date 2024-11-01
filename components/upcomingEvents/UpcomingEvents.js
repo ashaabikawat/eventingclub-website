@@ -74,7 +74,7 @@ const UpcomingEvents = () => {
           status === 400
         ) {
           toast.error(data.message);
-          setEvents([]);
+          // setAllUpcomingEvents([]);
         }
       }
     }
