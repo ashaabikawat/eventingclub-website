@@ -761,7 +761,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
           )}
 
           {bookingData?.selectedTickets?.length > 0 && (
-            <div className="relative md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
+            <div className="fixed bottom-0 w-[100%]  md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
               <div className="flex flex-col gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
                   ₹ {bookingData?.totalPrice}
