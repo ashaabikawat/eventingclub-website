@@ -1,10 +1,14 @@
 "use client";
 import { customer } from "@/utils/config";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const EditProfile = ({ id, data }) => {
+  const auth = useSelector((store) => store.auth);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,6 +29,13 @@ const EditProfile = ({ id, data }) => {
       });
     }
   }, [data]);
+
+  useEffect(() => {
+    if (!auth?.isLoggedIn) {
+      router.push("/signup");
+      // navigate("/signup"); // Redirect to the signup page if not authenticated
+    }
+  }, [auth?.isLoggedIn, router]);
 
   // Handle input change for dynamic form update
   const handleChange = (e) => {
