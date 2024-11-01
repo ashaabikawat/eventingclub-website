@@ -144,6 +144,7 @@ const Page = () => {
       dispatch(setIsNewCustomer(null));
       fetchCustomerData();
       dispatch(loggedInSucces());
+      router.push("/");
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;

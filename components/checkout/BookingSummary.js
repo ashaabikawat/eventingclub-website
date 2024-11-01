@@ -550,7 +550,7 @@ const BookingSummary = () => {
       ) : (
         <div className="flex flex-col gap-4 items-center">
           <p className="md:text-lg font-semibold text-black">
-            You dont have any tickets
+            You don't have any tickets
           </p>
           <button
             className="bg-blue-900 text-white py-2 px-14 rounded"

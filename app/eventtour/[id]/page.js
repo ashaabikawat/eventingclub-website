@@ -62,56 +62,57 @@ const Page = () => {
   return (
     <div className="   mb-16">
       <div className="md:px-6 md:py-1">
-        <div className="md:p-4 ">
-          <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
-            {loadings ? (
-              "Loading ..."
-            ) : imageUrl ? (
-              <div className=" md:aspect-auto  aspect-square ">
-                <Image
-                  src={`${URL}/${imageUrl}`}
-                  alt="image"
-                  layout="fill"
-                  className="absolute md:rounded-xl overflow-hidden"
-                />
-              </div>
-            ) : (
-              "Loading ..."
-            )}
-          </div>
-
-          {/* event details */}
-          <div className=" md:px-2 md:py-4 md:mt-0 mt-4  px-4   ">
-            <div className="flex flex-col">
-              <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize">
-                {eventData?.TourName}
-              </h1>
-              <div className="flex gap-1  mt-4 md:text-base"></div>
-              <div className="flex flex-col">
-                <div className="flex items-center justify-start gap-2">
-                  <span>
-                    <FaRegCalendarAlt />
-                  </span>
-                  <span>{eventData?.EventTourStartDate}</span>
+        <div className="md:py-4">
+          <div className="grid grid-cols-2 gap-10">
+            <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
+              {loadings ? (
+                "Loading ..."
+              ) : imageUrl ? (
+                <div className=" md:aspect-auto  aspect-square ">
+                  <Image
+                    src={`${URL}/${imageUrl}`}
+                    alt="image"
+                    layout="fill"
+                    className="absolute md:rounded-xl overflow-hidden"
+                  />
                 </div>
-              </div>
-              <div className="flex flex-col mt-4">
-                <div className="flex items-center justify-start gap-2">
-                  <span>
-                    <FiMapPin />
-                  </span>
-                  <span>Multiple venues</span>
-                </div>
-              </div>
-              {eventData?.TicketPriceStartsFrom && (
-                <p className="mt-6 font-bold text-xl">
-                  &#8377; {eventData?.EventTourlowestPrice} Onwards
-                </p>
+              ) : (
+                "Loading ..."
               )}
             </div>
-          </div>
 
-          {/* share */}
+            {/* event details */}
+            <div className=" md:px-2 md:py-4 md:mt-0 mt-4  px-4   ">
+              <div className="flex flex-col">
+                <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize">
+                  {eventData?.TourName}
+                </h1>
+                <div className="flex gap-1  mt-4 md:text-base"></div>
+                <div className="flex flex-col">
+                  <div className="flex items-center justify-start gap-2">
+                    <span>
+                      <FaRegCalendarAlt />
+                    </span>
+                    <span>{eventData?.EventTourStartDate}</span>
+                  </div>
+                </div>
+                <div className="flex flex-col mt-4">
+                  <div className="flex items-center justify-start gap-2">
+                    <span>
+                      <FiMapPin />
+                    </span>
+                    <span>Multiple venues</span>
+                  </div>
+                </div>
+                {eventData?.TicketPriceStartsFrom && (
+                  <p className="mt-6 font-bold text-xl">
+                    &#8377; {eventData?.EventTourlowestPrice} Onwards
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+          n{/* share */}
           <div className=" rounded-lg md:px-0 md:mt-4 px-4 mt-6">
             <div className="    py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">

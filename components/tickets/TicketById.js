@@ -3,6 +3,7 @@ import Tickets from "./Tickets";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { customer } from "@/utils/config";
+import { useDispatch } from "react-redux";
 
 const TicketById = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const TicketById = () => {
   const [pastEventsTicket, setPastEventsTicket] = useState([]);
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchTickets();
@@ -77,12 +79,11 @@ const TicketById = () => {
         <div className="">
           <div className="h-52 flex flex-col gap-4 justify-center items-center">
             <p className="md:text-lg font-semibold text-black">
-              You dont have any tickets
+              You don't have any tickets
             </p>
             <button
               className="bg-blue-900 text-white py-2 px-14 rounded"
               onClick={() => {
-                dispatch(setTicketId(null));
                 router.push("/");
               }}
             >
