@@ -16,6 +16,7 @@ import {
   setTicketCounts,
   setConvenienceFee,
 } from "../../store/slices/booking";
+import SeasonPass from "./SeasonPass";
 
 const TicketsSlider = ({ data, setShowTicket }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -24,6 +25,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   const router = useRouter();
   const [selectedShortTicket, setSelectedShortTicket] = useState();
   const [eventTicket, setEventTicket] = useState([]);
+  const [isSeasonpassActive, setIsSeasonpassActive] = useState(false);
   const [showTicketId, setShowTicketId] = useState(null);
   const savedTicketCounts = useSelector((store) => store.booking.ticketCounts);
   const [count, setCount] = useState(() => {
@@ -77,6 +79,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   }, [isMobile]);
 
   const handleShowTicket = async (eventTicketId) => {
+    setIsSeasonpassActive(false);
     // console.log(eventTicketId);
     setShowTicketId(eventTicketId);
     setSelectedShortTicket(eventTicketId);
@@ -436,6 +439,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
       return; // Exit the function early
     }
 
+    setIsSeasonpassActive(true);
     const payload = {
       event_id: id,
     };
@@ -556,30 +560,10 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                         onClick={handleSeasonPass}
                         className="cursor-pointer"
                       >
-                        <div
-                          className="border border-blue-900 bg-white flex items-center justify-start gap-5 flex-col rounded-md px-4 py-2
-                      h-36 md:h-40 w-24 md:w-28"
-                        >
-                          <p
-                            className="capitalize text-center relative before:inline-block before:w-10 before:h-[2px] before:bg-blue-800
-                      before:absolute before:-bottom-0 before:left-2 text-xs md:text-sm"
-                          >
-                            Season pass
-                          </p>
-                          <p className="capitalize text-xs md:text-sm">{`${
-                            data?.DateTimeDate[0].Date
-                          }-${
-                            data?.DateTimeDate[data.DateTimeDate.length - 1]
-                              .Date
-                          } ${data?.DateTimeDate[0].Month}`}</p>
-
-                          <p className="capitalize text-xs md:text-sm text-center">
-                            <p className="capitalize text-xs md:text-sm">
-                              Start from
-                            </p>
-                            {`${data?.DateTimeDate[0].Time}`}
-                          </p>
-                        </div>
+                        <SeasonPass
+                          data={data}
+                          isSeasonpassActive={isSeasonpassActive}
+                        />
                       </div>
                     </SwiperSlide>
                   )}
@@ -600,29 +584,10 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                   ))}
                   {data?.SeasonPassCount > 0 && (
                     <div onClick={handleSeasonPass} className="cursor-pointer">
-                      <div
-                        className="border border-blue-900 bg-white flex items-center justify-start gap-5 flex-col rounded-md p-2
-                    h-36 md:h-40 w-24 md:w-28"
-                      >
-                        <p
-                          className="capitalize text-blue-900 font-semibold  relative before:inline-block before:w-10 md:py-1 before:h-[2px] before:bg-blue-800
-                      before:absolute before:-bottom-0 before:left-6 text-center text-xs md:text-sm"
-                        >
-                          Season pass
-                        </p>
-                        <p className="capitalize text-xs md:text-sm">{`${
-                          data?.DateTimeDate[0].Date
-                        }-${
-                          data?.DateTimeDate[data.DateTimeDate.length - 1].Date
-                        } ${data?.DateTimeDate[0].Month}`}</p>
-
-                        <p className="capitalize text-xs md:text-sm text-center">
-                          <p className="capitalize text-xs md:text-sm">
-                            Start from
-                          </p>
-                          {`${data?.DateTimeDate[0].Time}`}
-                        </p>
-                      </div>
+                      <SeasonPass
+                        data={data}
+                        isSeasonpassActive={isSeasonpassActive}
+                      />
                     </div>
                   )}
                 </div>
