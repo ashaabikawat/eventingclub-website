@@ -15,6 +15,7 @@ const bookingPersistConfig = {
     "bookingData",
     "ticketCounts",
     "convenienceFee",
+    "promocodeDiscountAmount",
   ],
 };
 

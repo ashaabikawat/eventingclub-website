@@ -13,10 +13,10 @@ import { IoIosCloseCircle } from "react-icons/io";
 import {
   setBookingDataObj,
   setPromocodeId,
+  setPromcodeDiscountAmount,
   remove_promocode,
   setTicketId,
   setTicketCounts,
-  setEventId,
   reset_state,
 } from "../../store/slices/booking";
 import { decryptData, encryptData } from "@/utils/constants";
@@ -54,13 +54,14 @@ const BookingSummary = () => {
 
   const ticketAmount = Number(ticket?.TicketPrice) * totalTickets;
 
-  const getToken = localStorage.getItem("authToken");
-  const cust_id = JSON.parse(getToken)?.cust_id;
+  const cust_id = useSelector((store) => store.auth.custId);
+  const promocodeDiscountPrice = useSelector(
+    (store) => store.booking.promocodeDiscountAmount
+  );
 
-  const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(() => {
-    const savedPromocode = localStorage.getItem("promocodeDiscountAmount");
-    return savedPromocode ? JSON.parse(savedPromocode) : 0;
-  });
+  // const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(() => {
+  //   return promocodeDiscountAmountStore ? promocodeDiscountAmountStore : 0;
+  // });
 
   // const confee = JSON.parse(localStorage.getItem("convenienceFee"));
   const confee = useSelector((store) => store.booking.convenienceFee);
@@ -129,12 +130,11 @@ const BookingSummary = () => {
             ? promocodePrice
             : promocodeDiscountAmount;
 
-        setPromocodeDiscountPrice(discountPrice);
-        localStorage.setItem("promocodeDiscountAmount", discountPrice);
+        dispatch(setPromcodeDiscountAmount(discountPrice));
         toast.success("Promocode applied successfully!");
       } else {
         toast.error(`Minimum checkout amount is ${minAmount}`);
-        setPromocodeDiscountPrice(0);
+        dispatch(setPromcodeDiscountAmount(0));
       }
     }
   };
@@ -353,8 +353,8 @@ const BookingSummary = () => {
                   <button
                     onClick={() => {
                       dispatch(remove_promocode());
-                      setPromocodeDiscountPrice(0);
-                      localStorage.removeItem("promocodeDiscountAmount");
+                      dispatch(setPromcodeDiscountAmount(0));
+                      // localStorage.removeItem("promocodeDiscountAmount");
                     }}
                     className=" absolute md:right-24  right-20 md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "
                   >
