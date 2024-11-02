@@ -63,7 +63,7 @@ const Page = () => {
     <div className="   mb-16">
       <div className="md:px-6 md:py-1">
         <div className="md:py-4">
-          <div className="grid grid-cols-2 gap-10">
+          <div className="md:grid grid-cols-2 gap-10">
             <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
               {loadings ? (
                 "Loading ..."
@@ -112,7 +112,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          n{/* share */}
+          {/* share */}
           <div className=" rounded-lg md:px-0 md:mt-4 px-4 mt-6">
             <div className="    py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">

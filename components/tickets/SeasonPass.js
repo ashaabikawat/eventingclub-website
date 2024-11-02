@@ -37,7 +37,7 @@ h-36 md:h-40 w-24 md:w-32`}
     >
       <p
         className="capitalize text-center relative before:inline-block before:w-12 before:h-[2px] before:bg-blue-800
-before:absolute before:-bottom-0 before:left-4 text-xs md:text-sm"
+before:absolute before:-bottom-0 md:before:left-4 text-xs md:text-sm"
       >
         Season pass
       </p>

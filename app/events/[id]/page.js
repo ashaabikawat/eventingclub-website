@@ -191,7 +191,7 @@ const Page = () => {
                 <span className="border-r-2 border-gray-800 pr-2 text-gray-800 capitalize">
                   {eventData?.categoryName}
                 </span>
-                {eventData?.Language.map((lang) => (
+                {eventData?.Language.slice(0, 2).map((lang) => (
                   <span
                     className="border-r-2 border-gray-800 pr-2 text-gray-800  capitalize"
                     key={lang}
