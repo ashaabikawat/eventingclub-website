@@ -45,6 +45,7 @@ const EditProfile = ({ id, data }) => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
+    toast.dismiss();
     e.preventDefault();
 
     // Create payload with only non-empty fields
@@ -64,8 +65,8 @@ const EditProfile = ({ id, data }) => {
     if (formData.city) payload.City = formData.city;
     if (formData.pincode) payload.Pincode = formData.pincode;
 
-    console.log("Form Data:", formData);
-    console.log("Payload to be sent:", payload);
+    // console.log("Form Data:", formData);
+    // console.log("Payload to be sent:", payload);
 
     // Call the update API
     try {

@@ -18,6 +18,7 @@ const Page = () => {
   }, []);
 
   const fetchCategories = async () => {
+    toast.dismiss();
     try {
       const response = await axios.get(categories.GET_ALL);
       setCategory(response.data.data);
@@ -50,6 +51,7 @@ const Page = () => {
   }, [searchKeyword]);
 
   useEffect(() => {
+    toast.dismiss();
     const fetchData = async () => {
       try {
         if (debounced.length < 3) {

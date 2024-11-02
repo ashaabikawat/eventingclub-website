@@ -27,15 +27,16 @@ const booking = createSlice({
       state.eventId = action.payload;
     },
 
-    setTicketData: (state, action) => {
-      state.ticketData = action.payload; // Store fetched ticket data
-    },
+    // setTicketData: (state, action) => {
+    //   state.ticketData = action.payload; // Store fetched ticket data
+    // },
 
     setTicketId: (state, action) => {
       state.ticketId = action.payload;
     },
 
     handleIncrease: (state, action) => {
+      toast.dismiss();
       const ticketId = action.payload;
 
       const bookingObj = current(state.ticketData).find(
@@ -157,7 +158,7 @@ export const {
   setBookingDataObj,
   setTicketId,
   handleIncrease,
-  setTicketData,
+  // setTicketData,
   handleDecrease,
   setEventId,
   reset_state,

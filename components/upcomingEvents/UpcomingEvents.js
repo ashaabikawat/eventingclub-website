@@ -17,7 +17,7 @@ const UpcomingEvents = () => {
     let TodayStartDateTimeStr, TodayEndDatetimeStr;
     switch (value) {
       case "All":
-        console.log("all");
+        // console.log("all");
         break;
 
       case "This Week":
@@ -37,6 +37,7 @@ const UpcomingEvents = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
+    toast.dismiss();
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"

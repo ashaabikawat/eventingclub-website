@@ -8,7 +8,6 @@ import { events } from "@/utils/config";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setTicketData,
   setBookingDataObj,
   setEventId,
   reset_state,
@@ -45,7 +44,6 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   // console.log(bookingDataTicketId);
 
   useEffect(() => {
-    console.log("executed");
     if (bookingDataTicketId !== null) {
       if (bookingData?.selectedTickets[0]?.TicketType === 2) {
         // console.log(bookingData?.selectedTickets[0]?.TicketType);
@@ -79,6 +77,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   }, [isMobile]);
 
   const handleShowTicket = async (eventTicketId) => {
+    toast.dismiss();
     setIsSeasonpassActive(false);
     // console.log(eventTicketId);
     setShowTicketId(eventTicketId);
@@ -124,7 +123,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
           ConValue: response.data.data[0].ConValue,
         })
       );
-      dispatch(setTicketData(response.data.data));
+      // dispatch(setTicketData(response.data.data));
     } catch (error) {
       if (error.response) {
         const { status, data } = error.response;
@@ -155,6 +154,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   };
 
   const handleIncreaseandSetEventId = (ticketId) => {
+    toast.dismiss();
     const bookingObj = eventTicket?.find(
       (ticket) => ticket.Ticket_Id === ticketId
     );
@@ -182,6 +182,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   };
 
   const handleDecreaseandSetEventId = (ticketId) => {
+    toast.dismiss();
     setCount((prevCounts) => {
       // Get the current count for the ticket
       const currentCount = prevCounts[ticketId] || 0;
@@ -252,6 +253,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   };
 
   const handleIncrease = (ticketId) => {
+    toast.dismiss();
     const bookingObj = eventTicket?.find(
       (ticket) => ticket.Ticket_Id === ticketId
     );
@@ -295,6 +297,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   };
 
   const handleDecrease = (ticketId) => {
+    toast.dismiss();
     setCount((prevCounts) => {
       // Get the current count for the ticket
       const currentCount = prevCounts[ticketId] || 0;
@@ -420,11 +423,12 @@ const TicketsSlider = ({ data, setShowTicket }) => {
       selectedTickets,
     };
 
-    console.log(obj);
+    // console.log(obj);
     dispatch(setBookingDataObj(obj));
   };
 
   const handleSeasonPass = async () => {
+    toast.dismiss();
     const currentEventId = id;
 
     const totalTicketsInCart = Object.values(count).reduce(
@@ -452,7 +456,8 @@ const TicketsSlider = ({ data, setShowTicket }) => {
         })
       );
       setEventTicket(response.data.data);
-      dispatch(setTicketData(response.data.data));
+      // dispatch(setTicketData(response.data.data));
+
       setSelectedShortTicket(response.data.data[0].Ticket_Id);
       // dispatch(setTicketId(response.data.data[0].Ticket_Id));
       setShowTicketId(response.data.data[0].Ticket_Id);
@@ -476,9 +481,6 @@ const TicketsSlider = ({ data, setShowTicket }) => {
     }
     setShowTicket(true);
   };
-
-  console.log("bookingDataTicketId", bookingDataTicketId);
-  console.log("showTicketId", showTicketId);
 
   const handleContinue = () => {
     calculateTotals();

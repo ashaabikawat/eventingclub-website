@@ -38,6 +38,7 @@ const Page = () => {
 
   //otp generation
   const otpGeneration = async () => {
+    toast.dismiss();
     if (!number || number.length < 10 || number.length > 10) {
       return toast.error("Please enter a valid 10-digit number");
     }
@@ -80,6 +81,7 @@ const Page = () => {
   };
 
   const changeNumberOtpGeneration = async () => {
+    toast.dismiss();
     if (!number || number.length < 10 || number.length > 10) {
       return toast.error("Please enter a valid 10-digit number");
     }
@@ -132,6 +134,7 @@ const Page = () => {
   };
 
   const handleUserDetails = async () => {
+    toast.dismiss();
     const payload = {
       customer_id: auth?.custId,
       CustomerName: formData.name,
@@ -190,6 +193,7 @@ const Page = () => {
   }, [auth?.custId]);
 
   const fetchCustomerData = async () => {
+    toast.dismiss();
     const payload = { customer_id: auth?.custId };
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);
@@ -215,6 +219,7 @@ const Page = () => {
 
   // otp verification
   const handleOtpVerification = async () => {
+    toast.dismiss();
     // setReload(false);
     const stringOtp = otp.join("");
 
@@ -268,6 +273,7 @@ const Page = () => {
   };
 
   const resendOtp = async () => {
+    toast.dismiss();
     setOtp(Array(6).fill(""));
     if (!number) {
       return toast.error("Please enter a valid 10-digit number");

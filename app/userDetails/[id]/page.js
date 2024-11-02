@@ -18,6 +18,7 @@ const Page = () => {
   const [data, setData] = useState();
 
   const fetchData = async () => {
+    toast.dismiss();
     const payload = { customer_id: id };
 
     try {

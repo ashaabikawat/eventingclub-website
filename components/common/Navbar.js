@@ -65,6 +65,7 @@ const Navbar = ({ bgColor }) => {
   };
 
   useEffect(() => {
+    toast.dismiss();
     const fetchData = async () => {
       try {
         if (debouncedSearch) {

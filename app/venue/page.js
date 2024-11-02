@@ -35,6 +35,7 @@ const Page = () => {
   }, [searchKeyword]);
 
   useEffect(() => {
+    toast.dismiss();
     const fetchData = async () => {
       try {
         if (debounced.length < 3) {

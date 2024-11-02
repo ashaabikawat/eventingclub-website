@@ -44,6 +44,7 @@ const Page = () => {
   }, []);
 
   const fetchUpcomingEvents = async () => {
+    toast.dismiss();
     setError(false);
     try {
       const response = await axios.post(upcomingEvents.GET_ALL);
@@ -70,6 +71,7 @@ const Page = () => {
   };
 
   const handleLanguageSelection = async (value) => {
+    toast.dismiss();
     let newFilters = { ...filters };
     newFilters.LanguageName = value;
 
@@ -107,6 +109,7 @@ const Page = () => {
   };
 
   const handleGenre = async (value) => {
+    toast.dismiss();
     let newFilters = { ...filters };
     newFilters.Genre_id = value;
     setFilters(newFilters);
@@ -143,6 +146,7 @@ const Page = () => {
   };
 
   const handleCategory = async (value) => {
+    toast.dismiss();
     let newFilters = { ...filters };
     newFilters.category_id = value;
     setFilters(newFilters);
@@ -177,6 +181,7 @@ const Page = () => {
   };
 
   const handleDateSelection = (option) => {
+    toast.dismiss();
     if (option !== "Manual" && option !== "Reset") {
       const currentDate = new Date();
       let TodayStartDateTimeStr, TodayEndDatetimeStr;
@@ -203,6 +208,7 @@ const Page = () => {
   };
 
   const DateFilterApiCall = async (startDate, endDate) => {
+    toast.dismiss();
     if (
       startDate === "Invalid date+00:00" ||
       endDate === "Invalid date+00:00"

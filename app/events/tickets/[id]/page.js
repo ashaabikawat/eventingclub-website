@@ -19,6 +19,7 @@ const Page = () => {
   }, []);
 
   const bookTicket = async () => {
+    toast.dismiss();
     const payload = {
       event_id: id,
     };

@@ -18,6 +18,7 @@ const Page = () => {
   }, []);
 
   const fetchArtist = async () => {
+    toast.dismiss();
     try {
       const response = await axios.get(artists.GET_ALL);
 
@@ -51,6 +52,7 @@ const Page = () => {
   }, [searchKeyword]);
 
   useEffect(() => {
+    toast.dismiss();
     const fetchData = async () => {
       try {
         if (debounced.length < 3) {

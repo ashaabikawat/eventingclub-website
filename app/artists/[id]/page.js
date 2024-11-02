@@ -25,6 +25,7 @@ const Page = () => {
   }, []);
 
   const fetchArtists = async () => {
+    toast.dismiss();
     const payload = {
       artist_id: id,
     };

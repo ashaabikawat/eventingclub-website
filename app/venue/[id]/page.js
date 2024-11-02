@@ -21,6 +21,7 @@ const Page = () => {
   }, []);
 
   const fetchVenueData = async () => {
+    toast.dismiss();
     const payload = {
       venue_id: id,
     };

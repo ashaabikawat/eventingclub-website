@@ -27,6 +27,7 @@ const Page = () => {
   }, []);
 
   const fetchEvent = async () => {
+    toast.dismiss();
     const payload = {
       event_Tour_id: id,
     };

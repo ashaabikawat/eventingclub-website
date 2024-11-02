@@ -33,6 +33,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   const [otp, setOtp] = useState(Array(6).fill(""));
 
   const otpGeneration = async () => {
+    toast.dismiss();
     if (!number || number.length < 10 || number.length > 10) {
       return toast.error("Please enter a valid 10-digit number");
     }
@@ -75,6 +76,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   };
 
   const changeNumberOtpGeneration = async () => {
+    toast.dismiss();
     if (!number || number.length < 10 || number.length > 10) {
       return toast.error("Please enter a valid 10-digit number");
     }
@@ -132,6 +134,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   };
 
   const handleUserDetails = async () => {
+    toast.dismiss();
     const payload = {
       customer_id: auth?.custId,
       CustomerName: formData.name,
@@ -179,6 +182,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   };
 
   const handleOtpVerification = async () => {
+    toast.dismiss();
     // setReload(false);
     const stringOtp = otp.join("");
 
@@ -231,6 +235,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   };
 
   const resendOtp = async () => {
+    toast.dismiss();
     setOtp(Array(6).fill(""));
     if (!number) {
       return toast.error("Please enter a valid 10-digit number");
@@ -277,6 +282,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   }, [auth?.custId]);
 
   const fetchCustomerData = async () => {
+    toast.dismiss();
     const payload = { customer_id: auth?.custId };
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);

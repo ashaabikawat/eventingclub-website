@@ -64,7 +64,7 @@ const BookingSummary = () => {
 
   // const confee = JSON.parse(localStorage.getItem("convenienceFee"));
   const confee = useSelector((store) => store.booking.convenienceFee);
-  console.log(confee);
+  // console.log(confee);
   const convenienceFee = Number(confee?.ConValue) || 0;
 
   // Calculate GST based on the total before discount
@@ -111,6 +111,7 @@ const BookingSummary = () => {
   }, [ticketAmount]);
 
   const handleApplyPromocode = () => {
+    toast.dismiss();
     const selectedPromocode = promocodes?.applicablePromocodes?.find(
       (promo) => promo.PromoCodeName === promocodeValue
     );
@@ -167,6 +168,7 @@ const BookingSummary = () => {
   };
 
   const handleIncrease = (id) => {
+    toast.dismiss();
     const bookingLimit = bookingData.selectedTickets[0].BookingMaxLimit;
     if (quantity < bookingLimit) {
       const newQuanity = quantity + 1;
