@@ -127,7 +127,7 @@ const Navbar = ({ bgColor }) => {
                 <Link href="/">
                   <div className="cursor-pointer relative md:h-20 md:w-36 h-14 w-28">
                     <Image
-                      src="/Eventing club logo transparent.png"
+                      src="/TicketEventingClubLogo.png"
                       alt="logo"
                       layout="fill"
                       className="absolute"
@@ -352,7 +352,7 @@ const Navbar = ({ bgColor }) => {
                     <Link href="/">
                       <div className="cursor-pointer relative md:h-20 md:w-52 h-14 w-32">
                         <Image
-                          src="/Eventing club logo transparent.png"
+                          src="/TicketEventingClubLogo.png"
                           alt="logo"
                           layout="fill"
                           className="absolute"
