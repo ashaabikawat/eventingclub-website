@@ -27,6 +27,8 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   const [isSeasonpassActive, setIsSeasonpassActive] = useState(false);
   const [showTicketId, setShowTicketId] = useState(null);
   const savedTicketCounts = useSelector((store) => store.booking.ticketCounts);
+  const [eventTicketDataForCalculations, setEventTicketDataForCalculations] =
+    useState([]);
   const [count, setCount] = useState(() => {
     return savedTicketCounts ? savedTicketCounts : {};
   });
@@ -387,6 +389,11 @@ const TicketsSlider = ({ data, setShowTicket }) => {
     0
   );
 
+  useEffect(() => {
+    setEventTicketDataForCalculations(eventTicket);
+  }, [totalTickets]);
+  console.log("eventTicket", eventTicket);
+  console.log("forcalculations", eventTicketDataForCalculations);
   const calculateTotals = () => {
     const totalTickets = Object.values(count).reduce(
       (acc, count) => acc + count,
@@ -406,7 +413,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
     const totalPrice =
       bookingData?.totalPrice > 0
         ? bookingData?.totalPrice // Use existing totalPrice if available
-        : eventTicket.reduce(
+        : eventTicketDataForCalculations.reduce(
             (acc, ticket) =>
               acc + (count[ticket.Ticket_Id] || 0) * ticket.TicketPrice,
             0
@@ -415,7 +422,9 @@ const TicketsSlider = ({ data, setShowTicket }) => {
     const selectedTickets =
       bookingData?.selectedTickets.length > 0
         ? bookingData?.selectedTickets
-        : eventTicket.filter((ticket) => count[ticket.Ticket_Id] > 0);
+        : eventTicketDataForCalculations.filter(
+            (ticket) => count[ticket.Ticket_Id] > 0
+          );
 
     const obj = {
       totalTickets,
@@ -423,7 +432,6 @@ const TicketsSlider = ({ data, setShowTicket }) => {
       selectedTickets,
     };
 
-    // console.log(obj);
     dispatch(setBookingDataObj(obj));
   };
 

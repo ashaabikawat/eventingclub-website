@@ -12,6 +12,24 @@ const Footer = () => {
       icon: "fa-instagram",
       url: "https://www.instagram.com/eventingclub/",
     },
+    {
+      id: 1,
+      name: "Facebook",
+      icon: "fa-facebook",
+      url: "https://www.facebook.com/eventingclubec/",
+    },
+    {
+      id: 1,
+      name: "twitter",
+      icon: "fa-twitter",
+      url: "https://x.com/eventingclub/",
+    },
+    {
+      id: 1,
+      name: "whatsapp",
+      icon: "fa-whatsapp",
+      url: "https://wa.me/919730589111",
+    },
   ];
 
   return (
@@ -54,7 +72,7 @@ const Footer = () => {
         {/* Social Icons */}
         <div className="flex items-center justify-center gap-4">
           {socialIcons.map((icon) => (
-            <Link key={icon.id} href={icon.url}>
+            <Link key={icon.id} href={icon.url} target="_blank">
               <IconButton
                 size="lg"
                 className="bg-white border-transparent rounded-full p-6"
