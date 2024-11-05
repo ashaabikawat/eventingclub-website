@@ -361,7 +361,7 @@ const Page = () => {
               <h1 className="md:text-3xl text-base mb-2 text-white md:text-black">
                 We had sent you a
               </h1>
-              <h2 className="md:text-3xl tex t-base md:text-gray-500 text-gray-700">
+              <h2 className="md:text-3xl text-base  text-white md:text-black">
                 OTP to verify your number
               </h2>
               <div className="mt-4 flex md:gap-2  gap-1">
@@ -378,12 +378,12 @@ const Page = () => {
                   />
                 ))}
               </div>
-              <div className="flex gap-4 mt-6 md:mt-4 md:w-96 mb-2 ">
+              <div className="flex gap-4 mt-6 md:mt-4 md:w-96 mb-2 text-white md:text-black ">
                 <span className="cursor-pointer underline" onClick={resendOtp}>
                   Resend
                 </span>
                 <span
-                  className="cursor-pointer underline"
+                  className="cursor-pointer underline text-white md:text-black"
                   onClick={() => {
                     setOtp(Array(6).fill(""));
                     setNumberModal(true);
@@ -408,7 +408,7 @@ const Page = () => {
             auth?.token &&
             (!auth?.customerExists || auth?.isNewCustomer) && (
               <div>
-                <p className="text-sm mb-3  text-black">Name*</p>
+                <p className="text-sm mb-3  text-white md:text-black">Name*</p>
                 <input
                   type="text"
                   value={formData.name}
@@ -418,7 +418,9 @@ const Page = () => {
                   className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
                 />
 
-                <p className="text-sm mb-3 mt-4 text-black">Email*</p>
+                <p className="text-sm mb-3 mt-4 text-white md:text-black">
+                  Email*
+                </p>
                 <input
                   type="text"
                   value={formData.email}

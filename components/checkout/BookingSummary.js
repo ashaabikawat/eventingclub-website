@@ -298,16 +298,25 @@ const BookingSummary = () => {
   }, [promoObject]);
 
   const baseAmount = convenienceFee + gst;
+  console.log(promocodeValue);
 
   return (
     <div>
       {selectedTicket.length > 0 ? (
         <>
-          <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between items-center">
+          <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between items-center gap-4">
             <div className="flex flex-col gap-2">
               <h1 className="md:text-2xl capitalize">{ticket?.TicketName}</h1>
               {ticket?.TicketDescprition && (
-                <p className="text-lg">{ticket?.TicketDescprition}</p>
+                <p className="md:text-lg text-sm">
+                  {" "}
+                  {ticket?.TicketDescprition?.split("\n").map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))}
+                </p>
               )}
               <p className="text-lg">&#8377; {ticket?.TicketPrice}</p>
             </div>
@@ -354,6 +363,7 @@ const BookingSummary = () => {
                     onClick={() => {
                       dispatch(remove_promocode());
                       dispatch(setPromcodeDiscountAmount(0));
+                      setPromocodeValue("");
                       // localStorage.removeItem("promocodeDiscountAmount");
                     }}
                     className=" absolute md:right-24  right-20 md:px-2 px-1 md:placeholder:text-base text-sm  text-blue-900 font-bold md:text-lg  "

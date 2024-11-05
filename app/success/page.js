@@ -1,5 +1,9 @@
 "use client";
-import { reset_state } from "@/store/slices/booking";
+import {
+  reset_state,
+  setPromcodeDiscountAmount,
+  setConvenienceFee,
+} from "@/store/slices/booking";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -23,6 +27,8 @@ const Page = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(reset_state());
+    dispatch(setPromcodeDiscountAmount(null));
+    dispatch(setConvenienceFee({}));
   }, []);
 
   return (
