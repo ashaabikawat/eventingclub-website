@@ -9,10 +9,11 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Loading from "@/components/common/loading/Loading";
 
 const Page = () => {
   const [venueData, setVenueData] = useState();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [venueEventsdata, setVenueEventsdata] = useState([]);
   const { id } = useParams();
 
@@ -57,8 +58,8 @@ const Page = () => {
       <div className=" w-full h-full  ">
         <div className=" w-full h-full  lg:border-b-2 lg:border-gray-200 grid md:grid-cols-2">
           <div className="relative w-full h-[500px] md:mb-8 mb-6">
-            {loading ? (
-              "Loading ..."
+            {isLoading ? (
+              <Loading />
             ) : imageUrl ? (
               <Image
                 src={`${URL}/${imageUrl}`}
@@ -69,7 +70,7 @@ const Page = () => {
                 className="rounded-md"
               />
             ) : (
-              "Loading ..."
+              <Loading />
             )}
           </div>
           <div className="flex  lg:gap-4  md:gap-2 flex-col px-4  gap-4 ">
