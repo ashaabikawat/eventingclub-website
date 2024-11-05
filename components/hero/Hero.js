@@ -81,7 +81,7 @@ const Hero = () => {
   if (loading) return;
 
   return (
-    <div className=" h-96 md:h-[600px] mt-6 w-full">
+    <div className=" h-96 md:h-[800px] mt-6 w-full">
       <div className=" h-full  w-full">
         <swiper-container
           ref={swiperRef}
@@ -91,7 +91,7 @@ const Hero = () => {
         >
           {banner?.map((banner) => (
             <swiper-slide key={banner.id}>
-              <div className="h-96 md:h-[600px] w-full  relative  ">
+              <div className="h-96 md:h-[800px] w-full  relative  ">
                 <Image
                   src={
                     isMobile

@@ -102,7 +102,7 @@ const Page = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-bold mt-10 px-4  md:text-3xl capitalize font-bold ">
+          <h1 className="text-bold mt-4 px-4  md:text-3xl capitalize font-bold ">
             upcoming events at this venue:
           </h1>
           {venueEventsdata && venueEventsdata.length > 0 ? (
@@ -113,7 +113,7 @@ const Page = () => {
                 breakpoints={{
                   320: {
                     slidesPerView: 1.5,
-                    spaceBetween: 16,
+                    spaceBetween: 4,
                   },
                   425: {
                     slidesPerView: 2.2,
@@ -131,7 +131,7 @@ const Page = () => {
               >
                 {venueEventsdata.map((event) => (
                   <SwiperSlide key={event.id}>
-                    <div key={event._id} className="px-4 mt-10  w-full">
+                    <div key={event._id} className="px-4 mt-4  w-full">
                       <Link href={`/events/${event.event_id}`}>
                         <PageCardWithText event={event} />
                       </Link>

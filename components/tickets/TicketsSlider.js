@@ -618,14 +618,22 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                       className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
                       key={ticket.Ticket_Id}
                     >
-                      <div className="flex items-center justify-between px-4 py-4">
+                      <div className="flex gap-4 items-center justify-between px-4 py-4">
                         <div className="flex flex-col gap-2">
                           <p className="md:text-xl capitalize">
                             {ticket.TicketName}
                           </p>
                           {ticket.TicketDescprition && (
-                            <p className="md:w-[70%] text-gray-600">
-                              {ticket.TicketDescprition}
+                            <p className="md:w-[70%] text-sm md:text-base text-gray-600">
+                              {/* {ticket.TicketDescprition} */}
+                              {ticket?.TicketDescprition?.split("\n").map(
+                                (line, index) => (
+                                  <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                  </React.Fragment>
+                                )
+                              )}
                             </p>
                           )}
                           <p className="font-semibold md:text-lg">
@@ -634,7 +642,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                         </div>
                         <div>
                           {showCount[ticket.Ticket_Id] ? (
-                            <div className="flex justify-center items-center mt-4">
+                            <div className="flex justify-center items-center mt-4 ">
                               <button
                                 className="bg-blue-900 text-white py-1 px-2 rounded-l"
                                 onClick={() =>
@@ -687,14 +695,22 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                   className="md:h-auto bg-blue-100 rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
                   key={ticket.Ticket_Id}
                 >
-                  <div className="flex items-center justify-between px-4 py-4">
+                  <div className="flex gap-4 items-center justify-between px-4 py-4">
                     <div className="flex flex-col gap-2">
                       <p className="md:text-xl capitalize">
                         {ticket.TicketName}
                       </p>
                       {ticket.TicketDescprition && (
-                        <p className="md:w-[70%] text-gray-600">
-                          {ticket.TicketDescprition}
+                        <p className="md:w-[70%] text-sm md:text-base text-gray-600">
+                          {/* {ticket.TicketDescprition} */}
+                          {ticket?.TicketDescprition?.split("\n").map(
+                            (line, index) => (
+                              <React.Fragment key={index}>
+                                {line}
+                                <br />
+                              </React.Fragment>
+                            )
+                          )}
                         </p>
                       )}
                       <p className="font-semibold md:text-lg">
