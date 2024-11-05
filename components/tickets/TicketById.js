@@ -49,10 +49,10 @@ const TicketById = () => {
   };
 
   return (
-    <div className="h-full w-full pb-6 md:pb-6">
+    <div className="h-[100%]  w-full  pb-6">
       {upcomingEventsTicket?.length > 0 ? (
-        <div>
-          <div>
+        <div className="h-[100%] ">
+          <div className="h-[100%] ">
             <h1 className="text-black md:text-xl  font-semibold mb-4">
               Upcoming Events:
             </h1>
@@ -76,8 +76,8 @@ const TicketById = () => {
           )}
         </div>
       ) : (
-        <div className="h-full bg-white">
-          <div className="h-52 flex flex-col gap-4 justify-center items-center">
+        <div className="h-[100%] ">
+          <div className="h-[100%] flex flex-col gap-4 justify-center items-center">
             <p className="md:text-lg font-semibold text-black">
               You don't have any tickets
             </p>

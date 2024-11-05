@@ -56,7 +56,7 @@ const Page = () => {
   return (
     <>
       <Toaster />
-      <div className="mt-4 text-white w-full h-full bg-gray-100">
+      <div className="mt-4 text-white w-full h-full ">
         <div
           className="flex custom-flex-row  flex-col sm:flex-row justify-between  
            md:px-6 px-4 items-center py-4  "
@@ -116,7 +116,7 @@ const Page = () => {
           </div>
         </div>
         <div className="px-4 md:px-8  ">
-          <div className="">
+          <div className="h-[100%]">
             {isProfile ? <EditProfile id={id} data={data} /> : <TicketById />}
           </div>
         </div>

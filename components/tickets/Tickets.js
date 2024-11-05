@@ -7,15 +7,20 @@ const Tickets = ({ ticket }) => {
         <div className="flex justify-between items-start border-b-2 border-gray-200 pb-2">
           <div>
             <p className="font-bold text-black text-lg">{ticket?.Booking_id}</p>
-            <div className="flex gap-4 text-sm text-gray-600 mt-2">
+            <div className="flex flex-wrap gap-4  text-sm text-gray-600 mt-2">
               <span>{ticket?.TicketName}</span>
               <span className="relative before:w-1 before:h-1 before:bg-black before:inline-block before:rounded-full before:absolute before:-left-2 before:top-2">
                 {ticket?.TicketQuantity} Ticket
               </span>
             </div>
           </div>
-          <div className="border border-gray-400 text-black rounded-md px-3 py-1 text-sm font-semibold flex items-center">
-            ₹ {ticket?.TotalAmount}
+          <div>
+            <p className=" text-black  px-3 py-1 text-sm font-semibold flex items-center">
+              {ticket?.Status}
+            </p>
+            <p className="border border-gray-400 text-black rounded-md px-3 py-1 text-sm font-semibold flex items-center">
+              ₹ {ticket?.TotalAmount}
+            </p>
           </div>
         </div>
         <div className="pt-4 ">
