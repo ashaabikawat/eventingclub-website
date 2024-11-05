@@ -17,6 +17,12 @@
   box-sizing: border-box;
 }
 
+/* html,
+:root {
+  width: 100vw;
+  height: 100vh;
+} */
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

@@ -59,13 +59,13 @@ const Page = () => {
       <div className="mt-4 text-white w-full h-full bg-gray-100">
         <div
           className="flex custom-flex-row  flex-col sm:flex-row justify-between  
-          lg:px-60 md:px-6 px-4 items-center py-4  "
+           md:px-6 px-4 items-center py-4  "
           style={{ backgroundColor: "#2f3e93" }}
         >
           <div className="flex  items-center md:gap-4 gap-2">
             <div className="relative md:h-28 md:w-28 w-12 h-12">
               <Image
-                src={"/pic.jpg"}
+                src={"/user-icon-2048x2048-ihoxz4vq.png"}
                 alt="profile"
                 layout="fill"
                 objectFit="cover"
@@ -89,12 +89,12 @@ const Page = () => {
           </div>
         </div>
 
-        <div className="text-sm font-medium px-4  mb-4 mt-2  text-gray-500  md:px-8 lg:px-64 dark:text-gray-400 dark:border-gray-700">
+        <div className="text-sm font-medium  px-4  mb-4 mt-2  text-gray-500  md:px-8  dark:text-gray-400 dark:border-gray-700">
           <div className=" w-full flex  justify-start  ">
             <ul className=" flex-wrap   flex  md:gap-8 gap-6  items-center -mb-px">
               <li
                 onClick={() => setIsProfile(true)}
-                className={`inline-block py-4 border-b-2 cursor-pointer border-transparent md:text-xl text-lg rounded-t-lg  ${
+                className={`inline-block py-4 border-b-2 cursor-pointer border-transparent md:text-2xl text-lg rounded-t-lg  ${
                   isProfile
                     ? "border-blue-600 rounded-t-lg  dark:text-blue-500 dark:border-blue-500 text-blue-500"
                     : "hover:text-gray-600 hover:border-gray-300 text-gray-600 dark:hover:text-gray-300"
@@ -104,7 +104,7 @@ const Page = () => {
               </li>
               <li
                 onClick={() => setIsProfile(false)}
-                className={` inline-block py-4 border-transparent cursor-pointer border-b-2 text-lg md:text-xl ${
+                className={` inline-block py-4 border-transparent cursor-pointer border-b-2 text-lg md:text-2xl ${
                   !isProfile
                     ? "border-blue-600 rounded-t-lg  dark:text-blue-500 dark:border-blue-500 text-blue-500"
                     : "hover:text-gray-600 hover:border-gray-300 text-gray-600 dark:hover:text-gray-300"
@@ -115,7 +115,7 @@ const Page = () => {
             </ul>
           </div>
         </div>
-        <div className="px-4 md:px-8 lg:px-64 ">
+        <div className="px-4 md:px-8  ">
           <div className="">
             {isProfile ? <EditProfile id={id} data={data} /> : <TicketById />}
           </div>
