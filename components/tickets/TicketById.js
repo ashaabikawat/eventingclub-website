@@ -4,9 +4,11 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { customer } from "@/utils/config";
 import { useDispatch } from "react-redux";
+import Loading from "../common/loading/Loading";
 
 const TicketById = () => {
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [upcomingEventsTicket, setUpcomingEventsTicket] = useState([]);
   const [pastEventsTicket, setPastEventsTicket] = useState([]);
 
@@ -26,6 +28,7 @@ const TicketById = () => {
         `${customer.GET_TICKETS_BY_ID}`,
         payload
       );
+      setIsLoading(false);
       setUpcomingEventsTicket(response.data.data.UpcomingEventTickets);
       setPastEventsTicket(response.data.data.PastEventTickets);
     } catch (error) {
@@ -41,12 +44,15 @@ const TicketById = () => {
           status === 401 ||
           status === 400
         ) {
+          setIsLoading(false);
           setUpcomingEventsTicket([]);
           setPastEventsTicket([]);
         }
       }
     }
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="h-[100%]  w-full  pb-6">
