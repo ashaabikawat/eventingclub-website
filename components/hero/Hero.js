@@ -81,7 +81,7 @@ const Hero = () => {
   if (loading) return;
 
   return (
-    <div className=" h-96 md:h-[800px] mt-6 w-full">
+    <div className=" h-full mt-6 w-full">
       <div className=" h-full  w-full">
         <swiper-container
           ref={swiperRef}
@@ -91,7 +91,7 @@ const Hero = () => {
         >
           {banner?.map((banner) => (
             <swiper-slide key={banner.id}>
-              <div className="h-96 md:h-[800px] w-full  relative  ">
+              <div className="h-full w-full  relative  ">
                 <Image
                   src={
                     isMobile
@@ -99,10 +99,9 @@ const Hero = () => {
                       : `${URL}/${banner?.DesktopbannerImage}`
                   }
                   alt="carousel-image"
-                  layout="fill"
                   objectFit="cover"
-                  objectPosition="top"
-                  className=" absolute"
+                  height={isMobile ? 1080 : 500}
+                  width={isMobile ? 1920 : 2000}
                 />
               </div>
             </swiper-slide>
