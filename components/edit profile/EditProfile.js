@@ -181,7 +181,7 @@ const EditProfile = ({ id, data }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex  mt-4">
         <button
           type="submit"
           onClick={handleSubmit}

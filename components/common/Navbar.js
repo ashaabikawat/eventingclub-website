@@ -116,7 +116,7 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <>
+    <div className="mb-4">
       <Toaster />
       <div className={`relative  w-full ${bgColor} z-50`}>
         <div className=" md:px-2 mx-4">
@@ -393,7 +393,7 @@ const Navbar = ({ bgColor }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -56,7 +56,7 @@ const Page = () => {
   return (
     <>
       <Toaster />
-      <div className="mt-4 text-white w-full h-full ">
+      <div className=" text-white w-full h-full ">
         <div
           className="flex custom-flex-row  flex-col sm:flex-row justify-between  
            md:px-6 px-4 items-center py-4  "
