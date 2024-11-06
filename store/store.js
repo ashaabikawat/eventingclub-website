@@ -2,20 +2,21 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authSlice from "./slices/authSlice";
-import booking from "./slices/booking";
+import bz8v2 from "./slices/booking";
 
 const bookingPersistConfig = {
-  key: "booking",
+  key: "bz8v2",
   storage,
   whitelist: [
     "count",
-    "eventId",
-    "promocodeId",
-    "ticketId",
-    "bookingData",
-    "ticketCounts",
-    "convenienceFee",
-    "promocodeDiscountAmount",
+    "g7h8",
+    "i9j0",
+    "k1l2",
+    "z1x0",
+    "o5p6",
+    "m3n4",
+    "s9t0",
+    "q7r8",
   ],
 };
 
@@ -32,13 +33,13 @@ const authPersistConfig = {
   ],
 };
 
-const bookingPersistedReducer = persistReducer(bookingPersistConfig, booking);
+const bookingPersistedReducer = persistReducer(bookingPersistConfig, bz8v2);
 const authPersistReducer = persistReducer(authPersistConfig, authSlice);
 
 const store = configureStore({
   reducer: {
     auth: authPersistReducer,
-    booking: bookingPersistedReducer,
+    bz8v2: bookingPersistedReducer,
   },
 });
 

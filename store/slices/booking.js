@@ -1,31 +1,47 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
+// const initialState = {
+//   bookingData: {
+//     totalPrice: 0,
+//     selectedTickets: [],
+//     totalTickets: 0,
+//   },
+//   eventId: null,
+//   promocodeId: null,
+//   ticketId: null,
+//   convenienceFee: {},
+//   ticketCounts: {},
+//   seasonPass: null,
+//   promocodeDiscountAmount: null,
+// };
+
 const initialState = {
-  bookingData: {
-    totalPrice: 0,
-    selectedTickets: [],
-    totalTickets: 0,
+  z1x0: {
+    // bookingData -> z1x0
+    a1b2: 0, // totalPrice -> a1b2
+    c3d4: [], // selectedTickets -> c3d4
+    e5f6: 0, // totalTickets -> e5f6
   },
-  eventId: null,
-  promocodeId: null,
-  ticketId: null,
-  convenienceFee: {},
-  ticketCounts: {},
-  seasonPass: null,
-  promocodeDiscountAmount: null,
+  g7h8: null, // eventId -> g7h8
+  i9j0: null, // promocodeId -> i9j0
+  k1l2: null, // ticketId -> k1l2
+  m3n4: {}, // convenienceFee -> m3n4
+  o5p6: {}, // ticketCounts -> o5p6
+  q7r8: null, // seasonPass -> q7r8
+  s9t0: null, // promocodeDiscountAmount -> s9t0
 };
 
-const booking = createSlice({
-  name: "booking",
+const bz8v2 = createSlice({
+  name: "bz8v2 ",
   initialState,
   reducers: {
     setBookingDataObj: (state, action) => {
-      state.bookingData = action.payload;
+      state.z1x0 = action.payload;
     },
 
     setEventId: (state, action) => {
-      state.eventId = action.payload;
+      state.g7h8 = action.payload;
     },
 
     // setTicketData: (state, action) => {
@@ -33,7 +49,7 @@ const booking = createSlice({
     // },
 
     setTicketId: (state, action) => {
-      state.ticketId = action.payload;
+      state.k1l2 = action.payload;
     },
 
     handleIncrease: (state, action) => {
@@ -93,7 +109,7 @@ const booking = createSlice({
         setEventId(null);
         setTicketId(null);
         // Remove ticket from selectedTickets
-        state.selectedTickets = state.selectedTickets?.filter(
+        state.z1x0.c3d4 = state.z1x0.c3d4?.filter(
           (ticket) => ticket.Ticket_Id !== ticketId
         );
 
@@ -111,45 +127,45 @@ const booking = createSlice({
         }
 
         // Set ticketId to null when count reaches 0
-        state.ticketId = null;
+        state.k1l2 = null;
       }
       if (Object.keys(state.count).length === 0) {
-        state.eventId = null; // Just nullify the eventId without removing it from localStorage
+        state.g7h8 = null; // Just nullify the eventId without removing it from localStorage
       }
     },
 
     setPromocodeId: (state, action) => {
-      state.promocodeId = action.payload;
+      state.i9j0 = action.payload;
     },
 
     remove_promocode: (state, action) => {
-      state.promocodeId = null;
+      state.i9j0 = null;
     },
 
     setTicketCounts: (state, action) => {
-      state.ticketCounts = action.payload;
+      state.o5p6 = action.payload;
     },
     setSeasonPass: (state, action) => {
-      state.seasonPass = action.payload;
+      state.q7r8 = action.payload;
     },
 
     setConvenienceFee: (state, action) => {
-      state.convenienceFee = action.payload;
+      state.m3n4 = action.payload;
     },
     setPromcodeDiscountAmount: (state, action) => {
-      state.promocodeDiscountAmount = action.payload;
+      state.s9t0 = action.payload;
     },
 
     reset_state: (state, action) => {
-      state.bookingData = {
-        totalPrice: 0,
-        selectedTickets: [],
-        totalTickets: 0,
+      state.z1x0 = {
+        a1b2: 0,
+        c3d4: [],
+        e5f6: 0,
       };
-      state.eventId = null;
-      state.promocodeId = null;
-      state.ticketId = null;
-      state.ticketCounts = {};
+      state.g7h8 = null;
+      state.i9j0 = null;
+      state.k1l2 = null;
+      state.o5p6 = {};
     },
   },
 });
@@ -167,5 +183,5 @@ export const {
   setConvenienceFee,
   setPromcodeDiscountAmount,
   setTicketCounts,
-} = booking.actions;
-export default booking.reducer;
+} = bz8v2.actions;
+export default bz8v2.reducer;

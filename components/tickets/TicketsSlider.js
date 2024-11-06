@@ -26,7 +26,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   const [eventTicket, setEventTicket] = useState([]);
   const [isSeasonpassActive, setIsSeasonpassActive] = useState(false);
   const [showTicketId, setShowTicketId] = useState(null);
-  const savedTicketCounts = useSelector((store) => store.booking.ticketCounts);
+  const savedTicketCounts = useSelector((store) => store.bz8v2.o5p6);
   const [eventTicketDataForCalculations, setEventTicketDataForCalculations] =
     useState([]);
   const [count, setCount] = useState(() => {
@@ -35,23 +35,24 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   const [showCount, setShowCount] = useState({});
   const isAnyCountActive = Object.values(showCount).some((value) => value);
   const [finalBookingData, setFinalBookingData] = useState({
-    totalTickets: 0,
-    totalPrice: 0,
-    selectedTickets: [],
+    e5f6: 0,
+    a1b2: 0,
+    c3d4: [],
   });
-  const bookingData = useSelector((store) => store.booking.bookingData);
-  const bookingDataTicketId = useSelector((store) => store.booking.ticketId);
-  const storedEventId = useSelector((store) => store.booking.eventId);
+  const bookingData = useSelector((store) => store.bz8v2.z1x0);
+  console.log(bookingData);
+  const bookingDataTicketId = useSelector((store) => store.bz8v2.k1l2);
+  const storedEventId = useSelector((store) => store.bz8v2.g7h8);
 
   // console.log(bookingDataTicketId);
 
   useEffect(() => {
     if (bookingDataTicketId !== null) {
-      if (bookingData?.selectedTickets[0]?.TicketType === 2) {
+      if (bookingData?.c3d4[0]?.TicketType === 2) {
         // console.log(bookingData?.selectedTickets[0]?.TicketType);
         handleShowTicket(bookingDataTicketId);
       }
-      if (bookingData?.selectedTickets[0]?.TicketType === 3) {
+      if (bookingData?.c3d4[0]?.TicketType === 3) {
         // console.log(bookingData?.selectedTickets[0]?.TicketType);
         handleSeasonPass(bookingDataTicketId);
       }
@@ -180,7 +181,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
       toast.error("Exceeding booking limit");
     }
     setFinalBookingData;
-    ({ ...finalBookingData, totalTickets: Number(Object.values(count)) });
+    ({ ...finalBookingData, e5f6: Number(Object.values(count)) });
   };
 
   const handleDecreaseandSetEventId = (ticketId) => {
@@ -233,16 +234,16 @@ const TicketsSlider = ({ data, setShowTicket }) => {
         // Keep the previous data if there are tickets remaining
         updatedFinalBookingData = {
           ...finalBookingData,
-          totalTickets,
-          totalPrice: finalBookingData.totalPrice, // You can calculate this if needed
-          selectedTickets: finalBookingData.selectedTickets, // Update this array if needed
+          e5f6,
+          a1b2: finalBookingData.a1b2, // You can calculate this if needed
+          c3d4: finalBookingData.c3d4, // Update this array if needed
         };
       } else {
         // Nullify the finalBookingData if no tickets are left
         updatedFinalBookingData = {
-          totalTickets: 0,
-          totalPrice: 0,
-          selectedTickets: [],
+          e5f6: 0,
+          a1b2: 0,
+          c3d4: [],
         };
       }
 
@@ -285,8 +286,8 @@ const TicketsSlider = ({ data, setShowTicket }) => {
       // console.log(updatedTotalTickets);
       const finalBookingObj = {
         ...bookingData,
-        totalPrice: updatedTotalPrice,
-        totalTickets: updatedTotalTickets,
+        a1b2: updatedTotalPrice,
+        e5f6: updatedTotalTickets,
       };
 
       dispatch(setBookingDataObj(finalBookingObj));
@@ -353,16 +354,16 @@ const TicketsSlider = ({ data, setShowTicket }) => {
         // Keep the previous data if there are tickets remaining
         updatedFinalBookingData = {
           ...finalBookingData,
-          totalTickets,
-          totalPrice: updatedTotalPrice, // You can calculate this if needed
-          selectedTickets: bookingData.selectedTickets, // Update this array if needed
+          e5f6,
+          a1b2: updatedTotalPrice, // You can calculate this if needed
+          c3d4: bookingData.c3d4, // Update this array if needed
         };
       } else {
         // Nullify the finalBookingData if no tickets are left
         updatedFinalBookingData = {
-          totalTickets: 0,
-          totalPrice: 0,
-          selectedTickets: [],
+          e5f6: 0,
+          a1b2: 0,
+          c3d4: [],
         };
         dispatch(setEventId(null));
         dispatch(setTicketId(null));
@@ -411,8 +412,8 @@ const TicketsSlider = ({ data, setShowTicket }) => {
     // );
 
     const totalPrice =
-      bookingData?.totalPrice > 0
-        ? bookingData?.totalPrice // Use existing totalPrice if available
+      bookingData?.a1b2 > 0
+        ? bookingData?.a1b2 // Use existing totalPrice if available
         : eventTicketDataForCalculations.reduce(
             (acc, ticket) =>
               acc + (count[ticket.Ticket_Id] || 0) * ticket.TicketPrice,
@@ -420,16 +421,16 @@ const TicketsSlider = ({ data, setShowTicket }) => {
           );
 
     const selectedTickets =
-      bookingData?.selectedTickets.length > 0
-        ? bookingData?.selectedTickets
+      bookingData?.c3d4.length > 0
+        ? bookingData?.c3d4
         : eventTicketDataForCalculations.filter(
             (ticket) => count[ticket.Ticket_Id] > 0
           );
 
     const obj = {
-      totalTickets,
-      totalPrice,
-      selectedTickets,
+      e5f6: totalTickets,
+      a1b2: totalPrice,
+      c3d4: selectedTickets,
     };
 
     dispatch(setBookingDataObj(obj));
@@ -607,87 +608,86 @@ const TicketsSlider = ({ data, setShowTicket }) => {
         </div>
 
         <div className="mt-2 px-4  pt-6 pb-32">
-          {bookingData?.selectedTickets?.length === 0 &&
-            eventTicket?.length > 0 && (
-              <div>
-                <h1 className="md:text-2xl font-bold">Choose ticket:</h1>
-                {eventTicket?.map((ticket) => {
-                  const counts = count[ticket.Ticket_Id] || 0;
-                  return (
-                    <div
-                      className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
-                      key={ticket.Ticket_Id}
-                    >
-                      <div className="flex gap-4 items-center justify-between px-4 py-4">
-                        <div className="flex flex-col gap-2">
-                          <p className="md:text-xl capitalize">
-                            {ticket.TicketName}
+          {bookingData?.c3d4?.length === 0 && eventTicket?.length > 0 && (
+            <div>
+              <h1 className="md:text-2xl font-bold">Choose ticket:</h1>
+              {eventTicket?.map((ticket) => {
+                const counts = count[ticket.Ticket_Id] || 0;
+                return (
+                  <div
+                    className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
+                    key={ticket.Ticket_Id}
+                  >
+                    <div className="flex gap-4 items-center justify-between px-4 py-4">
+                      <div className="flex flex-col gap-2">
+                        <p className="md:text-xl capitalize">
+                          {ticket.TicketName}
+                        </p>
+                        {ticket.TicketDescprition && (
+                          <p className="md:w-[70%] text-sm md:text-base text-gray-600">
+                            {/* {ticket.TicketDescprition} */}
+                            {ticket?.TicketDescprition?.split("\n").map(
+                              (line, index) => (
+                                <React.Fragment key={index}>
+                                  {line}
+                                  <br />
+                                </React.Fragment>
+                              )
+                            )}
                           </p>
-                          {ticket.TicketDescprition && (
-                            <p className="md:w-[70%] text-sm md:text-base text-gray-600">
-                              {/* {ticket.TicketDescprition} */}
-                              {ticket?.TicketDescprition?.split("\n").map(
-                                (line, index) => (
-                                  <React.Fragment key={index}>
-                                    {line}
-                                    <br />
-                                  </React.Fragment>
-                                )
-                              )}
-                            </p>
-                          )}
-                          <p className="font-semibold md:text-lg">
-                            &#8377; {ticket.TicketPrice}
-                          </p>
-                        </div>
-                        <div>
-                          {showCount[ticket.Ticket_Id] ? (
-                            <div className="flex justify-center items-center mt-4 ">
-                              <button
-                                className="bg-blue-900 text-white py-1 px-2 rounded-l"
-                                onClick={() =>
-                                  handleDecreaseandSetEventId(ticket.Ticket_Id)
-                                }
-                              >
-                                -
-                              </button>
-                              <span className="mx-4">{counts}</span>
-                              <button
-                                className="bg-blue-900 text-white py-1 px-2 rounded-r"
-                                onClick={() =>
-                                  handleIncreaseandSetEventId(ticket.Ticket_Id)
-                                }
-                              >
-                                +
-                              </button>
-                            </div>
-                          ) : (
+                        )}
+                        <p className="font-semibold md:text-lg">
+                          &#8377; {ticket.TicketPrice}
+                        </p>
+                      </div>
+                      <div>
+                        {showCount[ticket.Ticket_Id] ? (
+                          <div className="flex justify-center items-center mt-4 ">
                             <button
-                              className={`${
-                                isAnyCountActive
-                                  ? "bg-blue-900 bg-opacity-40 cursor-not-allowed"
-                                  : "bg-blue-900"
-                              } text-white md:py-3 py-2 md:px-6 px-3 rounded mx-auto mt-4`}
-                              onClick={() => handleShowCount(ticket.Ticket_Id)}
-                              disabled={isAnyCountActive}
+                              className="bg-blue-900 text-white py-1 px-2 rounded-l"
+                              onClick={() =>
+                                handleDecreaseandSetEventId(ticket.Ticket_Id)
+                              }
                             >
-                              Add
+                              -
                             </button>
-                          )}
-                        </div>
+                            <span className="mx-4">{counts}</span>
+                            <button
+                              className="bg-blue-900 text-white py-1 px-2 rounded-r"
+                              onClick={() =>
+                                handleIncreaseandSetEventId(ticket.Ticket_Id)
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            className={`${
+                              isAnyCountActive
+                                ? "bg-blue-900 bg-opacity-40 cursor-not-allowed"
+                                : "bg-blue-900"
+                            } text-white md:py-3 py-2 md:px-6 px-3 rounded mx-auto mt-4`}
+                            onClick={() => handleShowCount(ticket.Ticket_Id)}
+                            disabled={isAnyCountActive}
+                          >
+                            Add
+                          </button>
+                        )}
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {/* if booking data is there is present in localstorage */}
 
-          {bookingData?.selectedTickets?.length > 0 &&
+          {bookingData?.c3d4?.length > 0 &&
             eventTicket?.map((ticket) => {
               const counts = count[ticket.Ticket_Id] || 0;
-              const isSelectedTicket = bookingData?.selectedTickets?.find(
+              const isSelectedTicket = bookingData?.c3d4?.find(
                 (selected) => selected.Ticket_Id === ticket.Ticket_Id
               );
               return (
@@ -726,9 +726,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                           >
                             -
                           </button>
-                          <span className="mx-4">
-                            {bookingData?.totalTickets}
-                          </span>
+                          <span className="mx-4">{bookingData?.e5f6}</span>
                           <button
                             className="bg-blue-900 text-white py-1 px-2 rounded-r"
                             onClick={() => handleIncrease(ticket.Ticket_Id)}
@@ -759,7 +757,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
 
         {/* footer */}
         <div className="mt-16">
-          {bookingData?.selectedTickets?.length === 0 && totalTickets > 0 && (
+          {bookingData?.c3d4?.length === 0 && totalTickets > 0 && (
             <div className=" fixed bottom-0 w-[100%] z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
               <div className="flex flex-col md:gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
@@ -786,14 +784,14 @@ const TicketsSlider = ({ data, setShowTicket }) => {
             </div>
           )}
 
-          {bookingData?.selectedTickets?.length > 0 && (
+          {bookingData?.c3d4?.length > 0 && (
             <div className="fixed bottom-0 w-[100%]  md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
               <div className="flex flex-col gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
-                  ₹ {bookingData?.totalPrice}
+                  ₹ {bookingData?.a1b2}
                 </p>
                 <p className="md:text-xl text-lg text-gray-600">
-                  {bookingData?.totalTickets} Ticket
+                  {bookingData?.e5f6} Ticket
                 </p>
               </div>
               <div className=" text-right md:flex-row flex-col flex gap-4 ">
