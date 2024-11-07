@@ -111,16 +111,16 @@ const Page = () => {
         {/* cta btn */}
         <div className="mb-12 flex items-center justify-center">
           <div
-            className=" py-10 px-6 flex justify-between  items-center w-5/5"
+            className=" py-10 px-6 flex md:flex-row gap-4 md:gap-0 flex-col justify-between  items-center w-5/5"
             style={{
               boxShadow: "rgba(0, 0, 0, 0.08) 0px 4px 12px",
             }}
           >
-            <p className="font-bold text-xl  w-[80%]">
+            <p className="font-bold md:text-xl  md:w-[80%] w-full">
               Join Eventing Club today and experience the difference in event
               management and ticketing.
             </p>
-            <button className="bg-blue-900 hover:bg-blue-800 md:text-lg text-sm text-white md:py-2 md:px-6 px-4 py-3 rounded-md">
+            <button className="bg-blue-900 w-full md:w-40  hover:bg-blue-800 md:text-lg text-sm text-white md:py-2 md:px-6 px-4 py-3 rounded-md">
               Join now
             </button>
           </div>
