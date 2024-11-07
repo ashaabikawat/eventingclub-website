@@ -116,7 +116,7 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="mb-4">
+    <div className="">
       <Toaster />
       <div className={`relative  w-full ${bgColor} z-50`}>
         <div className=" md:px-2 mx-4">
@@ -333,6 +333,9 @@ const Navbar = ({ bgColor }) => {
               <li className=" text-black">
                 <Link href="/artists">Artist</Link>
               </li>
+              <li className=" text-black">
+                <Link href="/aboutus">About us</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -385,6 +388,9 @@ const Navbar = ({ bgColor }) => {
                       <Link href="/artists" onClick={handleToggle}>
                         Artist
                       </Link>
+                    </li>
+                    <li className=" text-black" onClick={handleToggle}>
+                      <Link href="/aboutus">About us</Link>
                     </li>
                   </ul>
                 </nav>

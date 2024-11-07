@@ -17,6 +17,13 @@ module.exports = withMT({
       width: {
         "600px": "600px",
       },
+      boxShadow: {
+        custom:
+          "rgba(17, 17, 26, 0.1) 0px 6px 20px, rgba(17, 17, 26, 0.1) 0px 12px 40px",
+      },
+    },
+    variants: {
+      boxShadow: ["hover"], // Ensure hover variant is enabled
     },
 
     plugins: [],

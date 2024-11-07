@@ -1,5 +1,17 @@
 import moment from "moment-timezone";
 import CryptoJS from "crypto-js";
+import { HiOutlineTicket } from "react-icons/hi2";
+import { FaListCheck } from "react-icons/fa6";
+import { BsTicketDetailed } from "react-icons/bs";
+import { MdOutlineAppRegistration } from "react-icons/md";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { RiUserVoiceLine } from "react-icons/ri";
+import { BsCardList } from "react-icons/bs";
+import { GrUserExpert } from "react-icons/gr";
+import { AiOutlineSolution } from "react-icons/ai";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { LuAreaChart } from "react-icons/lu";
 
 export const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
 
@@ -268,3 +280,81 @@ export const decryptData = (encryptedData, secretKey) => {
     return null; // Return null on error
   }
 };
+
+export const services = [
+  {
+    id: 1,
+    heading: "Event Ticketing",
+    icon: <HiOutlineTicket size={50} />,
+    text: "Seamless online ticketing system allowing organizers to create, sell, and manage tickets. Secure and user-friendly interface for ticket purchases by attendees.",
+  },
+  {
+    id: 2,
+    heading: "Club Guestlist Management",
+    icon: <FaListCheck size={50} />,
+    text: "Efficient guestlist management for exclusive events and club entries.Easy tracking of RSVPs and streamlined check-ins for a smooth entry experience.",
+  },
+  {
+    id: 3,
+    heading: "Offline Ticketing Solution",
+    icon: <BsTicketDetailed size={50} />,
+    text: "Dedicated portal for offline promoters to generate tickets without upfront payment.Comprehensive tracking of offline ticket sales and promoter performance.",
+  },
+  {
+    id: 4,
+    heading: "Event Registration",
+    icon: <MdOutlineAppRegistration size={50} />,
+    text: "Facilitation of registration for free events such as exhibitions, college events, and other similar activities.Easy-to-use registration forms and attendee tracking to manage participation in non-ticketed events.",
+  },
+  {
+    id: 5,
+    heading: "Manager Panel",
+    icon: <MdOutlineAdminPanelSettings size={50} />,
+    text: "Centralized dashboard for organizers to access sales reports, manage events, and analyze performance metrics.Tools for event promotion, ticket tracking, and revenue management.",
+  },
+  {
+    id: 6,
+    heading: "Customer Profile and Login",
+    icon: <FaRegCircleUser size={50} />,
+    text: "Personalized login for customers to view booking history, manage tickets, and update profile information.Enhanced convenience and user experience for ticket buyers.",
+  },
+  {
+    id: 7,
+    heading: "Marketing and Promotion",
+    icon: <RiUserVoiceLine size={50} />,
+    text: "Extensive social media presence and expertise in running targeted ads to maximize event awareness.Comprehensive marketing strategies to increase visibility and drive ticket sales.",
+  },
+  {
+    id: 8,
+    heading: "Event Listing and Promotion",
+    icon: <BsCardList size={50} />,
+    text: "Dedicated page for organizers to list and promote their events.Various promotional options to enhance event visibility and attract a larger audience.",
+  },
+];
+
+export const benefits = [
+  {
+    id: 1,
+    heading: "User-Friendly Experience",
+    text: "Both organizers and attendees benefit from an intuitive and seamless user experience.",
+    icon: <GrUserExpert size={30} />,
+  },
+  {
+    id: 2,
+    heading: "Comprehensive Solutions",
+    text: " A one-stop platform for managing online and offline ticketing, guestlist management, event registration, and promotion.",
+    icon: <AiOutlineSolution size={30} />,
+  },
+  {
+    id: 3,
+    heading: "Enhanced Visibility",
+    text: "Strong social media presence and targeted marketing strategies to ensure maximum event reach.",
+    icon: <LuAreaChart size={30} />,
+  },
+  {
+    id: 3,
+    heading: "Efficient Management",
+    text: "Centralized tools and analytics for organizers to manage events effectively and make data-driven decisions.",
+    icon: <MdOutlineManageAccounts size={30} />,
+  },
+];
