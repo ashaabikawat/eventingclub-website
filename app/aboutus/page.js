@@ -61,6 +61,10 @@ const Page = () => {
           <div className=" grid lg:grid-cols-3 rounded-md md:grid-cols-2 gap-6 md:gap-10 mt-10  ">
             {services.map((service, index) => (
               <div
+                onClick={() => {
+                  setIsServiceModalOpen(true);
+                  setServiceId(service.id);
+                }}
                 key={index}
                 className="bg-blue-900 text-white rounded-md hover:shadow-custom transition-all duration-500 hover:rounded-md cursor-pointer transform hover:-translate-y-2"
               >
@@ -83,7 +87,7 @@ const Page = () => {
         </div>
 
         {/* our benefits */}
-        <div className="mb-8">
+        <div className="mb-12">
           <div classname="">
             <p className="capitalize md:text-3xl text-2xl text-center font-bold">
               Our benefits
@@ -101,6 +105,24 @@ const Page = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* cta btn */}
+        <div className="mb-12 flex items-center justify-center">
+          <div
+            className=" py-10 px-6 flex justify-between  items-center w-5/5"
+            style={{
+              boxShadow: "rgba(0, 0, 0, 0.08) 0px 4px 12px",
+            }}
+          >
+            <p className="font-bold text-xl  w-[80%]">
+              Join Eventing Club today and experience the difference in event
+              management and ticketing.
+            </p>
+            <button className="bg-blue-900 hover:bg-blue-800 md:text-lg text-sm text-white md:py-2 md:px-6 px-4 py-3 rounded-md">
+              Join now
+            </button>
           </div>
         </div>
       </div>

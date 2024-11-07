@@ -66,6 +66,9 @@ const Footer = () => {
             <li>
               <Link href="/artists">Artist</Link>
             </li>
+            <li>
+              <Link href="/aboutus">About us</Link>
+            </li>
           </ul>
         </div>
 
