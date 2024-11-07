@@ -34,6 +34,7 @@ const Modal = ({ serviceId, setIsServiceModalOpen, setServiceId }) => {
             </div>
             <div className="flex flex-col justify-center items-center gap-6">
               <div>{selectedService.icon}</div>
+
               <p className="text-xl"> {selectedService.heading}</p>
               <ul className="mb-6 ">
                 {selectedService?.text
