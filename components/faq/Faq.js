@@ -1,49 +1,61 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { faqs } from "@/utils/constants";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { FaPlus } from "react-icons/fa6";
+import { FiMinus } from "react-icons/fi";
 
 const Faq = () => {
   const [open, setOpen] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
   const handleOpen = (value) => {
+    setSelectedId(value);
     setOpen(open === value ? null : value);
   };
+
   return (
-    <div className="h-full w-full bg-gray-200 py-6 md:p-0 ">
+    <div className="h-full w-full bg-gray-100 py-6  ">
       <div className="h-full w-full  ">
-        <div className="mt-2 flex flex-col items-center justify-center">
+        <div className="py-4 flex flex-col items-center justify-center ">
           {/* text */}
           <div>
-            <p className="capitalize md:text-3xl text-2xl font-bold text-gray-800 tracking-wide">
+            <p className="capitalize md:text-4xl text-3xl font-extrabold text-gray-800 tracking-wider">
               FAQs
             </p>
           </div>
           <div className="w-20 h-1 bg-blue-600 mt-2"></div>
 
           {/* faqs */}
-          <div className="h-full md:w-4/5 w-72 flex items-center justify-center  mx-auto mt-6  ">
-            <div className="h-full w-full flex  flex-col gap-4 mx-auto md:py-4">
+          <div className="h-full md:w-4/5 w-4/5 flex items-center justify-center  mx-auto mt-6  ">
+            <div className="h-full w-full flex  flex-col gap-6 mx-auto md:py-4 py-4 space-y-4 transition-all ease-linear ">
               {faqs.map((faq, index) => (
                 <div
                   onClick={() => handleOpen(index)}
-                  className="bg-white  px-6 rounded-xl"
+                  className="bg-white  px-6 rounded-lg shadow-md"
                 >
-                  <Accordion open={open === index} className="py-2 ">
-                    <AccordionHeader className="border-none ">
-                      <div>
-                        <p className="md:text-lg text-sm text-black">
-                          {faq.question}
-                        </p>
+                  <Accordion
+                    open={open === index}
+                    className="py-2 transition-all "
+                  >
+                    <AccordionHeader
+                      className={` ${
+                        selectedId === index
+                          ? "text-indigo-500  "
+                          : "text-gray-800"
+                      } border-none hover:text-indigo-500 `}
+                    >
+                      <div className="flex w-full justify-between">
+                        <p className="text-lg ">{faq.question} </p>
                       </div>
                     </AccordionHeader>
 
                     <AccordionBody className="p-0">
                       <div className="pb-4">
-                        <p className="md:text-sm text-sm font-semibold text-black">
+                        <p className="md:text-sm text-sm font-semibold text-gray-700">
                           {faq.answer}
                         </p>
                       </div>

@@ -5,7 +5,7 @@ import Faq from "../../components/faq/Faq";
 
 const Page = () => {
   return (
-    <div className="md:py-10 md:px-6">
+    <div className="">
       <Testimonials />
       <Faq />
     </div>

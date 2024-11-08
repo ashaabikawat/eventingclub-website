@@ -21,7 +21,7 @@ module.exports = withMT({
         },
       },
       animation: {
-        "infinite-scroll": "infinite-scroll 25s linear infinite",
+        "infinite-scroll": "infinite-scroll 40s linear infinite",
       },
       width: {
         "600px": "600px",
