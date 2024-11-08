@@ -396,3 +396,30 @@ export const testimonials = [
     image: "/schaermi.jpg",
   },
 ];
+
+export const faqs = [
+  {
+    id: 1,
+    question: "What is the return policy?",
+    answer:
+      "You can return any product within 30 days of purchase, provided it is in its original condition.",
+  },
+  {
+    id: 2,
+    question: "How can I track my order?",
+    answer:
+      "Once your order has shipped, we will send you a tracking number via email, which you can use to track your package.",
+  },
+  {
+    id: 3,
+    question: "Do you offer international shipping?",
+    answer:
+      "Yes, we offer international shipping to most countries. Shipping fees and delivery times vary based on your location.",
+  },
+  {
+    id: 4,
+    question: "How can I contact customer support?",
+    answer:
+      "You can contact our customer support team via email at support@yourwebsite.com or by calling our helpline at (123) 456-7890.",
+  },
+];
