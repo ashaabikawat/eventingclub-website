@@ -14,6 +14,15 @@ module.exports = withMT({
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        "infinite-scroll": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        "infinite-scroll": "infinite-scroll 25s linear infinite",
+      },
       width: {
         "600px": "600px",
       },
@@ -22,10 +31,9 @@ module.exports = withMT({
           "rgba(17, 17, 26, 0.1) 0px 6px 20px, rgba(17, 17, 26, 0.1) 0px 12px 40px",
       },
     },
-    variants: {
-      boxShadow: ["hover"], // Ensure hover variant is enabled
-    },
-
-    plugins: [],
   },
+  variants: {
+    boxShadow: ["hover"], // Ensure hover variant is enabled
+  },
+  plugins: [],
 });

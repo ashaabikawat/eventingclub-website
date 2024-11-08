@@ -358,3 +358,41 @@ export const benefits = [
     icon: <MdOutlineManageAccounts size={30} />,
   },
 ];
+
+export const testimonials = [
+  {
+    id: 1,
+    text: "The Lorem Ipsum Company has been an integral part of our content marketing success. We have seen a notable increase in organic leads since we began using their services in 2012.",
+    name: "Roland Weedon",
+    post: "CEO & Founder, Essex Mortgage",
+    image: "/beertill.jpg",
+  },
+  {
+    id: 2,
+    text: "My busy schedule leaves little, if any, time for blogging and social media. The Lorem Ipsum Company has been a huge part of helping me grow my business through organic search and content marketing.",
+    name: "Kelsi Gordon",
+    post: "Insurance Broker, Brashears Insurance",
+    image: "/hofstett.jpg",
+  },
+  {
+    id: 3,
+    text: "Jeramy and his team at the Lorem Ipsum Company whipped my website into shape just in time for tax season. I was excited by the results and am proud to direct clients to my website once again.",
+    name: "Seth Gewirtz",
+    post: "CEO, SNG Accountants",
+    image: "/side-view-young-woman-nature_23-2148877481.jpg",
+  },
+  {
+    id: 4,
+    text: "Professional, responsive, and able to keep up with ever-changing demand and tight deadlines: That's how I would describe Jeramy and his team at The Lorem Ipsum Company. When it comes to content marketing, you'll definitely get the 5-star treatment from the Lorem Ipsum Company!",
+    name: "Tasha Zuzalek",
+    post: "Facebook Project Manager",
+    image: "/bertolje.jpg",
+  },
+  {
+    id: 5,
+    text: "I was skeptical of SEO and content marketing at first, but the Lorem Ipsum Company not only proved itself financially speaking, but the response I have received from customers is incredible. The work is top-notch and I consistently outrank all my competitors on Google.!",
+    name: "Mike Brashears",
+    post: "Owner, Brashears Insurance",
+    image: "/schaermi.jpg",
+  },
+];

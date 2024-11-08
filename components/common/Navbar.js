@@ -336,6 +336,9 @@ const Navbar = ({ bgColor }) => {
               <li className=" text-black">
                 <Link href="/aboutus">About us</Link>
               </li>
+              <li className=" text-black">
+                <Link href="/list-with-us">List with us</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -391,6 +394,9 @@ const Navbar = ({ bgColor }) => {
                     </li>
                     <li className=" text-black" onClick={handleToggle}>
                       <Link href="/aboutus">About us</Link>
+                    </li>
+                    <li className=" text-black" onClick={handleToggle}>
+                      <Link href="/list-with-us">List with us</Link>
                     </li>
                   </ul>
                 </nav>
