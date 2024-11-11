@@ -400,26 +400,38 @@ export const testimonials = [
 export const faqs = [
   {
     id: 1,
-    question: "What is the return policy?",
+    question: "How much does it cost to list an event on Eventing Club?",
     answer:
-      "You can return any product within 30 days of purchase, provided it is in its original condition.",
+      "Listing an event is free. We charge a small fee per ticket sold. Contact us for more details.",
   },
   {
     id: 2,
-    question: "How can I track my order?",
+    question: "Can I manage both online and offline ticket sales?",
     answer:
-      "Once your order has shipped, we will send you a tracking number via email, which you can use to track your package.",
+      "Yes! Eventing Club offers an offline portal specifically for promoters, along with online ticketing, all accessible via a single manager panel.",
   },
   {
     id: 3,
-    question: "Do you offer international shipping?",
+    question: "How does the inbuilt scanner work for check-ins?",
     answer:
-      "Yes, we offer international shipping to most countries. Shipping fees and delivery times vary based on your location.",
+      "Our scanner app allows you to scan tickets with a single step, ensuring no duplicate entries. It requires no expertise and provides live tracking of attendance.",
   },
   {
     id: 4,
-    question: "How can I contact customer support?",
+    question: "What types of events can I list?",
     answer:
-      "You can contact our customer support team via email at support@yourwebsite.com or by calling our helpline at (123) 456-7890.",
+      "We support a range of events, including concerts, club events, exhibitions, college festivals, corporate gatherings, and private events.",
+  },
+  {
+    id: 5,
+    question: "How does the promoter app work?",
+    answer:
+      "Our promoter app allows authorized promoters to log in and manage ticketing offline, giving you a seamless experience for both online and offline sales.",
+  },
+  {
+    id: 6,
+    question: "How can I track my event’s performance?",
+    answer:
+      "You’ll have access to real-time data analytics in your manager panel, showing ticket sales, promoter performance, and live attendance updates.",
   },
 ];

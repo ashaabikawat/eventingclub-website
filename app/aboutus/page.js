@@ -106,7 +106,7 @@ const Page = () => {
         </div>
 
         {/* our benefits */}
-        {/* <div className="mb-12">
+        <div className="mb-12">
           <div classname="">
             <p className="capitalize md:text-3xl text-2xl text-center font-bold text-gray-800 tracking-wide">
               Our benefits
@@ -126,10 +126,10 @@ const Page = () => {
               </div>
             ))}
           </div>
-        </div> */}
-        <div className="mb-12">
-          <Benefits />
         </div>
+        {/* <div className="mb-12">
+          <Benefits />
+        </div> */}
 
         {/* cta btn */}
         <div className="mb-12">
