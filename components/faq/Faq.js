@@ -18,7 +18,7 @@ const Faq = () => {
   };
 
   return (
-    <div className="h-full w-full bg-gray-100 md:mt-32  mt-6">
+    <div className="h-full w-full bg-gray-100 md:py-10 py-6">
       <div className="h-full w-full  ">
         <div className="py-4 flex flex-col items-center justify-center ">
           {/* text */}

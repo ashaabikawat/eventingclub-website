@@ -4,6 +4,7 @@ import Testimonials from "../../components/testimonials/Testimonials";
 import Faq from "../../components/faq/Faq";
 import Benefits from "@/components/benefits/Benefits";
 import Cta from "@/components/cta-btn/Cta";
+import OrgForm from "@/components/organizerForm/OrgForm";
 
 const Page = () => {
   return (
@@ -13,9 +14,10 @@ const Page = () => {
       </div>
       <Testimonials />
       <Faq />
-      <div className="py-6">
+      <div className="md:py-14 py-10">
         <Cta />
       </div>
+      <OrgForm />
     </div>
   );
 };
