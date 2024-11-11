@@ -5,10 +5,12 @@ import Faq from "../../components/faq/Faq";
 import Benefits from "@/components/benefits/Benefits";
 import Cta from "@/components/cta-btn/Cta";
 import OrgForm from "@/components/organizerForm/OrgForm";
+import HeroForListWithUs from "@/components/hero/HeroForListWithUs";
 
 const Page = () => {
   return (
     <div className="py-10">
+      <HeroForListWithUs />
       <div className=" md:px-20 px-6">
         <Benefits />
       </div>
