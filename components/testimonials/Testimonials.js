@@ -9,10 +9,11 @@ const Testimonials = () => {
   const handleCardClick = () => {
     setIsAnimationPaused((prevState) => !prevState);
   };
+
   return (
-    <div className="h-full w-full overflow-hidden md:py-10 md:px-6 ">
+    <div className="h-full w-full overflow-hidden mt-20  md:px-20 px-6">
       <div className="flex flex-col items-center justify-center">
-        <p className="capitalize md:text-4xl text-3xl font-extrabold text-gray-800 tracking-wider">
+        <p className="capitalize md:text-3xl text-2xl font-bold text-gray-800 tracking-wide">
           Testimonials
         </p>
         <div className="w-20 h-1 bg-blue-600 mt-2"></div>
@@ -34,9 +35,7 @@ const Testimonials = () => {
               className="p-6 transition-transform duration-300 ease-in-out hover:scale-105 group flex flex-col gap-4 rounded-lg flex-none md:w-96 w-72 cursor-pointer shadow-lg hover:shadow-2xl"
               style={{ boxShadow: "rgba(0, 0, 0, 0.15) 0px 2px 8px" }}
             >
-              <p className="text-gray-800 italic text-sm md:text-lg leading-relaxed">
-                "{testimonial.text}"
-              </p>
+              <p className="text-gray-800 md:text-lg ">"{testimonial.text}"</p>
               <p className=" font-semibold   ">{testimonial.name}</p>
               <div className="flex items-center justify-center p-1 bg-blue-600 rounded-full w-14 h-14 shadow-md">
                 <Image

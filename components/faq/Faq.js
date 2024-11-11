@@ -18,7 +18,7 @@ const Faq = () => {
   };
 
   return (
-    <div className="h-full w-full bg-gray-100 py-6  ">
+    <div className="h-full w-full bg-gray-100 md:mt-32  mt-6">
       <div className="h-full w-full  ">
         <div className="py-4 flex flex-col items-center justify-center ">
           {/* text */}
@@ -35,27 +35,23 @@ const Faq = () => {
               {faqs.map((faq, index) => (
                 <div
                   onClick={() => handleOpen(index)}
-                  className="bg-white  px-6 rounded-lg shadow-md"
+                  className="bg-white px-8  rounded-lg shadow-lg transition duration-200 ease-in-out hover:shadow-xl"
                 >
                   <Accordion
                     open={open === index}
                     className="py-2 transition-all "
                   >
-                    <AccordionHeader
-                      className={` ${
-                        selectedId === index
-                          ? "text-indigo-500  "
-                          : "text-gray-800"
-                      } border-none hover:text-indigo-500 `}
-                    >
+                    <AccordionHeader className={`text-gray-800 border-none  `}>
                       <div className="flex w-full justify-between">
-                        <p className="text-lg ">{faq.question} </p>
+                        <p className="md:text-xl text-lg font-semibold text-gray-900">
+                          {faq.question}{" "}
+                        </p>
                       </div>
                     </AccordionHeader>
 
                     <AccordionBody className="p-0">
                       <div className="pb-4">
-                        <p className="md:text-sm text-sm font-semibold text-gray-700">
+                        <p className="text-base text-gray-700 mt-2">
                           {faq.answer}
                         </p>
                       </div>
