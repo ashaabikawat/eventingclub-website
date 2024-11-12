@@ -16,7 +16,7 @@ const HeroForListWithUs = () => {
       </div>
       {/* text */}
       <div className="md:w-[600px] w-full  h-full absolute top-0 left-0 px-6  ">
-        <div className="flex h-full flex-col md:gap-8 gap-6 justify-center ">
+        <div className="flex h-full flex-col md:gap-8 gap-6 justify-center  md:ml-10  ">
           {/* headline */}
           <div className="text-center md:text-left">
             <h1 className="text-white text-xl md:text-4xl  font-bold tracking-wide  ">

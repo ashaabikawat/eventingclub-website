@@ -75,7 +75,7 @@ const Page = () => {
             </p>
           </div>
           <div className="w-20 h-1 mx-auto bg-blue-600 mt-2"></div>
-          <div className=" grid lg:grid-cols-3 rounded-md md:grid-cols-2 gap-6 md:gap-10 mt-10  ">
+          <div className=" grid lg:grid-cols-3 rounded-md md:grid-cols-2 gap-10 md:gap-12 mt-10  ">
             {services.map((service, index) => (
               <div
                 onClick={() => {
@@ -114,15 +114,15 @@ const Page = () => {
             </p>
           </div>
           <div className="w-20 h-1 mx-auto bg-blue-600 mt-2"></div>
-          <div className="grid lg:grid-cols-3 md:grid-cols-2  gap-10 md:gap-6 text-center mt-10">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2  gap-10 md:gap-12 text-center mt-10">
             {benefits.map((benefit, index) => (
-              <div key={index} className=" ">
-                <div className=" flex flex-col text-center gap-4 justify-center items-center">
-                  <div className="bg-gradient-to-br from-blue-900 to-indigo-700 shadow-lg p-4 rounded-full">
+              <div key={index} className=" p-2">
+                <div className=" flex flex-col text-center gap-6 justify-center items-center">
+                  <div className="bg-gradient-to-br from-blue-900 to-indigo-700 shadow-lg p-5 rounded-full hover:scale-110 transition-all delay-75">
                     <div className="text-white ">{benefit.icon}</div>
                   </div>
                   <p className="font-bold text-xl">{benefit.heading}</p>
-                  <p>{benefit.text}</p>
+                  <p className="text-sm">{benefit.text}</p>
                 </div>
               </div>
             ))}

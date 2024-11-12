@@ -357,10 +357,22 @@ export const benefits = [
     icon: <LuAreaChart size={30} />,
   },
   {
-    id: 3,
+    id: 4,
     heading: "Efficient Management",
     text: "Centralized tools and analytics for organizers to manage events effectively and make data-driven decisions.",
     icon: <MdOutlineManageAccounts size={30} />,
+  },
+  {
+    id: 5,
+    heading: "Dedicated Promoter App",
+    text: "Give your promoters easy access and manage offline sales with our dedicated promoter app.",
+    icon: <FaMobileAlt size={30} />,
+  },
+  {
+    id: 6,
+    heading: "Inbuilt Scanner",
+    text: "Our one-step scanning system ensures hassle-free check-ins without any technical knowledge required, with real-time tracking for your peace of mind.",
+    icon: <FaQrcode size={30} />,
   },
 ];
 
