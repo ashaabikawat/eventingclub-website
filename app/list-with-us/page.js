@@ -9,7 +9,7 @@ import HeroForListWithUs from "@/components/hero/HeroForListWithUs";
 
 const Page = () => {
   return (
-    <div className="py-10">
+    <div className="md:py-10 py-4">
       <HeroForListWithUs />
       <div className=" md:px-20 px-6">
         <Benefits />

@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import { services } from "@/utils/constants";
 import { CiCircleInfo } from "react-icons/ci";
 import Modal from "../../components/common/custom modal/Modal";
-import Benefits from "../../components/benefits/Benefits";
+// import Benefits from "../../components/benefits/Benefits";
 import Cta from "../../components/cta-btn/Cta";
+import { benefits } from "@/utils/constants";
 
 const Page = () => {
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [serviceId, setServiceId] = useState(null);
 
   return (
-    <div className=" h-full w-full py-8 md:px-20 px-6 ">
+    <div className=" h-full w-full py-12 md:px-20 px-6 ">
       {isServiceModalOpen && (
         <Modal
           serviceId={serviceId}
@@ -67,7 +68,7 @@ const Page = () => {
         </div>
 
         {/* our services */}
-        <div className="mb-12">
+        <div className="mb-14">
           <div classname="">
             <p className="capitalize md:text-3xl text-2xl text-center font-bold text-gray-800 tracking-wide">
               Our services
@@ -106,7 +107,7 @@ const Page = () => {
         </div>
 
         {/* our benefits */}
-        <div className="mb-12">
+        <div className="mb-16">
           <div classname="">
             <p className="capitalize md:text-3xl text-2xl text-center font-bold text-gray-800 tracking-wide">
               Our benefits
