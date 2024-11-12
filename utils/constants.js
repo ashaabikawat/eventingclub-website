@@ -12,6 +12,11 @@ import { GrUserExpert } from "react-icons/gr";
 import { AiOutlineSolution } from "react-icons/ai";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { LuAreaChart } from "react-icons/lu";
+import { FaMobileAlt } from "react-icons/fa";
+import { FaQrcode } from "react-icons/fa";
+import { FaChartLine } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { RiCustomerService2Fill } from "react-icons/ri";
 
 export const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}`;
 
@@ -433,5 +438,44 @@ export const faqs = [
     question: "How can I track my event’s performance?",
     answer:
       "You’ll have access to real-time data analytics in your manager panel, showing ticket sales, promoter performance, and live attendance updates.",
+  },
+];
+
+export const features = [
+  {
+    id: 1,
+    heading: "Online and Offline Ticketing",
+    text: "Our platform supports both online booking and a flexible, cost-effective offline portal for promoters.",
+    icon: <HiOutlineTicket size={30} />,
+  },
+  {
+    id: 2,
+    heading: "Dedicated Promoter App",
+    text: "Give your promoters easy access and manage offline sales with our dedicated promoter app.",
+    icon: <FaMobileAlt size={30} />,
+  },
+  {
+    id: 3,
+    heading: "Inbuilt Scanner",
+    text: "Our one-step scanning system ensures hassle-free check-ins without any technical knowledge required, with real-time tracking for your peace of mind.",
+    icon: <FaQrcode size={30} />,
+  },
+  {
+    id: 4,
+    heading: "Live Reporting and Analytics",
+    text: "Stay on top of your event’s performance with real-time sales, check-ins, and promoter activity tracking.",
+    icon: <FaChartLine size={30} />,
+  },
+  {
+    id: 5,
+    heading: "24/7 Customer Support",
+    text: " Our dedicated support team is available 24/7 to assist you with any queries or issues, ensuring a smooth event experience.",
+    icon: <RiCustomerService2Fill size={30} />,
+  },
+  {
+    id: 6,
+    heading: "Streamline Your Event Management",
+    text: "Simplify your event planning process with our intuitive tools for managing attendee lists, scheduling, and resource allocation.",
+    icon: <FaCalendarAlt size={30} />,
   },
 ];

@@ -242,7 +242,7 @@ const Page = () => {
                   space-between="40"
                 >
                   {eventData?.EventCarouselImages.map((img) => (
-                    <swiper-slide key={img.id}>
+                    <swiper-slider key={img.id}>
                       <div className="  ">
                         <Image
                           src={`${URL}/${img.image_path}`}
@@ -255,7 +255,7 @@ const Page = () => {
                           className="rounded-lg "
                         />
                       </div>
-                    </swiper-slide>
+                    </swiper-slider>
                   ))}
                 </swiper-container>
               </div>

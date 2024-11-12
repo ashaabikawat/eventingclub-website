@@ -1,7 +1,11 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "swiper/css";
 @import "swiper/css/navigation";
+@import "swiper/css/pagination";
+/* @import "swiper/swiper.scss"; */
+/* @import "swiper/components/navigation/navigation.scss"; */
 @import "flatpickr/dist/flatpickr.css";
+
 
 @tailwind base;
 @tailwind components;
