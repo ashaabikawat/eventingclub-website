@@ -116,9 +116,9 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="">
+    <div className="sticky top-0 z-50 ">
       <Toaster />
-      <div className={`relative  w-full ${bgColor} z-50`}>
+      <div className={` relative w-full ${bgColor} pb-4 z-50`}>
         <div className=" md:px-2 mx-4">
           <div className="flex justify-between items-center py-4 space-x-4 ">
             <div className="flex gap-4 justify-between items-center">
