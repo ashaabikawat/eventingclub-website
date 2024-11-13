@@ -1,10 +1,8 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
 import { services } from "@/utils/constants";
 import { CiCircleInfo } from "react-icons/ci";
 import Modal from "../../components/common/custom modal/Modal";
-// import Benefits from "../../components/benefits/Benefits";
 import Cta from "../../components/cta-btn/Cta";
 import { benefits } from "@/utils/constants";
 
@@ -128,28 +126,9 @@ const Page = () => {
             ))}
           </div>
         </div>
-        {/* <div className="mb-12">
-          <Benefits />
-        </div> */}
 
         {/* cta btn */}
         <div className="mb-12">
-          {/* <div className=" flex items-center justify-center">
-            <div
-              className=" py-10 px-6 flex md:flex-row gap-4 md:gap-0 flex-col justify-between  items-center w-5/5"
-              style={{
-                boxShadow: "rgba(0, 0, 0, 0.08) 0px 4px 12px",
-              }}
-            >
-              <p className="font-bold md:text-xl  md:w-[80%] w-full">
-                Join Eventing Club today and experience the difference in event
-                management and ticketing.
-              </p>
-              <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-md transition hover:from-blue-700 hover:to-indigo-700">
-                Join now
-              </button>
-            </div>
-          </div> */}
           <Cta />
         </div>
       </div>

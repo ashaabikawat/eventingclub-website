@@ -92,6 +92,7 @@ const Page = () => {
   return (
     <div className=" px-4 py-6 md:py-8 md:px-6 mb-16">
       <Toaster />
+      {/* header */}
       <div className="flex flex-col md:flex-row md:justify-between   md:items-center  gap-4">
         <h1 className=" font-bold  lg:text-2xl md:text-xl ">
           Explore Events By Categories
@@ -114,6 +115,8 @@ const Page = () => {
           </label>
         </div>
       </div>
+
+      {/* cards */}
       <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-6  cursor-pointer">
         {categoriesDuplicate.map((data) => (
           <Link key={data.id} href={`/categories/${data._id}`}>

@@ -96,6 +96,7 @@ const Page = () => {
   return (
     <div className="  px-4 py-6 md:py-8 md:px-6 mb-16">
       <Toaster />
+      {/* header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center  gap-4">
         <h1 className=" font-bold  lg:text-2xl md:text-xl ">
           Explore Events By Artists
@@ -118,6 +119,7 @@ const Page = () => {
           </label>
         </div>
       </div>
+      {/* cards */}
       <div className="grid md:grid-cols-3 sm:grid-cols-2 md:gap-y-14 gap-y-6  gap-x-4  w-full mt-8 14 cursor-pointer">
         {artistsDuplicate.map((data) => (
           <Link key={data.id} href={`/artists/${data._id}`}>
