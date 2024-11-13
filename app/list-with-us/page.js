@@ -6,14 +6,14 @@ import Benefits from "@/components/benefits/Benefits";
 import Cta from "@/components/cta-btn/Cta";
 import OrgForm from "@/components/organizerForm/OrgForm";
 import HeroForListWithUs from "@/components/hero/HeroForListWithUs";
+import HowItWorks from "@/components/how it works/HowItWorks";
 
 const Page = () => {
   return (
     <div className="md:py-10 py-4">
       <HeroForListWithUs />
-      <div className=" md:px-20 px-6">
-        <Benefits />
-      </div>
+      <HowItWorks />
+      <Benefits />
       <Testimonials />
       <Faq />
       <div className="md:py-14 py-10">

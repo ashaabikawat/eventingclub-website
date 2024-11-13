@@ -3,7 +3,7 @@ import { features } from "@/utils/constants";
 const Benefits = () => {
   return (
     <>
-      <div className="md:py-12 py-6">
+      <div className="md:py-12 py-6 md:px-20 px-6">
         <div classname="">
           <p className="capitalize md:text-3xl text-2xl text-center font-bold text-gray-800 tracking-wide">
             features
