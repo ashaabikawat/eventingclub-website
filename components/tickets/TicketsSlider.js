@@ -16,8 +16,10 @@ import {
   setConvenienceFee,
 } from "../../store/slices/booking";
 import SeasonPass from "./SeasonPass";
+import { decryptData } from "@/utils/constants";
 
 const TicketsSlider = ({ data, setShowTicket }) => {
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
   const [isMobile, setIsMobile] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -40,10 +42,17 @@ const TicketsSlider = ({ data, setShowTicket }) => {
     c3d4: [],
   });
   const bookingData = useSelector((store) => store.bz8v2.z1x0);
-  console.log(bookingData);
-  const bookingDataTicketId = useSelector((store) => store.bz8v2.k1l2);
-  const storedEventId = useSelector((store) => store.bz8v2.g7h8);
-
+  // console.log(bookingData);
+  const bookingDataTicketId = decryptData(
+    useSelector((store) => store.bz8v2.k1l2),
+    passphrase
+  );
+  // console.log(bookingDataTicketId);
+  const storedEventId = decryptData(
+    useSelector((store) => store.bz8v2.g7h8),
+    passphrase
+  );
+  // console.log(storedEventId);
   // console.log(bookingDataTicketId);
 
   useEffect(() => {
@@ -393,8 +402,8 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   useEffect(() => {
     setEventTicketDataForCalculations(eventTicket);
   }, [totalTickets]);
-  console.log("eventTicket", eventTicket);
-  console.log("forcalculations", eventTicketDataForCalculations);
+  // console.log("eventTicket", eventTicket);
+  // console.log("forcalculations", eventTicketDataForCalculations);
   const calculateTotals = () => {
     const totalTickets = Object.values(count).reduce(
       (acc, count) => acc + count,

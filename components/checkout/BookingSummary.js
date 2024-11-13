@@ -22,6 +22,7 @@ import {
 import { decryptData, encryptData } from "@/utils/constants";
 
 const BookingSummary = () => {
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
   const totalTickets = useSelector((store) => store.bz8v2.z1x0.e5f6);
 
   const bookingData = useSelector((store) => store.bz8v2.z1x0);
@@ -32,7 +33,11 @@ const BookingSummary = () => {
   // State to manage whether the terms and conditions modal is open
   const [isOpen, setIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const promocodeId = useSelector((store) => store.bz8v2.i9j0);
+  const promocodeId = decryptData(
+    useSelector((store) => store.bz8v2.i9j0),
+    passphrase
+  );
+  // console.log(promocodeId);
   const [promoObject, setpromoObject] = useState();
   const [promocodeValue, setPromocodeValue] = useState("");
 
@@ -42,8 +47,6 @@ const BookingSummary = () => {
 
   const router = useRouter();
 
-  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
-
   const dispatch = useDispatch();
   const totalTicketsUi = totalTickets;
   const ticket = selectedTicket[0];
@@ -51,14 +54,20 @@ const BookingSummary = () => {
   const ticketAmount = Number(ticket?.TicketPrice) * totalTickets;
 
   const cust_id = useSelector((store) => store.auth.custId);
-  const promocodeDiscountPrice = useSelector((store) => store.bz8v2.s9t0);
+  const promocodeDiscountPrice = decryptData(
+    useSelector((store) => store.bz8v2.s9t0),
+    passphrase
+  );
 
   // const [promocodeDiscountPrice, setPromocodeDiscountPrice] = useState(() => {
   //   return promocodeDiscountAmountStore ? promocodeDiscountAmountStore : 0;
   // });
 
   // const confee = JSON.parse(localStorage.getItem("convenienceFee"));
-  const confee = useSelector((store) => store.bz8v2.m3n4);
+  const confee = decryptData(
+    useSelector((store) => store.bz8v2.m3n4),
+    passphrase
+  );
   // console.log(confee);
   const convenienceFee = Number(confee?.ConValue) || 0;
 
@@ -292,7 +301,7 @@ const BookingSummary = () => {
   }, [promoObject]);
 
   const baseAmount = convenienceFee + gst;
-  console.log(promocodeValue);
+  // console.log(promocodeValue);
 
   return (
     <div>

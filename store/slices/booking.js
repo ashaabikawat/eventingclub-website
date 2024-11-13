@@ -1,3 +1,4 @@
+import { encryptData } from "@/utils/constants";
 import { createSlice, current } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
@@ -15,6 +16,8 @@ import toast from "react-hot-toast";
 //   seasonPass: null,
 //   promocodeDiscountAmount: null,
 // };
+
+const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
 
 const initialState = {
   z1x0: {
@@ -38,10 +41,12 @@ const bz8v2 = createSlice({
   reducers: {
     setBookingDataObj: (state, action) => {
       state.z1x0 = action.payload;
+      console.log(action.payload);
     },
 
     setEventId: (state, action) => {
-      state.g7h8 = action.payload;
+      state.g7h8 = encryptData(action.payload, passphrase);
+      // console.log(action.payload);
     },
 
     // setTicketData: (state, action) => {
@@ -49,7 +54,8 @@ const bz8v2 = createSlice({
     // },
 
     setTicketId: (state, action) => {
-      state.k1l2 = action.payload;
+      state.k1l2 = encryptData(action.payload, passphrase);
+      // console.log(action.payload);
     },
 
     handleIncrease: (state, action) => {
@@ -135,7 +141,8 @@ const bz8v2 = createSlice({
     },
 
     setPromocodeId: (state, action) => {
-      state.i9j0 = action.payload;
+      state.i9j0 = encryptData(action.payload, passphrase);
+      // console.log(action.payload);
     },
 
     remove_promocode: (state, action) => {
@@ -144,16 +151,20 @@ const bz8v2 = createSlice({
 
     setTicketCounts: (state, action) => {
       state.o5p6 = action.payload;
+      console.log(action.payload);
     },
     setSeasonPass: (state, action) => {
       state.q7r8 = action.payload;
+      console.log(action.payload);
     },
 
     setConvenienceFee: (state, action) => {
-      state.m3n4 = action.payload;
+      state.m3n4 = encryptData(action.payload, passphrase);
+      // console.log(action.payload);
     },
     setPromcodeDiscountAmount: (state, action) => {
-      state.s9t0 = action.payload;
+      state.s9t0 = encryptData(action.payload, passphrase);
+      console.log(action.payload);
     },
 
     reset_state: (state, action) => {
