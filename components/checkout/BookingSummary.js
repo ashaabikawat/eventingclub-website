@@ -63,7 +63,7 @@ const BookingSummary = () => {
 
   const ticketAmount = Number(ticket?.TicketPrice) * totalTickets;
 
-  const cust_id = useSelector((store) => store.auth.custId);
+  const cust_id = useSelector((store) => store.uSess.xA1);
   const promocodeDiscountPrice = decryptData(
     useSelector((store) => store.bz8v2.s9t0),
     passphrase

@@ -17,7 +17,8 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 const verification = ({ setDetails, handleOpen, details }) => {
-  const auth = useSelector((store) => store.auth);
+  const auth = useSelector((store) => store.uSess);
+  console.log(auth);
   // const [reload, setReload] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +27,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   // const [otpVerified, setOtpVerified] = useState(false);
   const [numberModal, setNumberModal] = useState(false);
 
-  const number = auth?.mobileNumber;
+  const number = auth?.vY4;
 
   const inputs = useRef([]);
   const dispatch = useDispatch();
@@ -136,7 +137,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   const handleUserDetails = async () => {
     toast.dismiss();
     const payload = {
-      customer_id: auth?.custId,
+      customer_id: auth?.xA1,
       CustomerName: formData.name,
       Email: formData.email,
     };
@@ -192,7 +193,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
 
     const payload = {
       Otp: stringOtp,
-      customer_id: auth?.custId,
+      customer_id: auth?.xA1,
     };
 
     try {
@@ -276,14 +277,14 @@ const verification = ({ setDetails, handleOpen, details }) => {
   };
 
   useEffect(() => {
-    if (auth?.custId) {
+    if (auth?.xA1) {
       fetchCustomerData();
     }
-  }, [auth?.custId]);
+  }, [auth?.xA1]);
 
   const fetchCustomerData = async () => {
     toast.dismiss();
-    const payload = { customer_id: auth?.custId };
+    const payload = { customer_id: auth?.xA1 };
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);
       setDetails(response.data.data);
@@ -310,7 +311,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
     <div className="w-full">
       <div className="flex flex-col gap-2">
         {/* initial mobile number section */}
-        {!auth?.isLoggedIn && !auth?.token && !auth?.custId && (
+        {!auth?.jL3 && !auth?.pT5 && !auth?.xA1 && (
           <div className="mb-8">
             <div className="w-full">
               <label className="text-xl">Phone number*</label>
@@ -341,7 +342,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
 
         {/* otp section */}
 
-        {auth?.custId && !auth?.token && !numberModal && (
+        {auth?.xA1 && !auth?.pT5 && !numberModal && (
           <div className="mt-2 md:mt-0">
             <h1 className="md:text-xl text-base mb-2  md:text-black">
               We have sent you an OTP to verify your number
@@ -386,39 +387,37 @@ const verification = ({ setDetails, handleOpen, details }) => {
         )}
 
         {/* form for new user */}
-        {auth?.custId &&
-          auth?.token &&
-          (!auth?.customerExists || auth?.isNewCustomer) && (
-            <div>
-              <p className="text-sm mb-3  text-black">Name*</p>
-              <input
-                type="text"
-                value={formData.name}
-                name="name"
-                onChange={handleForm}
-                placeholder="Enter here"
-                className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
-              />
+        {auth?.xA1 && auth?.pT5 && (!auth?.zX9 || auth?.nQ2) && (
+          <div>
+            <p className="text-sm mb-3  text-black">Name*</p>
+            <input
+              type="text"
+              value={formData.name}
+              name="name"
+              onChange={handleForm}
+              placeholder="Enter here"
+              className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
+            />
 
-              <p className="text-sm mb-3 mt-4 text-black">Email*</p>
-              <input
-                type="text"
-                value={formData.email}
-                name="email"
-                onChange={handleForm}
-                placeholder="Enter here"
-                className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
-              />
+            <p className="text-sm mb-3 mt-4 text-black">Email*</p>
+            <input
+              type="text"
+              value={formData.email}
+              name="email"
+              onChange={handleForm}
+              placeholder="Enter here"
+              className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
+            />
 
-              <button
-                type="submit"
-                onClick={handleUserDetails}
-                className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full"
-              >
-                Continue
-              </button>
-            </div>
-          )}
+            <button
+              type="submit"
+              onClick={handleUserDetails}
+              className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full"
+            >
+              Continue
+            </button>
+          </div>
+        )}
 
         {/* change number section */}
         {numberModal && (

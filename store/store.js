@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import authSlice from "./slices/authSlice";
+import uSess from "./slices/authSlice";
 import bz8v2 from "./slices/booking";
 
 const bookingPersistConfig = {
@@ -21,24 +21,17 @@ const bookingPersistConfig = {
 };
 
 const authPersistConfig = {
-  key: "auth",
+  key: "uSess",
   storage,
-  whitelist: [
-    "custId",
-    "customerExists",
-    "isLoggedIn",
-    "token",
-    "isNewCustomer",
-    "mobileNumber",
-  ],
+  whitelist: ["xA1", "zX9", "jL3", "pT5", "nQ2", "vY4"],
 };
 
 const bookingPersistedReducer = persistReducer(bookingPersistConfig, bz8v2);
-const authPersistReducer = persistReducer(authPersistConfig, authSlice);
+const authPersistReducer = persistReducer(authPersistConfig, uSess);
 
 const store = configureStore({
   reducer: {
-    auth: authPersistReducer,
+    uSess: authPersistReducer,
     bz8v2: bookingPersistedReducer,
   },
 });

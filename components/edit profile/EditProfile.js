@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const EditProfile = ({ id, data }) => {
-  const auth = useSelector((store) => store.auth);
+  const auth = useSelector((store) => store.uSess);
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -31,11 +31,11 @@ const EditProfile = ({ id, data }) => {
   }, [data]);
 
   useEffect(() => {
-    if (!auth?.isLoggedIn) {
+    if (!auth?.jL3) {
       router.push("/signup");
       // navigate("/signup"); // Redirect to the signup page if not authenticated
     }
-  }, [auth?.isLoggedIn, router]);
+  }, [auth?.jL3, router]);
 
   // Handle input change for dynamic form update
   const handleChange = (e) => {

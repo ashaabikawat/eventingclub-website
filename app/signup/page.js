@@ -22,12 +22,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/common/loading/Loading";
 
 const Page = () => {
-  const auth = useSelector((store) => store.auth);
+  const auth = useSelector((store) => store.uSess);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const inputs = useRef([]);
   const router = useRouter();
-  const number = auth?.mobileNumber;
+  const number = auth?.vY4;
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [formData, setFormData] = useState({
     name: "",
@@ -136,7 +136,7 @@ const Page = () => {
   const handleUserDetails = async () => {
     toast.dismiss();
     const payload = {
-      customer_id: auth?.custId,
+      customer_id: auth?.xA1,
       CustomerName: formData.name,
       Email: formData.email,
     };
@@ -187,14 +187,14 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (auth?.custId) {
+    if (auth?.xA1) {
       fetchCustomerData();
     }
-  }, [auth?.custId]);
+  }, [auth?.xA1]);
 
   const fetchCustomerData = async () => {
     toast.dismiss();
-    const payload = { customer_id: auth?.custId };
+    const payload = { customer_id: auth?.xA1 };
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);
       setDetails(response.data.data);
@@ -229,7 +229,7 @@ const Page = () => {
 
     const payload = {
       Otp: stringOtp,
-      customer_id: auth?.custId,
+      customer_id: auth?.xA1,
     };
 
     try {
@@ -325,7 +325,7 @@ const Page = () => {
 
         <div className=" md:px-6 md:py-52 w-[90%]  px-10 m-4 py-10 absolute md:static  backdrop-blur-md border border-gray-500 h-890 rounded-md md:rounded-none md:border-none md:h-full">
           {/* initial mobile nuymber section  */}
-          {!auth?.isLoggedIn && !auth?.token && !auth?.custId && (
+          {!auth?.jL3 && !auth?.pT5 && !auth?.xA1 && (
             <div className=" w-full  h-full flex  justify-center flex-col">
               <h1 className="md:text-3xl text-base font-bold md:mb-6 mb-4 text-white md:text-black">
                 Welcome to eventing club
@@ -356,7 +356,7 @@ const Page = () => {
             </div>
           )}
 
-          {auth?.custId && !auth?.token && !numberModal && (
+          {auth?.xA1 && !auth?.pT5 && !numberModal && (
             <div>
               <h1 className="md:text-3xl text-base mb-2 text-white md:text-black">
                 We had sent you a
@@ -404,41 +404,39 @@ const Page = () => {
           )}
 
           {/* form for new user */}
-          {auth?.custId &&
-            auth?.token &&
-            (!auth?.customerExists || auth?.isNewCustomer) && (
-              <div>
-                <p className="text-sm mb-3  text-white md:text-black">Name*</p>
-                <input
-                  type="text"
-                  value={formData.name}
-                  name="name"
-                  onChange={handleForm}
-                  placeholder="Enter here"
-                  className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
-                />
+          {auth?.xA1 && auth?.pT5 && (!auth?.zX9 || auth?.nQ2) && (
+            <div>
+              <p className="text-sm mb-3  text-white md:text-black">Name*</p>
+              <input
+                type="text"
+                value={formData.name}
+                name="name"
+                onChange={handleForm}
+                placeholder="Enter here"
+                className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
+              />
 
-                <p className="text-sm mb-3 mt-4 text-white md:text-black">
-                  Email*
-                </p>
-                <input
-                  type="text"
-                  value={formData.email}
-                  name="email"
-                  onChange={handleForm}
-                  placeholder="Enter here"
-                  className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
-                />
+              <p className="text-sm mb-3 mt-4 text-white md:text-black">
+                Email*
+              </p>
+              <input
+                type="text"
+                value={formData.email}
+                name="email"
+                onChange={handleForm}
+                placeholder="Enter here"
+                className="placeholder:text-slate-400 border w-full border-gray-500 rounded-md py-2 pl-2 outline-none focus:outline-none focus:ring focus:border-gray-50"
+              />
 
-                <button
-                  type="submit"
-                  onClick={handleUserDetails}
-                  className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full"
-                >
-                  Continue
-                </button>
-              </div>
-            )}
+              <button
+                type="submit"
+                onClick={handleUserDetails}
+                className="whitespace-nowrap capitalize inline-flex items-center mt-3 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full"
+              >
+                Continue
+              </button>
+            </div>
+          )}
 
           {/* change number section */}
           {numberModal && (

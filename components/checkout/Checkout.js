@@ -11,11 +11,11 @@ import { useSelector } from "react-redux";
 const Checkout = () => {
   const [open, setOpen] = useState(1); // Control active accordion step
   const [details, setDetails] = useState();
-  const auth = useSelector((store) => store.auth);
+  const auth = useSelector((store) => store.uSess);
   const [otpVerified, setOtpVerified] = useState(false);
 
-  const isLoggedIn = auth?.isLoggedIn;
-  const cust_id = auth?.custId;
+  const isLoggedIn = auth?.jL3;
+  const cust_id = auth?.xA1;
 
   const handleOpen = (value) => {
     if (cust_id) {

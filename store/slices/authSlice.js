@@ -1,41 +1,50 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
+// const initialState = {
+//   custId: null,
+//   customerExists: null,
+//   isLoggedIn: false,
+//   token: null,
+//   isNewCustomer: null,
+//   mobileNumber: null,
+// };
+
 const initialState = {
-  custId: null,
-  customerExists: null,
-  isLoggedIn: false,
-  token: null,
-  isNewCustomer: null,
-  mobileNumber: null,
+  xA1: null, // custId
+  zX9: null, // customerExists
+  jL3: false, // isLoggedIn
+  pT5: null, // token
+  nQ2: null, // isNewCustomer
+  vY4: null, // mobileNumber
 };
 
-const authSlice = createSlice({
-  name: "authSlice",
+const uSess = createSlice({
+  name: "uSess",
   initialState,
   reducers: {
     setMobileNumber: (state, action) => {
-      state.mobileNumber = action.payload;
+      state.vY4 = action.payload;
     },
     setAuthDetails: (state, action) => {
       const { cust_id, customer_exists } = action.payload;
-      (state.custId = cust_id), (state.customerExists = customer_exists);
+      (state.xA1 = cust_id), (state.zX9 = customer_exists);
     },
     setIsNewCustomer: (state, action) => {
-      state.isNewCustomer = action.payload;
+      state.nQ2 = action.payload;
     },
     setToken: (state, action) => {
-      state.token = action.payload;
+      state.pT5 = action.payload;
     },
     loggedInSucces: (state, action) => {
-      state.isLoggedIn = true;
+      state.jL3 = true;
     },
     logout: (state) => {
-      (state.custId = null),
-        (state.customerExists = null),
-        (state.isLoggedIn = false),
-        (state.token = null),
-        (state.isNewCustomer = null),
-        (state.mobileNumber = null);
+      (state.xA1 = null),
+        (state.zX9 = null),
+        (state.jL3 = false),
+        (state.pT5 = null),
+        (state.nQ2 = null),
+        (state.vY4 = null);
     },
   },
 });
@@ -47,5 +56,5 @@ export const {
   setToken,
   logout,
   loggedInSucces,
-} = authSlice.actions;
-export default authSlice.reducer;
+} = uSess.actions;
+export default uSess.reducer;
