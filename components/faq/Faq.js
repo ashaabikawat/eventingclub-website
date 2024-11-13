@@ -18,9 +18,9 @@ const Faq = () => {
   };
 
   return (
-    <div className="h-full w-full bg-gray-100 md:py-10 py-6">
+    <div className="h-full w-full  ">
       <div className="h-full w-full  ">
-        <div className="py-4 flex flex-col items-center justify-center ">
+        <div className=" flex flex-col items-center justify-center ">
           {/* text */}
           <div>
             <p className="capitalize md:text-4xl text-3xl font-extrabold text-gray-800 tracking-wider">
@@ -35,7 +35,7 @@ const Faq = () => {
               {faqs.map((faq, index) => (
                 <div
                   onClick={() => handleOpen(index)}
-                  className="bg-white px-8  rounded-lg shadow-lg transition duration-200 ease-in-out hover:shadow-xl"
+                  className="bg-white px-8  rounded-lg  transition duration-200 ease-in-out shadow-md"
                 >
                   <Accordion
                     open={open === index}

@@ -3,26 +3,27 @@ import React from "react";
 
 const OrgForm = () => {
   return (
-    <div className="h-full w-full py-10  md:px-20 px-6  bg-gray-100">
+    <div className="h-full w-full py-10  md:px-20 px-6  ">
       <div className="h-full w-full grid md:grid-cols-2 md:gap-x-4 gap-y-6">
         {/* illustration */}
-        <div className=" h-full w-full ">
+        <div className=" h-full w-full">
           <div className="md:flex items-center justify-center h-full w-full">
             <Image
-              src={"/rb_2623.png"}
-              width={1000}
-              height={600}
-              objectFit="contain"
+              src={"/login.png"}
+              height={800}
+              width={600}
+              objectFit="cover"
+              alt="login"
             />
           </div>
         </div>
         {/* form */}
-        <div className="mt-2 h-full w-full md:flex items-center justify-center ">
+        <div className=" h-full w-full md:flex items-center md:px-6  ">
           <form>
             <div className="space-y-6 w-full">
               <div className="border-b border-gray-900/10 pb-6">
                 <div className=" grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
-                  <div className="col-span-6">
+                  <div className="col-span-8">
                     <label
                       htmlFor="full-name"
                       className="block text-base font-medium text-gray-900"
@@ -41,7 +42,7 @@ const OrgForm = () => {
                     </div>
                   </div>
 
-                  <div className="sm:col-span-3 col-span-6">
+                  <div className="sm:col-span-4 col-span-8">
                     <label
                       htmlFor="email"
                       className="block text-base font-medium text-gray-900"
@@ -60,7 +61,7 @@ const OrgForm = () => {
                     </div>
                   </div>
 
-                  <div className="sm:col-span-3 col-span-6">
+                  <div className="sm:col-span-3 col-span-8">
                     <label
                       htmlFor="number"
                       className="block text-base font-medium text-gray-900"
@@ -70,7 +71,7 @@ const OrgForm = () => {
                     <div className="mt-2">
                       <input
                         id="number"
-                        placeholder="Enter your phone number"
+                        placeholder="Enter your no."
                         name="number"
                         type="number"
                         className="block px-2 w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
@@ -78,7 +79,7 @@ const OrgForm = () => {
                     </div>
                   </div>
 
-                  <div className="col-span-6 ">
+                  <div className="col-span-8 ">
                     <label
                       htmlFor="org-name"
                       className="block text-base font-medium text-gray-900"
@@ -97,7 +98,7 @@ const OrgForm = () => {
                     </div>
                   </div>
 
-                  <div className="sm:col-span-3 col-span-6">
+                  <div className="sm:col-span-4 col-span-8">
                     <label
                       htmlFor="full-name"
                       className="block text-base font-medium text-gray-900"

@@ -14,11 +14,11 @@ const Page = () => {
       <HeroForListWithUs />
       <HowItWorks />
       <Benefits />
-      <Testimonials />
-      <Faq />
-      <div className="md:py-14 py-10">
+      <div className="md:py-14 py-10 md:px-20 px-6 ">
         <Cta />
       </div>
+      <Testimonials />
+      <Faq />
       <OrgForm />
     </div>
   );
