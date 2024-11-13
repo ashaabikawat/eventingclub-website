@@ -20,19 +20,22 @@ import toast from "react-hot-toast";
 const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
 
 const initialState = {
-  z1x0: {
-    // bookingData -> z1x0
-    a1b2: 0, // totalPrice -> a1b2
-    c3d4: [], // selectedTickets -> c3d4
-    e5f6: 0, // totalTickets -> e5f6
-  },
-  g7h8: null, // eventId -> g7h8
-  i9j0: null, // promocodeId -> i9j0
-  k1l2: null, // ticketId -> k1l2
-  m3n4: {}, // convenienceFee -> m3n4
-  o5p6: {}, // ticketCounts -> o5p6
-  q7r8: null, // seasonPass -> q7r8
-  s9t0: null, // promocodeDiscountAmount -> s9t0
+  z1x0: encryptData(
+    {
+      // bookingData -> z1x0
+      a1b2: 0, // totalPrice -> a1b2
+      c3d4: [], // selectedTickets -> c3d4
+      e5f6: 0, // totalTickets -> e5f6
+    },
+    passphrase
+  ),
+  g7h8: encryptData(null, passphrase), // eventId -> g7h8
+  i9j0: encryptData(null, passphrase), // promocodeId -> i9j0
+  k1l2: encryptData(null, passphrase), // ticketId -> k1l2
+  m3n4: encryptData({}, passphrase), // convenienceFee -> m3n4
+  o5p6: encryptData({}, passphrase), // ticketCounts -> o5p6
+  q7r8: encryptData(null, passphrase), // seasonPass -> q7r8
+  s9t0: encryptData(null, passphrase), // promocodeDiscountAmount -> s9t0
 };
 
 const bz8v2 = createSlice({
@@ -40,8 +43,8 @@ const bz8v2 = createSlice({
   initialState,
   reducers: {
     setBookingDataObj: (state, action) => {
-      state.z1x0 = action.payload;
-      console.log(action.payload);
+      state.z1x0 = encryptData(action.payload, passphrase);
+      // console.log(action.payload);
     },
 
     setEventId: (state, action) => {
@@ -146,16 +149,16 @@ const bz8v2 = createSlice({
     },
 
     remove_promocode: (state, action) => {
-      state.i9j0 = null;
+      state.i9j0 = encryptData(null, passphrase);
     },
 
     setTicketCounts: (state, action) => {
-      state.o5p6 = action.payload;
-      console.log(action.payload);
+      state.o5p6 = encryptData(action.payload, passphrase);
+      // console.log(action.payload);
     },
     setSeasonPass: (state, action) => {
       state.q7r8 = action.payload;
-      console.log(action.payload);
+      // console.log(action.payload);
     },
 
     setConvenienceFee: (state, action) => {
@@ -168,15 +171,18 @@ const bz8v2 = createSlice({
     },
 
     reset_state: (state, action) => {
-      state.z1x0 = {
-        a1b2: 0,
-        c3d4: [],
-        e5f6: 0,
-      };
-      state.g7h8 = null;
-      state.i9j0 = null;
-      state.k1l2 = null;
-      state.o5p6 = {};
+      state.z1x0 = encryptData(
+        {
+          a1b2: 0,
+          c3d4: [],
+          e5f6: 0,
+        },
+        passphrase
+      );
+      state.g7h8 = encryptData(null, passphrase);
+      state.i9j0 = encryptData(null, passphrase);
+      state.k1l2 = encryptData(null, passphrase);
+      state.o5p6 = encryptData({}, passphrase);
     },
   },
 });

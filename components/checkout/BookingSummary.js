@@ -23,9 +23,15 @@ import { decryptData, encryptData } from "@/utils/constants";
 
 const BookingSummary = () => {
   const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
-  const totalTickets = useSelector((store) => store.bz8v2.z1x0.e5f6);
+  const bookingData = decryptData(
+    useSelector((store) => store.bz8v2.z1x0),
+    passphrase
+  );
+  const totalTickets = bookingData?.e5f6;
 
-  const bookingData = useSelector((store) => store.bz8v2.z1x0);
+  // console.log(totalTickets);
+
+  // console.log("bookingData", bookingData);
   const [quantity, setQuanity] = useState(totalTickets);
   const [promocodes, setPromocodes] = useState([]);
   const { id } = useParams();
@@ -41,9 +47,13 @@ const BookingSummary = () => {
   const [promoObject, setpromoObject] = useState();
   const [promocodeValue, setPromocodeValue] = useState("");
 
-  const selectedTicket = useSelector((store) => store?.bz8v2?.z1x0?.c3d4);
+  const selectedTicket = bookingData?.c3d4;
+  // console.log(selectedTicket);
 
-  const PromocodeIdFromLs = useSelector((store) => store.bz8v2.i9j0);
+  const PromocodeIdFromLs = decryptData(
+    useSelector((store) => store.bz8v2.i9j0),
+    passphrase
+  );
 
   const router = useRouter();
 

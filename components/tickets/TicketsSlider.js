@@ -28,7 +28,12 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   const [eventTicket, setEventTicket] = useState([]);
   const [isSeasonpassActive, setIsSeasonpassActive] = useState(false);
   const [showTicketId, setShowTicketId] = useState(null);
-  const savedTicketCounts = useSelector((store) => store.bz8v2.o5p6);
+  const [isEncrypted, setIsEncrypted] = useState(false);
+  const savedTicketCounts = decryptData(
+    useSelector((store) => store.bz8v2.o5p6),
+    passphrase
+  );
+
   const [eventTicketDataForCalculations, setEventTicketDataForCalculations] =
     useState([]);
   const [count, setCount] = useState(() => {
@@ -41,8 +46,14 @@ const TicketsSlider = ({ data, setShowTicket }) => {
     a1b2: 0,
     c3d4: [],
   });
-  const bookingData = useSelector((store) => store.bz8v2.z1x0);
-  // console.log(bookingData);
+
+  const bookingData = decryptData(
+    useSelector((store) => store.bz8v2.z1x0),
+    passphrase
+  );
+
+  console.log(bookingData);
+
   const bookingDataTicketId = decryptData(
     useSelector((store) => store.bz8v2.k1l2),
     passphrase
@@ -363,7 +374,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
         // Keep the previous data if there are tickets remaining
         updatedFinalBookingData = {
           ...finalBookingData,
-          e5f6,
+          e5f6: totalTickets,
           a1b2: updatedTotalPrice, // You can calculate this if needed
           c3d4: bookingData.c3d4, // Update this array if needed
         };
@@ -502,6 +513,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
 
   const handleContinue = () => {
     calculateTotals();
+    setIsEncrypted(true);
 
     dispatch(setTicketCounts(count));
     dispatch(setEventId(id));
