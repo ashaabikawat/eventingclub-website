@@ -1,3 +1,5 @@
+import { encryptData } from "@/utils/constants";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 // const initialState = {
@@ -9,13 +11,15 @@ const { createSlice } = require("@reduxjs/toolkit");
 //   mobileNumber: null,
 // };
 
+const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
+
 const initialState = {
-  xA1: null, // custId
-  zX9: null, // customerExists
-  jL3: false, // isLoggedIn
-  pT5: null, // token
-  nQ2: null, // isNewCustomer
-  vY4: null, // mobileNumber
+  xA1: encryptData(null, passphrase), // custId
+  zX9: encryptData(null, passphrase), // customerExists
+  jL3: encryptData(false, passphrase), // isLoggedIn
+  pT5: encryptData(null, passphrase), // token
+  nQ2: encryptData(null, passphrase), // isNewCustomer
+  vY4: encryptData(null, passphrase), // mobileNumber
 };
 
 const uSess = createSlice({
@@ -23,28 +27,29 @@ const uSess = createSlice({
   initialState,
   reducers: {
     setMobileNumber: (state, action) => {
-      state.vY4 = action.payload;
+      state.vY4 = encryptData(action.payload, passphrase);
     },
     setAuthDetails: (state, action) => {
       const { cust_id, customer_exists } = action.payload;
-      (state.xA1 = cust_id), (state.zX9 = customer_exists);
+      (state.xA1 = encryptData(cust_id, passphrase)),
+        (state.zX9 = encryptData(customer_exists, passphrase));
     },
     setIsNewCustomer: (state, action) => {
-      state.nQ2 = action.payload;
+      state.nQ2 = encryptData(action.payload, passphrase);
     },
     setToken: (state, action) => {
-      state.pT5 = action.payload;
+      state.pT5 = encryptData(action.payload, passphrase);
     },
     loggedInSucces: (state, action) => {
-      state.jL3 = true;
+      state.jL3 = encryptData(true, passphrase);
     },
     logout: (state) => {
-      (state.xA1 = null),
-        (state.zX9 = null),
-        (state.jL3 = false),
-        (state.pT5 = null),
-        (state.nQ2 = null),
-        (state.vY4 = null);
+      (state.xA1 = encryptData(null, passphrase)),
+        (state.zX9 = encryptData(null, passphrase)),
+        (state.jL3 = encryptData(false, passphrase)),
+        (state.pT5 = encryptData(null, passphrase)),
+        (state.nQ2 = encryptData(null, passphrase)),
+        (state.vY4 = encryptData(null, passphrase));
     },
   },
 });

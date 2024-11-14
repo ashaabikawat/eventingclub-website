@@ -7,15 +7,18 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
+import { decryptData } from "@/utils/constants";
 
 const Checkout = () => {
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
   const [open, setOpen] = useState(1); // Control active accordion step
   const [details, setDetails] = useState();
   const auth = useSelector((store) => store.uSess);
   const [otpVerified, setOtpVerified] = useState(false);
 
-  const isLoggedIn = auth?.jL3;
-  const cust_id = auth?.xA1;
+  const isLoggedIn = decryptData(auth?.jL3, passphrase);
+  console.log(isLoggedIn);
+  const cust_id = decryptData(auth?.xA1, passphrase);
 
   const handleOpen = (value) => {
     if (cust_id) {

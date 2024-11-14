@@ -15,8 +15,10 @@ import axios from "axios";
 import { homepageSearch } from "../../utils/config";
 import { MdEventAvailable } from "react-icons/md";
 import { FaRegCircleUser } from "react-icons/fa6";
+import { decryptData } from "@/utils/constants";
 
 const Navbar = ({ bgColor }) => {
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
   const [open, setOpen] = useState(false);
 
   const [searchTerm, setsearchTerm] = useState("");
@@ -30,9 +32,9 @@ const Navbar = ({ bgColor }) => {
   const auth = useSelector((store) => store.uSess);
 
   // Updated: Getting token from Redux store
-  const getToken = auth?.pT5;
+  const getToken = decryptData(auth?.pT5, passphrase);
 
-  const cust_id = auth?.xA1;
+  const cust_id = decryptData(auth?.xA1, passphrase);
   const isLoggedIn = !!getToken; // Check if the user is logged in based on token availability
 
   // Add/Remove class to block scrolling when mobile menu is open

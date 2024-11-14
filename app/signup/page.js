@@ -20,14 +20,23 @@ import React, { useMemo, useRef, useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/common/loading/Loading";
+import { decryptData } from "@/utils/constants";
 
 const Page = () => {
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
   const auth = useSelector((store) => store.uSess);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const inputs = useRef([]);
   const router = useRouter();
-  const number = auth?.vY4;
+
+  const number = decryptData(auth?.vY4, passphrase);
+  const cust_id = decryptData(auth?.xA1, passphrase);
+  const customer_exists = decryptData(auth?.zX9, passphrase);
+  const token = decryptData(auth?.pT5, passphrase);
+  const isNewCustomer = decryptData(auth?.nQ2, passphrase);
+  const isLoggedIn = decryptData(auth?.jL3, passphrase);
+
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [formData, setFormData] = useState({
     name: "",
@@ -136,7 +145,7 @@ const Page = () => {
   const handleUserDetails = async () => {
     toast.dismiss();
     const payload = {
-      customer_id: auth?.xA1,
+      customer_id: cust_id,
       CustomerName: formData.name,
       Email: formData.email,
     };
@@ -187,14 +196,14 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (auth?.xA1) {
+    if (cust_id) {
       fetchCustomerData();
     }
-  }, [auth?.xA1]);
+  }, [cust_id]);
 
   const fetchCustomerData = async () => {
     toast.dismiss();
-    const payload = { customer_id: auth?.xA1 };
+    const payload = { customer_id: cust_id };
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);
       setDetails(response.data.data);
@@ -229,7 +238,7 @@ const Page = () => {
 
     const payload = {
       Otp: stringOtp,
-      customer_id: auth?.xA1,
+      customer_id: cust_id,
     };
 
     try {
@@ -325,7 +334,7 @@ const Page = () => {
 
         <div className=" md:px-6 md:py-52 w-[90%]  px-10 m-4 py-10 absolute md:static  backdrop-blur-md border border-gray-500 h-890 rounded-md md:rounded-none md:border-none md:h-full">
           {/* initial mobile nuymber section  */}
-          {!auth?.jL3 && !auth?.pT5 && !auth?.xA1 && (
+          {!isLoggedIn && !token && !cust_id && (
             <div className=" w-full  h-full flex  justify-center flex-col">
               <h1 className="md:text-3xl text-base font-bold md:mb-6 mb-4 text-white md:text-black">
                 Welcome to eventing club
@@ -356,7 +365,7 @@ const Page = () => {
             </div>
           )}
 
-          {auth?.xA1 && !auth?.pT5 && !numberModal && (
+          {cust_id && !token && !numberModal && (
             <div>
               <h1 className="md:text-3xl text-base mb-2 text-white md:text-black">
                 We had sent you a
@@ -404,7 +413,7 @@ const Page = () => {
           )}
 
           {/* form for new user */}
-          {auth?.xA1 && auth?.pT5 && (!auth?.zX9 || auth?.nQ2) && (
+          {cust_id && token && (!customer_exists || isNewCustomer) && (
             <div>
               <p className="text-sm mb-3  text-white md:text-black">Name*</p>
               <input

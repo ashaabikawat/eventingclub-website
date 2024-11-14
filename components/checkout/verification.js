@@ -11,14 +11,16 @@ import {
   registerUser,
   validateOtp,
 } from "@/utils/config";
+import { decryptData } from "@/utils/constants";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 const verification = ({ setDetails, handleOpen, details }) => {
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
   const auth = useSelector((store) => store.uSess);
-  console.log(auth);
+
   // const [reload, setReload] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -27,7 +29,12 @@ const verification = ({ setDetails, handleOpen, details }) => {
   // const [otpVerified, setOtpVerified] = useState(false);
   const [numberModal, setNumberModal] = useState(false);
 
-  const number = auth?.vY4;
+  const number = decryptData(auth?.vY4, passphrase);
+  const cust_id = decryptData(auth?.xA1, passphrase);
+  const customer_exists = decryptData(auth?.zX9, passphrase);
+  const token = decryptData(auth?.pT5, passphrase);
+  const isNewCustomer = decryptData(auth?.nQ2, passphrase);
+  const isLoggedIn = decryptData(auth?.jL3, passphrase);
 
   const inputs = useRef([]);
   const dispatch = useDispatch();
@@ -137,7 +144,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   const handleUserDetails = async () => {
     toast.dismiss();
     const payload = {
-      customer_id: auth?.xA1,
+      customer_id: cust_id,
       CustomerName: formData.name,
       Email: formData.email,
     };
@@ -193,7 +200,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
 
     const payload = {
       Otp: stringOtp,
-      customer_id: auth?.xA1,
+      customer_id: cust_id,
     };
 
     try {
@@ -277,14 +284,14 @@ const verification = ({ setDetails, handleOpen, details }) => {
   };
 
   useEffect(() => {
-    if (auth?.xA1) {
+    if (cust_id) {
       fetchCustomerData();
     }
-  }, [auth?.xA1]);
+  }, [cust_id]);
 
   const fetchCustomerData = async () => {
     toast.dismiss();
-    const payload = { customer_id: auth?.xA1 };
+    const payload = { customer_id: cust_id };
     try {
       const response = await axios.post(`${customer.GET_BY_ID}`, payload);
       setDetails(response.data.data);
@@ -311,7 +318,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
     <div className="w-full">
       <div className="flex flex-col gap-2">
         {/* initial mobile number section */}
-        {!auth?.jL3 && !auth?.pT5 && !auth?.xA1 && (
+        {!isLoggedIn && !token && !cust_id && (
           <div className="mb-8">
             <div className="w-full">
               <label className="text-xl">Phone number*</label>
@@ -342,7 +349,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
 
         {/* otp section */}
 
-        {auth?.xA1 && !auth?.pT5 && !numberModal && (
+        {cust_id && !token && !numberModal && (
           <div className="mt-2 md:mt-0">
             <h1 className="md:text-xl text-base mb-2  md:text-black">
               We have sent you an OTP to verify your number
@@ -387,7 +394,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
         )}
 
         {/* form for new user */}
-        {auth?.xA1 && auth?.pT5 && (!auth?.zX9 || auth?.nQ2) && (
+        {cust_id && token && (!customer_exists || isNewCustomer) && (
           <div>
             <p className="text-sm mb-3  text-black">Name*</p>
             <input
