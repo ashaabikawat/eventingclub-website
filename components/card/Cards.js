@@ -6,24 +6,25 @@ const Cards = ({ data }) => {
   const imageUrl = data?.Images[0].image_path;
 
   return (
-    <div className="w-full h-full relative cursor-pointer overflow-hidden">
+    <div className="w-full h-full cursor-pointer flex justify-center items-center flex-col  overflow-hidden">
       {/* image */}
-      <div>
-        <Image
-          src={`${URL}/${imageUrl}`}
-          alt="profile-picture"
-          objectFit="cover"
-          height={375}
-          width={500}
-          className="rounded "
-        />
-      </div>
+      <Image
+        src={`${URL}/${imageUrl}`}
+        alt="profile-picture"
+        objectFit="cover"
+        height={100}
+        width={100} // Remove width prop for automatic sizing
+        className="" // Apply rounded-full directly to Image component
+      />
 
       {/* data */}
-      <div className="absolute inset-x-4 bottom-4">
-        <p className="text-white text-sm md:text-base">{data.Name}</p>
+      <div className="flex justify-center items-center mt-2">
+        <p className=" text-xs text-center md:text-sm font-semibold">
+          {data.Name}
+        </p>
       </div>
     </div>
   );
 };
+
 export default Cards;

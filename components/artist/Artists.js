@@ -56,25 +56,25 @@ const Artists = () => {
       />
 
       {/* cards */}
-      <div className="px-2">
+      <div className="px-2 ">
         <Swiper
           spaceBetween={20}
           slidesPerView={5}
           breakpoints={{
             320: {
-              slidesPerView: 1.5,
+              slidesPerView: 4,
               spaceBetween: 16,
             },
             425: {
-              slidesPerView: 2.2,
+              slidesPerView: 4,
               spaceBetween: 20,
             },
             768: {
-              slidesPerView: 3.2,
+              slidesPerView: 6,
               spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 5.2,
+              slidesPerView: 9,
               spaceBetween: 20,
             },
           }}

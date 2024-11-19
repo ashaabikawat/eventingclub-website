@@ -43,7 +43,7 @@ const Category = () => {
   if (loading) return;
 
   return (
-    <div className="md:py-6 mt-6 mb-8 sm:px-4 px-1 overflow-hidden md:px-4">
+    <div className="md:py-6 mt-6 mb-8 sm:px-4 px-1 overflow-hidden md:px-4  ">
       {/* headers */}
       <CardHeaders
         mobileHeader="Events by categories"
@@ -54,25 +54,25 @@ const Category = () => {
       />
 
       {/* cards */}
-      <div className="px-2">
+      <div className="px-2 ">
         <Swiper
           spaceBetween={20}
           slidesPerView={5}
           breakpoints={{
             320: {
-              slidesPerView: 3,
+              slidesPerView: 4,
               spaceBetween: 16,
             },
             425: {
-              slidesPerView: 2.2,
+              slidesPerView: 4,
               spaceBetween: 20,
             },
             768: {
-              slidesPerView: 3.2,
+              slidesPerView: 6,
               spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 5.2,
+              slidesPerView: 9,
               spaceBetween: 20,
             },
           }}
