@@ -84,7 +84,7 @@ const OrgForm = () => {
                       htmlFor="org-name"
                       className="block text-base font-medium text-gray-900"
                     >
-                      Organization name
+                      Organization name /club name
                     </label>
                     <div className="mt-2">
                       <input

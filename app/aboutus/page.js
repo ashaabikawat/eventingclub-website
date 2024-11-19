@@ -5,6 +5,7 @@ import { CiCircleInfo } from "react-icons/ci";
 import Modal from "../../components/common/custom modal/Modal";
 import Cta from "../../components/cta-btn/Cta";
 import { benefits } from "@/utils/constants";
+import { BsQuestionCircleFill } from "react-icons/bs";
 
 const Page = () => {
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
@@ -90,8 +91,8 @@ const Page = () => {
                     {service.heading}
                   </p>
                   <div>
-                    <CiCircleInfo
-                      size={30}
+                    <BsQuestionCircleFill
+                      size={25}
                       onClick={() => {
                         setIsServiceModalOpen(true);
                         setServiceId(service.id);
