@@ -120,7 +120,7 @@ const Navbar = ({ bgColor }) => {
   return (
     <div className="sticky top-0 z-50 ">
       <Toaster />
-      <div className={` relative w-full ${bgColor} pb-4 z-50`}>
+      <div className={` relative w-full ${bgColor} md:pb-4 pb-1 z-50`}>
         <div className=" md:px-2 mx-4">
           <div className="flex justify-between items-center py-4 space-x-4 ">
             <div className="flex gap-4 justify-between items-center">
@@ -240,14 +240,14 @@ const Navbar = ({ bgColor }) => {
                   </button>
                 </Link>
               )}
-              <button
+              {/* <button
                 type="button"
                 className="md:hidden md:ml-6 ml-4"
                 onClick={handleToggle}
               >
                 <span className="sr-only">open menu</span>
                 <Bars3Icon className="w-6 h-6 cursor-pointer" />
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -260,7 +260,7 @@ const Navbar = ({ bgColor }) => {
                   type="text"
                   value={searchTerm}
                   onChange={handleChange}
-                  className="placeholder:text-slate-400 border w-full border-slate-300 rounded-md py-2 pl-12 pr-3"
+                  className="placeholder:text-slate-400 placeholder:text-sm text-sm  border w-full border-slate-300 rounded-md py-2 pl-12 pr-3"
                   placeholder="Search for Events, Venues"
                 />
               </label>
@@ -344,7 +344,7 @@ const Navbar = ({ bgColor }) => {
             </ul>
           </div>
         </div>
-        <div
+        {/* <div
           className={
             open
               ? "opacity-100 scale-100 bg-white transition-transform duration-700 translate-x-0 ease-in-out absolute top-0 inset-x-0  transform md:hidden h-screen w-screen z-50 overflow-hidden"
@@ -405,7 +405,7 @@ const Navbar = ({ bgColor }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

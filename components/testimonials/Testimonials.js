@@ -2,16 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { testimonials } from "@/utils/constants";
 import Image from "next/image";
 import { Carousel, IconButton } from "@material-tailwind/react";
-// import SwiperCore, {
-//   Navigation,
-//   Pagination,
-//   Scrollbar,
-//   A11y,
-//   EffectFade,
-// } from "swiper";
-// import { Swiper, SwiperSlide } from "swiper/react";
-
-// SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectFade]);
 
 const Testimonials = () => {
   return (
