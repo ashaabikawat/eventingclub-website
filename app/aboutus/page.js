@@ -109,7 +109,7 @@ const Page = () => {
         <div className="mb-16">
           <div classname="">
             <p className="capitalize md:text-3xl text-2xl text-center font-bold text-gray-800 tracking-wide">
-              Our benefits
+              benefits
             </p>
           </div>
           <div className="w-20 h-1 mx-auto bg-blue-600 mt-2"></div>
