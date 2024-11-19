@@ -552,16 +552,16 @@ const TicketsSlider = ({ data, setShowTicket }) => {
 
               {isMobile ? (
                 <Swiper
-                  className="mt-4"
+                  className="mt-4 "
                   spaceBetween={6}
                   slidesPerView={1}
                   breakpoints={{
                     320: {
-                      slidesPerView: 2.6,
-                      spaceBetween: 20,
+                      slidesPerView: 3.4,
+                      spaceBetween: 10,
                     },
                     425: {
-                      slidesPerView: 3.2,
+                      slidesPerView: 4,
                       spaceBetween: 20,
                     },
                     500: {
@@ -615,7 +615,10 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                     </div>
                   ))}
                   {data?.SeasonPassCount > 0 && (
-                    <div onClick={handleSeasonPass} className="cursor-pointer">
+                    <div
+                      onClick={handleSeasonPass}
+                      className="cursor-pointer px-2"
+                    >
                       <SeasonPass
                         data={data}
                         isSeasonpassActive={isSeasonpassActive}

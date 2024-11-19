@@ -27,7 +27,7 @@ const HeroForListWithUs = () => {
           {/* para */}
           <div className="text-center md:text-left">
             <p className="text-white text-sm md:leading-8 font-medium md:text-lg">
-              From concerts and exhibitions to college events and club nights,
+              From concerts and club nights to college events and exhibitions,
               Eventing Club helps you connect with your audience while
               simplifying the entire ticketing process.
             </p>

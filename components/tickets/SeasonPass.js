@@ -32,12 +32,12 @@ const SeasonPass = ({ data, isSeasonpassActive }) => {
     <div
       className={`${
         isSeasonpassActive ? "bg-blue-900 text-white" : " bg-white "
-      }  border border-blue-900  flex items-center justify-start gap-5 flex-col rounded-md px-4 py-4
+      }  border border-blue-900  flex items-center justify-start gap-5 flex-col rounded-md px-2 py-4
 h-36 md:h-40 w-24 md:w-32`}
     >
       <p
-        className="capitalize text-center relative before:inline-block before:w-12 before:h-[2px] before:bg-blue-800
-before:absolute before:-bottom-0 md:before:left-4 text-xs md:text-sm"
+        className="capitalize font-semibold text-center relative before:inline-block before:w-12 before:h-[2px] before:bg-blue-800
+  before:absolute before:-bottom-1 before:left-1/2 before:translate-x-[-50%] text-xs md:text-sm"
       >
         Season pass
       </p>
