@@ -45,7 +45,7 @@ const Artists = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className=" md:py-2 mt-6  md:mt-6 mb-4 sm:px-4 px-1 overflow-hidden md:px-4 ">
+    <div className=" md:py-2 mt-6  md:mt-6 mb-10 md:mb-20sm:px-4 px-1 overflow-hidden md:px-4 ">
       {/* headers */}
       <CardHeaders
         mobileHeader="Browse by Artists"

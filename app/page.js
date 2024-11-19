@@ -12,11 +12,11 @@ export default function Home() {
     <>
       <Hero />
       <Categories />
+      <Featuredevents />
+      <UpcomingEvents />
       <OnlineEvents />
       <TourEvents />
-      <UpcomingEvents />
       <Artists />
-      <Featuredevents />
     </>
   );
 }

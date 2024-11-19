@@ -48,7 +48,7 @@ const Featuredevents = () => {
   }
 
   return (
-    <div className=" mb-16  mt-10 md:mb-20  sm:px-4 px-1 overflow-hidden md:px-4">
+    <div className=" mb-2  mt-10 md:mb-6  sm:px-4 px-1 overflow-hidden md:px-4">
       {/* headers */}
       <CardHeaders
         mobileHeader="Featured Events"
