@@ -2,7 +2,9 @@
 import { IconButton } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { FaHome } from "react-icons/fa";
+import { FaUserLarge } from "react-icons/fa6";
 
 const Footer = () => {
   const socialIcons = [
@@ -32,67 +34,110 @@ const Footer = () => {
     },
   ];
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  console.log(isMenuOpen);
+
   return (
-    <div
-      className="px-10 md:py-8 py-6 text-white"
-      style={{ backgroundColor: "#2f3e93" }}
-    >
-      <div className="flex justify-between items-center md:flex-row flex-col gap-6">
-        {/* Logo Section */}
-        <div className="flex-shrink-0">
-          <span className="sr-only">Logo</span>
-          <Link href="/">
-            <div className="cursor-pointer relative md:h-20 md:w-32 h-14 w-24">
-              <Image
-                src="/Frame 8107.png"
-                alt="logo"
-                layout="fill"
-                className="absolute"
-                objectFit="contain"
-              />
-            </div>
-          </Link>
-        </div>
-
-        {/* Navigation Links */}
-        <div className="flex-grow">
-          <ul className="flex justify-center items-center md:text-xl text-base md:gap-10 gap-4 flex-wrap">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/venue">Venue</Link>
-            </li>
-            <li>
-              <Link href="/artists">Artist</Link>
-            </li>
-            <li>
-              <Link href="/aboutus">About us</Link>
-            </li>
-            <li>
-              <Link href="/list-with-us">List with us</Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Social Icons */}
-        <div className="flex items-center justify-center gap-4">
-          {socialIcons.map((icon) => (
-            <Link key={icon.id} href={icon.url} target="_blank">
-              <IconButton
-                size="lg"
-                className="bg-white border-transparent rounded-full p-6"
-                variant="outlined"
-              >
-                <i
-                  className={`fab ${icon.icon} md:fa-lg fa-xl text-blue-900`}
-                ></i>
-              </IconButton>
+    <>
+      <div
+        className="px-10 md:py-8 py-6 text-white h-full md:pb-10 pb-20"
+        style={{ backgroundColor: "#2f3e93" }}
+      >
+        <div className="flex justify-between items-center md:flex-row flex-col gap-6">
+          {/* Logo Section */}
+          <div className="flex-shrink-0">
+            <span className="sr-only">Logo</span>
+            <Link href="/">
+              <div className="cursor-pointer relative md:h-20 md:w-32 h-14 w-24">
+                <Image
+                  src="/Frame 8107.png"
+                  alt="logo"
+                  layout="fill"
+                  className="absolute"
+                  objectFit="contain"
+                />
+              </div>
             </Link>
-          ))}
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex-grow">
+            <ul className="flex justify-center items-center md:text-xl text-base md:gap-10 gap-4 flex-wrap">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/venue">Venue</Link>
+              </li>
+              <li>
+                <Link href="/artists">Artist</Link>
+              </li>
+              <li>
+                <Link href="/aboutus">About us</Link>
+              </li>
+              <li>
+                <Link href="/list-with-us">List with us</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex items-center justify-center gap-4">
+            {socialIcons.map((icon) => (
+              <Link key={icon.id} href={icon.url} target="_blank">
+                <IconButton
+                  size="lg"
+                  className="bg-white border-transparent rounded-full p-6"
+                  variant="outlined"
+                >
+                  <i
+                    className={`fab ${icon.icon} md:fa-lg fa-xl text-blue-900`}
+                  ></i>
+                </IconButton>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+
+      <div className="md:hidden block">
+        <div className="bg-white w-full h-16 fixed bottom-0 z-50 ">
+          <div className="relative">
+            <div className="flex  h-full items-center justify-between py-4 px-8 ">
+              <div className="flex flex-col items-center">
+                <FaHome size={20} />
+                <span className="text-sm">Home</span>
+              </div>
+              <div className="flex flex-col items-center ">
+                <FaUserLarge size={20} />
+                <span className="text-sm">Profile</span>
+              </div>
+              <div className="flex flex-col items-center ">
+                <FaUserLarge size={20} />
+                <span className="text-sm">Profile</span>
+              </div>
+              <div
+                className="flex flex-col items-center"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+              >
+                <FaUserLarge size={20} />
+                <span className="text-sm">Profile</span>
+              </div>
+            </div>
+            {isMenuOpen && (
+              <>
+                <div className="bg-white h-auto w-40 rounded-lg  shadow-lg absolute bottom-[75px] right-2 p-4">
+                  <ul className="flex flex-col gap-2">
+                    <li className="capitalize">settings</li>
+                    <li className="capitalize">your tickets</li>
+                  </ul>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
