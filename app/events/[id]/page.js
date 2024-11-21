@@ -156,7 +156,7 @@ const Page = () => {
   if (loadings) return <Loading />;
 
   return (
-    <div className="   mb-16">
+    <div className=" relative h-full mb-8">
       <div className=" md:py-1">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6  gap-4  md:p-4 ">
           <div className="   ">
@@ -507,15 +507,39 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="h-32  z-50 w-full fixed bottom-0 ">
-        <button
-          // className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
-          className="w-full  whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
-          onClick={handleBookNow}
-        >
-          Book now{" "}
-          {eventData?.WhatsAppPhoneNumber && <FaWhatsapp className="ml-2" />}
-        </button>
+      <div className="bg-white z-50 w-full  h-auto fixed top-0 py-4 px-10 shadow-md">
+        <div className="flex justify-around md:flex-row flex-col gap-4 ">
+          <div className="flex flex-col gap-2 justify-between">
+            <h1 className="md:text-2xl  text-xl font-bold text-black capitalize">
+              {eventData?.EventName}
+            </h1>
+            <div>
+              <div className="flex gap-4">
+                {" "}
+                <div className="flex items-center justify-start gap-2">
+                  <span>
+                    <FaRegCalendarAlt />
+                  </span>
+                  <span>{eventData?.EventStartDate}</span>
+                </div>
+                <div className="flex items-center justify-start gap-2">
+                  <span>
+                    <LuClock />
+                  </span>
+                  <span>{eventData?.EventStartTime}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            // className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+            className="  whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+            onClick={handleBookNow}
+          >
+            Book now{" "}
+            {eventData?.WhatsAppPhoneNumber && <FaWhatsapp className="ml-2" />}
+          </button>
+        </div>
       </div>
     </div>
   );
