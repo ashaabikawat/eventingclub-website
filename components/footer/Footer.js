@@ -1,12 +1,17 @@
 "use client";
 import { IconButton } from "@material-tailwind/react";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { FaUserLarge } from "react-icons/fa6";
+import Link from "next/link";
+import { decryptData } from "@/utils/constants";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
+  const auth = useSelector((store) => store.uSess);
+  const cust_id = decryptData(auth?.xA1, passphrase);
   const socialIcons = [
     {
       id: 1,
@@ -34,8 +39,8 @@ const Footer = () => {
     },
   ];
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  console.log(isMenuOpen);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // console.log(isMenuOpen);
 
   return (
     <>
@@ -104,10 +109,12 @@ const Footer = () => {
         <div className="bg-white w-full h-16 fixed bottom-0 z-50 ">
           <div className="relative">
             <div className="flex  h-full items-center justify-between py-4 px-8 ">
-              <div className="flex flex-col items-center">
-                <FaHome size={20} />
-                <span className="text-sm">Home</span>
-              </div>
+              <Link href={`/`}>
+                <div className="flex flex-col items-center">
+                  <FaHome size={20} />
+                  <span className="text-sm">Home</span>
+                </div>
+              </Link>
               <div className="flex flex-col items-center ">
                 <FaUserLarge size={20} />
                 <span className="text-sm">Profile</span>
@@ -116,15 +123,18 @@ const Footer = () => {
                 <FaUserLarge size={20} />
                 <span className="text-sm">Profile</span>
               </div>
-              <div
-                className="flex flex-col items-center"
-                onClick={() => setIsMenuOpen((prev) => !prev)}
-              >
-                <FaUserLarge size={20} />
-                <span className="text-sm">Profile</span>
-              </div>
+
+              <Link href={`/userDetails/${cust_id}`}>
+                <div
+                  className="flex flex-col items-center"
+                  // onClick={() => setIsMenuOpen((prev) => !prev)}
+                >
+                  <FaUserLarge size={20} />
+                  <span className="text-sm">Profile</span>
+                </div>
+              </Link>
             </div>
-            {isMenuOpen && (
+            {/* {isMenuOpen && (
               <>
                 <div className="bg-white h-auto w-40 rounded-lg  shadow-lg absolute bottom-[75px] right-2 p-4">
                   <ul className="flex flex-col gap-2">
@@ -133,7 +143,7 @@ const Footer = () => {
                   </ul>
                 </div>
               </>
-            )}
+            )} */}
           </div>
         </div>
       </div>

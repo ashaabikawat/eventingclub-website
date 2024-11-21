@@ -96,7 +96,7 @@ const EditProfile = ({ id, data }) => {
 
   return (
     <div className="text-black md:pb-6 pb-4">
-      <Toaster />
+      {/* <Toaster /> */}
       <div className="flex items-start justify-between flex-col md:gap-6 gap-10">
         <div className="flex justify-between items-start flex-col w-full">
           <h1 className="md:text-xl capitalize text-lg mb-6">
