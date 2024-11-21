@@ -60,7 +60,7 @@ const Category = () => {
           slidesPerView={5}
           breakpoints={{
             320: {
-              slidesPerView: 4,
+              slidesPerView: 3,
               spaceBetween: 16,
             },
             425: {
@@ -72,7 +72,7 @@ const Category = () => {
               spaceBetween: 20,
             },
             1024: {
-              slidesPerView: 9,
+              slidesPerView: 8,
               spaceBetween: 20,
             },
           }}
