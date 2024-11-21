@@ -94,8 +94,8 @@ const TourEvents = () => {
                       <Image
                         src={`${URL}/${data?.EventCardImages[0]?.image_path}`}
                         alt="profile-picture"
-                        height={375}
-                        width={500}
+                        height={200}
+                        width={200}
                         objectFit="cover"
                         className="rounded"
                       />
