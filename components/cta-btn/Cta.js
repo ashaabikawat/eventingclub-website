@@ -15,7 +15,7 @@ const Cta = () => {
             management and ticketing.
           </p>
           <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-md transition hover:from-blue-700 hover:to-indigo-700">
-            Join now
+            <a href="#form">Join now</a>
           </button>
         </div>
       </div>

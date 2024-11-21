@@ -3,7 +3,7 @@ import React from "react";
 
 const OrgForm = () => {
   return (
-    <div className="h-full w-full py-10  md:px-20 px-6  ">
+    <div className="h-full w-full py-10  md:px-20 px-6 " id="form">
       <div className="h-full w-full grid md:grid-cols-2 md:gap-x-4 gap-y-6">
         {/* illustration */}
         <div className=" h-full w-full">

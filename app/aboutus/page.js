@@ -129,9 +129,9 @@ const Page = () => {
         </div>
 
         {/* cta btn */}
-        <div className="mb-12">
+        {/* <div className="mb-12">
           <Cta />
-        </div>
+        </div> */}
       </div>
     </div>
   );

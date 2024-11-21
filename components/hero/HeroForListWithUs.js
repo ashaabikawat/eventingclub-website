@@ -36,7 +36,7 @@ const HeroForListWithUs = () => {
           {/* cta */}
           <div className="text-center md:text-left">
             <button className="text-white bg-gradient-to-r from-blue-600 to-indigo-600 font-semibold py-3 px-6 rounded-md transition hover:from-blue-700 hover:to-indigo-700 ">
-              List Your Event
+              <a href="#form">List Your Event</a>
             </button>
           </div>
         </div>
