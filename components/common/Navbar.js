@@ -14,6 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { homepageSearch } from "../../utils/config";
 import { MdEventAvailable } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { decryptData } from "@/utils/constants";
 
@@ -118,9 +119,9 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="sticky top-0 z-50 ">
+    <div className=" ">
       <Toaster />
-      <div className={` relative w-full ${bgColor} md:pb-4 pb-1 z-50`}>
+      <div className={` relative w-full ${bgColor} pb-1 z-50`}>
         <div className=" md:px-2 mx-4">
           <div className="flex justify-between items-center py-4 space-x-4 ">
             <div className="flex gap-4 justify-between items-center">
@@ -138,12 +139,61 @@ const Navbar = ({ bgColor }) => {
                   </div>
                 </Link>
               </div>
+            </div>
+
+            <div className="hidden lg:flex justify-center  mt-2 text-lg">
+              <ul
+                className={`flex justify-center  ${
+                  homePageUrl ? "gap-8" : "gap-20"
+                }`}
+              >
+                <li
+                  className=" text-black relative transition-all w-min-content
+          before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-blue-900 before:transition-all before:duration-500
+          hover:before:w-full hover:before:left-0 hover:before:bg-blue-500"
+                >
+                  <Link href="/" className="">
+                    Home
+                  </Link>
+                </li>
+                <li
+                  className=" text-black relative transition-all w-min-content
+          before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-blue-900 before:transition-all before:duration-500
+          hover:before:w-full hover:before:left-0 hover:before:bg-blue-500 "
+                >
+                  <Link href="/venue">Venue</Link>
+                </li>
+                <li
+                  className=" text-black relative transition-all w-min-content
+          before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-blue-900 before:transition-all before:duration-500
+          hover:before:w-full hover:before:left-0 hover:before:bg-blue-500 "
+                >
+                  <Link href="/artists ">Artist</Link>
+                </li>
+                <li
+                  className=" text-black relative transition-all w-min-content
+          before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-blue-900 before:transition-all before:duration-500
+          hover:before:w-full hover:before:left-0 hover:before:bg-blue-500 "
+                >
+                  <Link href="/aboutus ">About us</Link>
+                </li>
+                <li
+                  className=" text-black relative transition-all w-min-content
+          before:w-0 before:h-1 before:absolute before:bottom-0 before:right-0 before:bg-blue-900 before:transition-all before:duration-500
+          hover:before:w-full hover:before:left-0 hover:before:bg-blue-500"
+                >
+                  <Link href="/list-with-us">List with us</Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
               {homePageUrl && (
-                <div className="hidden md:block lg:w-600px md:w-96 relative">
+                <div className="hidden md:block md:w-96 relative">
                   <label className="relative">
                     <span className="sr-only">search</span>
 
-                    <div className="w-5 h-5 absolute inset-y-0 left-5 ">
+                    <div className="w-5 h-5 absolute inset-y-0 left-3 ">
                       <MagnifyingGlassIcon className="text-gray-400" />
                     </div>
 
@@ -151,7 +201,7 @@ const Navbar = ({ bgColor }) => {
                       type="text"
                       value={searchTerm}
                       onChange={handleChange}
-                      className="placeholder:text-slate-400 border w-full md:placeholder:text-base border-slate-300 rounded-md py-3 pl-10 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50"
+                      className="placeholder:text-slate-400 border w-full md:placeholder:text-base border-gray-300 rounded-md py-2 pl-10 pr-3 outline-none focus:outline-none focus:ring focus:border-gray-50"
                       placeholder="Search for Events, Venues"
                     />
                   </label>
@@ -230,7 +280,7 @@ const Navbar = ({ bgColor }) => {
               {isLoggedIn ? (
                 <div className="flex justify-center items-center">
                   <Link href={`/userDetails/${cust_id}`}>
-                    <FaRegCircleUser className="size-8 md:size-10 text-gray-700 cursor-pointer" />
+                    <FaUserCircle className="size-8 md:size-8 text-gray-700 cursor-pointer" />
                   </Link>
                 </div>
               ) : (
@@ -324,7 +374,7 @@ const Navbar = ({ bgColor }) => {
             </div>
           )}
 
-          <div className="hidden md:flex justify-start gap-20 mt-2 text-lg">
+          {/* <div className="hidden md:flex justify-start gap-20 mt-2 text-lg">
             <ul className="flex justify-start gap-16">
               <li className=" text-black">
                 <Link href="/">Home</Link>
@@ -342,7 +392,7 @@ const Navbar = ({ bgColor }) => {
                 <Link href="/list-with-us">List with us</Link>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
         {/* <div
           className={

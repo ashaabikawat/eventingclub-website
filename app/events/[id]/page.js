@@ -26,6 +26,7 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { FaWhatsapp } from "react-icons/fa6";
 
 import { register } from "swiper/element/bundle";
 import Link from "next/link";
@@ -226,7 +227,10 @@ const Page = () => {
                 className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
                 onClick={handleBookNow}
               >
-                Book now
+                Book now{" "}
+                {eventData?.WhatsAppPhoneNumber && (
+                  <FaWhatsapp className="ml-2" />
+                )}
               </button>
             </div>
           </div>
@@ -502,6 +506,16 @@ const Page = () => {
             </Swiper>
           </div>
         </div>
+      </div>
+      <div className="h-32  z-50 w-full fixed bottom-0 ">
+        <button
+          // className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+          className="w-full  whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+          onClick={handleBookNow}
+        >
+          Book now{" "}
+          {eventData?.WhatsAppPhoneNumber && <FaWhatsapp className="ml-2" />}
+        </button>
       </div>
     </div>
   );

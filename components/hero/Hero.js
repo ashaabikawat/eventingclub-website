@@ -81,7 +81,7 @@ const Hero = () => {
   if (loading) return;
 
   return (
-    <div className=" h-full mt-6 w-full">
+    <div className=" h-full w-full">
       <div className=" h-full  w-full">
         <swiper-container
           ref={swiperRef}
