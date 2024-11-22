@@ -48,7 +48,7 @@ const TourEvents = () => {
   }
 
   return (
-    <div className=" sm:px-4 px-1 overflow-hidden md:px-4 ">
+    <div className="  overflow-hidden px-6 md:px-6 ">
       {/* headers */}
       {/* <CardHeaders
         mobileHeader="Event Tour"
@@ -57,7 +57,7 @@ const TourEvents = () => {
         desktopText=""
         url=""
       /> */}
-      <h1 className="px-2 capitalize text-base md:text-xl lg:text-3xl font-bold">
+      <h1 className="px-2 mt-6 md:mt-12 capitalize text-lg md:text-xl lg:text-3xl font-bold">
         Event tour
       </h1>
 
@@ -94,8 +94,8 @@ const TourEvents = () => {
                       <Image
                         src={`${URL}/${data?.EventCardImages[0]?.image_path}`}
                         alt="profile-picture"
-                        height={200}
-                        width={200}
+                        height={300}
+                        width={300}
                         objectFit="cover"
                         className="rounded"
                       />

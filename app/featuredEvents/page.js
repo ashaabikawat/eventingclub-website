@@ -280,36 +280,36 @@ const Page = () => {
     }
   };
   return (
-    <div className="md:py-6 md:mb-16 mb-16">
+    <div className="md:py-6 mb-12 px-4 md:px-8 pt-10">
       {isMobile && !filterOpenModal && (
-        <h1 className="md:text-3xl mb-4 px-4 font-semibold text-lg ">
+        <h1 className="md:text-3xl mb-4  font-semibold text-lg ">
           Featured Events:
         </h1>
       )}
       {!filterOpenModal && isMobile && (
-        <div className="grid grid-cols-2 md:hidden mb-2 items-center justify-center">
+        <div className="grid grid-cols-2 md:hidden mb-2 items-center justify-center  ">
           <div
-            className="text-center flex items-center justify-center gap-2 py-2 border border-gray-300"
+            className="text-center flex items-center justify-center gap-1 py-2 border border-gray-300"
             onClick={() => setFilterOpenModal(true)}
           >
             <button>
               <TbFilter size={18} color="gray" />
             </button>
-            <span className="text-center">Filter</span>
+            <span className="text-center font-semibold">Filter</span>
           </div>
-          <div className="text-center flex items-center justify-center gap-2 py-2 border border-gray-300">
+          <div className="text-center flex items-center justify-center gap-1 py-2 border border-gray-300">
             <button>
               <FaMapMarkerAlt size={18} color="gray" />
             </button>
             <Link href={`/venue`}>
-              <span className="text-center">Venues</span>
+              <span className="text-center font-semibold">Venues</span>
             </Link>
           </div>
         </div>
       )}
 
-      <div className=" w-full md:px-6 px-4">
-        <div className="w-full  grid gap-6  md:grid-cols-[300px_minmax(300px,_1fr)_1fr]">
+      <div className=" w-full">
+        <div className="w-full  grid gap-10  md:grid-cols-[300px_minmax(300px,_1fr)_1fr]">
           {!isMobile && (
             <div className="hidden md:block">
               <Filter
@@ -340,10 +340,10 @@ const Page = () => {
             <>
               {!filterOpenModal && (
                 <>
-                  <h1 className="md:text-xl hidden md:block  mt-4 px-4 font-semibold text-lg ">
+                  <h1 className="md:text-xl hidden md:block  mt-4 font-semibold text-lg ">
                     Featured Events:
                   </h1>
-                  <div className="grid col-span-2 lg:grid-cols-3 mt-6 md:px-4 grid-cols-2 lg:gap-4 md:gap-6 gap-4">
+                  <div className="grid col-span-2 lg:grid-cols-3 mt-6  grid-cols-2 lg:gap-y-12 md:gap-6 gap-4 gap-y-10">
                     {error ? (
                       <div className="md:mt-10 md:mb-10 col-span-2 lg:col-span-3">
                         <NotFound />

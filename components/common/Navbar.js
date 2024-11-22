@@ -119,10 +119,15 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className=" ">
+    <div className="">
       <Toaster />
-      <div className={` relative w-full ${bgColor} pb-1 z-50`}>
-        <div className=" md:px-2 mx-4">
+      <div
+        className={` relative w-full  ${bgColor} pb-1 z-50`}
+        style={{
+          boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
+        }}
+      >
+        <div className=" px-4 md:px-6">
           <div className="flex justify-between items-center py-4 space-x-4 ">
             <div className="flex gap-4 justify-between items-center">
               <div>
@@ -130,7 +135,7 @@ const Navbar = ({ bgColor }) => {
                 <Link href="/">
                   <div className="cursor-pointer relative md:h-20 md:w-36 h-14 w-28">
                     <Image
-                      src="/TicketEventingClubLogo.png"
+                      src="/Eventing club logo.png"
                       alt="logo"
                       layout="fill"
                       className="absolute"
@@ -144,7 +149,7 @@ const Navbar = ({ bgColor }) => {
             <div className="hidden lg:flex justify-center  mt-2 text-lg">
               <ul
                 className={`flex justify-center  ${
-                  homePageUrl ? "gap-8" : "gap-20"
+                  homePageUrl ? "gap-8" : "gap-14"
                 }`}
               >
                 <li
@@ -280,7 +285,7 @@ const Navbar = ({ bgColor }) => {
               {isLoggedIn ? (
                 <div className="flex justify-center items-center">
                   <Link href={`/userDetails/${cust_id}`}>
-                    <FaUserCircle className="size-8 md:size-8 text-gray-700 cursor-pointer" />
+                    <FaUserCircle className="size-8 md:size-10 text-gray-700 cursor-pointer" />
                   </Link>
                 </div>
               ) : (

@@ -25,16 +25,16 @@ const CardHeaders = ({
 
   return (
     <div className="flex justify-between items-center px-2">
-      <h1 className=" capitalize text-base md:text-xl lg:text-3xl font-bold">
+      <h1 className=" capitalize text-lg md:text-xl lg:text-3xl font-bold">
         {isMobile ? `${mobileHeader}:` : `${desktopHeader}:`}
       </h1>
-      <div className="flex justify-between items-center gap-2 ">
+      <div className="flex justify-between items-center gap-1 ">
         <Link href={url}>
-          <span className="capitalize md:text-base lg:text-lg text-sm">
+          <span className="capitalize md:text-base lg:text-lg text-[16px]">
             {isMobile ? mobileText : desktopText}
           </span>
         </Link>
-        <ChevronRightIcon className="size-2 sm:size-4  " />
+        <ChevronRightIcon className="size-4 sm:size-4  " />
       </div>
     </div>
   );

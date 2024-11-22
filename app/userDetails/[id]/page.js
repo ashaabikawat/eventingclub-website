@@ -94,7 +94,7 @@ const Page = () => {
             <ul className=" flex-wrap   flex  md:gap-8 gap-6  items-center -mb-px">
               <li
                 onClick={() => setIsProfile(true)}
-                className={`inline-block py-4 border-b-2 cursor-pointer border-transparent md:text-2xl text-lg rounded-t-lg  ${
+                className={`inline-block border-b-2 cursor-pointer border-transparent md:text-2xl text-lg rounded-t-lg  ${
                   isProfile
                     ? "border-blue-600 rounded-t-lg  dark:text-blue-500 dark:border-blue-500 text-blue-500"
                     : "hover:text-gray-600 hover:border-gray-300 text-gray-600 dark:hover:text-gray-300"
@@ -104,7 +104,7 @@ const Page = () => {
               </li>
               <li
                 onClick={() => setIsProfile(false)}
-                className={` inline-block py-4 border-transparent cursor-pointer border-b-2 text-lg md:text-2xl ${
+                className={` inline-block border-transparent cursor-pointer border-b-2 text-lg md:text-2xl ${
                   !isProfile
                     ? "border-blue-600 rounded-t-lg  dark:text-blue-500 dark:border-blue-500 text-blue-500"
                     : "hover:text-gray-600 hover:border-gray-300 text-gray-600 dark:hover:text-gray-300"

@@ -30,7 +30,7 @@ const PageCardWithText = ({ event }) => {
   }, []);
 
   return (
-    <div className="md:mb-4 mb-4">
+    <div className="">
       {/* image */}
       <Link href={`/events/${event.event_id}`}>
         <div>

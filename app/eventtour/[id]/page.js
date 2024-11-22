@@ -61,9 +61,9 @@ const Page = () => {
   if (loadings) return <Loading />;
 
   return (
-    <div className="   mb-16">
-      <div className="md:px-6 md:py-1">
-        <div className="md:py-4">
+    <div className="  py-10">
+      <div className="md:px-6 px-4">
+        <div className="">
           <div className="md:grid grid-cols-2 gap-10">
             <div className=" md:min-h-[400px] relative  max-h-[300px]   ">
               {loadings ? (
@@ -134,7 +134,7 @@ const Page = () => {
           </div>
         </div>
 
-        <div className="flex mt-6 gap-4 lg:mt-10 px-4">
+        <div className="flex mt-6 gap-4 lg:mt-10 md:px-0 px-4">
           {tourEvent?.map((event) => (
             <div className="md:mb-4 mb-4">
               <Link href={`/events/${event.event_id}`}>

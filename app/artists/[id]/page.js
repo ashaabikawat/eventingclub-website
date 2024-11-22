@@ -62,9 +62,9 @@ const Page = () => {
   if (loading) return <Loading />;
 
   return (
-    <>
+    <div className="">
       {/* artist detail */}
-      <div className="md:py-10 md:px-10 ">
+      <div className="md:py-10 md:px-6 py-10 ">
         <div className="flex md:flex-row items-center md:gap-10 gap-2   flex-col  ">
           <div className=" md:h-64 md:w-64 h-52 w-52 relative">
             {loading ? (
@@ -136,7 +136,7 @@ const Page = () => {
       </div>
 
       {/* other artists */}
-      <div className=" md:px-6 md:mt-4 px-4 mb-8">
+      <div className=" md:px-6 md:mt-4 mt-4 px-4 pb-12 ">
         <div className="flex justify-between items-center">
           <h1 className="font-bold capitalize md:text-3xl text-xl ">
             Other artists:
@@ -175,7 +175,25 @@ const Page = () => {
                   <SwiperSlide key={artist.id}>
                     <div key={artist._id} className="w-full ">
                       <Link href={`/artists/${artist._id}`}>
-                        <Cards data={artist} />
+                        {/* <Cards data={artist} /> */}
+                        <div className="w-full h-full cursor-pointer flex justify-center items-center flex-col  overflow-hidden">
+                          {/* image */}
+                          <Image
+                            src={`${URL}/${artist?.Images[0].image_path}`}
+                            alt="profile-picture"
+                            objectFit="cover"
+                            height={300}
+                            width={300} // Remove width prop for automatic sizing
+                            className="rounded" // Apply rounded-full directly to Image component
+                          />
+
+                          {/* data */}
+                          <div className="flex justify-center items-center mt-2">
+                            <p className=" text-xs text-center md:text-sm font-semibold">
+                              {artist.Name}
+                            </p>
+                          </div>
+                        </div>
                       </Link>
                     </div>
                   </SwiperSlide>
@@ -185,7 +203,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

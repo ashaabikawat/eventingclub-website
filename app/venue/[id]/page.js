@@ -53,7 +53,7 @@ const Page = () => {
   const imageUrl = venueData?.venueImages[0]?.image_path;
 
   return (
-    <div className="w-full h-full overflow-x-hidden md:px-6 py-10 md:mb-16">
+    <div className="w-full h-full overflow-x-hidden md:px-6 pt-10 mb-12  ">
       <Toaster />
       <div className=" w-full h-full  ">
         <div className=" w-full h-full  lg:border-b-2 lg:border-gray-200 grid md:grid-cols-2">
@@ -103,7 +103,7 @@ const Page = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-bold mt-4 px-4  md:text-3xl capitalize font-bold ">
+          <h1 className="text-bold mt-4 px-4 text-lg  md:text-3xl capitalize font-bold ">
             upcoming events at this venue:
           </h1>
           {venueEventsdata && venueEventsdata.length > 0 ? (

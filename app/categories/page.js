@@ -90,11 +90,11 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" px-4 py-6 md:py-8 md:px-6 mb-16">
+    <div className=" px-4 py-10 md:py-10 md:px-6 mb-2">
       <Toaster />
       {/* header */}
       <div className="flex flex-col md:flex-row md:justify-between   md:items-center  gap-4">
-        <h1 className=" font-bold  lg:text-2xl md:text-xl ">
+        <h1 className=" font-bold  lg:text-2xl md:text-xl text-xl ">
           Explore Events By Categories
         </h1>
         <div className="md:w-96 ">
@@ -117,7 +117,7 @@ const Page = () => {
       </div>
 
       {/* cards */}
-      <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-6 w-full mt-6  cursor-pointer">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 w-full mt-8  cursor-pointer">
         {categoriesDuplicate.map((data) => (
           <Link key={data.id} href={`/categories/${data._id}`}>
             <PageCard key={data.id} data={data} />

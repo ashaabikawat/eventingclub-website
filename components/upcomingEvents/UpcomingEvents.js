@@ -119,12 +119,12 @@ const UpcomingEvents = () => {
   }
 
   return (
-    <div className=" mb-2  mt-4 md:mb-6  sm:px-4 px-1 overflow-hidden md:px-4">
-      <div className="flex md:mt-0  md:flex-row flex-col justify-between px-4">
-        <h1 className=" capitalize text-base md:text-xl lg:text-3xl font-bold">
+    <div className="mt-6 md:mt-12 px-8 md:px-6 overflow-hidden ">
+      <div className="flex md:mt-0  md:flex-row flex-col justify-between ">
+        <h1 className=" capitalize text-lg md:text-xl lg:text-3xl font-bold">
           Upcoming Events:
         </h1>
-        <div className="flex lg:gap-12 gap-6 md:mt-0 mt-4 lg:text-lg  md:text-sm text-xs font-bold ">
+        <div className="flex lg:gap-12 gap-6 md:mt-0 mt-4 lg:text-lg  md:text-sm text-sm font-bold ">
           <span className="cursor-pointer" onClick={() => filterEvents("All")}>
             All
           </span>
@@ -146,7 +146,7 @@ const UpcomingEvents = () => {
         </div>
       </div>
 
-      <div className="px-3">
+      <div className="">
         <Swiper
           spaceBetween={6}
           slidesPerView={5}

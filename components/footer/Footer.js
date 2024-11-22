@@ -68,19 +68,19 @@ const Footer = () => {
           {/* Navigation Links */}
           <div className="flex-grow">
             <ul className="flex justify-center items-center md:text-xl text-base md:gap-10 gap-4 flex-wrap">
-              <li>
+              <li className="text-base font-semibold">
                 <Link href="/">Home</Link>
               </li>
-              <li>
+              <li className="text-base font-semibold">
                 <Link href="/venue">Venue</Link>
               </li>
-              <li>
+              <li className="text-base font-semibold">
                 <Link href="/artists">Artist</Link>
               </li>
-              <li>
+              <li className="text-base font-semibold">
                 <Link href="/aboutus">About us</Link>
               </li>
-              <li>
+              <li className="text-base font-semibold">
                 <Link href="/list-with-us">List with us</Link>
               </li>
             </ul>
@@ -91,12 +91,12 @@ const Footer = () => {
             {socialIcons.map((icon) => (
               <Link key={icon.id} href={icon.url} target="_blank">
                 <IconButton
-                  size="lg"
-                  className="bg-white border-transparent rounded-full p-6"
+                  size="base"
+                  className="bg-white border-transparent rounded-full md:p-6 "
                   variant="outlined"
                 >
                   <i
-                    className={`fab ${icon.icon} md:fa-lg fa-xl text-blue-900`}
+                    className={`fab ${icon.icon} md:fa-xl fa-lg text-blue-900`}
                   ></i>
                 </IconButton>
               </Link>
@@ -105,31 +105,28 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="md:hidden block">
-        <div className="bg-white w-full h-16 fixed bottom-0 z-50 ">
+      <div className="md:hidden block mt-6 ">
+        <div className="bg-white w-full border-t-[1px] border-gray-300 h-16 fixed bottom-0 z-30 ">
           <div className="relative">
             <div className="flex  h-full items-center justify-between py-4 px-8 ">
               <Link href={`/`}>
                 <div className="flex flex-col items-center">
-                  <FaHome size={20} />
+                  <FaHome size={16} className="text-gray-600" />
                   <span className="text-sm">Home</span>
                 </div>
               </Link>
               <div className="flex flex-col items-center ">
-                <FaUserLarge size={20} />
+                <FaUserLarge size={16} className="text-gray-600" />
                 <span className="text-sm">Profile</span>
               </div>
-              <div className="flex flex-col items-center ">
-                <FaUserLarge size={20} />
+              <div className="flex flex-col  items-center ">
+                <FaUserLarge size={16} className="text-gray-600" />
                 <span className="text-sm">Profile</span>
               </div>
 
               <Link href={`/userDetails/${cust_id}`}>
-                <div
-                  className="flex flex-col items-center"
-                  // onClick={() => setIsMenuOpen((prev) => !prev)}
-                >
-                  <FaUserLarge size={20} />
+                <div className="flex flex-col  items-center">
+                  <FaUserLarge size={16} className="text-gray-600" />
                   <span className="text-sm">Profile</span>
                 </div>
               </Link>

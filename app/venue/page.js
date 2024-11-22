@@ -74,10 +74,10 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" mt-8 mb-16  px-6 md:mb-16 ">
+    <div className=" px-4 py-10 md:py-10 md:px-6 mb-2 ">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-        <h1 className="  font-bold  lg:text-2xl md:text-xl ">
+        <h1 className="  font-bold text-xl  lg:text-2xl md:text-xl ">
           Pick your venue:
         </h1>
         <div className="md:w-96">
@@ -98,7 +98,7 @@ const Page = () => {
           </label>
         </div>
       </div>
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6 md:gap-4 w-full mt-6  ">
+      <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6 md:gap-4 w-full mt-6  ">
         {venuesDuplicate.map((data) => (
           <Link href={`/venue/${data._id}`} key={data._id}>
             <VenueCard data={data} />

@@ -6,7 +6,7 @@ const PageCard = ({ data }) => {
   const imageUrl = data?.Images[0].image_path;
 
   return (
-    <div className="w-full h-full relative rounded cursor-pointer overflow-hidden">
+    <div className="w-full h-full  rounded cursor-pointer overflow-hidden border border-gray-300 p-4">
       {/* image */}
       <div>
         <Image
@@ -19,10 +19,11 @@ const PageCard = ({ data }) => {
           // layout="fill"
         />
       </div>
-
       {/* data */}
-      <div className="absolute inset-x-4 bottom-4">
-        <p className="text-white text-sm md:text-base">{data.Name}</p>
+      <div className="">
+        <p className="text-black text-sm md:text-lg font-semibold mt-2 text-center capitalize">
+          {data.Name}
+        </p>
       </div>
     </div>
   );

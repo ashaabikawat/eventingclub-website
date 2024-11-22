@@ -12,8 +12,8 @@ const Cards = ({ data }) => {
         src={`${URL}/${imageUrl}`}
         alt="profile-picture"
         objectFit="cover"
-        height={300}
-        width={300} // Remove width prop for automatic sizing
+        height={100}
+        width={100} // Remove width prop for automatic sizing
         className="rounded-md" // Apply rounded-full directly to Image component
       />
 
