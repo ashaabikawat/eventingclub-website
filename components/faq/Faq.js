@@ -10,7 +10,7 @@ import { FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
 
 const Faq = () => {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(0);
   const [selectedId, setSelectedId] = useState(null);
   const handleOpen = (value) => {
     setSelectedId(value);

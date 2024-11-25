@@ -56,35 +56,45 @@ const Page = () => {
   return (
     <>
       <Toaster />
-      <div className=" text-white w-full h-full ">
-        <div
-          className="flex custom-flex-row  flex-col sm:flex-row justify-between  
-           md:px-6 px-4 items-center py-4  "
-          style={{ backgroundColor: "#2f3e93" }}
-        >
-          <div className="flex  items-center md:gap-4 gap-2">
-            <div className="relative md:h-28 md:w-28 w-12 h-12">
+      <div className=" text-white w-full h-full flex flex-col justify-center gap-4 ">
+        <div className="flex flex-col sm:flex-row justify-between items-center md:px-6 px-4 py-6 bg-blue-900 text-white">
+          {/* Profile Section */}
+          <div className="flex items-center w-full sm:w-auto gap-6">
+            {/* Profile Image */}
+            <div className="relative h-24 w-24 md:h-28 md:w-28">
               <Image
-                src={"/user-icon-2048x2048-ihoxz4vq.png"}
+                src="/user-icon-2048x2048-ihoxz4vq.png"
                 alt="profile"
                 layout="fill"
                 objectFit="cover"
-                className="rounded-full"
+                className="rounded-full border-4 border-white"
               />
             </div>
-            <div className=" flex flex-col ">
-              <p className="md:text-2xl text-sm capitalize font-bold mb-4">
-                {data ? data.CustomerName : ""}
+
+            {/* Profile Info */}
+            <div className="flex flex-col gap-2">
+              <p className="text-xl md:text-2xl font-bold capitalize">
+                {data ? data.CustomerName : "Loading..."}
               </p>
-              <p className="md:text-base text-xs">{data ? data.Email : " "}</p>
+              <p className="text-sm md:text-base text-gray-300">
+                {data ? data.Email : "Loading email..."}
+              </p>
+              <button
+                onClick={logoutFunction}
+                className="text-sm md:text-base md:hidden font-medium px-4 py-2 bg-blue-600 hover:bg-red-700 transition rounded-lg shadow"
+              >
+                Sign Out
+              </button>
             </div>
           </div>
-          <div>
+
+          {/* Additional Sign Out Button */}
+          <div className="mt-4 sm:mt-0">
             <button
               onClick={logoutFunction}
-              className="whitespace-nowrap mt-6 text-sm p-2 inline-flex items-center justify-center  border border-white-500 rounded-md bg-transparent shadow-sm md:text-base md:p-2  md:font-medium text-white "
+              className="hidden sm:inline-block text-sm md:text-base font-medium px-4 py-2 bg-transparent border border-white rounded-lg text-white hover:bg-white hover:text-blue-900 transition"
             >
-              Sign out
+              Sign Out
             </button>
           </div>
         </div>
@@ -96,8 +106,8 @@ const Page = () => {
                 onClick={() => setIsProfile(true)}
                 className={`inline-block border-b-2 cursor-pointer border-transparent md:text-2xl text-lg rounded-t-lg  ${
                   isProfile
-                    ? "border-blue-600 rounded-t-lg  dark:text-blue-500 dark:border-blue-500 text-blue-500"
-                    : "hover:text-gray-600 hover:border-gray-300 text-gray-600 dark:hover:text-gray-300"
+                    ? "border-blue-600 rounded-t-lg  dark:text-blue-900 dark:border-blue-500 text-blue-900"
+                    : "hover:text-black hover:border-blue-600 text-gray-900 dark:hover:text-black"
                 }`}
               >
                 Edit profile
@@ -106,8 +116,8 @@ const Page = () => {
                 onClick={() => setIsProfile(false)}
                 className={` inline-block border-transparent cursor-pointer border-b-2 text-lg md:text-2xl ${
                   !isProfile
-                    ? "border-blue-600 rounded-t-lg  dark:text-blue-500 dark:border-blue-500 text-blue-500"
-                    : "hover:text-gray-600 hover:border-gray-300 text-gray-600 dark:hover:text-gray-300"
+                    ? "border-blue-600 rounded-t-lg  dark:text-blue-900 dark:border-blue-500 text-blue-900"
+                    : "hover:text-black hover:border-blue-600 text-gray-900 dark:hover:text-black"
                 }`}
               >
                 Tickets
@@ -115,6 +125,7 @@ const Page = () => {
             </ul>
           </div>
         </div>
+
         <div className="px-4 md:px-8  ">
           <div className="h-[100%]">
             {isProfile ? <EditProfile id={id} data={data} /> : <TicketById />}

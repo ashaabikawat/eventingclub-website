@@ -388,7 +388,7 @@ const Filter = ({
         {" "}
         {/* Ensures it takes full screen height */}
         {filterOpenModal && (
-          <div className="w-full fixed inset-0 z-40 px-4 bg-white overflow-y-auto h-full min-h-screen">
+          <div className="w-full py-4 fixed inset-0 z-40 px-4 bg-white overflow-y-auto ">
             <div className="mb-4 mt-24">
               <div className="w-full border-b-2 border-gray-300 pb-4">
                 <div className="flex items-center justify-between">
@@ -400,11 +400,11 @@ const Filter = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 w-full min-h-screen bg-gray-300">
+            <div className="grid grid-cols-2 w-full h-full bg-gray-300">
               {" "}
               {/* Ensure minimum height */}
               {/* Sidebar */}
-              <div className="w-full border border-gray-300 mt-6 flex flex-col justify-between">
+              <div className="w-full max-h-screen border border-gray-300 bg-gray-300 mt-6 flex flex-col justify-between">
                 <div>
                   <ul className="flex flex-col gap-2">
                     {data.map((data) => (
@@ -429,7 +429,7 @@ const Filter = ({
                 </div>
               </div>
               {/* Content Area */}
-              <div className="bg-white w-full h-auto flex-grow">
+              <div className="bg-white w-full flex flex-col justify-between">
                 {" "}
                 {/* flex-grow for flexible height */}
                 <div className="flex flex-col justify-between w-full h-full">

@@ -100,7 +100,7 @@ const OrgForm = () => {
 
                   <div className="sm:col-span-4 col-span-8">
                     <label
-                      htmlFor="full-name"
+                      htmlFor="position"
                       className="block text-base font-medium text-gray-900"
                     >
                       Position/Role
@@ -110,6 +110,24 @@ const OrgForm = () => {
                         id="position"
                         name="position"
                         placeholder="Enter your role"
+                        type="text"
+                        // autoComplete="given-name"
+                        className="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                      />
+                    </div>
+                  </div>
+                  <div className="sm:col-span-4 col-span-8">
+                    <label
+                      htmlFor="city"
+                      className="block text-base font-medium text-gray-900"
+                    >
+                      City
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="city"
+                        name="city"
+                        placeholder="Enter your city"
                         type="text"
                         // autoComplete="given-name"
                         className="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"

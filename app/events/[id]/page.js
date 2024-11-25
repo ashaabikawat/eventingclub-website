@@ -1,5 +1,6 @@
 "use client";
 import { events } from "@/utils/config";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { settings, URL } from "@/utils/constants";
 import { FiMapPin } from "react-icons/fi";
 import axios from "axios";
@@ -11,7 +12,6 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Loading from "@/components/common/loading/Loading";
-import { Card } from "@material-tailwind/react";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import PageCardWithText from "@/components/card/PageCardWithText";
@@ -19,15 +19,14 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import { LuClock } from "react-icons/lu";
-
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { Carousel } from "react-responsive-carousel";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa6";
-
 import { register } from "swiper/element/bundle";
 import Link from "next/link";
 
@@ -57,6 +56,7 @@ const Page = () => {
             slidesPerView: 2,
             spaceBetween: 10,
           },
+
           1024: {
             slidesPerView: 2,
             spaceBetween: 20,
@@ -69,7 +69,7 @@ const Page = () => {
       swiperContainer.initialize();
     } else {
     }
-  }, [swiperRef, eventData]);
+  }, [eventData]);
 
   useEffect(() => {
     const swiperContainer = galleryRef.current;
@@ -162,20 +162,30 @@ const Page = () => {
           <div className="   ">
             {loadings ? (
               "Loading ..."
-            ) : imageUrl ? (
+            ) : eventData?.EventCarouselImages ? (
               <div className=" h-full w-full ">
-                <Image
-                  src={`${URL}/${imageUrl}`}
-                  alt="image"
-                  height={500}
-                  width={800}
-                  className="md:w-[1000px] md:h-[400px] 
+                <swiper-container
+                  space-between="20"
+                  autoplay='{"delay": 3000, "disableOnInteraction": false}' // Autoplay enabled with a 3-second delay
+                  loop="true"
+                >
+                  {eventData?.EventCarouselImages?.map((img) => (
+                    <swiper-slide key={img.id}>
+                      <Image
+                        src={`${URL}/${img.image_path}`}
+                        alt="image"
+                        height={500}
+                        width={800}
+                        className="md:w-[1000px] md:h-[400px] 
                    sm:w-[700px] sm:h-[450px]  /* Adjust for smaller screens */
                    lg:w-[1000px] lg:h-[400px] /* Adjust for larger screens */
                    xl:w-[1200px] xl:h-[400px] md:rounded-xl "
-                  objectFit="cover
+                        objectFit="cover
                   "
-                />
+                      />
+                    </swiper-slide>
+                  ))}
+                </swiper-container>
               </div>
             ) : (
               "Loading ..."
@@ -224,7 +234,7 @@ const Page = () => {
                 </p>
               )}
               <button
-                className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+                className="w-[150px] hidden md:flex z-50 mt-8 whitespace-nowrap items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
                 onClick={handleBookNow}
               >
                 Book now{" "}
@@ -239,21 +249,21 @@ const Page = () => {
           <div className="mt-4 flex flex-col h-full w-full justify-between relative">
             <div className="md:flex hidden h-auto   border-t-2 border-gray-500 flex-col gap-4">
               <div className=" h-full w-full mt-4 relative px-10 py-1 ">
-                <swiper-container
+                {/* <swiper-container
                   ref={swiperRef}
                   init="false"
-                  slides-per-view="3"
-                  space-between="40"
+                  // slides-per-view="3"
+                  // space-between="20"
                 >
-                  {eventData?.EventCarouselImages.map((img) => (
+                  {eventData?.EventGalleryImages?.map((img) => (
                     <swiper-slider key={img.id}>
                       <div className="  ">
                         <Image
                           src={`${URL}/${img.image_path}`}
                           alt="carousel-image"
                           // layout="fill"
-                          height={300}
-                          width={500}
+                          height={200}
+                          width={200}
                           objectFit="cover"
                           // objectPosition="top"
                           className="rounded-lg "
@@ -261,26 +271,28 @@ const Page = () => {
                       </div>
                     </swiper-slider>
                   ))}
-                </swiper-container>
+                </swiper-container> */}
+                <Carousel>
+                  {eventData?.EventGalleryImages?.map((img) => (
+                    <div className="  ">
+                      <Image
+                        src={`${URL}/${img.image_path}`}
+                        alt="carousel-image"
+                        // layout="fill"
+                        height={200}
+                        width={200}
+                        objectFit="cover"
+                        // objectPosition="top"
+                        className="rounded-lg "
+                      />
+                    </div>
+                  ))}
+                </Carousel>
               </div>
-              {/* Swiper buttons */}
-              <div
-                style={{ color: "black" }}
-                className="swiper-button-prev absolute left-[-10px] top-[60%] transform -translate-y-1/2 z-20 rounded-full flex items-center justify-center h-20 w-10 "
-              >
-                <MdOutlineKeyboardArrowLeft />
-              </div>
-              <div
-                style={{ color: "black" }}
-                className="swiper-button-next absolute right-[-10px] top-[60%] transform -translate-y-1/2 z-20 flex items-center justify-center h-20 w-10"
-              >
-                <MdOutlineKeyboardArrowRight />
-              </div>
-
-              {/* Share section */}
             </div>
           </div>
 
+          {/* Share section */}
           <div className="min-h-[20px] rounded-lg order-2 md:order-3 px-4 md:px-0">
             <div className="py-4 px-4 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">
@@ -321,7 +333,7 @@ const Page = () => {
 
           {/* gallery */}
 
-          {eventData?.EventGalleryImages.length > 0 && (
+          {/* {eventData?.EventGalleryImages.length > 0 && (
             <div className="order-5 md:order-4 md:px-0 px-4">
               <div className="border border-gray-500 h-full rounded-lg px-4">
                 <h1 className="md:text-xl mt-4 font-bold">Gallery</h1>
@@ -337,7 +349,7 @@ const Page = () => {
                         <div className="h-60 lg:h-80 w-full">
                           {" "}
                           {/* Fixed container size */}
-                          <Image
+          {/* <Image
                             src={`${URL}/${img.image_path}`}
                             alt="carousel-image"
                             // height={325} // Fixed height
@@ -352,8 +364,8 @@ const Page = () => {
                   </swiper-container>
                 </div>
               </div>
-            </div>
-          )}
+            </div> */}
+          {/* )} */}
 
           {/* maps */}
 
@@ -506,38 +518,35 @@ const Page = () => {
             </Swiper>
           </div>
         </div>
-      </div>
-      <div className="bg-white z-50 w-full  h-auto fixed top-0 py-4 px-10 shadow-md">
-        <div className="flex justify-around md:flex-row flex-col gap-4 ">
-          <div className="flex flex-col gap-2 justify-between">
-            <h1 className="md:text-2xl  text-xl font-bold text-black capitalize">
-              {eventData?.EventName}
-            </h1>
+
+        {/* <div className=" border border-gray-500 md:hidden fixed bottom-20 shadow-md z-50 w-full h-16 p-2">
+          <div className=" w-80">
             <div>
-              <div className="flex gap-4">
-                {" "}
-                <div className="flex items-center justify-start gap-2">
-                  <span>
-                    <FaRegCalendarAlt />
-                  </span>
-                  <span>{eventData?.EventStartDate}</span>
-                </div>
-                <div className="flex items-center justify-start gap-2">
-                  <span>
-                    <LuClock />
-                  </span>
-                  <span>{eventData?.EventStartTime}</span>
-                </div>
-              </div>
+              {eventData?.TicketPriceStartsFrom && (
+                <p className=" font-bold text-lg">
+                  &#8377; {eventData?.TicketPriceStartsFrom}{" "}
+                  <span className="font-normal text-sm">Onwards</span>
+                </p>
+              )}
             </div>
+            <button
+              className="  z-50 whitespace-nowrap items-center p-2 justify-center border border-transparent rounded-md shadow-sm md:text-xl text-base font-medium text-white bg-blue-800"
+              onClick={handleBookNow}
+            >
+              Book now{" "}
+              {eventData?.WhatsAppPhoneNumber && (
+                <FaWhatsapp className="ml-2" />
+              )}
+            </button>
           </div>
+        </div> */}
+        <div className="w-full flex justify-center z-50 items-center fixed bottom-20 md:bottom-4 md:justify-end">
           <button
-            // className="w-[150px] z-50 mt-8 whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
-            className="  whitespace-nowrap inline-flex items-center justify-center p-3 border border-transparent rounded-md shadow-sm md:text-xl text-lg font-medium text-white bg-blue-800"
+            className="bg-blue-900 w-80 md:w-56  text-white p-3 rounded-full text-xl font-bold  shadow-lg hover:shadow-xl hover:bg-blue-800 hover:scale-105  transition-all duration-300 ease-in-out"
             onClick={handleBookNow}
           >
             Book now{" "}
-            {eventData?.WhatsAppPhoneNumber && <FaWhatsapp className="ml-2" />}
+            {/* <span>{eventData?.WhatsAppPhoneNumber && <FaWhatsapp />}</span> */}
           </button>
         </div>
       </div>
