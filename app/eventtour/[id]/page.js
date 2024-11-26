@@ -83,7 +83,7 @@ const Page = () => {
             </div>
 
             {/* event details */}
-            <div className=" md:px-2 md:py-4 md:mt-0 mt-4  px-4   ">
+            <div className=" md:px-2 md:py-4 md:mt-0 mt-4  px-2 ">
               <div className="flex flex-col">
                 <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize">
                   {eventData?.TourName}
@@ -114,7 +114,7 @@ const Page = () => {
             </div>
           </div>
           {/* share */}
-          <div className=" rounded-lg md:px-0 md:mt-4 px-4 mt-6">
+          <div className=" rounded-lg md:px-0 md:mt-4 px-2 mt-6">
             <div className="    py-4 px-6 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">
                 Share this event
@@ -134,11 +134,11 @@ const Page = () => {
           </div>
         </div>
 
-        <div className="flex mt-6 gap-4 lg:mt-10 md:px-0 px-4">
+        <div className="flex flex-wrap mt-6 gap-4 lg:mt-10 md:px-0 px-2">
           {tourEvent?.map((event) => (
             <div className="md:mb-4 mb-4">
               <Link href={`/events/${event.event_id}`}>
-                <Card className="md:h-80 md:w-80 h-36 w-full relative cursor-pointer overflow-hidden">
+                <Card className="md:h-80 md:w-80 h-36 w-40 relative cursor-pointer overflow-hidden">
                   <div className="w-[100%] h-full relative">
                     <Image
                       src={`${URL}/${event?.EventCardImages[0]?.image_path}`}
