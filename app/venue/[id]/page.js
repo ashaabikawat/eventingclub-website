@@ -79,7 +79,7 @@ const Page = () => {
               <h1 className="md:text-3xl text-2xl  font-bold capitalize mb-4 text-blue-900">
                 {venueData?.venueName}
               </h1>
-              <p className="mb-4 md:text-lg text-sm">
+              <p className="mb-4 md:text-lg text-base">
                 {venueData?.venueAddress}
               </p>
               <div className="max-h-20 overflow-y-auto">
@@ -103,18 +103,18 @@ const Page = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-bold mt-4 px-4 text-lg  md:text-3xl capitalize font-bold ">
+          <h1 className="text-bold mt-4 px-4 text-xl  md:text-3xl capitalize font-bold ">
             upcoming events at this venue:
           </h1>
           {venueEventsdata && venueEventsdata.length > 0 ? (
-            <>
+            <div className="px-4">
               <Swiper
                 spaceBetween={6}
                 slidesPerView={1}
                 breakpoints={{
                   320: {
                     slidesPerView: 1.5,
-                    spaceBetween: 4,
+                    spaceBetween: 14,
                   },
                   425: {
                     slidesPerView: 2.2,
@@ -126,13 +126,13 @@ const Page = () => {
                   },
                   1024: {
                     slidesPerView: 4,
-                    spaceBetween: 10,
+                    spaceBetween: 20,
                   },
                 }}
               >
                 {venueEventsdata.map((event) => (
                   <SwiperSlide key={event.id}>
-                    <div key={event._id} className="px-4 mt-4  w-full">
+                    <div key={event._id} className=" md:mt-8 mt-6 w-full">
                       <Link href={`/events/${event.event_id}`}>
                         <PageCardWithText event={event} />
                       </Link>
@@ -140,7 +140,7 @@ const Page = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            </>
+            </div>
           ) : (
             <p className="mt-4 px-4 ">No events available</p>
           )}
