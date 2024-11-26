@@ -136,7 +136,7 @@ const Page = () => {
       </div>
 
       {/* other artists */}
-      <div className=" md:px-6 md:mt-4 mt-4 px-4 pb-12 ">
+      <div className=" md:px-6 md:mt-4 mt-8 px-4 pb-12 ">
         <div className="flex justify-between items-center">
           <h1 className="font-bold capitalize md:text-3xl text-xl ">
             Other artists:
