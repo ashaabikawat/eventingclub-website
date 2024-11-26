@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { IoIosLogOut } from "react-icons/io";
 
 const EditProfile = ({ id, data }) => {
   const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;

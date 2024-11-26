@@ -9,6 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { IoIosLogOut } from "react-icons/io";
 
 const Page = () => {
   const [isProfile, setIsProfile] = useState(true);
@@ -81,9 +82,12 @@ const Page = () => {
               </p>
               <button
                 onClick={logoutFunction}
-                className="text-sm md:text-base md:hidden font-medium px-4 py-2 bg-blue-600 hover:bg-red-700 transition rounded-lg shadow"
+                className="text-sm flex  mt-2 items-center gap-2 md:text-base md:hidden font-medium px-4 py-2 border border-white  hover:bg-white hover:text-blue-900 transition rounded-lg shadow"
               >
-                Sign Out
+                <span> Sign Out</span>
+                <span>
+                  <IoIosLogOut size={20} />
+                </span>
               </button>
             </div>
           </div>
