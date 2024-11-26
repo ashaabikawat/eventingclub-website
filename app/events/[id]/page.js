@@ -458,7 +458,13 @@ const Page = () => {
 
           {/* maps */}
           {eventData?.VenueMapLocationLink && (
-            <div className="h-auto col-span-2 md:-2 order-4 md:order-5 px-4 md:px-0">
+            <div
+              className={`${
+                eventData?.EventGalleryImages.length > 0
+                  ? "md:col-span-2"
+                  : "md:col-span-1"
+              } h-auto md:-2 order-4 md:order-5 px-4 md:px-0`}
+            >
               <div className="border border-gray-500 rounded-lg h-full px-4">
                 <h1 className="md:text-xl mt-4 font-bold">
                   {eventData?.VenueCity !== "-"
