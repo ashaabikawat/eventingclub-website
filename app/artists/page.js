@@ -98,7 +98,7 @@ const Page = () => {
       <Toaster />
       {/* header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center  gap-4">
-        <h1 className=" font-bold  lg:text-2xl md:text-xl ">
+        <h1 className=" font-bold  lg:text-2xl text-xl  ">
           Explore Events By Artists
         </h1>
         <div className="md:w-96">
