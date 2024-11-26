@@ -1,8 +1,6 @@
 "use client";
 import { events } from "@/utils/config";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { settings, URL } from "@/utils/constants";
-import { FiMapPin } from "react-icons/fi";
+import { URL } from "@/utils/constants";
 import axios from "axios";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -12,8 +10,6 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Loading from "@/components/common/loading/Loading";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import PageCardWithText from "@/components/card/PageCardWithText";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -24,11 +20,11 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { Carousel } from "react-responsive-carousel";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa6";
 import { register } from "swiper/element/bundle";
 import Link from "next/link";
+import { Carousel, IconButton } from "@material-tailwind/react";
 
 register();
 
@@ -191,7 +187,6 @@ const Page = () => {
               "Loading ..."
             )}
           </div>
-
           {/* event details */}
           <div className=" md:px-2 md:py-4  md:min-h-[400px] px-4   ">
             <div className="flex flex-col">
@@ -244,12 +239,11 @@ const Page = () => {
               </button>
             </div>
           </div>
-
           {/* carousel images */}
-          <div className="mt-4 flex flex-col h-full w-full justify-between relative">
+          {/* <div className="mt-4 flex flex-col h-full w-full justify-between relative">
             <div className="md:flex hidden h-auto   border-t-2 border-gray-500 flex-col gap-4">
-              <div className=" h-full w-full mt-4 relative px-10 py-1 ">
-                {/* <swiper-container
+              <div className=" h-full w-full mt-4 relative px-10 py-1 "> */}
+          {/* <swiper-container
                   ref={swiperRef}
                   init="false"
                   // slides-per-view="3"
@@ -272,28 +266,113 @@ const Page = () => {
                     </swiper-slider>
                   ))}
                 </swiper-container> */}
-                <Carousel>
+          {/* <Carousel className="rounded-xl">
                   {eventData?.EventGalleryImages?.map((img) => (
-                    <div className="  ">
+                    <>
                       <Image
                         src={`${URL}/${img.image_path}`}
-                        alt="carousel-image"
-                        // layout="fill"
-                        height={200}
-                        width={200}
-                        objectFit="cover"
-                        // objectPosition="top"
-                        className="rounded-lg "
+                        height={400}
+                        width={500}
                       />
-                    </div>
+                    </>
                   ))}
+                </Carousel> */}
+          {/* <Carousel
+                  prevArrow={({ handlePrev }) => (
+                    <IconButton
+                      variant="text"
+                      color="black"
+                      size="lg"
+                      onClick={handlePrev}
+                      className="!absolute top-2/4 left-0 -translate-y-2/4"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="h-6 w-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+                        />
+                      </svg>
+                    </IconButton>
+                  )}
+                  nextArrow={({ handleNext }) => (
+                    <IconButton
+                      variant="text"
+                      color="black"
+                      size="lg"
+                      onClick={handleNext}
+                      className="!absolute top-2/4 right-0 -translate-y-2/4"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="h-6 w-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                    </IconButton>
+                  )}
+                  className="rounded-xl" */}
+
+          {/* {eventData?.EventGalleryImages?.map((img, index) => {
+                    // Group images into slides of 2
+                    const isEvenIndex = index % 2 === 0;
+                    if (!isEvenIndex) return null; // Skip odd indices as they'll be grouped
+
+                    return (
+                      <div key={index} className="flex justify-center gap-4">
+                      
+                        <div className="">
+                          <Image
+                            src={`${URL}/${img.image_path}`}
+                            alt={`Image ${index + 1}`}
+                            height={300}
+                            width={230}
+                            objectFit="cover"
+                            className="rounded-lg"
+                          />
+                        </div>
+
+                     
+                        {eventData.EventGalleryImages[index + 1] && (
+                          <div className="relative ">
+                            <Image
+                              src={`${URL}/${
+                                eventData.EventGalleryImages[index + 1]
+                                  .image_path
+                              }`}
+                              alt={`Image ${index + 2}`}
+                              height={300}
+                              width={230}
+                              objectFit="cover"
+                              className="rounded-lg"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </Carousel>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Share section */}
-          <div className="min-h-[20px] rounded-lg order-2 md:order-3 px-4 md:px-0">
+          <div className="min-h-[20px] rounded-lg order-2 md:order-2 px-4 md:px-0">
             <div className="py-4 px-4 rounded-md flex border border-gray-500 flex-col gap-2">
               <p className="md:text-xl font-bold tracking-wide">
                 Share this event
@@ -311,9 +390,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-
           {/* about */}
-
           <div className="px-4 order-3  md:px-0 md:order-2 row-span-2 ">
             <div className="border h-full border-gray-500 rounded-lg  ">
               <div className=" h-full  py-6  ">
@@ -330,15 +407,14 @@ const Page = () => {
               </div>
             </div>
           </div>
-
           {/* gallery */}
 
-          {/* {eventData?.EventGalleryImages.length > 0 && (
+          {eventData?.EventGalleryImages.length > 0 && (
             <div className="order-5 md:order-4 md:px-0 px-4">
               <div className="border border-gray-500 h-full rounded-lg px-4">
                 <h1 className="md:text-xl mt-4 font-bold">Gallery</h1>
                 <div className="py-4">
-                  <swiper-container
+                  {/* <swiper-container
                     ref={galleryRef}
                     init="false"
                     slides-per-view="1"
@@ -348,8 +424,8 @@ const Page = () => {
                       <swiper-slide key={img.id}>
                         <div className="h-60 lg:h-80 w-full">
                           {" "}
-                          {/* Fixed container size */}
-          {/* <Image
+                          Fixed container size
+                          <Image
                             src={`${URL}/${img.image_path}`}
                             alt="carousel-image"
                             // height={325} // Fixed height
@@ -361,16 +437,28 @@ const Page = () => {
                         </div>
                       </swiper-slide>
                     ))}
-                  </swiper-container>
+                  </swiper-container> */}
+                  <Carousel className="rounded-xl">
+                    {eventData?.EventGalleryImages.map((img) => (
+                      <Image
+                        src={`${URL}/${img.image_path}`}
+                        alt="carousel-image"
+                        height={200} // Fixed height
+                        width={600} // Fixed width
+                        // layout="fill"
+                        objectFit="cover" // Ensures the image covers the container
+                        className="rounded-lg"
+                      />
+                    ))}
+                  </Carousel>
                 </div>
               </div>
-            </div> */}
-          {/* )} */}
+            </div>
+          )}
 
           {/* maps */}
-
           {eventData?.VenueMapLocationLink && (
-            <div className="h-auto md:-2 order-4 md:order-5 px-4 md:px-0">
+            <div className="h-auto col-span-2 md:-2 order-4 md:order-5 px-4 md:px-0">
               <div className="border border-gray-500 rounded-lg h-full px-4">
                 <h1 className="md:text-xl mt-4 font-bold">
                   {eventData?.VenueCity !== "-"
