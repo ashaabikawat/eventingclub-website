@@ -105,7 +105,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="md:hidden block mt-16 ">
+      <div className="lg:hidden block mt-16 ">
         <div className="bg-white w-full border-t-[1px] border-gray-300 h-16 fixed bottom-0 z-30 ">
           <div className="relative">
             <div className="flex  h-full items-center justify-between py-4 px-8 ">

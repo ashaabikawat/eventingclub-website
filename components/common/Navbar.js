@@ -119,16 +119,16 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="">
+    <div className="pb-4">
       <Toaster />
       <div
-        className={` relative w-full  ${bgColor} pb-1 z-50`}
-        style={{
-          boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
-        }}
+        className={` relative w-full  ${bgColor} pb-1  z-50`}
+        // style={{
+        //   boxShadow: " rgba(0, 0, 0, 0.08) 0px 4px 12px",
+        // }}
       >
         <div className=" px-4 md:px-6">
-          <div className="flex justify-between items-center py-4 space-x-4 ">
+          <div className="flex justify-between items-center pt-4 space-x-4 ">
             <div className="flex gap-4 justify-between items-center">
               <div>
                 <span className="sr-only">Logo</span>
@@ -192,9 +192,9 @@ const Navbar = ({ bgColor }) => {
               </ul>
             </div>
 
-            <div>
+            {/* <div>
               {homePageUrl && (
-                <div className="hidden md:block md:w-96 relative">
+                <div className="hidden lg:block md:w-72 relative">
                   <label className="relative">
                     <span className="sr-only">search</span>
 
@@ -279,7 +279,7 @@ const Navbar = ({ bgColor }) => {
                   )}
                 </div>
               )}
-            </div>
+            </div> */}
 
             <div className="flex">
               {isLoggedIn ? (
@@ -307,7 +307,7 @@ const Navbar = ({ bgColor }) => {
           </div>
 
           {homePageUrl && (
-            <div className=" md:hidden relative">
+            <div className=" md:w-2/4 mb-4">
               <label className="relative w-full">
                 <span className="sr-only">search</span>
                 <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6 text-gray-400" />
@@ -315,7 +315,7 @@ const Navbar = ({ bgColor }) => {
                   type="text"
                   value={searchTerm}
                   onChange={handleChange}
-                  className="placeholder:text-slate-400 placeholder:text-sm text-sm  border w-full border-slate-300 rounded-md py-2 pl-12 pr-3"
+                  className="placeholder:text-slate-400 placeholder:text-base md:text-base  border w-full border-slate-900 rounded-md py-2 md:py-3 pl-12 pr-3"
                   placeholder="Search for Events, Venues"
                 />
               </label>
@@ -335,7 +335,7 @@ const Navbar = ({ bgColor }) => {
                           <div className="w-full">
                             <Link href={`/venue/${data._id}`} key={data._id}>
                               <div
-                                className={`p-4 flex items-center space-x-2 w-full  hover:bg-gray-200  ${
+                                className={`p-4  flex items-center space-x-2 w-full  hover:bg-gray-200  ${
                                   index === searchData.length - 1
                                     ? " border-none"
                                     : "border-b-[1px] border-gray-200 "
