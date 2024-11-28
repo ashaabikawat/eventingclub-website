@@ -307,7 +307,7 @@ const Navbar = ({ bgColor }) => {
           </div>
 
           {homePageUrl && (
-            <div className=" md:w-2/4 mb-4">
+            <div className=" lg:w-2/4 mt-2 md:mb-2">
               <label className="relative w-full">
                 <span className="sr-only">search</span>
                 <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6 text-gray-400" />
