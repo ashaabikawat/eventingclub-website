@@ -123,19 +123,14 @@ iframe {
   /* Color of thumb and track */
 }
 
-/* .infinite-scroll {
-  display: flex;
-  animation: scroll 10s linear infinite;
-
+/* For Chrome, Edge, and Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(calc(-100% / 2));
-
-  }
-} */
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
