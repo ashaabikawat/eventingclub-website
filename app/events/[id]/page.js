@@ -140,6 +140,10 @@ const Page = () => {
     }
   };
   const imageUrl = eventData?.EventCarouselImages[0].image_path;
+  const mergedImages = [
+    ...(eventData?.EventCarouselImages || []),
+    ...(eventData?.EventGalleryImages || []),
+  ];
 
   const handleBookNow = () => {
     if (!eventData?.WhatsAppPhoneNumber) {
@@ -165,7 +169,7 @@ const Page = () => {
                   autoplay='{"delay": 3000, "disableOnInteraction": false}' // Autoplay enabled with a 3-second delay
                   loop="true"
                 >
-                  {eventData?.EventCarouselImages?.map((img) => (
+                  {mergedImages?.map((img) => (
                     <swiper-slide key={img.id}>
                       <Image
                         src={`${URL}/${img.image_path}`}
@@ -409,35 +413,12 @@ const Page = () => {
           </div>
           {/* gallery */}
 
-          {eventData?.EventGalleryImages.length > 0 && (
+          {/* {eventData?.EventGalleryImages.length > 0 && (
             <div className="order-5 md:order-4 md:px-0 px-4">
               <div className="border border-gray-500 h-full rounded-lg px-4">
                 <h1 className="md:text-xl mt-4 font-bold">Gallery</h1>
                 <div className="py-4">
-                  {/* <swiper-container
-                    ref={galleryRef}
-                    init="false"
-                    slides-per-view="1"
-                    space-between="40"
-                  >
-                    {eventData?.EventGalleryImages.map((img) => (
-                      <swiper-slide key={img.id}>
-                        <div className="h-60 lg:h-80 w-full">
-                          {" "}
-                          Fixed container size
-                          <Image
-                            src={`${URL}/${img.image_path}`}
-                            alt="carousel-image"
-                            // height={325} // Fixed height
-                            // width={600} // Fixed width
-                            layout="fill"
-                            objectFit="cover" // Ensures the image covers the container
-                            className="rounded-lg"
-                          />
-                        </div>
-                      </swiper-slide>
-                    ))}
-                  </swiper-container> */}
+              
                   <Carousel className="rounded-xl">
                     {eventData?.EventGalleryImages.map((img) => (
                       <Image
@@ -454,17 +435,11 @@ const Page = () => {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
 
           {/* maps */}
           {eventData?.VenueMapLocationLink && (
-            <div
-              className={`${
-                eventData?.EventGalleryImages.length > 0
-                  ? "md:col-span-2"
-                  : "md:col-span-1"
-              } h-auto md:-2 order-4 md:order-5 px-4 md:px-0`}
-            >
+            <div className={`  h-auto md:-2 order-4 md:order-5 px-4 md:px-0`}>
               <div className="border border-gray-500 rounded-lg h-full px-4">
                 <h1 className="md:text-xl mt-4 font-bold">
                   {eventData?.VenueCity !== "-"
