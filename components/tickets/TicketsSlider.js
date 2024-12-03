@@ -716,7 +716,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
               );
               return (
                 <div
-                  className="md:h-auto bg-blue-100 rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
+                  className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
                   key={ticket.Ticket_Id}
                 >
                   <div className="flex gap-4 items-center justify-between px-4 py-4">
