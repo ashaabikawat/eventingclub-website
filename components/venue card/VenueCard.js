@@ -6,7 +6,7 @@ export const VenueCard = ({ data }) => {
   const imageUrl = data?.Images?.[0]?.image_path;
 
   return (
-    <div className="border border-gray-400 h-full w-full cursor-pointer rounded-lg overflow-hidden ">
+    <div className="border border-gray-400 h-full w-full cursor-pointer rounded-lg overflow-hidden nunito ">
       <div>
         <div className="">
           <Image

@@ -6,7 +6,7 @@ export const SingleArtistCard = ({ data }) => {
   const imageUrl = data?.Images?.[0]?.image_path;
 
   return (
-    <div className="border border-gray-400 h-full w-full cursor-pointer rounded  ">
+    <div className="border border-gray-400 h-full w-full cursor-pointer rounded nunito ">
       <div>
         {/* <div className="md:h-80 h-72 w-full relative"> */}
         <div>

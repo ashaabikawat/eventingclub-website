@@ -12,7 +12,7 @@ const Page = () => {
   const errorMessage = search.get("error_Message");
 
   return (
-    <div className="bg-red-900">
+    <div className="bg-red-900 bebas-neue">
       <div className="flex items-center justify-center mx-auto w-[90%] min-h-svh">
         <div className=" rounded-md shadow-xl py-6 bg-white md:py-12">
           <div className=" h-full  flex flex-col items-center justify-center">

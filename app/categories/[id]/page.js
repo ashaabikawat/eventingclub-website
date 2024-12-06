@@ -193,10 +193,10 @@ const Page = () => {
   };
 
   return (
-    <div className="md:py-6 mb-12 px-4 md:px-8 pt-10 ">
+    <div className="md:py-6 mb-12 px-4 md:px-8 pt-10  nunito">
       <Toaster />
       {isMobile && !filterOpenModal && (
-        <h1 className="md:text-3xl mb-4  font-semibold text-lg ">
+        <h1 className="md:text-3xl mb-4  font-semibold text-lg bebas-neue ">
           Category Events:
         </h1>
       )}
@@ -209,7 +209,7 @@ const Page = () => {
             <button>
               <TbFilter size={20} color="gray" />
             </button>
-            <span className="text-center font-semibold">Filter</span>
+            <span className="text-center font-semibold bebas-neue">Filter</span>
           </div>
           <div className="text-center flex items-center justify-center gap-1 py-2 border border-gray-300">
             <button>
@@ -253,7 +253,7 @@ const Page = () => {
             <>
               {!filterOpenModal && (
                 <>
-                  <h1 className="md:text-xl hidden md:block  mt-4  font-semibold text-lg ">
+                  <h1 className="md:text-xl hidden md:block  mt-4  font-semibold text-lg bebas-neue">
                     Category Events:
                   </h1>
                   <div className="grid col-span-2 lg:grid-cols-3 mt-6  grid-cols-2 lg:gap-y-12  md:gap-6 gap-4 gap-y-10">

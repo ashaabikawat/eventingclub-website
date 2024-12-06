@@ -23,7 +23,7 @@ const Faq = () => {
         <div className=" flex flex-col items-center justify-center ">
           {/* text */}
           <div>
-            <p className="capitalize md:text-4xl text-3xl font-extrabold text-gray-800 tracking-wider">
+            <p className="capitalize md:text-4xl text-3xl font-extrabold text-gray-800 tracking-wider bebas-neues">
               FAQs
             </p>
           </div>
@@ -41,7 +41,9 @@ const Faq = () => {
                     open={open === index}
                     className="py-2 transition-all "
                   >
-                    <AccordionHeader className={`text-gray-800 border-none  `}>
+                    <AccordionHeader
+                      className={`text-gray-800 border-none bebas-neue  `}
+                    >
                       <div className="flex w-full justify-between">
                         <p className="md:text-xl text-lg font-semibold text-gray-900">
                           {faq.question}{" "}
@@ -49,7 +51,7 @@ const Faq = () => {
                       </div>
                     </AccordionHeader>
 
-                    <AccordionBody className="p-0">
+                    <AccordionBody className="p-0 nunitos">
                       <div className="pb-4">
                         <p className="text-base text-gray-700 mt-2">
                           {faq.answer}

@@ -537,12 +537,12 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col nunito">
       <div className="bg-gray-50 md:py-6 h-full flex-grow">
         <Toaster />
         <div className="p-4 ">
           <div className="md:px-2">
-            <h1 className="md:text-3xl  text-xl md:mt-0 mt-4 capitalize text-blue-900 font-bold border-b-2 border-gray-200 pb-3">
+            <h1 className="md:text-3xl  text-xl md:mt-0 mt-4 bebas-neue capitalize text-blue-900 font-bold border-b-2 border-gray-200 pb-3">
               {data?.EventName}
             </h1>
             <div>

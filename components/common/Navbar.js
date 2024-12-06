@@ -119,7 +119,7 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className="pb-4">
+    <div className=" bebas-neue">
       <Toaster />
       <div
         className={` relative w-full  ${bgColor} pb-1  z-50`}
@@ -307,7 +307,7 @@ const Navbar = ({ bgColor }) => {
           </div>
 
           {homePageUrl && (
-            <div className=" lg:w-2/4 mt-2 md:mb-2">
+            <div className=" lg:w-2/4 mt-6 md:mt-2 md:mb-2">
               <label className="relative w-full">
                 <span className="sr-only">search</span>
                 <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6 text-gray-400" />
@@ -315,7 +315,7 @@ const Navbar = ({ bgColor }) => {
                   type="text"
                   value={searchTerm}
                   onChange={handleChange}
-                  className="placeholder:text-slate-400 placeholder:text-base md:text-base  border w-full border-slate-900 rounded-md py-2 md:py-3 pl-12 pr-3"
+                  className="placeholder:text-gray-400 placeholder:text-base md:text-base  border w-full border-gray-400 rounded-md py-2 md:py-3 pl-12 pr-3"
                   placeholder="Search for Events, Venues"
                 />
               </label>

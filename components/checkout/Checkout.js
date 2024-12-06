@@ -40,7 +40,7 @@ const Checkout = () => {
   return (
     <div className="md:py-6 py-4 h-full w-full">
       <div className="px-4 ">
-        <h1 className="capitalize md:text-3xl md:mb-8 font-bold">
+        <h1 className="capitalize md:text-3xl md:mb-8 font-bold bebas-neue">
           Confirm your ticket details and pay
         </h1>
       </div>
@@ -49,7 +49,7 @@ const Checkout = () => {
       <div className=" md:mt-0 px-4 mt-4 ">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 1} className="p-0">
-            <AccordionHeader className="border-none">
+            <AccordionHeader className="border-none nunito">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 1</p>
                 <div>
@@ -84,7 +84,7 @@ const Checkout = () => {
       <div className=" md:mt-6 px-4 mt-4">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 2}>
-            <AccordionHeader className="border-none">
+            <AccordionHeader className="border-none bebas-neue">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 2</p>
                 <h1 className="font-semibold text-2xl">Booking Summary</h1>

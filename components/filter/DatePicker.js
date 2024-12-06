@@ -64,7 +64,7 @@ const DatePicker = ({
   };
 
   return (
-    <div className="flex flex-col gap-2 mb-4">
+    <div className="flex flex-col gap-2 mb-4 nunito">
       {/* Options */}
       <div className="flex flex-wrap gap-2">
         {dropdownOptions?.map((options) => (

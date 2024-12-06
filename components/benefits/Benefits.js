@@ -17,8 +17,10 @@ const Benefits = () => {
                 <div className="bg-gradient-to-br from-blue-900 to-indigo-700 shadow-lg p-5 rounded-full hover:scale-110 transition-all delay-75">
                   <div className="text-white  ">{benefit.icon}</div>
                 </div>
-                <p className="font-bold text-xl">{benefit.heading}</p>
-                <p className="text-sm">{benefit.text}</p>
+                <p className="font-bold text-xl bebas-neue">
+                  {benefit.heading}
+                </p>
+                <p className="text-sm nunito">{benefit.text}</p>
               </div>
             </div>
           ))}

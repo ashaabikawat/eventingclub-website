@@ -6,7 +6,7 @@ const PageCard = ({ data }) => {
   const imageUrl = data?.Images[0].image_path;
 
   return (
-    <div className="w-full h-full  rounded cursor-pointer overflow-hidden border border-gray-300 p-4">
+    <div className="w-full h-full nunito rounded cursor-pointer overflow-hidden border border-gray-300 p-4 ">
       {/* image */}
       <div>
         <Image

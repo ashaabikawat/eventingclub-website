@@ -33,7 +33,7 @@ const SeasonPass = ({ data, isSeasonpassActive }) => {
       className={`${
         isSeasonpassActive ? "bg-blue-900 text-white" : " bg-white "
       }  border border-blue-900  flex items-center justify-start gap-5 flex-col rounded-md px-2 py-4
-h-36 md:h-40 w-24 md:w-32`}
+h-36 md:h-40 w-24 md:w-32 nunito`}
     >
       <p
         className="capitalize font-semibold text-center relative before:inline-block before:w-12 before:h-[2px] before:bg-blue-800

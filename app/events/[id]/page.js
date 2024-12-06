@@ -156,7 +156,7 @@ const Page = () => {
   if (loadings) return <Loading />;
 
   return (
-    <div className=" relative h-full mb-8">
+    <div className=" relative h-full mb-8 nunito">
       <div className=" md:py-1">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6  gap-4  md:p-4 ">
           <div className="   ">
@@ -194,7 +194,7 @@ const Page = () => {
           {/* event details */}
           <div className=" md:px-2 md:py-4  md:min-h-[400px] px-4   ">
             <div className="flex flex-col">
-              <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize">
+              <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize bebas-neue">
                 {eventData?.EventName}
               </h1>
               <div className="flex gap-1 md:mt-6 mt-4 md:text-base">
@@ -405,7 +405,7 @@ const Page = () => {
                     readOnly
                     value={eventData?.AboutEvent}
                     modules={{ toolbar: false }}
-                    className="text-black font-medium "
+                    className="text-black font-medium nunito "
                   />
                 </div>
               </div>
@@ -472,7 +472,9 @@ const Page = () => {
                 className="flex w-full  justify-between "
                 onClick={() => handleOpen(1)}
               >
-                <p className="flex-grow md:text-2xl text-black">Venue layout</p>
+                <p className="flex-grow md:text-2xl text-black bebas-neue">
+                  Venue layout
+                </p>
                 <span className="ml-auto">
                   <MdKeyboardArrowDown size={30} />
                 </span>
@@ -499,12 +501,14 @@ const Page = () => {
                 className="flex w-full  justify-between "
                 onClick={() => handleOpen(2)}
               >
-                <p className="flex-grow md:text-2xl text-black">FAQs</p>
+                <p className="flex-grow md:text-2xl text-black bebas-neue">
+                  FAQs
+                </p>
                 <span className="ml-auto">
                   <MdKeyboardArrowDown size={30} />
                 </span>
               </AccordionHeader>
-              <AccordionBody>
+              <AccordionBody className="nunito">
                 {eventData?.EventFaqs.map((faq) => (
                   <div className="mb-4 flex flex-col gap-2">
                     <p className="font-semibold text-black flex items-center">
@@ -519,10 +523,10 @@ const Page = () => {
 
           <Accordion open={open === 3} className="mt-2">
             <AccordionHeader
-              className="flex w-full  justify-between "
+              className="flex w-full  justify-between nunito"
               onClick={() => handleOpen(3)}
             >
-              <p className="flex-grow md:text-2xl text-black">
+              <p className="flex-grow md:text-2xl text-black ">
                 Terms and conditions
               </p>
               <span className="ml-auto">
@@ -549,7 +553,7 @@ const Page = () => {
         </div>
 
         <div className=" md:mt-16 mt-14   px-4 md:px-4  ">
-          <h1 className="font-semibold capitalize md:text-3xl text-xl ">
+          <h1 className="font-semibold capitalize md:text-3xl text-xl  bebas-neue">
             You may also like
           </h1>
           <div>

@@ -6,7 +6,7 @@ const Cards = ({ data }) => {
   const imageUrl = data?.Images[0].image_path;
 
   return (
-    <div className="w-full h-full cursor-pointer flex justify-center items-center flex-col  overflow-hidden">
+    <div className="w-full h-full cursor-pointer flex justify-center items-center flex-col  overflow-hidden nunito">
       {/* image */}
       <Image
         src={`${URL}/${imageUrl}`}

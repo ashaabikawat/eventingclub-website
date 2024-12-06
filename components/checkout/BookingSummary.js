@@ -314,7 +314,7 @@ const BookingSummary = () => {
   // console.log(promocodeValue);
 
   return (
-    <div>
+    <div className="nunito">
       {selectedTicket.length > 0 ? (
         <>
           <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between items-center gap-4">

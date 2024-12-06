@@ -5,6 +5,8 @@
 /* @import "swiper/swiper.scss"; */
 /* @import "swiper/components/navigation/navigation.scss"; */
 @import "flatpickr/dist/flatpickr.css";
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,19 +17,24 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+
 html {
   scroll-behavior: smooth;
+}
+
+.bebas-neue {
+  font-family: "Bebas Neue", sans-serif;
+  /* font-weight: 600; */
+  font-style: normal;
+}
+
+.nunito {
+  font-family: "Nunito", sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
-
-/* html,
-:root {
-  width: 100vw;
-  height: 100vh;
-} */
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -36,12 +43,6 @@ html {
     --background-end-rgb: 0, 0, 0;
   }
 }
-
-/* @layer utilities {
-	.text-balance {
-		text-wrap: balance;
-	}
-} */
 
 .slick-track {
   margin-left: 0 !important;

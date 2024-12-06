@@ -57,7 +57,7 @@ const Page = () => {
   return (
     <>
       <Toaster />
-      <div className=" text-white w-full h-full flex flex-col justify-center gap-4 ">
+      <div className="nunito text-white w-full h-full flex flex-col justify-center gap-4 ">
         <div className="flex flex-col sm:flex-row justify-between items-center md:px-6 px-4 py-6 bg-blue-900 text-white">
           {/* Profile Section */}
           <div className="flex items-center w-full sm:w-auto gap-6">

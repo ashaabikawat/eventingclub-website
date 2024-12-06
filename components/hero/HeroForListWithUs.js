@@ -3,7 +3,7 @@ import React from "react";
 
 const HeroForListWithUs = () => {
   return (
-    <div className="w-full relative">
+    <div className="w-full relative nunito">
       {/* image */}
       <div className="w-full md:h-[600px] h-[400px] relative brightness-50">
         <Image
@@ -19,7 +19,7 @@ const HeroForListWithUs = () => {
         <div className="flex h-full flex-col md:gap-8 gap-6 justify-center  md:ml-10  ">
           {/* headline */}
           <div className="text-center md:text-left">
-            <h1 className="text-white text-xl md:text-4xl  font-bold tracking-wide  ">
+            <h1 className="text-white text-xl md:text-4xl  font-bold tracking-wide bebas-neue ">
               Effortless Event Ticketing & Management with Eventing Club
             </h1>
           </div>

@@ -13,7 +13,7 @@ const NotFound = () => {
           className="absolute"
         />
       </div>
-      <div className="text-center">
+      <div className="text-center nunito">
         <p className="md:text-2xl font-bold mb-2">No data available.</p>
         <p className="md:text-lg">
           Please adjust or reset the filters to view the content.

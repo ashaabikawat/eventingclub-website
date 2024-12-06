@@ -62,7 +62,7 @@ const Page = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="">
+    <div className="nunito">
       {/* artist detail */}
       <div className="md:py-10 md:px-6 py-10 ">
         <div className="flex md:flex-row items-center md:gap-10 gap-2   flex-col  ">
@@ -92,7 +92,7 @@ const Page = () => {
 
       {/* upcoming events */}
       <div className="md:py-6 mt-2 border-t-2 md:pt-10  border-gray-300 px-4 md:px-6 py-4 ">
-        <h1 className="font-semibold capitalize md:text-3xl text-xl ">
+        <h1 className="font-semibold capitalize md:text-3xl text-xl bebas-neue ">
           Upcoming events:
         </h1>
         <div>
@@ -138,7 +138,7 @@ const Page = () => {
       {/* other artists */}
       <div className=" md:px-6 md:mt-4 mt-8 px-4 pb-12 ">
         <div className="flex justify-between items-center">
-          <h1 className="font-bold capitalize md:text-3xl text-xl ">
+          <h1 className="font-bold capitalize md:text-3xl text-xl bebas-neue ">
             Other artists:
           </h1>
           <Link href="/artists">

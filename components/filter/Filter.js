@@ -167,17 +167,17 @@ const Filter = ({
   ];
 
   return (
-    <>
-      <div className="md:w-80 w-full   hidden md:block md:mt-4 mb-20">
-        <h1 className="md:text-xl mb-4 font-semibold">Filters:</h1>
-        <div className="border border-gray-400 rounded-md p-4">
+    <div className="">
+      <div className="md:w-80 w-full nunito  hidden md:block md:mt-4 mb-20">
+        <h1 className="md:text-xl mb-4 font-semibold bebas-neue ">Filters:</h1>
+        <div className="border border-gray-400 rounded-md p-4 ">
           <Accordion
             open={open === 1}
-            className="relative border border-gray-400 px-4 rounded-md mb-4"
+            className="relative border border-gray-400 px-4 rounded-md mb-4 "
           >
             <AccordionHeader
               onClick={() => handleOpen(1)}
-              className=" p-2 flex items-center justify-between border-none text-base "
+              className=" p-2 flex items-center justify-between border-none text-base nunito "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -198,7 +198,7 @@ const Filter = ({
                 Clear
               </span>
             </AccordionHeader>
-            <AccordionBody className=" ">
+            <AccordionBody className=" nunito">
               {/* Date filters go here */}
               {/* <DateFilter /> */}
               <div className="flex flex-wrap gap-2 mb-4">
@@ -221,14 +221,14 @@ const Filter = ({
                     checked={isManual}
                     onChange={() => setIsManual(!isManual)}
                   />
-                  <span className="ml-2 text-black cursor-pointer ">
+                  <span className="ml-2 text-black cursor-pointer">
                     Date Range
                   </span>
                 </label>
               </div>
             </AccordionBody>
             <div
-              className={`mb-6 bg-white absolute z-50  border border-white rounded-lg ${
+              className={`mb-6 bg-white absolute z-50  border border-white rounded-lg nunito ${
                 isManual ? "" : "hidden"
               }`}
             >
@@ -294,7 +294,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(2)}
-              className=" p-2 flex items-center justify-between border-none text-base "
+              className=" p-2 flex items-center justify-between border-none text-base nunito "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -325,7 +325,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(3)}
-              className=" p-2 flex items-center justify-between border-none text-base "
+              className=" p-2 flex items-center justify-between border-none text-base nunito "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -356,7 +356,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(4)}
-              className=" p-2 flex items-center justify-between border-none text-base "
+              className=" p-2 flex items-center justify-between border-none text-base nunito"
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -456,7 +456,7 @@ const Filter = ({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
