@@ -349,9 +349,13 @@ const Page = () => {
                         <NotFound />
                       </div>
                     ) : (
-                      allFeaturedEvents?.map((event) => (
-                        <PageCardWithText key={event.id} event={event} />
-                      ))
+                      allFeaturedEvents
+                        ?.filter(
+                          (items) => items?.EventCardImages[0]?.image_path
+                        )
+                        ?.map((event) => (
+                          <PageCardWithText key={event.id} event={event} />
+                        ))
                     )}
                   </div>
                 </>

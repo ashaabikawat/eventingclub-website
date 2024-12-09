@@ -135,57 +135,59 @@ const Page = () => {
         </div>
 
         <div className="flex flex-wrap mt-6 gap-4 lg:mt-10 md:px-0 px-2">
-          {tourEvent?.map((event) => (
-            <div className="md:mb-4 mb-4">
-              <Link href={`/events/${event.event_id}`}>
-                <Card className="md:h-80 md:w-80 h-36 w-40 relative cursor-pointer overflow-hidden">
-                  <div className="w-[100%] h-full relative">
-                    <Image
-                      src={`${URL}/${event?.EventCardImages[0]?.image_path}`}
-                      alt="profile-picture"
-                      layout="fill"
-                      objectFit="cover"
-                      objectPosition="top"
-                      className="rounded"
-                    />
-                  </div>
-                </Card>
-              </Link>
+          {tourEvent
+            ?.filter((items) => items?.EventCardImages[0]?.image_path)
+            ?.map((event) => (
+              <div className="md:mb-4 mb-4">
+                <Link href={`/events/${event.event_id}`}>
+                  <Card className="md:h-80 md:w-80 h-36 w-40 relative cursor-pointer overflow-hidden">
+                    <div className="w-[100%] h-full relative">
+                      <Image
+                        src={`${URL}/${event?.EventCardImages[0]?.image_path}`}
+                        alt="profile-picture"
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="top"
+                        className="rounded"
+                      />
+                    </div>
+                  </Card>
+                </Link>
 
-              <div className="px-2">
-                <div className=" mt-2 h-auto  sm:mt-2 ">
-                  <p className="text-sm capitalize  font-semibold md:text-lg">
-                    {event.EventName}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 mt-3 lg:mt-1">
-                  <div className="flex gap-2 items-center justify-start">
-                    <span>
-                      <CalendarIcon className="size-4 text-gray-900" />
-                    </span>
-                    <span className="text-xs md:text-sm lg:text-sm text-center capitalize text-gray-900">
-                      {event.EventStartDate}
-                    </span>
+                <div className="px-2">
+                  <div className=" mt-2 h-auto  sm:mt-2 ">
+                    <p className="text-sm capitalize  font-semibold md:text-lg">
+                      {event.EventName}
+                    </p>
                   </div>
-                  <div className="flex gap-2 items-center justify-start">
-                    <span>
-                      <MapPinIcon className="size-4 text-gray-900" />
-                    </span>
-                    <span className="text-xs md:text-sm  lg:text-sm text-left md:text-center capitalize text-gray-900 ">
-                      {event.VenueName}
-                    </span>
+                  <div className="flex flex-col gap-2 mt-3 lg:mt-1">
+                    <div className="flex gap-2 items-center justify-start">
+                      <span>
+                        <CalendarIcon className="size-4 text-gray-900" />
+                      </span>
+                      <span className="text-xs md:text-sm lg:text-sm text-center capitalize text-gray-900">
+                        {event.EventStartDate}
+                      </span>
+                    </div>
+                    <div className="flex gap-2 items-center justify-start">
+                      <span>
+                        <MapPinIcon className="size-4 text-gray-900" />
+                      </span>
+                      <span className="text-xs md:text-sm  lg:text-sm text-left md:text-center capitalize text-gray-900 ">
+                        {event.VenueName}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="mt-4">
-                  {event.LowestticketPrice && (
-                    <span className="text-sm  md:text-base   font-semibold ">
-                      &#8377; {event.LowestticketPrice} Onwards
-                    </span>
-                  )}
+                  <div className="mt-4">
+                    {event.LowestticketPrice && (
+                      <span className="text-sm  md:text-base   font-semibold ">
+                        &#8377; {event.LowestticketPrice} Onwards
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>

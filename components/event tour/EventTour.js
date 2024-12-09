@@ -40,7 +40,10 @@ const TourEvents = () => {
     }
   };
 
-  const cardsData = allEventTour?.slice(0, 8);
+  const cardsData = allEventTour
+    ?.filter((items) => items?.EventCardImages[0]?.image_path)
+    ?.slice(0, 8);
+
   if (loading) return;
 
   if (allEventTour.length === 0 && !loading) {

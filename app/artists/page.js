@@ -121,11 +121,13 @@ const Page = () => {
       </div>
       {/* cards */}
       <div className="grid md:grid-cols-4 sm:grid-cols-2 md:gap-y-14 gap-y-6  gap-x-4  w-full mt-8 14 cursor-pointer">
-        {artistsDuplicate.map((data) => (
-          <Link key={data.id} href={`/artists/${data._id}`}>
-            <SingleArtistCard data={data} />
-          </Link>
-        ))}
+        {artistsDuplicate
+          ?.filter((items) => items?.Images?.[0]?.image_path)
+          ?.map((data) => (
+            <Link key={data.id} href={`/artists/${data._id}`}>
+              <SingleArtistCard data={data} />
+            </Link>
+          ))}
       </div>
     </div>
   );

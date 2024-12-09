@@ -342,9 +342,13 @@ const Page = () => {
                         <NotFound />
                       </div>
                     ) : (
-                      allUpcomingEvents?.map((event) => (
-                        <PageCardWithText key={event.id} event={event} />
-                      ))
+                      allUpcomingEvents
+                        ?.filter(
+                          (items) => items?.EventCardImages[0]?.image_path
+                        )
+                        ?.map((event) => (
+                          <PageCardWithText key={event.id} event={event} />
+                        ))
                     )}
                   </div>
                 </>

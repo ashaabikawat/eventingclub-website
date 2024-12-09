@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 const PageCardWithText = ({ event }) => {
-  const imageUrl = `${URL}/${event.EventCardImages[0].image_path}`;
+  const imageUrl = `${URL}/${event.EventCardImages[0]?.image_path}`;
 
   const eventNameRef = useRef(null);
 

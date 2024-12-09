@@ -39,7 +39,9 @@ const Featuredevents = () => {
     }
   };
 
-  const cardsData = allFeaturedEvents?.slice(0, 8);
+  const cardsData = allFeaturedEvents
+    ?.filter((items) => items?.EventCardImages[0]?.image_path)
+    ?.slice(0, 8);
 
   if (loading) return;
 

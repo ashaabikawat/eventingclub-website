@@ -110,7 +110,9 @@ const UpcomingEvents = () => {
     }
   };
 
-  const cardsData = allUpcomingEvents.slice(0, 8);
+  const cardsData = allUpcomingEvents
+    ?.filter((items) => items?.EventCardImages[0]?.image_path)
+    ?.slice(0, 8);
 
   if (loading) return;
 

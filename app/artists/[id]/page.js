@@ -119,15 +119,17 @@ const Page = () => {
                 },
               }}
             >
-              {artistEvents.map((event) => (
-                <SwiperSlide key={event.id}>
-                  <div key={event._id} className=" mt-6 ">
-                    <Link href={`/events/${event.event_id}`}>
-                      <PageCardWithText event={event} />
-                    </Link>
-                  </div>
-                </SwiperSlide>
-              ))}
+              {artistEvents
+                ?.filter((items) => items?.EventCardImages[0]?.image_path)
+                ?.map((event) => (
+                  <SwiperSlide key={event.id}>
+                    <div key={event._id} className=" mt-6 ">
+                      <Link href={`/events/${event.event_id}`}>
+                        <PageCardWithText event={event} />
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                ))}
             </Swiper>
           ) : (
             <p className="mt-6 mb-32 text-xl ">No upcoming events</p>
@@ -170,35 +172,37 @@ const Page = () => {
                 },
               }}
             >
-              {cardsData?.map((artist) => {
-                return (
-                  <SwiperSlide key={artist.id}>
-                    <div key={artist._id} className="w-full ">
-                      <Link href={`/artists/${artist._id}`}>
-                        {/* <Cards data={artist} /> */}
-                        <div className="w-full h-full cursor-pointer flex justify-center items-center flex-col  overflow-hidden">
-                          {/* image */}
-                          <Image
-                            src={`${URL}/${artist?.Images[0].image_path}`}
-                            alt="profile-picture"
-                            objectFit="cover"
-                            height={300}
-                            width={300} // Remove width prop for automatic sizing
-                            className="rounded" // Apply rounded-full directly to Image component
-                          />
+              {cardsData
+                ?.filter((items) => items?.Images[0]?.image_path)
+                ?.map((artist) => {
+                  return (
+                    <SwiperSlide key={artist.id}>
+                      <div key={artist._id} className="w-full ">
+                        <Link href={`/artists/${artist._id}`}>
+                          {/* <Cards data={artist} /> */}
+                          <div className="w-full h-full cursor-pointer flex justify-center items-center flex-col  overflow-hidden">
+                            {/* image */}
+                            <Image
+                              src={`${URL}/${artist?.Images[0]?.image_path}`}
+                              alt="profile-picture"
+                              objectFit="cover"
+                              height={300}
+                              width={300} // Remove width prop for automatic sizing
+                              className="rounded" // Apply rounded-full directly to Image component
+                            />
 
-                          {/* data */}
-                          <div className="flex justify-center items-center mt-2">
-                            <p className=" text-xs text-center md:text-sm font-semibold">
-                              {artist.Name}
-                            </p>
+                            {/* data */}
+                            <div className="flex justify-center items-center mt-2">
+                              <p className=" text-xs text-center md:text-sm font-semibold">
+                                {artist.Name}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
+                        </Link>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
             </Swiper>
           </div>
         </div>

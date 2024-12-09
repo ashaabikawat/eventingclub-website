@@ -39,7 +39,10 @@ const Category = () => {
     }
   };
 
-  const cardsData = category.slice(0, 8);
+  const cardsData = category
+    ?.filter((items) => items?.Images[0]?.image_path)
+    ?.slice(0, 8);
+
   if (loading) return;
 
   return (

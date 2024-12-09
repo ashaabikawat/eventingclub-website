@@ -99,11 +99,13 @@ const Page = () => {
         </div>
       </div>
       <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6 md:gap-4 w-full mt-6  ">
-        {venuesDuplicate.map((data) => (
-          <Link href={`/venue/${data._id}`} key={data._id}>
-            <VenueCard data={data} />
-          </Link>
-        ))}
+        {venuesDuplicate
+          ?.filter((items) => items?.Images?.[0]?.image_path)
+          ?.map((data) => (
+            <Link href={`/venue/${data._id}`} key={data._id}>
+              <VenueCard data={data} />
+            </Link>
+          ))}
       </div>
     </div>
   );

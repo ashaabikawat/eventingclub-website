@@ -130,15 +130,17 @@ const Page = () => {
                   },
                 }}
               >
-                {venueEventsdata.map((event) => (
-                  <SwiperSlide key={event.id}>
-                    <div key={event._id} className=" md:mt-8 mt-6 w-full">
-                      <Link href={`/events/${event.event_id}`}>
-                        <PageCardWithText event={event} />
-                      </Link>
-                    </div>
-                  </SwiperSlide>
-                ))}
+                {venueEventsdata
+                  ?.filter((items) => items?.EventCardImages[0]?.image_path)
+                  ?.map((event) => (
+                    <SwiperSlide key={event.id}>
+                      <div key={event._id} className=" md:mt-8 mt-6 w-full">
+                        <Link href={`/events/${event.event_id}`}>
+                          <PageCardWithText event={event} />
+                        </Link>
+                      </div>
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </div>
           ) : (

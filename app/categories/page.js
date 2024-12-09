@@ -118,11 +118,13 @@ const Page = () => {
 
       {/* cards */}
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 w-full mt-8  cursor-pointer">
-        {categoriesDuplicate.map((data) => (
-          <Link key={data.id} href={`/categories/${data._id}`}>
-            <PageCard key={data.id} data={data} />
-          </Link>
-        ))}
+        {categoriesDuplicate
+          ?.filter((items) => items?.Images[0]?.image_path)
+          ?.map((data) => (
+            <Link key={data.id} href={`/categories/${data._id}`}>
+              <PageCard key={data.id} data={data} />
+            </Link>
+          ))}
       </div>
     </div>
   );
