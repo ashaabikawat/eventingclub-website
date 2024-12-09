@@ -9,6 +9,11 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      fontFamily: {
+        bebas: ["Bebas Neue", "sans-serif"],
+        nunito: ["Nunito", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

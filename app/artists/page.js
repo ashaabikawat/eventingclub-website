@@ -94,7 +94,7 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className="  px-4 py-6 md:py-8 md:px-6 mb-16 bebas-neue">
+    <div className="  px-4 py-6 md:py-8 md:px-6 mb-16 font-poppins">
       <Toaster />
       {/* header */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center  gap-4">

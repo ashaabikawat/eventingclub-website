@@ -337,7 +337,7 @@ const Page = () => {
           />
         </div>
 
-        <div className=" md:px-6 md:py-52 w-[90%] bebas-neue  px-10 m-4 py-10 absolute md:static  backdrop-blur-md border border-gray-500 h-72 rounded-md md:rounded-none md:border-none md:h-full">
+        <div className=" md:px-6 md:py-52 w-[90%] font-poppins  px-10 m-4 py-10 absolute md:static  backdrop-blur-md border border-gray-500 h-72 rounded-md md:rounded-none md:border-none md:h-full">
           {/* initial mobile nuymber section  */}
           {!isLoggedIn && !token && !cust_id && (
             <div className=" w-full  h-full flex  justify-center flex-col">

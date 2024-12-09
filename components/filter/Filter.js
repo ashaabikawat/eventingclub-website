@@ -168,8 +168,10 @@ const Filter = ({
 
   return (
     <div className="">
-      <div className="md:w-80 w-full nunito  hidden md:block md:mt-4 mb-20">
-        <h1 className="md:text-xl mb-4 font-semibold bebas-neue ">Filters:</h1>
+      <div className="md:w-80 w-full font-nunito  hidden md:block md:mt-4 mb-20">
+        <h1 className="md:text-xl mb-4 font-semibold font-poppins ">
+          Filters:
+        </h1>
         <div className="border border-gray-400 rounded-md p-4 ">
           <Accordion
             open={open === 1}
@@ -177,7 +179,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(1)}
-              className=" p-2 flex items-center justify-between border-none text-base nunito "
+              className=" p-2 flex items-center justify-between border-none text-base font-nunito "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -198,7 +200,7 @@ const Filter = ({
                 Clear
               </span>
             </AccordionHeader>
-            <AccordionBody className=" nunito">
+            <AccordionBody className=" font-nunito">
               {/* Date filters go here */}
               {/* <DateFilter /> */}
               <div className="flex flex-wrap gap-2 mb-4">
@@ -228,7 +230,7 @@ const Filter = ({
               </div>
             </AccordionBody>
             <div
-              className={`mb-6 bg-white absolute z-50  border border-white rounded-lg nunito ${
+              className={`mb-6 bg-white absolute z-50  border border-white rounded-lg font-nunito ${
                 isManual ? "" : "hidden"
               }`}
             >
@@ -294,7 +296,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(2)}
-              className=" p-2 flex items-center justify-between border-none text-base nunito "
+              className=" p-2 flex items-center justify-between border-none text-base font-nunito "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -325,7 +327,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(3)}
-              className=" p-2 flex items-center justify-between border-none text-base nunito "
+              className=" p-2 flex items-center justify-between border-none text-base font-nunito "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -356,7 +358,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(4)}
-              className=" p-2 flex items-center justify-between border-none text-base nunito"
+              className=" p-2 flex items-center justify-between border-none text-base font-nunito"
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon

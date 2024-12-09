@@ -33,7 +33,7 @@ const Page = () => {
 
   return (
     <div>
-      <div className=" mb-10 bebas-neue  ">
+      <div className=" mb-10 font-poppins  ">
         <div className="md:mt-16 mt-6 h-full  flex flex-col items-center justify-center">
           {/* success message */}
           <div className="flex  flex-col items-center justify-center gap-4">

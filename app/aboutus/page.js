@@ -12,7 +12,7 @@ const Page = () => {
   const [serviceId, setServiceId] = useState(null);
 
   return (
-    <div className=" h-full w-full py-12 md:px-20 px-6 nunito ">
+    <div className=" h-full w-full py-12 md:px-20 px-6 font-nunito ">
       {isServiceModalOpen && (
         <Modal
           serviceId={serviceId}
@@ -28,7 +28,7 @@ const Page = () => {
             {/* Text Section */}
             <div className="flex flex-col gap-6 w-full items-center justify-center text-center">
               <div className="md:w-52 w-full">
-                <p className="capitalize md:text-3xl text-2xl font-bold text-gray-800 tracking-wide bebas-neue">
+                <p className="capitalize md:text-3xl text-2xl font-bold text-gray-800 tracking-wide font-poppins">
                   Our Mission
                 </p>
                 {/* Underline Element */}
@@ -69,7 +69,7 @@ const Page = () => {
         {/* our services */}
         <div className="mb-14">
           <div classname="">
-            <p className="capitalize md:text-3xl bebas-neue text-2xl text-center font-bold text-gray-800 tracking-wide">
+            <p className="capitalize md:text-3xl font-poppins text-2xl text-center font-bold text-gray-800 tracking-wide">
               Our services
             </p>
           </div>
@@ -108,7 +108,7 @@ const Page = () => {
         {/* our benefits */}
         <div className="mb-16">
           <div classname="">
-            <p className="capitalize bebas-neue md:text-3xl text-2xl text-center font-bold text-gray-800 tracking-wide">
+            <p className="capitalize font-poppins md:text-3xl text-2xl text-center font-bold text-gray-800 tracking-wide">
               benefits
             </p>
           </div>

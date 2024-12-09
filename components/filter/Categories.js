@@ -45,7 +45,7 @@ const Categories = ({ handleCategory }) => {
   }, []);
 
   return (
-    <div className="flex flex-wrap gap-2 mb-4 nunito">
+    <div className="flex flex-wrap gap-2 mb-4 font-nunito">
       {readMore
         ? category.map((cat) => {
             return (

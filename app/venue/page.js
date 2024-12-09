@@ -74,10 +74,10 @@ const Page = () => {
   }, [debounced]);
 
   return (
-    <div className=" px-4 py-10 md:py-10 md:px-6 mb-2 nunito ">
+    <div className=" px-4 py-10 md:py-10 md:px-6 mb-2 font-nunito ">
       <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-        <h1 className="  font-bold text-xl  lg:text-2xl md:text-xl bebas-neue ">
+        <h1 className="  font-bold text-xl  lg:text-2xl md:text-xl font-poppins ">
           Pick your venue:
         </h1>
         <div className="md:w-96">

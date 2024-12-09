@@ -119,7 +119,7 @@ const Navbar = ({ bgColor }) => {
   }, [debouncedSearch]);
 
   return (
-    <div className=" bebas-neue">
+    <div className=" font-poppins">
       <Toaster />
       <div
         className={` relative w-full  ${bgColor} pb-1  z-50`}

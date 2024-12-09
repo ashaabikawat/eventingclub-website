@@ -61,7 +61,7 @@ const Page = () => {
   if (loadings) return <Loading />;
 
   return (
-    <div className="  py-10 nunito">
+    <div className="  py-10 font-nunito">
       <div className="md:px-6 px-4">
         <div className="">
           <div className="md:grid grid-cols-2 gap-10">
@@ -85,7 +85,7 @@ const Page = () => {
             {/* event details */}
             <div className=" md:px-2 md:py-4 md:mt-0 mt-4  px-2 ">
               <div className="flex flex-col">
-                <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize bebas-neue">
+                <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize font-poppins">
                   {eventData?.TourName}
                 </h1>
                 <div className="flex gap-1  mt-4 md:text-base"></div>

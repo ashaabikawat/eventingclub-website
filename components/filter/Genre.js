@@ -42,7 +42,7 @@ const Genre = ({ handleGenre }) => {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 mb-4 nunito">
+    <div className="flex flex-wrap gap-2 mb-4 font-nunito">
       {readMore
         ? allGenre.map((genre) => {
             return (

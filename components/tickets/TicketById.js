@@ -59,7 +59,7 @@ const TicketById = () => {
       {upcomingEventsTicket?.length > 0 ? (
         <div className="h-[100%] ">
           <div className="h-[100%] ">
-            <h1 className="text-black md:text-xl  font-semibold mb-4 bebas-neue">
+            <h1 className="text-black md:text-xl  font-semibold mb-4 font-poppins">
               Upcoming Events:
             </h1>
             <div>
@@ -70,7 +70,7 @@ const TicketById = () => {
           </div>
           {pastEventsTicket?.length > 0 && (
             <div>
-              <h1 className="text-black md:text-xl  font-semibold mb-4 bebas-neue">
+              <h1 className="text-black md:text-xl  font-semibold mb-4 font-poppins">
                 Past Events:
               </h1>
               <div>
@@ -82,7 +82,7 @@ const TicketById = () => {
           )}
         </div>
       ) : (
-        <div className="h-[100%] py-10 md:py-6 nunito">
+        <div className="h-[100%] py-10 md:py-6 font-nunito">
           <div className="h-[100%] flex flex-col gap-4 justify-center items-center">
             <p className="md:text-lg font-semibold text-black">
               You don't have any tickets

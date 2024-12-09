@@ -8,7 +8,7 @@ const CardFeatured = ({ data }) => {
   const imageUrl = `${URL}/${data?.EventCardImages[0]?.image_path}`;
 
   return (
-    <div className="nunito">
+    <div className="font-nunito">
       <div>
         {/* image */}
         <div className="relative">

@@ -5,9 +5,9 @@ import { Carousel, IconButton } from "@material-tailwind/react";
 
 const Testimonials = () => {
   return (
-    <div className="h-full w-full overflow-hidden md:py-12 py-6  md:px-20 px-6 nunito">
+    <div className="h-full w-full overflow-hidden md:py-12 py-6  md:px-20 px-6 font-nunito">
       <div className="flex flex-col items-center justify-center h-full w-full">
-        <p className="capitalize md:text-3xl text-2xl font-bold text-gray-800 tracking-wide bebas-neue">
+        <p className="capitalize md:text-3xl text-2xl font-bold text-gray-800 tracking-wide font-poppins">
           Testimonials
         </p>
         <div className="w-20 h-1 bg-blue-600 mt-2"></div>
@@ -67,7 +67,7 @@ const Testimonials = () => {
             )}
           >
             {[...testimonials].map((testimonial, index) => (
-              <div className="flex items-center  justify-center md:px-10 w-full nunito shadow-md">
+              <div className="flex items-center  justify-center md:px-10 w-full font-nunito shadow-md">
                 <div className="md:px-10 text-center ">
                   <div
                     key={index}
