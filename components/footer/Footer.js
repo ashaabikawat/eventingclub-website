@@ -48,7 +48,7 @@ const Footer = () => {
         className="px-10 md:py-8 py-10 text-white h-full md:pb-16 pb-20 font-nunito"
         style={{ backgroundColor: "#2f3e93" }}
       >
-        <div className="flex justify-between items-center md:flex-row flex-col gap-6">
+        <div className="flex justify-between  md:flex-row flex-col gap-6">
           {/* Logo Section */}
           <div className="flex-shrink-0">
             <span className="sr-only">Logo</span>
@@ -66,28 +66,78 @@ const Footer = () => {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex-grow">
-            <ul className="flex justify-center items-center md:text-xl text-base md:gap-10 gap-4 flex-wrap">
-              <li className="text-base font-semibold">
-                <Link href="/">Home</Link>
+          <div className="">
+            <ul className="flex md:flex-row flex-col  md:text-xl text-base md:gap-12 gap-6 flex-wrap">
+              <div className="md:items-center flex gap-2 flex-col">
+                <li className="text-base font-semibold ">
+                  <Link href="/" className="hover:underline">
+                    Home
+                  </Link>
+                </li>
+                <li className="text-base font-semibold ">
+                  <Link href="/venue" className="hover:underline">
+                    Venue
+                  </Link>
+                </li>
+                <li className="text-base font-semibold ">
+                  <Link href="/artists" className="hover:underline">
+                    Artist
+                  </Link>
+                </li>
+              </div>
+
+              <div className="md:items-center flex gap-2 flex-col">
+                <li className="text-base font-semibold">
+                  <Link href="/aboutus " className="hover:underline">
+                    About us
+                  </Link>
+                </li>
+                <li className="text-base font-semibold">
+                  <Link href="/list-with-us" className="hover:underline">
+                    List with us
+                  </Link>
+                </li>
+                <li className="text-base font-semibold ">
+                  <Link href="/list-with-us" className="hover:underline">
+                    Contact us
+                  </Link>
+                </li>
+              </div>
+
+              <div className="md:items-center flex gap-2 flex-col">
+                <li className="text-base font-semibold ">
+                  <Link href="/artists" className="hover:underline">
+                    Terms and Conditions
+                  </Link>
+                </li>
+                <li className="text-base font-semibold ">
+                  <Link href="/artists" className="hover:underline">
+                    Privacy Policy
+                  </Link>
+                </li>
+              </div>
+
+              {/* <li className="text-base font-semibold flex gap-1 flex-col ">
+                <Link href="/aboutus " className="hover:underline">
+                  About us
+                </Link>
+                <Link href="/about  " className="hover:underline">
+                  About us
+                </Link>
               </li>
-              <li className="text-base font-semibold">
-                <Link href="/venue">Venue</Link>
-              </li>
-              <li className="text-base font-semibold">
-                <Link href="/artists">Artist</Link>
-              </li>
-              <li className="text-base font-semibold">
-                <Link href="/aboutus">About us</Link>
-              </li>
-              <li className="text-base font-semibold">
-                <Link href="/list-with-us">List with us</Link>
-              </li>
+              <li className="text-base font-semibold flex gap-1 flex-col">
+                <Link href="/list-with-us" className="hover:underline">
+                  List with us
+                </Link>
+                <Link href="/list-with-us" className="hover:underline">
+                  List with us
+                </Link>
+              </li> */}
             </ul>
           </div>
 
           {/* Social Icons */}
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center md:justify-center gap-4">
             {socialIcons.map((icon) => (
               <Link key={icon.id} href={icon.url} target="_blank">
                 <IconButton

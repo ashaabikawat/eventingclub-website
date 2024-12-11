@@ -63,7 +63,11 @@ const BookingSummary = () => {
 
   const ticketAmount = Number(ticket?.TicketPrice) * totalTickets;
 
-  const cust_id = useSelector((store) => store.uSess.xA1);
+  const cust_id = decryptData(
+    useSelector((store) => store.uSess.xA1),
+    passphrase
+  );
+  console.log("cust_id", cust_id);
   const promocodeDiscountPrice = decryptData(
     useSelector((store) => store.bz8v2.s9t0),
     passphrase
@@ -247,6 +251,7 @@ const BookingSummary = () => {
 
     const encryptedPayload = encryptData(JSON.stringify(payload), passphrase);
 
+    // console.log(payload);
     try {
       const response = await axios.post(`${bookTicketApi.POST_DATA}`, {
         string: encryptedPayload,

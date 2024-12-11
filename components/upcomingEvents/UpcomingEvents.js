@@ -126,7 +126,7 @@ const UpcomingEvents = () => {
         <h1 className=" capitalize text-lg md:text-xl lg:text-3xl font-bold font-poppins">
           Upcoming Events:
         </h1>
-        <div className="flex lg:gap-12 gap-6 md:mt-0 mt-4 lg:text-lg font-poppins  md:text-sm text-sm font-bold ">
+        <div className="flex lg:gap-12 gap-6 md:mt-0 mt-4 lg:text-lg font-poppins  md:text-sm text-sm ">
           <span className="cursor-pointer" onClick={() => filterEvents("All")}>
             All
           </span>
