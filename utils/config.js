@@ -71,3 +71,7 @@ export const bookTicketApi = {
 export const homepageSearch = {
   SEARCH_EVENTS_VENUES: `${URL}/webiste/homepage/searchEventsVenues`,
 };
+
+export const leadGeneration = {
+  ADD_LEADS: `${URL}/webiste/leads/insert`,
+};
