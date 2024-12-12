@@ -15,6 +15,7 @@ const Wrapper = ({ children }) => {
 
   const isCheckout = pathname.startsWith("/events/tickets/");
   const userDetails = pathname.startsWith("/userDetails/");
+  const termsCondtions = pathname.startsWith("/terms-&-conditions");
   const navbarBgColor = isCheckout ? "bg-gray-50" : "bg-white";
 
   return (
@@ -27,7 +28,9 @@ const Wrapper = ({ children }) => {
           {/* Main content area */}
           <main
             className={`${
-              isCheckout || userDetails ? "bg-gray-50" : "bg-white"
+              isCheckout || userDetails || termsCondtions
+                ? "bg-gray-50"
+                : "bg-white"
             } flex-grow`}
           >
             {children}

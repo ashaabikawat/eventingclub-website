@@ -60,7 +60,7 @@ const TourEvents = () => {
         desktopText=""
         url=""
       /> */}
-      <h1 className="px-2 mt-6 md:mt-12 capitalize text-lg md:text-xl lg:text-3xl font-poppins font-bold">
+      <h1 className="px-2 mt-4 md:mt-12 capitalize text-lg md:text-xl lg:text-3xl font-poppins font-bold">
         Event tour
       </h1>
 

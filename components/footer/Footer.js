@@ -55,7 +55,7 @@ const Footer = () => {
             <Link href="/">
               <div className="cursor-pointer relative md:h-20 md:w-32 h-14 w-24">
                 <Image
-                  src="/Frame 8107.png"
+                  src="/EC Logo White Name-01 (1).svg"
                   alt="logo"
                   layout="fill"
                   className="absolute"
@@ -92,21 +92,21 @@ const Footer = () => {
                     About us
                   </Link>
                 </li>
-                <li className="text-base font-semibold">
-                  <Link href="/list-with-us" className="hover:underline">
-                    List with us
-                  </Link>
-                </li>
                 <li className="text-base font-semibold ">
                   <Link href="/list-with-us" className="hover:underline">
                     Contact us
+                  </Link>
+                </li>
+                <li className="text-base font-semibold">
+                  <Link href="/list-with-us" className="hover:underline">
+                    List with us
                   </Link>
                 </li>
               </div>
 
               <div className="md:items-center flex gap-2 flex-col">
                 <li className="text-base font-semibold ">
-                  <Link href="/artists" className="hover:underline">
+                  <Link href="/terms-&-conditions" className="hover:underline">
                     Terms and Conditions
                   </Link>
                 </li>

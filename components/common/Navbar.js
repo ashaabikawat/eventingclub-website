@@ -135,7 +135,7 @@ const Navbar = ({ bgColor }) => {
                 <Link href="/">
                   <div className="cursor-pointer relative md:h-20 md:w-36 h-14 w-28">
                     <Image
-                      src="/Eventing club logo.png"
+                      src="/EC Logo Black Name.svg"
                       alt="logo"
                       layout="fill"
                       className="absolute"
@@ -307,7 +307,7 @@ const Navbar = ({ bgColor }) => {
           </div>
 
           {homePageUrl && (
-            <div className=" lg:w-2/4 mt-6 md:mt-2 md:mb-2">
+            <div className=" lg:w-2/4 mt-6 md:mt-2 md:mb-2 mb-4">
               <label className="relative w-full">
                 <span className="sr-only">search</span>
                 <MagnifyingGlassIcon className="w-5 h-5 absolute inset-y-0 left-6 text-gray-400" />

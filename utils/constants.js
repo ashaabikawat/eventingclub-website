@@ -261,12 +261,6 @@ export const encryptData = (data, secretKey) => {
   return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
 };
 
-// Decryption function
-// export const decryptData = (encryptedData, secretKey) => {
-//   const bytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
-//   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-// };
-
 export const decryptData = (encryptedData, secretKey) => {
   if (!encryptedData) return null; // Return null if data is empty
 
@@ -489,5 +483,80 @@ export const features = [
     heading: "Streamline Your Event Management",
     text: "Simplify your event planning process with our intuitive tools for managing attendee lists, scheduling, and resource allocation.",
     icon: <FaCalendarAlt size={30} />,
+  },
+];
+
+export const termsconditions = [
+  {
+    id: 1,
+    title: "Acceptance of Terms",
+    description:
+      "By using our Services, you agree to comply with and be bound by these Terms, as well as our Privacy Policy. We may update these Terms from time to time, and your continued use of the Services constitutes acceptance of any changes.",
+  },
+  {
+    id: 2,
+    title: "Eligibility",
+    description:
+      "You must be meet minimum age requirement as per event to use our Services. By using the Services, you represent that you meet this age requirement.",
+  },
+  {
+    id: 3,
+    title: "Account Registration",
+    description:
+      "To access certain features of our Services, you may need to create an account. You agree to provide accurate, complete, and up-to-date information and to keep your login credentials secure. You are responsible for all activities under your account.",
+  },
+  {
+    id: 4,
+    title: "Event Organizer's Responsibility",
+    description:
+      "Eventing Club acts solely as a ticketing platform. The event organizer is responsible for the quality, safety, and execution of the event. Eventing Club is not liable for any issues arising from the event.",
+  },
+  {
+    id: 5,
+    title: "Intellectual Property",
+    description:
+      "All content on our platform, including text, graphics, logos, and software, is owned by Eventing Club or its licensors and is protected by intellectual property laws. Unauthorized use is prohibited.",
+  },
+  {
+    id: 6,
+    title: "Indemnification",
+    description:
+      "You agree to indemnify and hold Eventing Club harmless from any claims, losses, or damages arising from your use of the Services or violation of these Terms.",
+  },
+  {
+    id: 7,
+    title: "Resale or Transfer of Tickets",
+    description:
+      "Tickets purchased on Eventing Club are non-transferable unless explicitly stated otherwise. Resale of tickets for commercial purposes is prohibited and may result in cancellation of the ticket without refund.",
+  },
+  {
+    id: 8,
+    title: "Third-Party Links",
+    description:
+      "Our platform may contain links to third-party websites. Eventing Club is not responsible for the content, privacy policies, or practices of these sites. Use them at your own risk.",
+  },
+  {
+    id: 9,
+    title: "Termination",
+    description:
+      "We may terminate or suspend your access to the Services at any time, with or without cause or notice. Upon termination, your right to use the Services will immediately cease.",
+  },
+  {
+    id: 10,
+    title: "Force Majeure",
+    description:
+      "Eventing Club is not responsible for delays or failures in performance resulting from acts of God, natural disasters, government actions, or other events beyond our reasonable control.",
+  },
+  {
+    id: 11,
+    title: "Dispute Resolution",
+    description:
+      "In the event of a dispute, you agree to resolve it through arbitration or mediation, as governed by the laws of India. Any disputes will be subject to the exclusive jurisdiction of the courts in Thane District, Maharashtra.",
+  },
+  {
+    id: 12,
+    title: "Governing Law",
+    description:
+      "These Terms are governed by and construed in accordance with the laws of India, including but not limited to the Information Technology Act, 2000.",
   },
 ];
