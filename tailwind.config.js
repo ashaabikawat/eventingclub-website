@@ -9,6 +9,10 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      listStyleType: {
+        "lower-alpha": "lower-alpha",
+        "lower-roman": "lower-roman",
+      },
       fontFamily: {
         bebas: ["Bebas Neue", "sans-serif"],
         nunito: ["Nunito", "sans-serif"],

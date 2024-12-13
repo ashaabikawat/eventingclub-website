@@ -14,9 +14,9 @@ const page = () => {
     setOpen(open === value ? 0 : value);
   };
   return (
-    <div className="md:py-8 md:px-6 px-4 py-6">
+    <div className="md:py-8 md:px-6 px-4 py-8">
       <h1 className="font-poppins md:text-2xl text-xl font-bold">
-        Terms and Conditions for Eventing Club
+        Terms and Conditions
       </h1>
       <p className="font-nunito md:text-base text-sm leading-relaxed mt-4">
         Welcome to Eventing Club! These Terms and Conditions ("Terms") govern
@@ -192,7 +192,7 @@ const page = () => {
           </Accordion>
         </div>
       </div>
-      <p className="font-nunito text-xl leading-relaxed mt-6">
+      <p className="font-nunito md:text-xl text-base  leading-relaxed mt-6">
         Thank you for choosing Eventing Club. We hope you enjoy our Services!
       </p>
     </div>
