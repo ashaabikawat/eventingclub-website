@@ -5,6 +5,7 @@ import { getBanner } from "@/utils/config";
 import { URL } from "@/utils/constants";
 import { register } from "swiper/element/bundle";
 import axios from "axios";
+import Link from "next/link";
 
 register();
 
@@ -90,19 +91,48 @@ const Hero = () => {
           space-between="10"
         >
           {banner?.map((banner) => (
-            <swiper-slide key={banner.id}>
+            <swiper-slide key={banner._id}>
               <div className="h-full w-full  relative  ">
-                <Image
-                  src={
-                    isMobile
-                      ? `${URL}/${banner?.MobilebannerImage}`
-                      : `${URL}/${banner?.DesktopbannerImage}`
-                  }
-                  alt="carousel-image"
-                  objectFit="cover"
-                  height={isMobile ? 1080 : 500}
-                  width={isMobile ? 1920 : 2000}
-                />
+                {/* <Link key={banner._id} href={`/events/${banner?.Event_id}`}>
+                  <Image
+                    src={
+                      isMobile
+                        ? `${URL}/${banner?.MobilebannerImage}`
+                        : `${URL}/${banner?.DesktopbannerImage}`
+                    }
+                    alt="carousel-image"
+                    objectFit="cover"
+                    height={isMobile ? 1080 : 500}
+                    width={isMobile ? 1920 : 2000}
+                  />
+                </Link> */}
+                {banner.Event_id ? (
+                  <Link key={banner._id} href={`/events/${banner.Event_id}`}>
+                    <Image
+                      src={
+                        isMobile
+                          ? `${URL}/${banner.MobilebannerImage}`
+                          : `${URL}/${banner.DesktopbannerImage}`
+                      }
+                      alt="carousel-image"
+                      objectFit="cover"
+                      height={isMobile ? 1080 : 500}
+                      width={isMobile ? 1920 : 2000}
+                    />
+                  </Link>
+                ) : (
+                  <Image
+                    src={
+                      isMobile
+                        ? `${URL}/${banner.MobilebannerImage}`
+                        : `${URL}/${banner.DesktopbannerImage}`
+                    }
+                    alt="carousel-image"
+                    objectFit="cover"
+                    height={isMobile ? 1080 : 500}
+                    width={isMobile ? 1920 : 2000}
+                  />
+                )}
               </div>
             </swiper-slide>
           ))}
