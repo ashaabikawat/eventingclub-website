@@ -142,9 +142,7 @@ const page = () => {
             </li>
             <li>
               Request account deletion by contacting us at{" "}
-              <a href="mailto:support@eventingclub.in">
-                support@eventingclub.in
-              </a>
+              <a href="mailto:hello@eventingclub.in">hello@eventingclub.in</a>
             </li>
           </ol>
         </div>
@@ -200,8 +198,8 @@ const page = () => {
           <div className="">
             <p className="font-bold">
               Email:{" "}
-              <a href="mailto:support@eventingclub.in" className="font-normal">
-                support@eventingclub.in
+              <a href="mailto:hello@eventingclub.in" className="font-normal">
+                hello@eventingclub.in
               </a>
             </p>
             <p className="font-bold">

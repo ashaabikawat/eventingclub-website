@@ -173,8 +173,8 @@ const page = () => {
               <div className="mt-2 flex flex-col md:gap-1 gap-2">
                 <p>
                   Email:
-                  <a href="mailto:support@eventingclub.in">
-                    support@eventingclub.in
+                  <a href="mailto:hello@eventingclub.in">
+                    hello@eventingclub.in
                   </a>
                 </p>
                 <p>

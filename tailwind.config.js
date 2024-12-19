@@ -17,6 +17,7 @@ module.exports = withMT({
         bebas: ["Bebas Neue", "sans-serif"],
         nunito: ["Nunito", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
+        ubuntu: ["Ubuntu", "sans-serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

@@ -539,7 +539,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   return (
     <div className="min-h-screen flex flex-col font-nunito">
       <div className="bg-gray-50 md:py-6 h-full flex-grow">
-        <Toaster />
+        {/* <Toaster /> */}
         <div className="p-4 ">
           <div className="md:px-2">
             <h1 className="md:text-3xl  text-xl md:mt-0 mt-4 font-poppins capitalize text-blue-900 font-bold border-b-2 border-gray-200 pb-3">
@@ -639,7 +639,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                 const counts = count[ticket.Ticket_Id] || 0;
                 return (
                   <div
-                    className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
+                    className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-3/4 md:mb-4 border border-gray-300"
                     key={ticket.Ticket_Id}
                   >
                     <div className="flex gap-4 items-center justify-between px-4 py-4">

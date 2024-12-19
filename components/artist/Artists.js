@@ -101,7 +101,7 @@ const Artists = () => {
 
                     {/* data */}
                     <div className="flex justify-center items-center mt-2">
-                      <p className=" text-xs text-center md:text-sm font-semibold">
+                      <p className=" text-sm text-center md:text-base font-semibold">
                         {data.Name}
                       </p>
                     </div>
