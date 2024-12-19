@@ -21,9 +21,9 @@ const CardFeatured = ({ data }) => {
             objectPosition="top"
             className="rounded "
           />
-          <span className="absolute top-0 shadow-md rounded-sm right-0 p-2 bg-yellow-600 text-black font-semibold ">
+          {/* <span className="absolute top-0 shadow-md rounded-sm right-0 p-2 bg-yellow-600 text-black font-semibold ">
             Featured
-          </span>
+          </span> */}
         </div>
       </div>
 
