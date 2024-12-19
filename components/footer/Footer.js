@@ -7,6 +7,8 @@ import { FaUserLarge } from "react-icons/fa6";
 import Link from "next/link";
 import { decryptData } from "@/utils/constants";
 import { useSelector } from "react-redux";
+import { HiMiniMapPin } from "react-icons/hi2";
+import { HiUsers } from "react-icons/hi";
 
 const Footer = () => {
   const passphrase = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
@@ -166,12 +168,12 @@ const Footer = () => {
                 </div>
               </Link>
               <div className="flex flex-col items-center ">
-                <FaUserLarge size={16} className="text-gray-600" />
-                <span className="text-sm">Profile</span>
+                <HiMiniMapPin size={16} className="text-gray-600" />
+                <span className="text-sm">Venue</span>
               </div>
               <div className="flex flex-col  items-center ">
-                <FaUserLarge size={16} className="text-gray-600" />
-                <span className="text-sm">Profile</span>
+                <HiUsers size={16} className="text-gray-600" />
+                <span className="text-sm">Artist</span>
               </div>
 
               <Link href={`/userDetails/${cust_id}`}>

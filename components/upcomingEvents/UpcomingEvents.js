@@ -128,24 +128,24 @@ const UpcomingEvents = () => {
         </h1>
         <div className="flex lg:gap-12 md:mt-0 mt-2 lg:text-lg font-poppins  md:text-sm text-xs ">
           <span
-            className="cursor-pointer hover:bg-blue-800 px-2 hover:text-white  py-1 rounded-md"
+            className="cursor-pointer hover:bg-blue-800 px-2 hover:text-white capitalize   py-1 rounded-md"
             onClick={() => filterEvents("All")}
           >
             All
           </span>
           <span
-            className="cursor-pointer hover:bg-blue-800 px-2 py-1 hover:text-white rounded-md"
+            className="cursor-pointer hover:bg-blue-800 px-2 py-1 capitalize hover:text-white rounded-md"
             onClick={() => filterEvents("This Week")}
           >
             This Week
           </span>
           <span
-            className="cursor-pointer hover:bg-blue-800 px-2 py-1 hover:text-white rounded-md"
+            className="cursor-pointer hover:bg-blue-800 px-2 py-1 capitalize hover:text-white rounded-md"
             onClick={() => filterEvents("This Month")}
           >
             This month
           </span>
-          <span className="text-blue-900 hover:bg-blue-800 px-2 py-1 hover:text-white rounded-md">
+          <span className="text-blue-900 hover:bg-blue-800 px-2 py-1 capitalize hover:text-white rounded-md">
             <Link href="/upcomingEvents">view all</Link>
           </span>
         </div>
