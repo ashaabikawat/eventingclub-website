@@ -8,7 +8,7 @@ import { bookTicketApi, promocode } from "@/utils/config";
 import { useParams, useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosCloseCircle } from "react-icons/io";
-
+import Link from "next/link";
 // Redux actions for managing booking state
 import {
   setBookingDataObj,
@@ -258,6 +258,7 @@ const BookingSummary = () => {
       });
 
       const data = decryptData(response.data.data, passphrase);
+      // console.log(data);
 
       const form = document.createElement("form");
       form.setAttribute("method", "POST");
@@ -319,14 +320,16 @@ const BookingSummary = () => {
   // console.log(promocodeValue);
 
   return (
-    <div className="font-nunito">
+    <div className="font-ubuntu">
       {selectedTicket.length > 0 ? (
         <>
-          <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between items-center gap-4">
+          <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between gap-4">
             <div className="flex flex-col gap-2">
-              <h1 className="md:text-2xl capitalize">{ticket?.TicketName}</h1>
+              <h1 className="md:text-2xl text-xl font-bold capitalize">
+                {ticket?.TicketName}
+              </h1>
               {ticket?.TicketDescprition && (
-                <p className="md:text-lg text-sm">
+                <p className="md:text-base text-xs md:w-full w-44 leading-relaxed  ">
                   {" "}
                   {ticket?.TicketDescprition?.split("\n").map((line, index) => (
                     <React.Fragment key={index}>
@@ -336,7 +339,7 @@ const BookingSummary = () => {
                   ))}
                 </p>
               )}
-              <p className="text-lg">&#8377; {ticket?.TicketPrice}</p>
+              <p className="text-base">&#8377; {ticket?.TicketPrice}</p>
             </div>
             <div>
               <div>
@@ -504,9 +507,7 @@ const BookingSummary = () => {
 
           <div className="border  border-gray-200 py-4 px-4 mt-6 rounded-lg flex justify-between ">
             <div className="flex  flex-col w-full h-auto gap-4">
-              <h1 className="md:font-bold md:text-2xl text-xl">
-                Payment details
-              </h1>
+              <h1 className="font-bold md:text-2xl text-xl">Payment details</h1>
               <div className="flex flex-col gap-1  border-b-2 border-gray-500 pb-2">
                 <div className="flex justify-between">
                   <p className="text-base md:text-lg capitalize">
@@ -550,7 +551,9 @@ const BookingSummary = () => {
                     </div>
 
                     <div className="flex justify-between mb-2">
-                      <p className="text-sm capitalize text-gray-500">GST</p>
+                      <p className="text-sm capitalize text-gray-500">
+                        platform fee
+                      </p>
                       <p className="text-sm  flex gap-2 text-gray-500">
                         &#8377;{formatAmount(gst)}
                       </p>
@@ -570,6 +573,17 @@ const BookingSummary = () => {
               </div>
             </div>
           </div>
+          <p className="mt-4 text-xs md:text-sm leading-relaxed ">
+            As you click on 'Continue,' you agree to our{" "}
+            <span className="underline cursor-pointer">
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </span>{" "}
+            and{" "}
+            <span className="underline cursor-pointer">
+              <Link href="/terms-&-conditions">Terms of Service</Link>
+            </span>
+            .
+          </p>
           <button
             onClick={bookTicket}
             className="whitespace-nowrap capitalize inline-flex items-center mt-6 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 w-full"

@@ -38,7 +38,7 @@ const Checkout = () => {
   }, [isLoggedIn, otpVerified, details]);
 
   return (
-    <div className="md:py-6 py-4 h-full w-full">
+    <div className="md:py-6 py-6 h-full w-full">
       <div className="px-4 ">
         <h1 className="capitalize md:text-3xl md:mb-8 font-bold font-poppins">
           Confirm your ticket details and pay
@@ -49,13 +49,13 @@ const Checkout = () => {
       <div className=" md:mt-0 px-4 mt-4 ">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 1} className="p-0">
-            <AccordionHeader className="border-none font-nunito">
+            <AccordionHeader className="border-none font-ubuntu">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 1</p>
                 <div>
                   {isLoggedIn ? (
                     <div>
-                      <p>Logged in as</p>
+                      <p className="text-black">Logged in as</p>
                       <p className="text-base font-normal mt-2">
                         {details?.Email}
                       </p>

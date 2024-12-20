@@ -167,14 +167,19 @@ const Footer = () => {
                   <span className="text-sm">Home</span>
                 </div>
               </Link>
-              <div className="flex flex-col items-center ">
-                <HiMiniMapPin size={16} className="text-gray-600" />
-                <span className="text-sm">Venue</span>
-              </div>
-              <div className="flex flex-col  items-center ">
-                <HiUsers size={16} className="text-gray-600" />
-                <span className="text-sm">Artist</span>
-              </div>
+
+              <Link href={`/venue`}>
+                <div className="flex flex-col items-center ">
+                  <HiMiniMapPin size={16} className="text-gray-600" />
+                  <span className="text-sm">Venue</span>
+                </div>
+              </Link>
+              <Link href={`/artists`}>
+                <div className="flex flex-col  items-center ">
+                  <HiUsers size={16} className="text-gray-600" />
+                  <span className="text-sm">Artist</span>
+                </div>
+              </Link>
 
               <Link href={`/userDetails/${cust_id}`}>
                 <div className="flex flex-col  items-center">

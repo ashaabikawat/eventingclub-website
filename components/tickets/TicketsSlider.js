@@ -642,7 +642,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                     className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-3/4 md:mb-4 border border-gray-300"
                     key={ticket.Ticket_Id}
                   >
-                    <div className="flex gap-4 items-center justify-between px-4 py-4">
+                    <div className="flex gap-4 justify-between px-4 py-4">
                       <div className="flex flex-col gap-2">
                         <p className="md:text-xl capitalize">
                           {ticket.TicketName}
@@ -719,7 +719,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
                   className="md:h-auto bg-white rounded-md md:mt-6 mt-6 md:w-full md:mb-4 border border-gray-300"
                   key={ticket.Ticket_Id}
                 >
-                  <div className="flex gap-4 items-center justify-between px-4 py-4">
+                  <div className="flex gap-4  justify-between px-4 py-4">
                     <div className="flex flex-col gap-2">
                       <p className="md:text-xl capitalize">
                         {ticket.TicketName}
@@ -782,7 +782,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
         {/* footer */}
         <div className="mt-16">
           {bookingData?.c3d4?.length === 0 && totalTickets > 0 && (
-            <div className=" fixed bottom-0 w-[100%] z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
+            <div className=" fixed bottom-0 w-[100%] z-50 md:px-20  bg-white shadow-md p-6 flex justify-between items-center border-t-[1px] border-gray-500">
               <div className="flex flex-col md:gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
                   ₹ {totalPrice}
@@ -809,7 +809,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
           )}
 
           {bookingData?.c3d4?.length > 0 && (
-            <div className="fixed bottom-0 w-[100%]  md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
+            <div className="fixed bottom-0 w-[100%] border-t-[1px] border-gray-300  md:px-20  bg-white shadow-md p-6 flex justify-between items-center">
               <div className="flex flex-col gap-2 ">
                 <p className="md:text-2xl text-lg font-semibold">
                   ₹ {bookingData?.a1b2}

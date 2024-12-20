@@ -30,11 +30,11 @@ const CardHeaders = ({
       </h1>
       <div className="flex justify-between items-center gap-1 ">
         <Link href={url}>
-          <span className="capitalize md:text-base lg:text-lg text-[16px] font-poppins">
+          <span className="capitalize md:text-base text-xs lg:text-lg text-[16px] font-poppins">
             {isMobile ? mobileText : desktopText}
           </span>
         </Link>
-        <ChevronRightIcon className="size-4 sm:size-4  " />
+        <ChevronRightIcon className="size-2 sm:size-4  " />
       </div>
     </div>
   );
