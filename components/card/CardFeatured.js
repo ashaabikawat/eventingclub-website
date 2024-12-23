@@ -8,7 +8,7 @@ const CardFeatured = ({ data }) => {
   const imageUrl = `${URL}/${data?.EventCardImages[0]?.image_path}`;
 
   return (
-    <div className="font-nunito">
+    <div className="font-ubuntu">
       <div>
         {/* image */}
         <div className="relative">
@@ -48,12 +48,12 @@ const CardFeatured = ({ data }) => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           <div className="flex gap-2 items-center justify-start">
             <span>
               <CalendarIcon className="size-4 lg:size-5 text-gray-800" />
             </span>
-            <span className="md:text-sm text-sm lg:text-base text-center capitalize text-gray-900">
+            <span className="md:text-sm text-xs lg:text-base text-center capitalize text-gray-900">
               {data.EventStartDate}
             </span>
           </div>
@@ -62,7 +62,7 @@ const CardFeatured = ({ data }) => {
             <span>
               <MapPinIcon className="size-4 lg:size-5 text-gray-900" />
             </span>
-            <span className="md:text-sm text-sm lg:text-base  capitalize text-gray-900">
+            <span className="md:text-sm text-xs lg:text-base  capitalize text-gray-900">
               {data.VenueName}
             </span>
           </div>

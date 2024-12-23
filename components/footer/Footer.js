@@ -47,7 +47,7 @@ const Footer = () => {
   return (
     <>
       <div
-        className="px-10 md:py-8 py-10 text-white h-full md:pb-16 pb-20 font-nunito"
+        className="px-10 md:py-8 py-10 text-white h-full md:pb-16 pb-14 font-nunito"
         style={{ backgroundColor: "#2f3e93" }}
       >
         <div className="flex justify-between  md:flex-row flex-col gap-6">

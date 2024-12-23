@@ -15,6 +15,9 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import { LuClock } from "react-icons/lu";
+import { RiMapPinLine } from "react-icons/ri";
+import { RiArrowDropRightLine } from "react-icons/ri";
+
 import {
   Accordion,
   AccordionHeader,
@@ -197,34 +200,54 @@ const Page = () => {
               <h1 className="md:text-3xl  text-xl font-bold text-blue-900 capitalize font-poppins">
                 {eventData?.EventName}
               </h1>
-              <div className="flex gap-1 md:mt-6 mt-4 md:text-base">
+              <div className="flex gap-1 md:mt-6 mt-1 text-sm md:text-base">
                 <span className="border-r-2 border-gray-800 pr-2 text-gray-800 capitalize">
                   {eventData?.categoryName}
                 </span>
                 {eventData?.Language.slice(0, 2).map((lang) => (
                   <span
-                    className="border-r-2 border-gray-800 pr-2 text-gray-800  capitalize"
+                    className="border-r-2 text-sm md:text-base  border-gray-800 pr-2 text-gray-800  capitalize"
                     key={lang}
                   >
                     {lang}
                   </span>
                 ))}
-                <span>{eventData?.BestSuitedFor}</span>
+                <span className="text-sm md:text-base">
+                  {eventData?.BestSuitedFor}
+                </span>
               </div>
-              <div className="flex flex-col md:mt-6 mt-6">
+              <div className="flex flex-col md:mt-6 mt-4">
                 <div className="flex items-center justify-start gap-2">
                   <span>
                     <FaRegCalendarAlt />
                   </span>
-                  <span>{eventData?.EventStartDate}</span>
+                  <span className="text-sm md:text-base">
+                    {eventData?.EventStartDate}
+                  </span>
                 </div>
               </div>
-              <div className="flex flex-col mt-4">
+              <div className="flex flex-col mt-1 md:mt-4">
                 <div className="flex items-center justify-start gap-2">
                   <span>
                     <LuClock />
                   </span>
-                  <span>{eventData?.EventStartTime}</span>
+                  <span className="text-sm md:text-base">
+                    {eventData?.EventStartTime}
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col mt-1 md:mt-4">
+                <div className="flex items-center justify-start gap-2">
+                  <span>
+                    <RiMapPinLine />
+                  </span>
+                  <div className="flex items-center">
+                    <span className="text-sm md:text-base">
+                      {eventData?.VenueCity !== "-"
+                        ? eventData?.VenueCity
+                        : eventData?.VenueName}
+                    </span>
+                  </div>
                 </div>
               </div>
               {eventData?.TicketPriceStartsFrom && (
@@ -376,12 +399,12 @@ const Page = () => {
           </div> */}
 
           {/* Share section */}
-          <div className="min-h-[20px] rounded-lg order-2 md:order-2 px-4 md:px-0">
-            <div className="py-4 px-4 rounded-md flex border border-gray-500 flex-col gap-2">
+          <div className="min-h-[20px] rounded-lg order-2 md:order-2 px-4 md:px-0 ">
+            <div className="py-4 px-4 rounded-md flex gap-4 justify-between md:justify-normal items-center border border-gray-500">
               <p className="md:text-xl font-bold tracking-wide">
                 Share this event
               </p>
-              <div className="flex gap-3 mt-2">
+              <div className="flex gap-3">
                 <span>
                   <FaFacebookF />
                 </span>
@@ -394,11 +417,12 @@ const Page = () => {
               </div>
             </div>
           </div>
+
           {/* about */}
           <div className="px-4 order-3  md:px-0 md:order-2 row-span-2 ">
             <div className="border h-full border-gray-500 rounded-lg  ">
               <div className=" h-full  py-6  ">
-                <h1 className="md:text-2xl font-bold px-4">About</h1>
+                <h1 className="md:text-2xl font-bold px-4">Description</h1>
 
                 <div className="max-h-[300px] overflow-y-auto">
                   <ReactQuill
@@ -439,28 +463,32 @@ const Page = () => {
 
           {/* maps */}
           {eventData?.VenueMapLocationLink && (
-            <div className={`  h-auto md:-2 order-4 md:order-5 px-4 md:px-0`}>
-              <div className="border border-gray-500 rounded-lg h-full px-4">
-                <h1 className="md:text-xl mt-4 font-bold">
-                  {eventData?.VenueCity !== "-"
-                    ? eventData?.VenueCity
-                    : eventData?.VenueName}
-                </h1>
-                <p className="mt-2 capitalize mb-4">{eventData?.VenueName}</p>
-                <div className="md:max-h-full lg:h-[300px] h-[200px] w-full mb-4">
-                  {eventData?.VenueMapLocationLink && (
-                    <div className="h-full w-full overflow-hidden">
-                      <div
-                        className="-h-full w-full"
-                        dangerouslySetInnerHTML={{
-                          __html: eventData?.VenueMapLocationLink,
-                        }}
-                      />
-                    </div>
-                  )}
+            <>
+              <div
+                className={` md:block hidden  h-auto md:-2 order-4 md:order-5 px-4 md:px-0`}
+              >
+                <div className="border border-gray-500 rounded-lg h-full px-4">
+                  <h1 className="md:text-xl mt-4 font-bold">
+                    {eventData?.VenueCity !== "-"
+                      ? eventData?.VenueCity
+                      : eventData?.VenueName}
+                  </h1>
+                  <p className="mt-2 capitalize mb-4">{eventData?.VenueName}</p>
+                  <div className="md:max-h-full lg:h-[300px] h-[200px] w-full mb-4">
+                    {eventData?.VenueMapLocationLink && (
+                      <div className="h-full w-full overflow-hidden">
+                        <div
+                          className="-h-full w-full"
+                          dangerouslySetInnerHTML={{
+                            __html: eventData?.VenueMapLocationLink,
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           )}
         </div>
 
@@ -526,11 +554,11 @@ const Page = () => {
               className="flex w-full  justify-between font-nunito"
               onClick={() => handleOpen(3)}
             >
-              <p className="flex-grow md:text-2xl text-black ">
+              <p className="flex-grow md:text-2xl text-lg text-black ">
                 Terms and conditions
               </p>
               <span className="ml-auto">
-                <MdKeyboardArrowDown size={30} />
+                <MdKeyboardArrowDown size={25} />
               </span>
             </AccordionHeader>
             <AccordionBody>
@@ -552,7 +580,7 @@ const Page = () => {
           </Accordion>
         </div>
 
-        <div className=" md:mt-16 mt-14   px-4 md:px-4  ">
+        <div className=" md:mt-16 mt-14 md:pb-0 pb-10  px-4 md:px-4  ">
           <h1 className="font-semibold capitalize md:text-3xl text-xl  font-poppins">
             You may also like
           </h1>
@@ -613,9 +641,9 @@ const Page = () => {
             </button>
           </div>
         </div> */}
-        <div className="w-full flex justify-center z-50 items-center fixed bottom-20 md:bottom-4 md:justify-end">
+        <div className="w-full md:hidden justify-center z-50 items-center  fixed bottom-0  md:justify-end">
           <button
-            className="bg-blue-900 w-80 md:w-56  text-white p-3 rounded-full text-xl font-bold  shadow-lg hover:shadow-xl hover:bg-blue-800 hover:scale-105  transition-all duration-300 ease-in-out"
+            className="bg-blue-900 w-80 md:w-56  text-white p-3 text-xl font-bold  shadow-lg hover:shadow-xl hover:bg-blue-800 hover:scale-105  transition-all duration-300 ease-in-out"
             onClick={handleBookNow}
           >
             Book now{" "}

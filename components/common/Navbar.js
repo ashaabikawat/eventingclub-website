@@ -315,7 +315,7 @@ const Navbar = ({ bgColor }) => {
                   type="text"
                   value={searchTerm}
                   onChange={handleChange}
-                  className="placeholder:text-gray-400 placeholder:text-base md:text-base  border w-full border-gray-400 rounded-md py-2 md:py-3 pl-12 pr-3"
+                  className="placeholder:text-gray-400 placeholder:text-sm md:text-base  border w-full border-gray-400 rounded-md py-2 md:py-3 pl-12 pr-3"
                   placeholder="Search for Events, Venues"
                 />
               </label>

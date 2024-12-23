@@ -12,6 +12,7 @@ const Wrapper = ({ children }) => {
   const signup = pathname !== "/signup";
   const success = pathname !== "/success";
   const failure = pathname !== "/failure";
+  const eventDetailPage = pathname.startsWith("/events/");
 
   const isCheckout = pathname.startsWith("/events/tickets/");
   const userDetails = pathname.startsWith("/userDetails/");
@@ -38,7 +39,7 @@ const Wrapper = ({ children }) => {
           </main>
 
           {/* Footer always at the bottom */}
-          {signup && !isCheckout && <Footer />}
+          {signup && !isCheckout && !eventDetailPage && <Footer />}
         </div>
       </PersistGate>
     </Provider>
