@@ -30,7 +30,7 @@ const PageCardWithText = ({ event }) => {
   }, []);
 
   return (
-    <div className="font-nunito">
+    <div className="font-Atkinson">
       {/* image */}
       <Link href={`/events/${event.event_id}`}>
         <div>

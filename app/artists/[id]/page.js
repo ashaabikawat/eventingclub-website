@@ -62,7 +62,7 @@ const Page = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="font-nunito">
+    <div className="font-Atkinson">
       {/* artist detail */}
       <div className="md:py-10 md:px-6 py-10 ">
         <div className="flex md:flex-row items-center md:gap-10 gap-2   flex-col  ">

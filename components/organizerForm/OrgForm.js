@@ -121,7 +121,7 @@ const OrgForm = () => {
           </div>
         </div>
         {/* form */}
-        <div className=" h-full w-full md:flex  font-nunitositems-center md:px-6  ">
+        <div className=" h-full w-full md:flex  font-Atkinsonsitems-center md:px-6  ">
           <form onSubmit={handleSubmit}>
             <div className="space-y-6 w-full">
               <div className="border-b border-gray-900/10 pb-6">

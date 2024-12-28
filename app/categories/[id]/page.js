@@ -193,7 +193,7 @@ const Page = () => {
   };
 
   return (
-    <div className="md:py-6 mb-12 px-4 md:px-8 pt-10  font-nunito">
+    <div className="md:py-6 mb-12 px-4 md:px-8 pt-10  font-Atkinson">
       <Toaster />
       {isMobile && !filterOpenModal && (
         <h1 className="md:text-3xl mb-4  font-semibold text-lg font-poppins ">

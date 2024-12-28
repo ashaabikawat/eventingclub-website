@@ -20,7 +20,7 @@ const Benefits = () => {
                 <p className="font-bold text-xl font-poppins">
                   {benefit.heading}
                 </p>
-                <p className="text-sm font-nunito">{benefit.text}</p>
+                <p className="text-sm font-Atkinson">{benefit.text}</p>
               </div>
             </div>
           ))}

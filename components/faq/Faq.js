@@ -51,7 +51,7 @@ const Faq = () => {
                       </div>
                     </AccordionHeader>
 
-                    <AccordionBody className="p-0 font-nunitos">
+                    <AccordionBody className="p-0 font-Atkinsons">
                       <div className="pb-4">
                         <p className="text-base text-gray-700 mt-2">
                           {faq.answer}

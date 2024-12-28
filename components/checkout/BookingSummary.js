@@ -262,7 +262,7 @@ const BookingSummary = () => {
 
       const form = document.createElement("form");
       form.setAttribute("method", "POST");
-      form.setAttribute("action", "https://test.payu.in/_payment");
+      form.setAttribute("action", "https://secure.payu.in/_payment");
 
       Object.keys(data).forEach((key) => {
         const hiddenField = document.createElement("input");
@@ -320,7 +320,7 @@ const BookingSummary = () => {
   // console.log(promocodeValue);
 
   return (
-    <div className="font-ubuntu">
+    <div className="font-Atkinson">
       {selectedTicket.length > 0 ? (
         <>
           <div className="border border-gray-200 py-4 px-4 rounded-lg flex justify-between gap-4">

@@ -61,7 +61,7 @@ const Page = () => {
   if (loadings) return <Loading />;
 
   return (
-    <div className="  py-10 font-nunito">
+    <div className="  py-10 font-Atkinson">
       <div className="md:px-6 px-4">
         <div className="">
           <div className="md:grid grid-cols-2 gap-10">

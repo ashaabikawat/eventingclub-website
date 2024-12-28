@@ -49,7 +49,7 @@ const CardWithText = ({ data }) => {
             <span>
               <CalendarIcon className="size-4 lg:size-5 text-gray-800" />
             </span>
-            <span className="md:text-sm font-ubuntu  text-xs lg:text-base text-center capitalize text-gray-900">
+            <span className="md:text-sm font-Atkinson  text-xs lg:text-base text-center capitalize text-gray-900">
               {data.EventStartDate}
             </span>
           </div>

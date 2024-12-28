@@ -8,7 +8,7 @@ export const metadata = {
   title: "Eventing club",
   description: "Eventing club",
   icons: {
-    icon: "/Eventing club logo transparent.png",
+    icon: "/EC logo.png",
   },
 };
 

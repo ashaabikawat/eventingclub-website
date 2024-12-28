@@ -537,7 +537,7 @@ const TicketsSlider = ({ data, setShowTicket }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-nunito">
+    <div className="min-h-screen flex flex-col font-Atkinson">
       <div className="bg-gray-50 md:py-6 h-full flex-grow">
         {/* <Toaster /> */}
         <div className="p-4 ">

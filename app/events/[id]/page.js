@@ -159,7 +159,7 @@ const Page = () => {
   if (loadings) return <Loading />;
 
   return (
-    <div className=" relative h-full mb-8 font-nunito">
+    <div className=" relative h-full mb-8 font-Atkinson">
       <div className=" md:py-1">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6  gap-4  md:p-4 ">
           <div className="   ">
@@ -429,7 +429,7 @@ const Page = () => {
                     readOnly
                     value={eventData?.AboutEvent}
                     modules={{ toolbar: false }}
-                    className="text-black font-medium font-nunito "
+                    className="text-black font-medium font-Atkinson "
                   />
                 </div>
               </div>
@@ -536,7 +536,7 @@ const Page = () => {
                   <MdKeyboardArrowDown size={30} />
                 </span>
               </AccordionHeader>
-              <AccordionBody className="font-nunito">
+              <AccordionBody className="font-Atkinson">
                 {eventData?.EventFaqs.map((faq) => (
                   <div className="mb-4 flex flex-col gap-2">
                     <p className="font-semibold text-black flex items-center">
@@ -551,7 +551,7 @@ const Page = () => {
 
           <Accordion open={open === 3} className="mt-2">
             <AccordionHeader
-              className="flex w-full  justify-between font-nunito"
+              className="flex w-full  justify-between font-Atkinson"
               onClick={() => handleOpen(3)}
             >
               <p className="flex-grow md:text-2xl text-lg text-black ">
@@ -643,7 +643,7 @@ const Page = () => {
         </div> */}
         <div className="w-full md:hidden justify-center z-50 items-center  fixed bottom-0  md:justify-end">
           <button
-            className="bg-blue-900 w-80 md:w-56  text-white p-3 text-xl font-bold  shadow-lg hover:shadow-xl hover:bg-blue-800 hover:scale-105  transition-all duration-300 ease-in-out"
+            className="bg-blue-900 w-full text-white p-3 text-xl font-bold  shadow-lg hover:shadow-xl hover:bg-blue-800 hover:scale-105  transition-all duration-300 ease-in-out"
             onClick={handleBookNow}
           >
             Book now{" "}

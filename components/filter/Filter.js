@@ -168,7 +168,7 @@ const Filter = ({
 
   return (
     <div className="">
-      <div className="md:w-80 w-full font-nunito  hidden md:block md:mt-4 mb-20">
+      <div className="md:w-80 w-full font-Atkinson  hidden md:block md:mt-4 mb-20">
         <h1 className="md:text-xl mb-4 font-semibold font-poppins ">
           Filters:
         </h1>
@@ -179,7 +179,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(1)}
-              className=" p-2 flex items-center justify-between border-none text-base font-nunito "
+              className=" p-2 flex items-center justify-between border-none text-base font-Atkinson "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -200,7 +200,7 @@ const Filter = ({
                 Clear
               </span>
             </AccordionHeader>
-            <AccordionBody className=" font-nunito">
+            <AccordionBody className=" font-Atkinson">
               {/* Date filters go here */}
               {/* <DateFilter /> */}
               <div className="flex flex-wrap gap-2 mb-4">
@@ -230,7 +230,7 @@ const Filter = ({
               </div>
             </AccordionBody>
             <div
-              className={`mb-6 bg-white absolute z-50  border border-white rounded-lg font-nunito ${
+              className={`mb-6 bg-white absolute z-50  border border-white rounded-lg font-Atkinson ${
                 isManual ? "" : "hidden"
               }`}
             >
@@ -296,7 +296,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(2)}
-              className=" p-2 flex items-center justify-between border-none text-base font-nunito "
+              className=" p-2 flex items-center justify-between border-none text-base font-Atkinson "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -327,7 +327,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(3)}
-              className=" p-2 flex items-center justify-between border-none text-base font-nunito "
+              className=" p-2 flex items-center justify-between border-none text-base font-Atkinson "
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon
@@ -358,7 +358,7 @@ const Filter = ({
           >
             <AccordionHeader
               onClick={() => handleOpen(4)}
-              className=" p-2 flex items-center justify-between border-none text-base font-nunito"
+              className=" p-2 flex items-center justify-between border-none text-base font-Atkinson"
             >
               <div className="flex items-center gap-2">
                 <ChevronDownIcon

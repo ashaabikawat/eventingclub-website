@@ -47,7 +47,7 @@ const Footer = () => {
   return (
     <>
       <div
-        className="px-10 md:py-8 py-10 text-white h-full md:pb-16 pb-14 font-nunito"
+        className="px-10 md:py-8 py-10 text-white h-full md:pb-16 pb-14 font-Atkinson"
         style={{ backgroundColor: "#2f3e93" }}
       >
         <div className="flex justify-between  md:flex-row flex-col gap-6">
@@ -157,7 +157,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="lg:hidden block mt-16 font-nunito ">
+      <div className="lg:hidden block mt-16 font-Atkinson ">
         <div className="bg-white w-full border-t-[1px] border-gray-300 h-16 fixed bottom-0 z-30 ">
           <div className="relative">
             <div className="flex  h-full items-center justify-between py-4 px-8 ">

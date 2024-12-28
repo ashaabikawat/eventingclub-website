@@ -96,7 +96,7 @@ const EditProfile = ({ id, data }) => {
   };
 
   return (
-    <div className="text-black bg-gray-50 md:p-6 p-4 rounded-lg shadow-md font-nunito">
+    <div className="text-black bg-gray-50 md:p-6 p-4 rounded-lg shadow-md font-Atkinson">
       {/* Account Details */}
       <div className="flex flex-col gap-4">
         <div className="w-full border-b pb-4 mb-4">

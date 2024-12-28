@@ -18,7 +18,7 @@ const page = () => {
       <h1 className="font-poppins md:text-2xl text-xl font-bold">
         Terms and Conditions
       </h1>
-      <p className="font-nunito md:text-base text-sm leading-relaxed mt-4">
+      <p className="font-Atkinson md:text-base text-sm leading-relaxed mt-4">
         Welcome to Eventing Club! These Terms and Conditions ("Terms") govern
         your use of our website, mobile application, and services (collectively,
         "Services"). By accessing or using our Services, you agree to these
@@ -32,10 +32,10 @@ const page = () => {
               open={open === index}
               className="px-4 border border-gray-400 rounded-md  bg-white"
             >
-              <AccordionHeader className="border-none  text-black text-base font-nunito">
+              <AccordionHeader className="border-none  text-black text-base font-Atkinson">
                 {condition.title}
               </AccordionHeader>
-              <AccordionBody className="border-t-[1px] border-gray-400 font-nunito text-sm md:text-base text-gray-800 font-semibold">
+              <AccordionBody className="border-t-[1px] border-gray-400 font-Atkinson text-sm md:text-base text-gray-800 font-semibold">
                 {condition.description}{" "}
               </AccordionBody>
             </Accordion>
@@ -48,10 +48,10 @@ const page = () => {
             open={open === 13}
             className="px-4 border border-gray-400 rounded-md  bg-white"
           >
-            <AccordionHeader className="border-none  text-black text-base font-nunito">
+            <AccordionHeader className="border-none  text-black text-base font-Atkinson">
               Ticket Purchases and Refunds
             </AccordionHeader>
-            <AccordionBody className="border-t-[1px] border-gray-400 font-nunito text-sm md:text-base text-gray-800 font-semibold">
+            <AccordionBody className="border-t-[1px] border-gray-400 font-Atkinson text-sm md:text-base text-gray-800 font-semibold">
               <ul>
                 <li className="font-bold">Purchases</li>
                 <ul className="list-disc list-inside mt-2 flex flex-col gap-2 md:gap-1">
@@ -97,10 +97,10 @@ const page = () => {
             open={open === 14}
             className="px-4 border border-gray-400 rounded-md  bg-white"
           >
-            <AccordionHeader className="border-none  text-black text-base font-nunito">
+            <AccordionHeader className="border-none  text-black text-base font-Atkinson">
               User Conduct
             </AccordionHeader>
-            <AccordionBody className="border-t-[1px] border-gray-400 font-nunito text-sm md:text-base text-gray-800 font-semibold">
+            <AccordionBody className="border-t-[1px] border-gray-400 font-Atkinson text-sm md:text-base text-gray-800 font-semibold">
               <p className="font-bold text-base">You agree not to:</p>
               <ul className="list-disc list-inside mt-2 flex flex-col md:gap-1 gap-2">
                 <li>Use the Services for unlawful or unauthorized purposes.</li>
@@ -131,10 +131,10 @@ const page = () => {
             open={open === 15}
             className="px-4 border border-gray-400 rounded-md  bg-white"
           >
-            <AccordionHeader className="border-none  text-black text-base font-nunito">
+            <AccordionHeader className="border-none  text-black text-base font-Atkinson">
               Liability Disclaimer
             </AccordionHeader>
-            <AccordionBody className="border-t-[1px] border-gray-400 font-nunito text-sm md:text-base text-gray-800 font-semibold">
+            <AccordionBody className="border-t-[1px] border-gray-400 font-Atkinson text-sm md:text-base text-gray-800 font-semibold">
               <p className="font-bold text-base">
                 Eventing Club provides Services "as is" and makes no warranties,
                 express or implied. We are not liable for:
@@ -162,10 +162,10 @@ const page = () => {
             open={open === 16}
             className="px-4 border border-gray-400 rounded-md  bg-white"
           >
-            <AccordionHeader className="border-none  text-black text-base font-nunito">
+            <AccordionHeader className="border-none  text-black text-base font-Atkinson">
               Contact Us
             </AccordionHeader>
-            <AccordionBody className="border-t-[1px] border-gray-400 font-nunito text-sm md:text-base text-gray-800 font-semibold">
+            <AccordionBody className="border-t-[1px] border-gray-400 font-Atkinson text-sm md:text-base text-gray-800 font-semibold">
               <p className="font-bold text-base">
                 If you have any questions or concerns about these Terms, please
                 contact us at:
@@ -192,7 +192,7 @@ const page = () => {
           </Accordion>
         </div>
       </div>
-      <p className="font-nunito md:text-xl text-base  leading-relaxed mt-6">
+      <p className="font-Atkinson md:text-xl text-base  leading-relaxed mt-6">
         Thank you for choosing Eventing Club. We hope you enjoy our Services!
       </p>
     </div>

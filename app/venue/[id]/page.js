@@ -53,7 +53,7 @@ const Page = () => {
   const imageUrl = venueData?.venueImages[0]?.image_path;
 
   return (
-    <div className="w-full h-full overflow-x-hidden md:px-6 pt-10 mb-12  font-nunito ">
+    <div className="w-full h-full overflow-x-hidden md:px-6 pt-10 mb-12  font-Atkinson ">
       <Toaster />
       <div className=" w-full h-full  ">
         <div className=" w-full h-full  lg:border-b-2 lg:border-gray-200 grid md:grid-cols-2">

@@ -3,7 +3,7 @@ import React from "react";
 
 const HeroForListWithUs = () => {
   return (
-    <div className="w-full relative font-nunito">
+    <div className="w-full relative font-Atkinson">
       {/* image */}
       <div className="w-full md:h-[600px] h-[400px] relative brightness-50">
         <Image

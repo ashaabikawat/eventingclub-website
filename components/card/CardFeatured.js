@@ -8,7 +8,7 @@ const CardFeatured = ({ data }) => {
   const imageUrl = `${URL}/${data?.EventCardImages[0]?.image_path}`;
 
   return (
-    <div className="font-ubuntu">
+    <div className="font-Atkinson">
       <div>
         {/* image */}
         <div className="relative">

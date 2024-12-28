@@ -2,7 +2,7 @@ import React from "react";
 
 const ShortTicket = ({ data, selectedShortTicket }) => {
   return (
-    <div className="font-nunito">
+    <div className="font-Atkinson">
       <div
         className="border border-gray-500 bg-white flex items-center justify-start gap-2 flex-col rounded-md p-2
                       h-36 md:h-40 w-24 md:w-28"

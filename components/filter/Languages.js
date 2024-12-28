@@ -14,7 +14,7 @@ const Languages = ({ handleLanguageSelection }) => {
   const commonLang = indianLanguages.slice(0, 10);
 
   return (
-    <div className="flex flex-wrap gap-2 mb-4 font-nunito">
+    <div className="flex flex-wrap gap-2 mb-4 font-Atkinson">
       {readMore
         ? indianLanguages.map((lang) => {
             return (

@@ -315,7 +315,7 @@ const verification = ({ setDetails, handleOpen, details }) => {
   };
 
   return (
-    <div className="w-full font-nunito">
+    <div className="w-full font-Atkinson">
       <div className="flex flex-col gap-2">
         {/* initial mobile number section */}
         {!isLoggedIn && !token && !cust_id && (

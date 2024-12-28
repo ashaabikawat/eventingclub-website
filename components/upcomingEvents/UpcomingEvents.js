@@ -121,7 +121,7 @@ const UpcomingEvents = () => {
   }
 
   return (
-    <div className="mt-6 md:mt-12 px-8 md:px-6 overflow-hidden font-nunito">
+    <div className="mt-6 md:mt-12 px-8 md:px-6 overflow-hidden font-Atkinson">
       <div className="flex md:mt-0  md:flex-row flex-col justify-between ">
         <h1 className=" capitalize text-lg md:text-xl lg:text-3xl font-bold font-poppins">
           Upcoming Events:

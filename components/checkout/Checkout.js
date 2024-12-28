@@ -49,7 +49,7 @@ const Checkout = () => {
       <div className=" md:mt-0 px-4 mt-4 ">
         <div className="border border-gray-400 rounded-lg md:py-0 py-4 px-4 bg-white">
           <Accordion open={open === 1} className="p-0">
-            <AccordionHeader className="border-none font-ubuntu">
+            <AccordionHeader className="border-none font-Atkinson">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray-900 font-normal">Step 1</p>
                 <div>

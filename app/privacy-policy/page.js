@@ -2,7 +2,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="md:py-8  md:px-6 px-4 py-8 font-nunito">
+    <div className="md:py-8  md:px-6 px-4 py-8 font-Atkinson">
       <h1 className="font-poppins md:text-2xl text-xl font-bold">
         Privacy Policy
       </h1>

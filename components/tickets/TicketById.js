@@ -82,7 +82,7 @@ const TicketById = () => {
           )}
         </div>
       ) : (
-        <div className="h-[100%] py-10 md:py-6 font-nunito">
+        <div className="h-[100%] py-10 md:py-6 font-Atkinson">
           <div className="h-[100%] flex flex-col gap-4 justify-center items-center">
             <p className="md:text-lg font-semibold text-black">
               You don't have any tickets

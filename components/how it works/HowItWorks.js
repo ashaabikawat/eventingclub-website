@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const HowItWorks = () => {
   return (
-    <div className="md:py-12 py-6 md:px-20 px-6 font-nunito">
+    <div className="md:py-12 py-6 md:px-20 px-6 font-Atkinson">
       <div>
         <div className="md:grid grid-cols-2 md:gap-y-6 h-full w-full md:px-6 flex flex-col gap-10 ">
           {/* text  */}

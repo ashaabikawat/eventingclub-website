@@ -12,7 +12,7 @@ const Page = () => {
   const [serviceId, setServiceId] = useState(null);
 
   return (
-    <div className=" h-full w-full py-12 md:px-20 px-6 font-nunito ">
+    <div className=" h-full w-full py-12 md:px-20 px-6 font-Atkinson ">
       {isServiceModalOpen && (
         <Modal
           serviceId={serviceId}
